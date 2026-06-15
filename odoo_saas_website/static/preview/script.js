@@ -170,11 +170,37 @@ document.querySelector("[data-simulate-import]").addEventListener("click", () =>
   addLog("onboarding_import - demo file - success");
 });
 
-leadForm.addEventListener("submit", (event) => {
+leadForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const button = leadForm.querySelector("button");
-  button.textContent = "تم استلام الطلب";
+  const originalText = button.textContent;
+  const formData = new FormData(leadForm);
+  const payload = Object.fromEntries(formData.entries());
+
+  button.textContent = "جاري الإرسال...";
   button.disabled = true;
+
+  try {
+    const response = await fetch(leadForm.dataset.crmEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    const result = await response.json();
+    if (!response.ok || !result.ok) {
+      throw new Error(result.error || "crm_error");
+    }
+    button.textContent = "تم إنشاء Lead في CRM";
+    leadForm.reset();
+  } catch (error) {
+    button.textContent = "تعذر الإرسال، حاول مرة أخرى";
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.disabled = false;
+    }, 2600);
+  }
 });
 
 function renderBackend() {
