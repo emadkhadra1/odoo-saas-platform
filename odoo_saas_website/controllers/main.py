@@ -12,7 +12,7 @@ class OdooSaasWebsiteController(http.Controller):
 
     _preview_dir = Path(__file__).resolve().parents[1] / "static" / "preview"
     _asset_base = "/odoo_saas_website/static/preview/"
-    _asset_version = "19.0.1.2.1"
+    _asset_version = "19.0.1.3.0"
 
     def _render_preview(self, filename="index.html"):
         html = (self._preview_dir / filename).read_text(encoding="utf-8")
@@ -34,6 +34,14 @@ class OdooSaasWebsiteController(http.Controller):
     @http.route(["/en", "/index-en.html", "/en/saas-platform"], type="http", auth="public", website=True, sitemap=True)
     def saas_platform_en(self, **kwargs):
         return self._render_preview("index-en.html")
+
+    @http.route(["/services", "/services.html"], type="http", auth="public", website=True, sitemap=True)
+    def services(self, **kwargs):
+        return self._render_preview("services.html")
+
+    @http.route(["/en/services", "/services-en.html"], type="http", auth="public", website=True, sitemap=True)
+    def services_en(self, **kwargs):
+        return self._render_preview("services-en.html")
 
     @http.route(
         [

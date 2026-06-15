@@ -638,6 +638,16 @@ textarea {
   min-height: 540px;
 }
 
+.services-hero {
+  position: relative;
+  min-height: 680px;
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  color: var(--white);
+  background: var(--navy);
+}
+
 .sector-hero::before {
   content: "";
   position: absolute;
@@ -670,6 +680,93 @@ textarea {
 .workflow-grid,
 .module-grid {
   grid-template-columns: repeat(4, 1fr);
+}
+
+.service-overview,
+.service-grid,
+.package-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.service-overview {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.service-overview article,
+.service-card,
+.package-grid article {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: 0 12px 38px rgba(8, 24, 50, .07);
+}
+
+.service-overview article,
+.service-card,
+.package-grid article {
+  padding: 24px;
+}
+
+.service-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.service-card {
+  display: grid;
+  align-content: start;
+  min-height: 260px;
+}
+
+.service-card-featured {
+  border-color: rgba(19, 174, 202, .42);
+  background:
+    linear-gradient(180deg, rgba(239, 251, 254, .85), var(--white));
+}
+
+.service-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  color: var(--cyan-2);
+  background: var(--soft);
+  border: 1px solid rgba(51, 216, 233, .22);
+  font-weight: 800;
+}
+
+.service-card p,
+.service-overview p,
+.package-grid p {
+  color: var(--muted);
+}
+
+.service-card ul {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.service-packages {
+  width: 100%;
+  max-width: none;
+  padding-inline: max(20px, calc((100% - 1180px) / 2));
+  background: linear-gradient(180deg, #f7fbfd, #effbfe);
+}
+
+.package-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.package-grid strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--navy);
+  font-size: 22px;
 }
 
 .sector-cta {
@@ -744,6 +841,9 @@ textarea {
   .feature-grid,
   .workflow-grid,
   .module-grid,
+  .service-overview,
+  .service-grid,
+  .package-grid,
   .sector-cta {
     grid-template-columns: 1fr;
   }
