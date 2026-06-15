@@ -32,5 +32,5 @@
         <field name="context">{'module': 'odoo_saas_manager'}</field>
     </record>
 
-    <menuitem id="menu_saas_settings" name="Settings" parent="menu_saas_configuration" action="action_saas_config_settings" sequence="99" groups="odoo_saas_manager.group_saas_admin"/>
+    <menuitem id="menu_saas_settings" name="Settings" parent="menu_saas_configuration" action="action_saas_config_settings" sequence="99" groups="base.group_system,odoo_saas_manager.group_saas_admin"/>
 </odoo>

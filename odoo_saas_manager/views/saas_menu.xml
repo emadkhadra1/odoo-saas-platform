@@ -1,5 +1,5 @@
 <odoo>
-    <menuitem id="menu_saas_root" name="SaaS Manager" sequence="10" groups="odoo_saas_manager.group_saas_support,odoo_saas_manager.group_saas_accountant,odoo_saas_manager.group_saas_manager,odoo_saas_manager.group_saas_admin"/>
+    <menuitem id="menu_saas_root" name="SaaS Manager" sequence="10" groups="base.group_system,odoo_saas_manager.group_saas_support,odoo_saas_manager.group_saas_accountant,odoo_saas_manager.group_saas_manager,odoo_saas_manager.group_saas_admin"/>
     <menuitem id="menu_saas_operations" name="Operations" parent="menu_saas_root" sequence="10"/>
     <menuitem id="menu_saas_configuration" name="Configuration" parent="menu_saas_root" sequence="90"/>
 

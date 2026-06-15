@@ -18,3 +18,10 @@ access_saas_provisioning_log_admin,saas.provisioning.log admin,model_saas_provis
 access_saas_dashboard_support,saas.dashboard support,model_saas_dashboard,group_saas_support,1,0,1,0
 access_saas_onboarding_import_manager,saas.onboarding.import manager,model_saas_onboarding_import_wizard,group_saas_manager,1,1,1,0
 access_saas_onboarding_import_admin,saas.onboarding.import admin,model_saas_onboarding_import_wizard,group_saas_admin,1,1,1,1
+access_saas_plan_system,saas.plan system,model_saas_plan,base.group_system,1,1,1,1
+access_saas_tenant_system,saas.tenant system,model_saas_tenant,base.group_system,1,1,1,1
+access_saas_subscription_system,saas.subscription system,model_saas_subscription,base.group_system,1,1,1,1
+access_saas_payment_system,saas.payment system,model_saas_payment,base.group_system,1,1,1,1
+access_saas_provisioning_log_system,saas.provisioning.log system,model_saas_provisioning_log,base.group_system,1,1,1,1
+access_saas_dashboard_system,saas.dashboard system,model_saas_dashboard,base.group_system,1,1,1,1
+access_saas_onboarding_import_system,saas.onboarding.import system,model_saas_onboarding_import_wizard,base.group_system,1,1,1,1
