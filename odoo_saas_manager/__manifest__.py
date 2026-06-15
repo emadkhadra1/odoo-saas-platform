@@ -1,9 +1,9 @@
 {
     "name": "Odoo SaaS Manager",
     "summary": "Manage SaaS tenants, plans, subscriptions, and payments for multi-database Odoo hosting.",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "category": "Administration",
-    "author": "SingleClic",
+    "author": "Emad Khadra",
     "license": "LGPL-3",
     "depends": ["base", "mail", "account"],
     "data": [
