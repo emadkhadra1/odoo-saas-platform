@@ -1,7 +1,7 @@
 {
     "name": "Odoo SaaS Marketing Website",
-    "summary": "Interactive Arabic marketing and SaaS backend preview website.",
-    "version": "19.0.1.1.3",
+    "summary": "Bilingual Qimam marketing website for Odoo SaaS sector solutions.",
+    "version": "19.0.1.2.0",
     "category": "Website/Website",
     "author": "Emad Khadra",
     "license": "LGPL-3",

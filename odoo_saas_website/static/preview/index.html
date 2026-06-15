@@ -1,20 +1,23 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Qimam Solutions Cloud | أنظمة Odoo جاهزة حسب القطاع</title>
-  <meta name="description" content="منصة SaaS لتشغيل أنظمة Odoo مستقلة لكل عميل: مقاولات، ريل ستيت، موارد بشرية، و3PL.">
+  <meta name="description" content="منصة SaaS لتشغيل أنظمة Odoo مستقلة لكل عميل: مقاولات، استثمار عقاري، موارد بشرية، و3PL.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="site-header" data-header>
     <a class="brand" href="#top" aria-label="Qimam Solutions Cloud">
-      <span class="brand-mark">ERP</span>
-      <span>Qimam Solutions Cloud</span>
+      <img class="brand-logo" src="assets/qimam-logo.png" alt="شعار قمم للحلول التقنية">
+      <span class="brand-text">
+        <strong>Qimam Solutions Cloud</strong>
+        <small>Qimam Technical Solutions</small>
+      </span>
     </a>
     <nav class="nav" aria-label="التنقل الرئيسي">
       <a href="#solutions">الأنظمة</a>
@@ -22,7 +25,10 @@
       <a href="#platform">المنصة</a>
       <a href="#contact">طلب تجربة</a>
     </nav>
-    <a class="header-cta" href="#contact">احجز عرضا</a>
+    <div class="language-switch">
+      <a class="language-link" href="index-en.html" hreflang="en" lang="en">EN</a>
+      <a class="header-cta" href="#contact">احجز عرضا</a>
+    </div>
   </header>
 
   <main id="top">
@@ -30,9 +36,10 @@
       <img class="hero-image" src="assets/hero-saas.png" alt="لوحة تشغيل رقمية لمنصة SaaS متعددة القطاعات">
       <div class="hero-overlay"></div>
       <div class="hero-content">
+        <img class="hero-logo" src="assets/qimam-logo.png" alt="قمم للحلول التقنية">
         <p class="eyebrow">Odoo SaaS Multi-Database</p>
-        <h1>بيع أنظمة Odoo جاهزة كاشتراك شهري لكل قطاع</h1>
-        <p class="hero-copy">منصة واحدة لإطلاق قواعد بيانات مستقلة للعملاء، خطط اشتراك واضحة، وفوترة قابلة للتوسع لأنظمة المقاولات والريل ستيت والموارد البشرية واللوجستيات.</p>
+        <h1>أنظمة Odoo قطاعية جاهزة كاشتراك شهري</h1>
+        <p class="hero-copy">قمم توفر منصة سحابية لإطلاق قواعد بيانات مستقلة للعملاء، مع خطط واضحة وتجارب جاهزة للمقاولات والاستثمار العقاري والموارد البشرية و3PL.</p>
         <div class="hero-actions">
           <a class="button primary" href="#contact">ابدأ تجربة عميل</a>
           <a class="button secondary" href="#solutions">استعرض الأنظمة</a>
@@ -40,7 +47,7 @@
         <dl class="hero-stats">
           <div><dt>4</dt><dd>قطاعات جاهزة</dd></div>
           <div><dt>DB</dt><dd>عزل كامل لكل عميل</dd></div>
-          <div><dt>API</dt><dd>جاهز للتكامل</dd></div>
+          <div><dt>CRM</dt><dd>طلبات التجربة تصل مباشرة</dd></div>
         </dl>
       </div>
     </section>
@@ -48,7 +55,7 @@
     <section class="section intro" id="platform">
       <div class="section-heading">
         <p class="eyebrow">البنية التشغيلية</p>
-        <h2>Master لإدارة الاشتراكات، وTenant مستقل لكل عميل</h2>
+        <h2>منصة مركزية لإدارة الاشتراكات وقواعد العملاء</h2>
       </div>
       <div class="platform-grid">
         <article>
@@ -64,7 +71,7 @@
         <article>
           <span class="icon">03</span>
           <h3>تشغيل سريع</h3>
-          <p>إنشاء tenant من template database ثم تثبيت موديولات الخطة تلقائيا.</p>
+          <p>إنشاء tenant من قاعدة جاهزة ثم تثبيت موديولات الخطة المطلوبة.</p>
         </article>
       </div>
     </section>
@@ -79,25 +86,25 @@
           <span class="solution-icon">CON</span>
           <h3>المقاولات</h3>
           <p>مشاريع، مستخلصات، عقود، مشتريات، متابعة تكاليف ومراكز تكلفة.</p>
-          <a class="solution-link" href="solution-construction.html">عرض الخصائص</a>
+          <a class="solution-link" href="solution-construction.html">صفحة الخصائص</a>
         </article>
         <article class="solution-card" data-solution="realestate" tabindex="0" role="button">
           <span class="solution-icon">REA</span>
-          <h3>ريل ستيت</h3>
-          <p>وحدات، ملاك، عقود إيجار، مبيعات، تحصيلات، وجدولة زيارات.</p>
-          <a class="solution-link" href="solution-realestate.html">عرض الخصائص</a>
+          <h3>الاستثمار العقاري</h3>
+          <p>وحدات، ملاك، حجوزات، مبيعات، تحصيلات، وخطط دفعات.</p>
+          <a class="solution-link" href="solution-realestate.html">صفحة الخصائص</a>
         </article>
         <article class="solution-card" data-solution="hr" tabindex="0" role="button">
           <span class="solution-icon">HR</span>
           <h3>الموارد البشرية</h3>
-          <p>ملفات موظفين، حضور، إجازات، عقود، رواتب، وتقييمات أداء.</p>
-          <a class="solution-link" href="solution-hr.html">عرض الخصائص</a>
+          <p>ملفات موظفين، حضور، إجازات، عقود، عهد، قروض، ونهاية خدمة.</p>
+          <a class="solution-link" href="solution-hr.html">صفحة الخصائص</a>
         </article>
         <article class="solution-card" data-solution="logistics" tabindex="0" role="button">
           <span class="solution-icon">3PL</span>
           <h3>3PL واللوجستيات</h3>
-          <p>مخازن، شحنات، تتبع، عقود خدمات، وفوترة حسب العمليات.</p>
-          <a class="solution-link" href="solution-3pl.html">عرض الخصائص</a>
+          <p>مناديب، شحنات، تتبع، عقود خدمات، وتسويات تشغيلية.</p>
+          <a class="solution-link" href="solution-3pl.html">صفحة الخصائص</a>
         </article>
       </div>
       <div class="solution-detail" id="solutionDetail">
@@ -109,10 +116,11 @@
         <ul id="solutionFeatures"></ul>
       </div>
     </section>
+
     <section class="section pricing" id="pricing">
       <div class="section-heading">
         <p class="eyebrow">الاشتراكات</p>
-        <h2>خطط قابلة للبيع مباشرة</h2>
+        <h2>خطط واضحة قابلة للبيع مباشرة</h2>
       </div>
       <div class="billing-toggle" role="group" aria-label="دورة الفوترة">
         <button class="toggle active" data-cycle="monthly" type="button">شهري</button>
@@ -129,7 +137,7 @@
             <li>ساب دومين خاص</li>
             <li>دعم بالبريد</li>
           </ul>
-          <a class="button secondary" href="#contact">اطلب الخطة</a>
+          <a class="button light" href="#contact">اطلب الخطة</a>
         </article>
         <article class="price-card featured">
           <p class="badge">الأكثر طلبا</p>
@@ -154,7 +162,7 @@
             <li>API وتكاملات</li>
             <li>SLA ودعم أولوية</li>
           </ul>
-          <a class="button secondary" href="#contact">ناقش احتياجك</a>
+          <a class="button light" href="#contact">ناقش احتياجك</a>
         </article>
       </div>
     </section>
@@ -175,7 +183,7 @@
     <section class="section contact" id="contact">
       <div class="contact-copy">
         <p class="eyebrow">طلب تجربة</p>
-        <h2>جاهز تطلق SaaS Odoo باسمك؟</h2>
+        <h2>جاهز تطلق SaaS Odoo باسم قمم؟</h2>
         <p>اكتب بيانات العميل الأول أو القطاع الذي تريد البدء به، وسنجهز مسار التجربة والخطة المناسبة.</p>
       </div>
       <form class="lead-form" aria-label="نموذج طلب تجربة" data-crm-endpoint="/saas-platform/crm-lead">
@@ -191,7 +199,7 @@
           القطاع
           <select name="solution">
             <option>المقاولات</option>
-            <option>ريل ستيت</option>
+            <option>الاستثمار العقاري</option>
             <option>الموارد البشرية</option>
             <option>3PL واللوجستيات</option>
           </select>
@@ -206,10 +214,9 @@
   </main>
 
   <footer class="footer">
-    <span>Qimam Solutions Cloud</span>
+    <span class="footer-brand"><img src="assets/qimam-logo.png" alt=""> Qimam Solutions Cloud</span>
     <span>Odoo multi-database platform for vertical business systems</span>
   </footer>
   <script src="script.js"></script>
 </body>
 </html>
-
