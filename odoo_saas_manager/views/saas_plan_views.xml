@@ -8,6 +8,7 @@
                 <field name="code"/>
                 <field name="monthly_price"/>
                 <field name="yearly_price"/>
+                <field name="template_database"/>
                 <field name="max_users"/>
                 <field name="storage_limit"/>
                 <field name="trial_days"/>
@@ -39,6 +40,7 @@
                     </group>
                     <notebook>
                         <page string="Apps">
+                            <field name="template_database" placeholder="tenant_template_construction"/>
                             <field name="allowed_apps" widget="many2many_tags"/>
                             <field name="included_modules" placeholder="base,mail,contacts"/>
                         </page>

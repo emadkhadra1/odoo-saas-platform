@@ -44,6 +44,7 @@
         <field name="storage_limit">50.0</field>
         <field name="trial_days">14</field>
         <field name="included_modules">base,mail,contacts,account,project,purchase,stock,sale_management,construction_project,b2b_constructors,b2b_constructor_edit,construction_budgeting,construction_project_reports,financial_custody,saas_tenant_agent</field>
+        <field name="template_database">tenant_template_construction</field>
         <field name="description">Construction SaaS plan for BOQ, projects, progress bills, budgeting, custody, and reports.</field>
     </record>
 
@@ -56,6 +57,7 @@
         <field name="storage_limit">60.0</field>
         <field name="trial_days">14</field>
         <field name="included_modules">base,mail,web,hr_contract,fleet,hr_payroll,delivery_3pl,saas_tenant_agent</field>
+        <field name="template_database">tenant_template_3pl</field>
         <field name="description">Delivery and logistics SaaS plan for riders, contracts, pricing, settlements, and performance dashboards.</field>
     </record>
 
@@ -68,6 +70,7 @@
         <field name="storage_limit">50.0</field>
         <field name="trial_days">14</field>
         <field name="included_modules">base,mail,crm,sale_management,sale_crm,account,realestate_project,project_phase_building_floor,partner_custom,payment_analytic_account,real_estate_security,real_estate,real_estate_crm,property_coding,web_notify,saas_tenant_agent</field>
+        <field name="template_database">tenant_template_realestate</field>
         <field name="description">Real estate SaaS plan for CRM, units, reservations, payment plans, projects, and sales operations.</field>
     </record>
 
@@ -80,6 +83,7 @@
         <field name="storage_limit">40.0</field>
         <field name="trial_days">14</field>
         <field name="included_modules">base,mail,hr,hr_payroll,attendances_structure_base,attendance_rules,contract_work_hour,employee_bonuses,employee_penalty,hr_custody,ohrms_loan,ohrms_loan_accounting,ohrms_loan_custom,saudi_hr_eos,saudi_hr_iqama,social_insurance,saas_tenant_agent</field>
+        <field name="template_database">tenant_template_saudi_hr</field>
         <field name="description">Saudi HR SaaS plan for attendance rules, payroll support, custody, loans, Iqama, social insurance, and end of service.</field>
     </record>
 
@@ -92,6 +96,7 @@
         <field name="storage_limit">80.0</field>
         <field name="trial_days">14</field>
         <field name="included_modules">base,mail,contacts,website,portal,saas_tenant_agent</field>
+        <field name="template_database">tenant_template_education</field>
         <field name="description">Education SaaS plan prepared for an external EduSaaS React/API portal or a future Odoo-native LMS module.</field>
     </record>
 </odoo>

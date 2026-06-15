@@ -22,6 +22,11 @@ class SaasPlan(models.Model):
     included_modules = fields.Text(
         help="Technical module names included by this plan, one per line or comma-separated."
     )
+    template_database = fields.Char(
+        tracking=True,
+        help="Optional PostgreSQL/Odoo database template for tenants on this plan. "
+        "When empty, the global SaaS template database setting is used.",
+    )
     allowed_apps = fields.Many2many(
         "ir.module.module",
         "saas_plan_ir_module_rel",

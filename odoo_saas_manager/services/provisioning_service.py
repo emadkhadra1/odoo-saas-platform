@@ -22,9 +22,11 @@ class TenantProvisioningService:
 
     def provision(self, tenant, admin_password=None):
         tenant.ensure_one()
-        template_db = self._get_param("saas_manager.template_database")
+        template_db = (tenant.plan_id.template_database or self._get_param("saas_manager.template_database") or "").strip()
         if not template_db:
-            raise SaasProvisioningError("Configure a SaaS template database before provisioning tenants.")
+            raise SaasProvisioningError(
+                "Configure a template database on the SaaS plan or in the global SaaS settings before provisioning tenants."
+            )
 
         database_created = False
         self._log(tenant, "provision_start", "pending", "Starting tenant provisioning.")
@@ -33,7 +35,7 @@ class TenantProvisioningService:
         try:
             self._create_database_from_template(template_db, tenant.database_name)
             database_created = True
-            self._log(tenant, "create_database", "success", "Tenant database was created from template.")
+            self._log(tenant, "create_database", "success", "Tenant database was created from template %s." % template_db)
 
             modules_to_install = self._plan_modules(tenant)
             if modules_to_install:
