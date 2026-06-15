@@ -24,10 +24,10 @@
     </record>
 
     <record id="view_saas_tenant_tree" model="ir.ui.view">
-        <field name="name">saas.tenant.tree</field>
+        <field name="name">saas.tenant.list</field>
         <field name="model">saas.tenant</field>
         <field name="arch" type="xml">
-            <tree decoration-success="status == 'active'" decoration-warning="status == 'provisioning'" decoration-danger="status in ('suspended', 'expired')">
+            <list decoration-success="status == 'active'" decoration-warning="status == 'provisioning'" decoration-danger="status in ('suspended', 'expired')">
                 <field name="name"/>
                 <field name="company_name"/>
                 <field name="email"/>
@@ -38,7 +38,7 @@
                 <field name="active_users_count"/>
                 <field name="status"/>
                 <field name="expiry_date"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -106,6 +106,6 @@
     <record id="action_saas_tenant" model="ir.actions.act_window">
         <field name="name">Tenants</field>
         <field name="res_model">saas.tenant</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,list,form</field>
     </record>
 </odoo>

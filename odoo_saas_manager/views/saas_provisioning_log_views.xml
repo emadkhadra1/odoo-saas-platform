@@ -1,15 +1,15 @@
 <odoo>
     <record id="view_saas_provisioning_log_tree" model="ir.ui.view">
-        <field name="name">saas.provisioning.log.tree</field>
+        <field name="name">saas.provisioning.log.list</field>
         <field name="model">saas.provisioning.log</field>
         <field name="arch" type="xml">
-            <tree decoration-success="status == 'success'" decoration-warning="status == 'warning'" decoration-danger="status == 'failed'">
+            <list decoration-success="status == 'success'" decoration-warning="status == 'warning'" decoration-danger="status == 'failed'">
                 <field name="create_date"/>
                 <field name="tenant_id"/>
                 <field name="action"/>
                 <field name="status"/>
                 <field name="message"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -35,6 +35,6 @@
     <record id="action_saas_provisioning_log" model="ir.actions.act_window">
         <field name="name">Provisioning Logs</field>
         <field name="res_model">saas.provisioning.log</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

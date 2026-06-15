@@ -1,9 +1,9 @@
 <odoo>
     <record id="view_saas_plan_tree" model="ir.ui.view">
-        <field name="name">saas.plan.tree</field>
+        <field name="name">saas.plan.list</field>
         <field name="model">saas.plan</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="code"/>
                 <field name="monthly_price"/>
@@ -12,7 +12,7 @@
                 <field name="storage_limit"/>
                 <field name="trial_days"/>
                 <field name="is_active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -55,6 +55,6 @@
     <record id="action_saas_plan" model="ir.actions.act_window">
         <field name="name">Plans</field>
         <field name="res_model">saas.plan</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>
