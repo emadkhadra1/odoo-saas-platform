@@ -369,8 +369,7 @@ h3 {
 }
 
 .icon,
-.solution-icon,
-.solution-detail span {
+.solution-icon {
   display: inline-grid;
   place-items: center;
   border-radius: 8px;
@@ -391,12 +390,10 @@ h3 {
 }
 
 .solution-card {
-  cursor: pointer;
   transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
 }
 
-.solution-card:hover,
-.solution-card.active {
+.solution-card:hover {
   border-color: rgba(19, 174, 202, .46);
   box-shadow: var(--shadow);
   transform: translateY(-2px);
@@ -433,41 +430,12 @@ h3 {
   font-weight: 800;
 }
 
-.solution-detail {
-  display: grid;
-  grid-template-columns: .9fr 1.1fr;
-  gap: 26px;
-  margin-top: 22px;
-  padding: 26px;
-  border: 1px solid rgba(19, 174, 202, .24);
-  border-radius: 8px;
-  background: var(--white);
-  box-shadow: var(--shadow);
-}
-
-.solution-detail span {
-  width: 56px;
-  height: 56px;
-  margin-bottom: 16px;
-  color: var(--cyan-2);
-}
-
-.solution-detail p {
-  color: var(--muted);
-}
-
-.solution-detail ul,
 .price-card ul {
   display: grid;
   gap: 10px;
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-.solution-detail ul {
-  grid-template-columns: repeat(2, 1fr);
-  align-content: start;
 }
 
 li {
@@ -837,7 +805,6 @@ textarea {
   .platform-grid,
   .pricing-grid,
   .contact,
-  .solution-detail,
   .feature-grid,
   .workflow-grid,
   .module-grid,
@@ -922,8 +889,7 @@ textarea {
   }
 
   .solution-grid,
-  .timeline,
-  .solution-detail ul {
+  .timeline {
     grid-template-columns: 1fr;
   }
 

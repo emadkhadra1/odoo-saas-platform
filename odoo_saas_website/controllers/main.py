@@ -12,7 +12,7 @@ class OdooSaasWebsiteController(http.Controller):
 
     _preview_dir = Path(__file__).resolve().parents[1] / "static" / "preview"
     _asset_base = "/odoo_saas_website/static/preview/"
-    _asset_version = "19.0.1.3.0"
+    _asset_version = "19.0.1.3.1"
 
     def _render_preview(self, filename="index.html"):
         html = (self._preview_dir / filename).read_text(encoding="utf-8")

@@ -1,7 +1,7 @@
 {
     "name": "Odoo SaaS Marketing Website",
     "summary": "Bilingual Qimam marketing website for Odoo SaaS sector solutions.",
-    "version": "19.0.1.3.0",
+    "version": "19.0.1.3.1",
     "category": "Website/Website",
     "author": "Emad Khadra",
     "license": "LGPL-3",
