@@ -7,23 +7,19 @@
 
     <record id="group_saas_support" model="res.groups">
         <field name="name">SaaS Support</field>
-        <field name="category_id" ref="module_category_saas_manager"/>
     </record>
 
     <record id="group_saas_accountant" model="res.groups">
         <field name="name">SaaS Accountant</field>
-        <field name="category_id" ref="module_category_saas_manager"/>
     </record>
 
     <record id="group_saas_manager" model="res.groups">
         <field name="name">SaaS Manager</field>
-        <field name="category_id" ref="module_category_saas_manager"/>
         <field name="implied_ids" eval="[(4, ref('group_saas_support')), (4, ref('group_saas_accountant'))]"/>
     </record>
 
     <record id="group_saas_admin" model="res.groups">
         <field name="name">SaaS Admin</field>
-        <field name="category_id" ref="module_category_saas_manager"/>
         <field name="implied_ids" eval="[(4, ref('group_saas_manager'))]"/>
     </record>
 
