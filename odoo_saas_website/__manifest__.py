@@ -1,7 +1,7 @@
 {
     "name": "Odoo SaaS Marketing Website",
     "summary": "Interactive Arabic marketing and SaaS backend preview website.",
-    "version": "19.0.1.1.2",
+    "version": "19.0.1.1.3",
     "category": "Website/Website",
     "author": "Emad Khadra",
     "license": "LGPL-3",

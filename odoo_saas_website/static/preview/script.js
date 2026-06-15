@@ -3,19 +3,6 @@ const toggles = document.querySelectorAll("[data-cycle]");
 const priceNodes = document.querySelectorAll("[data-price]");
 const periodNodes = document.querySelectorAll("[data-period]");
 const leadForm = document.querySelector(".lead-form");
-
-const backendTitle = document.querySelector("#backendTitle");
-const backendNavItems = document.querySelectorAll("[data-backend-tab]");
-const backendViews = document.querySelectorAll("[data-backend-view]");
-const tenantRows = document.querySelector("#tenantRows");
-const tenantCards = document.querySelector("#tenantCards");
-const selectedTenant = document.querySelector("#selectedTenant");
-const tenantModal = document.querySelector("#tenantModal");
-const tenantForm = document.querySelector("#tenantForm");
-const openTenantModal = document.querySelector("[data-open-tenant-modal]");
-const closeModalButtons = document.querySelectorAll("[data-close-modal]");
-const logList = document.querySelector("#logList");
-const importResult = document.querySelector("#importResult");
 const solutionCards = document.querySelectorAll("[data-solution]");
 const solutionBadge = document.querySelector("#solutionBadge");
 const solutionTitle = document.querySelector("#solutionTitle");
@@ -49,50 +36,11 @@ const solutions = {
   },
 };
 
-const tenants = [
-  {
-    company: "Al Riyada Contracting",
-    sector: "مقاولات",
-    plan: "Construction Business",
-    database: "tenant_riyadah",
-    status: "Active",
-  },
-  {
-    company: "Fast Mile Logistics",
-    sector: "3PL",
-    plan: "3PL Business",
-    database: "tenant_fastmile",
-    status: "Provisioning",
-  },
-  {
-    company: "Jadeer Properties",
-    sector: "ريل ستيت",
-    plan: "Real Estate Business",
-    database: "tenant_jadeer",
-    status: "Active",
-  },
-  {
-    company: "Saudi People Co.",
-    sector: "HR",
-    plan: "Saudi HR Business",
-    database: "tenant_hr_sa",
-    status: "Suspended",
-  },
-];
-
-const viewTitles = {
-  dashboard: "Dashboard",
-  tenants: "Tenants",
-  plans: "Plans",
-  subscriptions: "Subscriptions",
-  payments: "Payments",
-  logs: "Provisioning Logs",
-  imports: "Onboarding Imports",
-};
-
-window.addEventListener("scroll", () => {
-  header.style.transform = window.scrollY > 8 ? "translateY(-2px)" : "translateY(0)";
-});
+if (header) {
+  window.addEventListener("scroll", () => {
+    header.style.transform = window.scrollY > 8 ? "translateY(-2px)" : "translateY(0)";
+  });
+}
 
 toggles.forEach((button) => {
   button.addEventListener("click", () => {
@@ -108,7 +56,10 @@ toggles.forEach((button) => {
 });
 
 solutionCards.forEach((card) => {
-  card.addEventListener("click", () => showSolution(card.dataset.solution));
+  card.addEventListener("click", (event) => {
+    if (event.target.closest("a")) return;
+    showSolution(card.dataset.solution);
+  });
   card.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -117,154 +68,44 @@ solutionCards.forEach((card) => {
   });
 });
 
-backendNavItems.forEach((button) => {
-  button.addEventListener("click", () => {
-    const tab = button.dataset.backendTab;
-    backendNavItems.forEach((item) => item.classList.toggle("active", item === button));
-    backendViews.forEach((view) => view.classList.toggle("active", view.dataset.backendView === tab));
-    backendTitle.textContent = viewTitles[tab];
-  });
-});
+if (leadForm) {
+  leadForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const button = leadForm.querySelector("button");
+    const originalText = button.textContent;
+    const formData = new FormData(leadForm);
+    const payload = Object.fromEntries(formData.entries());
 
-document.querySelectorAll("[data-filter-status]").forEach((button) => {
-  button.addEventListener("click", () => {
-    renderTenantRows(button.dataset.filterStatus);
-    selectedTenant.textContent = `عرض العملاء بحالة ${button.dataset.filterStatus}`;
-  });
-});
+    button.textContent = "جاري الإرسال...";
+    button.disabled = true;
 
-openTenantModal.addEventListener("click", () => {
-  tenantModal.showModal();
-});
-
-closeModalButtons.forEach((button) => {
-  button.addEventListener("click", () => tenantModal.close());
-});
-
-tenantForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const formData = new FormData(tenantForm);
-  const tenant = {
-    company: formData.get("company"),
-    sector: formData.get("sector"),
-    plan: formData.get("plan"),
-    database: formData.get("database"),
-    status: "Provisioning",
-  };
-
-  tenants.unshift(tenant);
-  tenantModal.close();
-  renderBackend();
-  selectedTenant.textContent = `${tenant.company} تم إنشاؤه وحالته Provisioning`;
-  addLog(`create_database - ${tenant.database} - pending`);
-});
-
-document.querySelector("[data-simulate-import]").addEventListener("click", () => {
-  importResult.textContent = "تمت محاكاة رفع البيانات: 42 record جاهزة للإرسال إلى tenant database.";
-  addLog("onboarding_import - demo file - success");
-});
-
-leadForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const button = leadForm.querySelector("button");
-  const originalText = button.textContent;
-  const formData = new FormData(leadForm);
-  const payload = Object.fromEntries(formData.entries());
-
-  button.textContent = "جاري الإرسال...";
-  button.disabled = true;
-
-  try {
-    const response = await fetch(leadForm.dataset.crmEndpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
-    const result = await response.json();
-    if (!response.ok || !result.ok) {
-      throw new Error(result.error || "crm_error");
+    try {
+      const response = await fetch(leadForm.dataset.crmEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.ok) {
+        throw new Error(result.error || "crm_error");
+      }
+      button.textContent = "تم إنشاء Lead في CRM";
+      leadForm.reset();
+    } catch (error) {
+      button.textContent = "تعذر الإرسال، حاول مرة أخرى";
+      setTimeout(() => {
+        button.textContent = originalText;
+        button.disabled = false;
+      }, 2600);
     }
-    button.textContent = "تم إنشاء Lead في CRM";
-    leadForm.reset();
-  } catch (error) {
-    button.textContent = "تعذر الإرسال، حاول مرة أخرى";
-    setTimeout(() => {
-      button.textContent = originalText;
-      button.disabled = false;
-    }, 2600);
-  }
-});
-
-function renderBackend() {
-  renderTenantRows();
-  renderTenantCards();
-  updateMetrics();
-}
-
-function renderTenantRows(filterStatus = "") {
-  tenantRows.innerHTML = "";
-  tenants.forEach((tenant) => {
-    const row = document.createElement("tr");
-    if (filterStatus && tenant.status !== filterStatus) row.classList.add("hidden");
-    row.innerHTML = `
-      <td>${tenant.company}</td>
-      <td>${tenant.sector}</td>
-      <td>${tenant.plan}</td>
-      <td>${tenant.database}</td>
-      <td><span class="status ${statusClass(tenant.status)}">${tenant.status}</span></td>
-    `;
-    row.addEventListener("click", () => {
-      selectedTenant.textContent = `${tenant.company} | ${tenant.database} | ${tenant.plan}`;
-      addLog(`open_tenant - ${tenant.database} - viewed`);
-    });
-    tenantRows.appendChild(row);
   });
-}
-
-function renderTenantCards() {
-  tenantCards.innerHTML = "";
-  tenants.forEach((tenant) => {
-    const card = document.createElement("article");
-    card.innerHTML = `
-      <strong>${tenant.company}</strong>
-      <span>${tenant.sector} - ${tenant.plan}</span>
-      <p>${tenant.database} · ${tenant.status}</p>
-    `;
-    card.addEventListener("click", () => {
-      backendNavItems.forEach((item) => item.classList.toggle("active", item.dataset.backendTab === "dashboard"));
-      backendViews.forEach((view) => view.classList.toggle("active", view.dataset.backendView === "dashboard"));
-      backendTitle.textContent = "Dashboard";
-      selectedTenant.textContent = `${tenant.company} | ${tenant.database} | ${tenant.plan}`;
-    });
-    tenantCards.appendChild(card);
-  });
-}
-
-function updateMetrics() {
-  document.querySelector("[data-metric='active']").textContent = tenants.filter((tenant) => tenant.status === "Active").length;
-  document.querySelector("[data-metric='provisioning']").textContent = tenants.filter((tenant) => tenant.status === "Provisioning").length;
-  document.querySelector("[data-metric='suspended']").textContent = tenants.filter((tenant) => tenant.status === "Suspended").length;
-  document.querySelector("[data-metric='mrr']").textContent = `${(tenants.length * 1500).toLocaleString("ar-SA")} ر.س`;
-}
-
-function addLog(message) {
-  const item = document.createElement("button");
-  item.type = "button";
-  item.textContent = message;
-  logList.prepend(item);
-}
-
-function statusClass(status) {
-  if (status === "Active") return "ok";
-  if (status === "Provisioning") return "warn";
-  return "bad";
 }
 
 function showSolution(key) {
   const solution = solutions[key];
-  if (!solution) return;
+  if (!solution || !solutionBadge || !solutionTitle || !solutionSummary || !solutionFeatures) return;
   solutionCards.forEach((card) => card.classList.toggle("active", card.dataset.solution === key));
   solutionBadge.textContent = solution.badge;
   solutionTitle.textContent = solution.title;
@@ -278,4 +119,3 @@ function showSolution(key) {
 }
 
 showSolution("construction");
-renderBackend();

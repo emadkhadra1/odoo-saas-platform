@@ -259,7 +259,7 @@ h2 {
 }
 
 .solution-grid {
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .solution-card {
@@ -293,6 +293,19 @@ h2 {
 .price-card p,
 .contact-copy p {
   color: var(--muted);
+}
+
+.solution-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  margin-top: 10px;
+  padding: 0 14px;
+  border-radius: 8px;
+  background: #ecf6f3;
+  color: var(--teal);
+  font-weight: 800;
 }
 
 .solution-detail {
@@ -329,6 +342,101 @@ h2 {
   gap: 10px 18px;
   margin: 0;
   align-content: start;
+}
+
+.sector-hero {
+  position: relative;
+  min-height: 540px;
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  background: #101c19;
+  color: var(--white);
+}
+
+.sector-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(16, 28, 25, .08), rgba(16, 28, 25, .72) 52%, rgba(16, 28, 25, .94)),
+    url("assets/hero-saas.png") center/cover;
+}
+
+.sector-hero-content {
+  position: relative;
+  z-index: 1;
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  padding-top: 92px;
+}
+
+.sector-hero h1 {
+  max-width: 820px;
+}
+
+.sector-hero p {
+  max-width: 720px;
+  color: rgba(255, 255, 255, .84);
+  font-size: 20px;
+}
+
+.feature-grid,
+.workflow-grid,
+.module-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.feature-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.workflow-grid,
+.module-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.feature-card,
+.workflow-card,
+.module-card {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: 0 12px 38px rgba(27, 49, 43, .07);
+}
+
+.feature-card strong,
+.workflow-card strong,
+.module-card strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--teal);
+  font-size: 18px;
+}
+
+.feature-card p,
+.workflow-card p,
+.module-card p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.sector-cta {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
+  padding: 30px;
+  border-radius: 8px;
+  background: #16221f;
+  color: var(--white);
+}
+
+.sector-cta p {
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, .76);
 }
 
 .pricing {
@@ -843,7 +951,11 @@ textarea {
   .pricing-grid,
   .contact,
   .backend-shell,
-  .solution-detail {
+  .solution-detail,
+  .feature-grid,
+  .workflow-grid,
+  .module-grid,
+  .sector-cta {
     grid-template-columns: 1fr;
   }
 

@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
@@ -20,7 +20,6 @@
       <a href="#solutions">الأنظمة</a>
       <a href="#pricing">الأسعار</a>
       <a href="#platform">المنصة</a>
-      <a href="#backend">الباك إند</a>
       <a href="#contact">طلب تجربة</a>
     </nav>
     <a class="header-cta" href="#contact">احجز عرضا</a>
@@ -80,21 +79,25 @@
           <span class="solution-icon">CON</span>
           <h3>المقاولات</h3>
           <p>مشاريع، مستخلصات، عقود، مشتريات، متابعة تكاليف ومراكز تكلفة.</p>
+          <a class="solution-link" href="solution-construction.html">عرض الخصائص</a>
         </article>
         <article class="solution-card" data-solution="realestate" tabindex="0" role="button">
           <span class="solution-icon">REA</span>
           <h3>ريل ستيت</h3>
           <p>وحدات، ملاك، عقود إيجار، مبيعات، تحصيلات، وجدولة زيارات.</p>
+          <a class="solution-link" href="solution-realestate.html">عرض الخصائص</a>
         </article>
         <article class="solution-card" data-solution="hr" tabindex="0" role="button">
           <span class="solution-icon">HR</span>
           <h3>الموارد البشرية</h3>
           <p>ملفات موظفين، حضور، إجازات، عقود، رواتب، وتقييمات أداء.</p>
+          <a class="solution-link" href="solution-hr.html">عرض الخصائص</a>
         </article>
         <article class="solution-card" data-solution="logistics" tabindex="0" role="button">
           <span class="solution-icon">3PL</span>
           <h3>3PL واللوجستيات</h3>
           <p>مخازن، شحنات، تتبع، عقود خدمات، وفوترة حسب العمليات.</p>
+          <a class="solution-link" href="solution-3pl.html">عرض الخصائص</a>
         </article>
       </div>
       <div class="solution-detail" id="solutionDetail">
@@ -106,127 +109,6 @@
         <ul id="solutionFeatures"></ul>
       </div>
     </section>
-
-    <section class="section backend-preview" id="backend">
-      <div class="section-heading">
-        <p class="eyebrow">Backend Preview</p>
-        <h2>رؤية موديول SaaS Manager من داخل الباك إند</h2>
-        <p>هذا الجزء يوضح للعميل وفريق الإدارة كيف ستتم إدارة العملاء، قواعد البيانات، الخطط، الاشتراكات، المدفوعات، وتجهيز قواعد tenant لكل قطاع.</p>
-      </div>
-      <div class="backend-shell">
-        <aside class="backend-sidebar">
-          <strong>SaaS Manager</strong>
-          <button class="backend-nav active" type="button" data-backend-tab="dashboard">Dashboard</button>
-          <button class="backend-nav" type="button" data-backend-tab="tenants">Tenants</button>
-          <button class="backend-nav" type="button" data-backend-tab="plans">Plans</button>
-          <button class="backend-nav" type="button" data-backend-tab="subscriptions">Subscriptions</button>
-          <button class="backend-nav" type="button" data-backend-tab="payments">Payments</button>
-          <button class="backend-nav" type="button" data-backend-tab="logs">Provisioning Logs</button>
-          <button class="backend-nav" type="button" data-backend-tab="imports">Onboarding Imports</button>
-        </aside>
-        <div class="backend-workspace">
-          <div class="backend-toolbar">
-            <div>
-              <small>Master Database</small>
-              <strong id="backendTitle">Dashboard</strong>
-            </div>
-            <button type="button" data-open-tenant-modal>Create Tenant</button>
-          </div>
-
-          <div class="backend-view active" data-backend-view="dashboard">
-            <div class="backend-metrics">
-              <button type="button" data-filter-status="Active"><span>Active Tenants</span><strong data-metric="active">3</strong></button>
-              <button type="button"><span>MRR</span><strong data-metric="mrr">4,500 ر.س</strong></button>
-              <button type="button" data-filter-status="Provisioning"><span>Provisioning</span><strong data-metric="provisioning">1</strong></button>
-              <button type="button" data-filter-status="Suspended"><span>Suspended</span><strong data-metric="suspended">1</strong></button>
-            </div>
-            <div class="backend-panel">
-              <div class="backend-panel-head">
-                <h3>Tenant Provisioning Queue</h3>
-                <span id="selectedTenant">اختر عميل من الجدول لعرض التفاصيل</span>
-              </div>
-              <table class="backend-table">
-                <thead>
-                  <tr>
-                    <th>العميل</th>
-                    <th>القطاع</th>
-                    <th>الخطة</th>
-                    <th>Database</th>
-                    <th>الحالة</th>
-                  </tr>
-                </thead>
-                <tbody id="tenantRows"></tbody>
-              </table>
-            </div>
-          </div>
-
-          <div class="backend-view" data-backend-view="tenants">
-            <div class="backend-panel">
-              <div class="backend-panel-head"><h3>Tenants</h3><span>إدارة قواعد العملاء المستقلة</span></div>
-              <div class="backend-cards" id="tenantCards"></div>
-            </div>
-          </div>
-
-          <div class="backend-view" data-backend-view="plans">
-            <div class="backend-panel">
-              <div class="backend-panel-head"><h3>SaaS Plans</h3><span>خطط القطاعات وموديولات كل خطة</span></div>
-              <div class="backend-cards">
-                <article><strong>Construction Business</strong><span>1,500 ر.س / شهريا</span><p>BOQ, Projects, Progress Bills, Budgeting</p></article>
-                <article><strong>3PL Business</strong><span>1,500 ر.س / شهريا</span><p>Riders, Contracts, Pricing, Settlements</p></article>
-                <article><strong>Real Estate Business</strong><span>1,500 ر.س / شهريا</span><p>CRM, Units, Reservations, Payment Plans</p></article>
-                <article><strong>Saudi HR Business</strong><span>1,500 ر.س / شهريا</span><p>Attendance, Loans, Custody, EOS</p></article>
-              </div>
-            </div>
-          </div>
-
-          <div class="backend-view" data-backend-view="subscriptions">
-            <div class="backend-panel">
-              <div class="backend-panel-head"><h3>Subscriptions</h3><span>الفوترة وحالة الاشتراك</span></div>
-              <div class="activity-list">
-                <button type="button">Fast Mile Logistics - next invoice in 4 days</button>
-                <button type="button">Jadeer Properties - paid yearly</button>
-                <button type="button">Saudi People Co. - payment failed</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="backend-view" data-backend-view="payments">
-            <div class="backend-panel">
-              <div class="backend-panel-head"><h3>Payments</h3><span>تسجيل المدفوعات اليدوية كبداية</span></div>
-              <div class="activity-list">
-                <button type="button">1,500 ر.س paid - Al Riyada Contracting</button>
-                <button type="button">1,500 ر.س paid - Jadeer Properties</button>
-                <button type="button">1,000 ر.س failed - Saudi People Co.</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="backend-view" data-backend-view="logs">
-            <div class="backend-panel">
-              <div class="backend-panel-head"><h3>Provisioning Logs</h3><span>كل خطوة أثناء إنشاء قاعدة العميل</span></div>
-              <div class="activity-list" id="logList">
-                <button type="button">create_database - tenant_fastmile - success</button>
-                <button type="button">install_modules - delivery_3pl - pending</button>
-                <button type="button">configure_company - Jadeer Properties - success</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="backend-view" data-backend-view="imports">
-            <div class="backend-panel">
-              <div class="backend-panel-head"><h3>Onboarding Imports</h3><span>رفع بيانات العميل الأولية</span></div>
-              <form class="import-demo-form">
-                <label>Tenant<select><option>Al Riyada Contracting</option><option>Fast Mile Logistics</option><option>Jadeer Properties</option></select></label>
-                <label>نوع البيانات<select><option>Employees CSV</option><option>Properties XLSX</option><option>Projects CSV</option><option>Customers CSV</option></select></label>
-                <button type="button" data-simulate-import>Simulate Import</button>
-                <p id="importResult">اختر tenant ونوع البيانات ثم اضغط simulate.</p>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="section pricing" id="pricing">
       <div class="section-heading">
         <p class="eyebrow">الاشتراكات</p>
@@ -327,46 +209,7 @@
     <span>Qimam Solutions Cloud</span>
     <span>Odoo multi-database platform for vertical business systems</span>
   </footer>
-
-  <dialog class="tenant-modal" id="tenantModal">
-    <form method="dialog" class="tenant-modal-card" id="tenantForm">
-      <div class="modal-head">
-        <h3>Create Demo Tenant</h3>
-        <button type="button" data-close-modal aria-label="Close">×</button>
-      </div>
-      <label>
-        اسم العميل
-        <input name="company" value="New Demo Company" required>
-      </label>
-      <label>
-        القطاع
-        <select name="sector">
-          <option value="مقاولات">مقاولات</option>
-          <option value="3PL">3PL</option>
-          <option value="ريل ستيت">ريل ستيت</option>
-          <option value="HR">HR</option>
-        </select>
-      </label>
-      <label>
-        الخطة
-        <select name="plan">
-          <option>Construction Business</option>
-          <option>3PL Business</option>
-          <option>Real Estate Business</option>
-          <option>Saudi HR Business</option>
-        </select>
-      </label>
-      <label>
-        Database
-        <input name="database" value="tenant_new_demo" required>
-      </label>
-      <div class="modal-actions">
-        <button class="button secondary" type="button" data-close-modal>Cancel</button>
-        <button class="button primary" type="submit">Create & Provision</button>
-      </div>
-    </form>
-  </dialog>
-
   <script src="script.js"></script>
 </body>
 </html>
+

@@ -12,10 +12,10 @@ class OdooSaasWebsiteController(http.Controller):
 
     _preview_dir = Path(__file__).resolve().parents[1] / "static" / "preview"
     _asset_base = "/odoo_saas_website/static/preview/"
-    _asset_version = "19.0.1.1.2"
+    _asset_version = "19.0.1.1.3"
 
-    def _render_preview(self):
-        html = (self._preview_dir / "index.html").read_text(encoding="utf-8")
+    def _render_preview(self, filename="index.html"):
+        html = (self._preview_dir / filename).read_text(encoding="utf-8")
         html = html.replace('href="styles.css"', f'href="{self._asset_base}styles.css?v={self._asset_version}"')
         html = html.replace('src="script.js"', f'src="{self._asset_base}script.js?v={self._asset_version}"')
         html = html.replace('src="assets/', f'src="{self._asset_base}assets/')
@@ -27,9 +27,61 @@ class OdooSaasWebsiteController(http.Controller):
             ],
         )
 
-    @http.route(["/", "/saas-platform"], type="http", auth="public", website=True, sitemap=True)
+    @http.route(["/", "/index.html", "/saas-platform"], type="http", auth="public", website=True, sitemap=True)
     def saas_platform(self, **kwargs):
         return self._render_preview()
+
+    @http.route(
+        [
+            "/solution-construction.html",
+            "/solutions/construction",
+        ],
+        type="http",
+        auth="public",
+        website=True,
+        sitemap=True,
+    )
+    def solution_construction(self, **kwargs):
+        return self._render_preview("solution-construction.html")
+
+    @http.route(
+        [
+            "/solution-realestate.html",
+            "/solutions/real-estate",
+        ],
+        type="http",
+        auth="public",
+        website=True,
+        sitemap=True,
+    )
+    def solution_realestate(self, **kwargs):
+        return self._render_preview("solution-realestate.html")
+
+    @http.route(
+        [
+            "/solution-hr.html",
+            "/solutions/hr",
+        ],
+        type="http",
+        auth="public",
+        website=True,
+        sitemap=True,
+    )
+    def solution_hr(self, **kwargs):
+        return self._render_preview("solution-hr.html")
+
+    @http.route(
+        [
+            "/solution-3pl.html",
+            "/solutions/3pl",
+        ],
+        type="http",
+        auth="public",
+        website=True,
+        sitemap=True,
+    )
+    def solution_3pl(self, **kwargs):
+        return self._render_preview("solution-3pl.html")
 
     @staticmethod
     def _json_response(payload, status=200):
