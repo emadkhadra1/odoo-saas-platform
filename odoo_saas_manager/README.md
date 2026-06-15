@@ -79,7 +79,6 @@ Demo data now includes vertical SaaS plans mapped to the provided sector modules
 - `THREE_PL_BUSINESS`
 - `REAL_ESTATE_BUSINESS`
 - `SAUDI_HR_BUSINESS`
-- `EDUCATION_PORTAL`
 
 ## Installation
 

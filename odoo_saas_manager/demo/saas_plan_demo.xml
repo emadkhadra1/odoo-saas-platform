@@ -86,17 +86,4 @@
         <field name="template_database">tenant_template_saudi_hr</field>
         <field name="description">Saudi HR SaaS plan for attendance rules, payroll support, custody, loans, Iqama, social insurance, and end of service.</field>
     </record>
-
-    <record id="saas_plan_education_portal" model="saas.plan">
-        <field name="name">Education Portal</field>
-        <field name="code">EDUCATION_PORTAL</field>
-        <field name="monthly_price">159.0</field>
-        <field name="yearly_price">1590.0</field>
-        <field name="max_users">60</field>
-        <field name="storage_limit">80.0</field>
-        <field name="trial_days">14</field>
-        <field name="included_modules">base,mail,contacts,website,portal,saas_tenant_agent</field>
-        <field name="template_database">tenant_template_education</field>
-        <field name="description">Education SaaS plan prepared for an external EduSaaS React/API portal or a future Odoo-native LMS module.</field>
-    </record>
 </odoo>
