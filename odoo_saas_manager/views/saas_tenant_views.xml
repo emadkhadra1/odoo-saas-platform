@@ -10,7 +10,7 @@
                 <field name="allowed_users"/>
                 <field name="active_users_count"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <strong><field name="company_name"/></strong>
                             <div><field name="subdomain"/>.<span>mycompany.com</span></div>
@@ -106,6 +106,6 @@
     <record id="action_saas_tenant" model="ir.actions.act_window">
         <field name="name">Tenants</field>
         <field name="res_model">saas.tenant</field>
-        <field name="view_mode">kanban,list,form</field>
+        <field name="view_mode">list,kanban,form</field>
     </record>
 </odoo>
