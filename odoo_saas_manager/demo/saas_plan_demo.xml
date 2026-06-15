@@ -1,0 +1,97 @@
+<odoo>
+    <record id="saas_plan_starter" model="saas.plan">
+        <field name="name">Starter</field>
+        <field name="code">STARTER</field>
+        <field name="monthly_price">49.0</field>
+        <field name="yearly_price">499.0</field>
+        <field name="max_users">5</field>
+        <field name="storage_limit">5.0</field>
+        <field name="trial_days">14</field>
+        <field name="included_modules">base,mail,contacts</field>
+        <field name="description">Small tenant package for early SaaS onboarding.</field>
+    </record>
+
+    <record id="saas_plan_business" model="saas.plan">
+        <field name="name">Business</field>
+        <field name="code">BUSINESS</field>
+        <field name="monthly_price">149.0</field>
+        <field name="yearly_price">1499.0</field>
+        <field name="max_users">25</field>
+        <field name="storage_limit">25.0</field>
+        <field name="trial_days">14</field>
+        <field name="included_modules">base,mail,contacts,account,project,hr</field>
+        <field name="description">General business package for vertical Odoo solutions.</field>
+    </record>
+
+    <record id="saas_plan_enterprise" model="saas.plan">
+        <field name="name">Enterprise</field>
+        <field name="code">ENTERPRISE</field>
+        <field name="monthly_price">399.0</field>
+        <field name="yearly_price">3990.0</field>
+        <field name="max_users">100</field>
+        <field name="storage_limit">100.0</field>
+        <field name="trial_days">30</field>
+        <field name="included_modules">base,mail,contacts,account,project,hr,stock,helpdesk</field>
+        <field name="description">Large tenant package for advanced vertical SaaS deployments.</field>
+    </record>
+
+    <record id="saas_plan_construction_business" model="saas.plan">
+        <field name="name">Construction Business</field>
+        <field name="code">CONSTRUCTION_BUSINESS</field>
+        <field name="monthly_price">249.0</field>
+        <field name="yearly_price">2490.0</field>
+        <field name="max_users">30</field>
+        <field name="storage_limit">50.0</field>
+        <field name="trial_days">14</field>
+        <field name="included_modules">base,mail,contacts,account,project,purchase,stock,sale_management,construction_project,b2b_constructors,b2b_constructor_edit,construction_budgeting,construction_project_reports,financial_custody,saas_tenant_agent</field>
+        <field name="description">Construction SaaS plan for BOQ, projects, progress bills, budgeting, custody, and reports.</field>
+    </record>
+
+    <record id="saas_plan_3pl_business" model="saas.plan">
+        <field name="name">3PL Business</field>
+        <field name="code">THREE_PL_BUSINESS</field>
+        <field name="monthly_price">199.0</field>
+        <field name="yearly_price">1990.0</field>
+        <field name="max_users">35</field>
+        <field name="storage_limit">60.0</field>
+        <field name="trial_days">14</field>
+        <field name="included_modules">base,mail,web,hr_contract,fleet,hr_payroll,delivery_3pl,saas_tenant_agent</field>
+        <field name="description">Delivery and logistics SaaS plan for riders, contracts, pricing, settlements, and performance dashboards.</field>
+    </record>
+
+    <record id="saas_plan_real_estate_business" model="saas.plan">
+        <field name="name">Real Estate Business</field>
+        <field name="code">REAL_ESTATE_BUSINESS</field>
+        <field name="monthly_price">229.0</field>
+        <field name="yearly_price">2290.0</field>
+        <field name="max_users">25</field>
+        <field name="storage_limit">50.0</field>
+        <field name="trial_days">14</field>
+        <field name="included_modules">base,mail,crm,sale_management,sale_crm,account,realestate_project,project_phase_building_floor,partner_custom,payment_analytic_account,real_estate_security,real_estate,real_estate_crm,property_coding,web_notify,saas_tenant_agent</field>
+        <field name="description">Real estate SaaS plan for CRM, units, reservations, payment plans, projects, and sales operations.</field>
+    </record>
+
+    <record id="saas_plan_saudi_hr_business" model="saas.plan">
+        <field name="name">Saudi HR Business</field>
+        <field name="code">SAUDI_HR_BUSINESS</field>
+        <field name="monthly_price">179.0</field>
+        <field name="yearly_price">1790.0</field>
+        <field name="max_users">40</field>
+        <field name="storage_limit">40.0</field>
+        <field name="trial_days">14</field>
+        <field name="included_modules">base,mail,hr,hr_payroll,attendances_structure_base,attendance_rules,contract_work_hour,employee_bonuses,employee_penalty,hr_custody,ohrms_loan,ohrms_loan_accounting,ohrms_loan_custom,saudi_hr_eos,saudi_hr_iqama,social_insurance,saas_tenant_agent</field>
+        <field name="description">Saudi HR SaaS plan for attendance rules, payroll support, custody, loans, Iqama, social insurance, and end of service.</field>
+    </record>
+
+    <record id="saas_plan_education_portal" model="saas.plan">
+        <field name="name">Education Portal</field>
+        <field name="code">EDUCATION_PORTAL</field>
+        <field name="monthly_price">159.0</field>
+        <field name="yearly_price">1590.0</field>
+        <field name="max_users">60</field>
+        <field name="storage_limit">80.0</field>
+        <field name="trial_days">14</field>
+        <field name="included_modules">base,mail,contacts,website,portal,saas_tenant_agent</field>
+        <field name="description">Education SaaS plan prepared for an external EduSaaS React/API portal or a future Odoo-native LMS module.</field>
+    </record>
+</odoo>

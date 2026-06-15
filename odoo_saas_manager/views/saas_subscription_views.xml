@@ -1,0 +1,62 @@
+<odoo>
+    <record id="view_saas_subscription_tree" model="ir.ui.view">
+        <field name="name">saas.subscription.tree</field>
+        <field name="model">saas.subscription</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="subscription_status == 'active'" decoration-danger="subscription_status in ('suspended', 'expired')">
+                <field name="tenant_id"/>
+                <field name="plan_id"/>
+                <field name="billing_cycle"/>
+                <field name="amount"/>
+                <field name="payment_status"/>
+                <field name="subscription_status"/>
+                <field name="start_date"/>
+                <field name="next_billing_date"/>
+                <field name="auto_renew"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_saas_subscription_form" model="ir.ui.view">
+        <field name="name">saas.subscription.form</field>
+        <field name="model">saas.subscription</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="tenant_id"/>
+                            <field name="plan_id"/>
+                            <field name="billing_cycle"/>
+                            <field name="amount"/>
+                            <field name="currency_id"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="next_billing_date"/>
+                            <field name="payment_status"/>
+                            <field name="subscription_status"/>
+                            <field name="auto_renew"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Invoices">
+                            <field name="invoice_ids"/>
+                        </page>
+                        <page string="Payments">
+                            <field name="payment_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_saas_subscription" model="ir.actions.act_window">
+        <field name="name">Subscriptions</field>
+        <field name="res_model">saas.subscription</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

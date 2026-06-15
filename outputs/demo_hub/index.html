@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SingleClic SaaS Demo Hub</title>
+  <meta name="description" content="بريفيو شامل لموقع SaaS Odoo، الباك إند، موديول SaaS Manager، والقطاعات الجاهزة للديموهات.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#overview">
+      <span>SC</span>
+      SingleClic SaaS Demo Hub
+    </a>
+    <nav>
+      <a href="#website">الويبسايت</a>
+      <a href="#backend">الباك إند</a>
+      <a href="#sectors">القطاعات</a>
+      <a href="#inventory">الموديولات</a>
+      <a href="#roadmap">الديموهات</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="overview">
+      <img src="assets/hero-saas.png" alt="منصة SaaS متعددة القطاعات">
+      <div class="shade"></div>
+      <div class="hero-inner">
+        <p class="eyebrow">Preview Scope</p>
+        <h1>بريفيو واحد يجمع الموقع التسويقي، SaaS Backend، وموديولات القطاعات</h1>
+        <p>هذا التصور مبني على الملفات التي أرسلتها: 3PL، مقاولات Odoo 19، Jadeer Real Estate/HR، Saudi HR، ومشروع EduSaaS. الهدف أن نجهز ديموهات قابلة للبيع كخطط SaaS.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#backend">شاهد Backend Preview</a>
+          <a class="button secondary" href="#sectors">خريطة القطاعات</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section split" id="website">
+      <div>
+        <p class="eyebrow">Part 1</p>
+        <h2>الجزء التسويقي من الويبسايت</h2>
+        <p class="lead">واجهة بيع عامة تعرض الأنظمة كمنتجات SaaS، وتدخل العميل في funnel واضح: اختيار القطاع، تحديد الخطة، طلب تجربة، ثم provisioning على قاعدة مستقلة.</p>
+      </div>
+      <div class="website-preview">
+        <div class="browser-bar"><span></span><span></span><span></span><strong>yourdomain.com</strong></div>
+        <div class="mini-hero">
+          <small>Odoo SaaS Multi-Database</small>
+          <h3>أنظمة أعمال جاهزة كاشتراك شهري</h3>
+          <p>مقاولات، عقارات، HR، لوجستيات، وتعليم.</p>
+        </div>
+        <div class="mini-grid">
+          <span>Construction</span>
+          <span>Real Estate</span>
+          <span>Saudi HR</span>
+          <span>3PL</span>
+          <span>EduSaaS</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section backend" id="backend">
+      <div class="section-head">
+        <p class="eyebrow">Part 2</p>
+        <h2>Backend Preview: SaaS Manager + Operations Dashboard</h2>
+        <p>هذا الجزء يمثل ما سيراه فريق الإدارة على Master DB: العملاء، الخطط، الاشتراكات، قواعد البيانات، الفوترة، وحالة provisioning.</p>
+      </div>
+      <div class="backend-shell">
+        <aside>
+          <strong>SaaS Manager</strong>
+          <a class="active">Dashboard</a>
+          <a>Tenants</a>
+          <a>Plans</a>
+          <a>Subscriptions</a>
+          <a>Payments</a>
+          <a>Provisioning Logs</a>
+          <a>Onboarding Imports</a>
+        </aside>
+        <div class="workspace">
+          <div class="metrics">
+            <article><span>Active Tenants</span><strong>24</strong></article>
+            <article><span>MRR</span><strong>$8.7k</strong></article>
+            <article><span>Suspended</span><strong>2</strong></article>
+            <article><span>Trial</span><strong>6</strong></article>
+          </div>
+          <div class="table-card">
+            <div class="table-head">
+              <h3>Tenant Provisioning Queue</h3>
+              <button>New Tenant</button>
+            </div>
+            <table>
+              <thead>
+                <tr><th>العميل</th><th>القطاع</th><th>الخطة</th><th>DB</th><th>الحالة</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Al Riyada Contracting</td><td>مقاولات</td><td>Business</td><td>tenant_riyadah</td><td><span class="pill ok">Active</span></td></tr>
+                <tr><td>Fast Mile Logistics</td><td>3PL</td><td>Enterprise</td><td>tenant_fastmile</td><td><span class="pill warn">Provisioning</span></td></tr>
+                <tr><td>Jadeer Properties</td><td>عقارات</td><td>Business</td><td>tenant_jadeer</td><td><span class="pill ok">Active</span></td></tr>
+                <tr><td>Saudi People Co.</td><td>HR</td><td>Starter</td><td>tenant_hr_sa</td><td><span class="pill bad">Suspended</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sectors">
+      <div class="section-head">
+        <p class="eyebrow">Part 3</p>
+        <h2>القطاعات التي سنعمل عليها الديموهات</h2>
+      </div>
+      <div class="sector-grid">
+        <article>
+          <span>3PL</span>
+          <h3>Delivery / Logistics</h3>
+          <p>مبني على `delivery_3pl`، ويصلح كديمو قوي لشركات التوصيل والمطاعم والمناديب والتسويات.</p>
+          <ul><li>Riders</li><li>Contracts</li><li>Settlements</li><li>Performance Dashboard</li></ul>
+        </article>
+        <article>
+          <span>CON</span>
+          <h3>Construction</h3>
+          <p>مبني على مجموعة Emad Construction Odoo 19، مع BOQ، مستخلصات، مشاريع، ميزانيات، وتقارير.</p>
+          <ul><li>BOQ</li><li>Progress Bills</li><li>Project Reports</li><li>Budgeting</li></ul>
+        </article>
+        <article>
+          <span>REA</span>
+          <h3>Real Estate</h3>
+          <p>مبني على Jadeer Real Estate، لإدارة دورة العقار من CRM إلى الحجز والدفعات والمشاريع.</p>
+          <ul><li>Units</li><li>Reservations</li><li>Payment Plans</li><li>CRM</li></ul>
+        </article>
+        <article>
+          <span>HR</span>
+          <h3>Saudi HR</h3>
+          <p>مبني على Saudi HR وJadeer HR: حضور، جزاءات، مكافآت، عهد، قروض، تأمينات، ونهاية خدمة.</p>
+          <ul><li>Attendance Rules</li><li>Loans</li><li>Custody</li><li>EOS</li></ul>
+        </article>
+        <article>
+          <span>EDU</span>
+          <h3>EduSaaS</h3>
+          <p>الملف الحالي React/API وليس Odoo addon مباشر. سنستخدمه كواجهة/بوابة تعليمية أو نحوله إلى Odoo module لاحقا.</p>
+          <ul><li>Lessons</li><li>Exams</li><li>Assignments</li><li>Live Sessions</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section inventory" id="inventory">
+      <div class="section-head">
+        <p class="eyebrow">Module Inventory</p>
+        <h2>الموديولات المكتشفة من الملفات</h2>
+      </div>
+      <div class="inventory-grid">
+        <article>
+          <h3>3PL</h3>
+          <p><strong>delivery_3pl</strong> - Odoo 18.0.4.6.0</p>
+          <small>يعتمد على: base, mail, web, hr_contract, fleet, hr_payroll</small>
+        </article>
+        <article>
+          <h3>Construction</h3>
+          <p><strong>b2b_constructors</strong>, <strong>construction_project</strong>, <strong>construction_budgeting</strong>, <strong>construction_project_reports</strong></p>
+          <small>مناسب لـ Odoo 19، ويحتاج مراجعة dependencies مثل om_account_accountant وstock_analytic.</small>
+        </article>
+        <article>
+          <h3>Real Estate / Jadeer</h3>
+          <p><strong>real_estate</strong>, <strong>real_estate_crm</strong>, <strong>realestate_project</strong>, <strong>property_coding</strong></p>
+          <small>يحتوي أيضا على موديولات مالية وHR مساعدة.</small>
+        </article>
+        <article>
+          <h3>Saudi HR</h3>
+          <p><strong>attendances_structure_base</strong>, <strong>attendance_rules</strong>, <strong>employee_bonuses</strong>, <strong>employee_penalty</strong>, <strong>hr_custody</strong>, <strong>saudi_hr_eos</strong></p>
+          <small>أغلبها Odoo 15/HR ويحتاج upgrade path قبل الاعتماد النهائي.</small>
+        </article>
+        <article>
+          <h3>Education</h3>
+          <p><strong>edusaas-project-source</strong></p>
+          <small>React + API routes: dashboard, subscriptions, analytics, lessons, exams, assignments, live sessions.</small>
+        </article>
+      </div>
+    </section>
+
+    <section class="section roadmap" id="roadmap">
+      <div class="section-head">
+        <p class="eyebrow">Demo Roadmap</p>
+        <h2>خطة تجهيز الديموهات</h2>
+      </div>
+      <div class="roadmap-list">
+        <div><strong>01</strong><span>تجهيز Master DB وفيه `odoo_saas_manager` + website + CRM leads.</span></div>
+        <div><strong>02</strong><span>إنشاء template DB لكل قطاع أو template عام + modules حسب الخطة.</span></div>
+        <div><strong>03</strong><span>تنظيف dependencies واختبار install لكل vertical على إصدار Odoo المستهدف.</span></div>
+        <div><strong>04</strong><span>إضافة demo data: عميل، مشروع، فاتورة، دفعة، مستخدمين، وسيناريو تشغيل كامل.</span></div>
+        <div><strong>05</strong><span>ربط صفحات الموقع بأزرار: طلب تجربة، إنشاء tenant، ومتابعة الاشتراك.</span></div>
+      </div>
+    </section>
+
+    <section class="section documents" id="documents">
+      <div class="section-head">
+        <p class="eyebrow">Execution Pack</p>
+        <h2>ملفات التنفيذ الجاهزة</h2>
+      </div>
+      <div class="doc-grid">
+        <a href="module_inventory.md">
+          <strong>Module Inventory</strong>
+          <span>قائمة الموديولات المكتشفة وتصنيفها.</span>
+        </a>
+        <a href="compatibility_matrix.md">
+          <strong>Compatibility Matrix</strong>
+          <span>توافق الإصدارات والمخاطر لكل قطاع.</span>
+        </a>
+        <a href="demo_rollout_plan.md">
+          <strong>Demo Rollout Plan</strong>
+          <span>خطة تجهيز Master وtenant templates.</span>
+        </a>
+        <a href="sector_demo_scripts.md">
+          <strong>Sector Demo Scripts</strong>
+          <span>سيناريو عرض لكل قطاع أمام العميل.</span>
+        </a>
+        <a href="saas_plan_mapping.csv">
+          <strong>SaaS Plan Mapping</strong>
+          <span>CSV يربط الخطط بالموديولات.</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>SingleClic SaaS Demo Hub</strong>
+    <span>Website + Backend + SaaS Module + Sector Demos</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

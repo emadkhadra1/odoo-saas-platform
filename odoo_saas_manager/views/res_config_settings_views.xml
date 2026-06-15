@@ -1,0 +1,36 @@
+<odoo>
+    <record id="res_config_settings_view_form_saas_manager" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.saas.manager</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="SaaS Manager" string="SaaS Manager" name="odoo_saas_manager">
+                    <block title="Provisioning">
+                        <setting string="Template Database">
+                            <field name="saas_template_database" placeholder="odoo_tenant_template"/>
+                        </setting>
+                        <setting string="Public Domain">
+                            <field name="saas_public_domain" placeholder="mycompany.com"/>
+                        </setting>
+                    </block>
+                    <block title="API">
+                        <setting string="API Key">
+                            <field name="saas_api_key" password="True"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_saas_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module': 'odoo_saas_manager'}</field>
+    </record>
+
+    <menuitem id="menu_saas_settings" name="Settings" parent="menu_saas_configuration" action="action_saas_config_settings" sequence="99" groups="odoo_saas_manager.group_saas_admin"/>
+</odoo>

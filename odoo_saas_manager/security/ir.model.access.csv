@@ -1,0 +1,20 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_saas_plan_support,saas.plan support,model_saas_plan,group_saas_support,1,0,0,0
+access_saas_plan_manager,saas.plan manager,model_saas_plan,group_saas_manager,1,1,1,0
+access_saas_plan_admin,saas.plan admin,model_saas_plan,group_saas_admin,1,1,1,1
+access_saas_tenant_support,saas.tenant support,model_saas_tenant,group_saas_support,1,1,0,0
+access_saas_tenant_manager,saas.tenant manager,model_saas_tenant,group_saas_manager,1,1,1,0
+access_saas_tenant_admin,saas.tenant admin,model_saas_tenant,group_saas_admin,1,1,1,1
+access_saas_subscription_support,saas.subscription support,model_saas_subscription,group_saas_support,1,0,0,0
+access_saas_subscription_accountant,saas.subscription accountant,model_saas_subscription,group_saas_accountant,1,1,1,0
+access_saas_subscription_manager,saas.subscription manager,model_saas_subscription,group_saas_manager,1,1,1,0
+access_saas_subscription_admin,saas.subscription admin,model_saas_subscription,group_saas_admin,1,1,1,1
+access_saas_payment_accountant,saas.payment accountant,model_saas_payment,group_saas_accountant,1,1,1,0
+access_saas_payment_manager,saas.payment manager,model_saas_payment,group_saas_manager,1,1,1,0
+access_saas_payment_admin,saas.payment admin,model_saas_payment,group_saas_admin,1,1,1,1
+access_saas_provisioning_log_support,saas.provisioning.log support,model_saas_provisioning_log,group_saas_support,1,0,0,0
+access_saas_provisioning_log_manager,saas.provisioning.log manager,model_saas_provisioning_log,group_saas_manager,1,1,1,0
+access_saas_provisioning_log_admin,saas.provisioning.log admin,model_saas_provisioning_log,group_saas_admin,1,1,1,1
+access_saas_dashboard_support,saas.dashboard support,model_saas_dashboard,group_saas_support,1,0,1,0
+access_saas_onboarding_import_manager,saas.onboarding.import manager,model_saas_onboarding_import_wizard,group_saas_manager,1,1,1,0
+access_saas_onboarding_import_admin,saas.onboarding.import admin,model_saas_onboarding_import_wizard,group_saas_admin,1,1,1,1

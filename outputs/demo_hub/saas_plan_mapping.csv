@@ -1,0 +1,6 @@
+plan_code,sector,monthly_price,yearly_price,max_users,included_modules
+CONSTRUCTION_BUSINESS,Construction,249,2490,30,"base,mail,contacts,account,project,purchase,stock,sale_management,construction_project,b2b_constructors,b2b_constructor_edit,construction_budgeting,construction_project_reports,financial_custody,saas_tenant_agent"
+THREE_PL_BUSINESS,3PL,199,1990,35,"base,mail,web,hr_contract,fleet,hr_payroll,delivery_3pl,saas_tenant_agent"
+REAL_ESTATE_BUSINESS,Real Estate,229,2290,25,"base,mail,crm,sale_management,sale_crm,account,realestate_project,project_phase_building_floor,partner_custom,payment_analytic_account,real_estate_security,real_estate,real_estate_crm,property_coding,web_notify,saas_tenant_agent"
+SAUDI_HR_BUSINESS,Saudi HR,179,1790,40,"base,mail,hr,hr_payroll,attendances_structure_base,attendance_rules,contract_work_hour,employee_bonuses,employee_penalty,hr_custody,ohrms_loan,ohrms_loan_accounting,ohrms_loan_custom,saudi_hr_eos,saudi_hr_iqama,social_insurance,saas_tenant_agent"
+EDUCATION_PORTAL,Education,159,1590,60,"base,mail,contacts,website,portal,saas_tenant_agent"
