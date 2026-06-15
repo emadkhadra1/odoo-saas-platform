@@ -12,7 +12,7 @@ class OdooSaasWebsiteController(http.Controller):
 
     _preview_dir = Path(__file__).resolve().parents[1] / "static" / "preview"
     _asset_base = "/odoo_saas_website/static/preview/"
-    _asset_version = "19.0.1.1.0"
+    _asset_version = "19.0.1.1.1"
 
     def _render_preview(self):
         html = (self._preview_dir / "index.html").read_text(encoding="utf-8")
@@ -62,7 +62,7 @@ class OdooSaasWebsiteController(http.Controller):
 
         lead_model = request.env["crm.lead"].sudo()
         description_lines = [
-            ("مصدر الطلب", "SaaS ERP Cloud website"),
+            ("مصدر الطلب", "Qimam Solutions Cloud website"),
             ("القطاع", sector),
             ("ملاحظات", message),
             ("الرابط", request.httprequest.referrer or request.httprequest.url),

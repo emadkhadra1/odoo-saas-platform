@@ -1,6 +1,6 @@
 <odoo>
     <record id="website_menu_saas_platform" model="website.menu">
-        <field name="name">SaaS ERP Cloud</field>
+        <field name="name">Qimam Solutions Cloud</field>
         <field name="url">/saas-platform</field>
         <field name="parent_id" ref="website.main_menu"/>
         <field name="sequence">20</field>
