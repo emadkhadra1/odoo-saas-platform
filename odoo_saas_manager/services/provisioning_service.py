@@ -30,7 +30,7 @@ class TenantProvisioningService:
 
         database_created = False
         self._log(tenant, "provision_start", "pending", "Starting tenant provisioning.")
-        tenant.action_mark_provisioning()
+        tenant.write({"status": "provisioning"})
 
         try:
             self._create_database_from_template(template_db, tenant.database_name)
@@ -51,19 +51,19 @@ class TenantProvisioningService:
         except Exception as exc:
             _logger.exception("Tenant provisioning failed for %s", tenant.database_name)
             self._log(tenant, "provision_failed", "failed", str(exc), technical_details=repr(exc))
-            tenant.action_suspend()
+            tenant.write({"status": "suspended"})
             if database_created:
                 self._drop_database_best_effort(tenant.database_name)
             raise
 
     def suspend_database(self, tenant):
         tenant.ensure_one()
-        tenant.action_suspend()
+        tenant.write({"status": "suspended"})
         self._log(tenant, "suspend_tenant", "success", "Tenant was suspended in master database.")
 
     def reactivate_database(self, tenant):
         tenant.ensure_one()
-        tenant.action_activate()
+        tenant.write({"status": "active"})
         self._log(tenant, "reactivate_tenant", "success", "Tenant was reactivated in master database.")
 
     def _get_param(self, key, default=False):

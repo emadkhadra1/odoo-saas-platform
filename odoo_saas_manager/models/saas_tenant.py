@@ -112,6 +112,16 @@ class SaasTenant(models.Model):
     def action_cancel(self):
         self.write({"status": "cancelled"})
 
+    def action_open_tenant_database(self):
+        self.ensure_one()
+        if not self.database_name:
+            raise ValidationError("Set the tenant database name before opening the tenant.")
+        return {
+            "type": "ir.actions.act_url",
+            "url": "/web?db=%s" % self.database_name,
+            "target": "self",
+        }
+
     def _get_or_create_billing_partner(self):
         self.ensure_one()
         partner = self.env["res.partner"].search([("email", "=", self.email)], limit=1)

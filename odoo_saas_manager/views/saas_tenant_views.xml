@@ -49,6 +49,7 @@
             <form>
                 <header>
                     <button name="action_mark_provisioning" string="Provision" type="object" class="btn-primary" invisible="status not in ('draft', 'suspended')"/>
+                    <button name="action_open_tenant_database" string="Open Tenant" type="object" class="btn-secondary" invisible="status != 'active' or not database_name"/>
                     <button name="action_activate" string="Activate" type="object" class="btn-primary" invisible="status == 'active'"/>
                     <button name="action_reactivate" string="Reactivate" type="object" class="btn-primary" invisible="status not in ('suspended', 'expired')"/>
                     <button name="action_suspend" string="Suspend" type="object" invisible="status != 'active'"/>
