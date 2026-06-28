@@ -1,16 +1,15 @@
-<openerp>
+<odoo>
     <data>
 
 
 
-        <report
-                id="print_construction_receive_order"
-                model="construction.receive.order"
-                string="Receive Order Report"
-                report_type="qweb-pdf"
-                name="construction_project.construction_receive_order_report"
-                file="construction_project.construction_receive_order_report"
-        />
+        <record id="print_construction_receive_order" model="ir.actions.report">
+            <field name="name">Receive Order Report</field>
+            <field name="model">construction.receive.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">construction_project.construction_receive_order_report</field>
+            <field name="report_file">construction_project.construction_receive_order_report</field>
+        </record>
 
         <template id="construction_receive_order_report">
             <!--<xpath expr="//div[@class='page']" position="replace">-->
@@ -230,4 +229,4 @@
 
 
     </data>
-</openerp>
+</odoo>
