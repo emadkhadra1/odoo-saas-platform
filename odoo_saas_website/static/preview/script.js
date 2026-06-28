@@ -3,6 +3,7 @@ const toggles = document.querySelectorAll("[data-cycle]");
 const priceNodes = document.querySelectorAll("[data-price]");
 const periodNodes = document.querySelectorAll("[data-period]");
 const leadForm = document.querySelector(".lead-form");
+const loginLinks = document.querySelectorAll("[data-odoo-login]");
 const lang = document.documentElement.lang === "en" ? "en" : "ar";
 
 const copy = {
@@ -29,6 +30,15 @@ const copy = {
 if (header) {
   window.addEventListener("scroll", () => {
     header.style.transform = window.scrollY > 8 ? "translateY(-2px)" : "translateY(0)";
+  });
+}
+
+if (loginLinks.length) {
+  const localPreview = ["127.0.0.1", "localhost"].includes(window.location.hostname) || window.location.protocol === "file:";
+  const loginPath = "/web/login?db=sass";
+  const loginUrl = localPreview ? "http://178.104.83.32:8069/web/login?db=sass" : loginPath;
+  loginLinks.forEach((link) => {
+    link.href = loginUrl;
   });
 }
 

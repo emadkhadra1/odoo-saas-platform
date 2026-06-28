@@ -133,6 +133,26 @@ img {
   font-weight: 800;
 }
 
+.login-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 8px;
+  color: var(--white);
+  border: 1px solid rgba(51, 216, 233, .42);
+  background: rgba(51, 216, 233, .08);
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.login-button:hover {
+  color: var(--navy);
+  background: var(--cyan);
+}
+
 .header-cta,
 .button {
   display: inline-flex;
