@@ -67,7 +67,7 @@
                                 <field name="reason"/>
                             </page>
                             <page invisible="state not in ['open', 'validate']" string="Installments">
-                                <field context="{'default_custody_id': active_id}" mode="tree" name="installment_ids" readonly="state == 'validate'">
+                                <field context="{'default_custody_id': id}" mode="tree" name="installment_ids" readonly="state == 'validate'">
                                     <list editable="bottom" string="Installments">
                                         <field invisible="1" name="custody_id"/>
                                         <field name="due_date"/>
