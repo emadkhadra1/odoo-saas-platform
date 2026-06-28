@@ -11,10 +11,10 @@
                     <field domain="[('project_id', '=', project_id)]" name="boq_id"/>
                     <field invisible="1" name="business_statement_ids"/>
                 </xpath>
-                <xpath expr="//field[@name='receive_order_ids']/tree/field[@name='product_id']" position="after">
+                <xpath expr="//field[@name='receive_order_ids']/list/field[@name='product_id']" position="after">
                     <field domain="[('id', 'in', parent.business_statement_ids)]" name="business_statement_id"/>
                 </xpath>
-                <xpath expr="//field[@name='receive_order_user_ids']/tree/field[@name='product_id']" position="after">
+                <xpath expr="//field[@name='receive_order_user_ids']/list/field[@name='product_id']" position="after">
                     <field domain="[('id', 'in', parent.business_statement_ids)]" name="business_statement_id"/>
                 </xpath></field>
         </record>

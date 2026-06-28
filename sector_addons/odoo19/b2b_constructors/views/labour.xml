@@ -7,7 +7,7 @@
             <field name="model">construction.labor</field>
             <field name="inherit_id" ref="construction_project.view_construction_labor_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='line_ids']/tree/field[@name='cost']" position="after">
+                <xpath expr="//field[@name='line_ids']/list/field[@name='cost']" position="after">
                     <field name="labor_install"/>
                 </xpath>
                 <xpath expr="//field[@name='employment']" position="after">
