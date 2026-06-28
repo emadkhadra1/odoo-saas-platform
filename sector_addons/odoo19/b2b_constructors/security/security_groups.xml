@@ -9,30 +9,24 @@
 
       <record id="group_construction_create" model="res.groups">
           <field name="name">Create BOQ</field>
-          <field name="category_id" ref="module_category_construction"/>
 <!--          <field name="comment"/>-->
       </record>
 
       <record id="group_construction_approve" model="res.groups">
           <field name="name">Approve BOQ</field>
-          <field name="category_id" ref="module_category_construction"/>
       </record>
       <record id="group_owner_construction_approve" model="res.groups">
           <field name="name">Approve Owner Quotation</field>
-          <field name="category_id" ref="module_category_construction"/>
       </record>
          <record id="group_construction_notes" model="res.groups">
           <field name="name">Add/Delete/Edit Notes</field>
-          <field name="category_id" ref="module_category_construction"/>
       </record>
 
       <record id="group_owner_construction_cancel" model="res.groups">
           <field name="name">Cancel Quotation</field>
-          <field name="category_id" ref="module_category_construction"/>
       </record>
       <record id="group_construction_assignment" model="res.groups">
           <field name="name">Assignment BOQ</field>
-          <field name="category_id" ref="module_category_construction"/>
       </record>
 
         <record id="group_edit_business_statement_item" model="res.groups">
