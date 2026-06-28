@@ -13,6 +13,10 @@ Environment variables:
   POSTGRES_USER=odoo
   ODOO_BIN=odoo
   ODOO_CONFIG=/etc/odoo/odoo.conf
+  ODOO_DB_HOST=<auto from Odoo container HOST env>
+  ODOO_DB_PORT=5432
+  ODOO_DB_USER=<auto from Odoo container USER env>
+  ODOO_DB_PASSWORD=<auto from Odoo container PASSWORD env>
   ADDONS_PATHS="/mnt/extra-addons /usr/lib/python3/dist-packages/odoo/addons /var/lib/odoo/addons/19.0"
   DEPLOY_ADDONS=1
   RESET_TEMPLATE=0
@@ -85,6 +89,25 @@ require_containers() {
   fi
 }
 
+container_env() {
+  local key="$1"
+  docker inspect --format '{{range .Config.Env}}{{println .}}{{end}}' "${ODOO_CONTAINER}" \
+    | awk -F= -v wanted="${key}" '$1 == wanted {print substr($0, length(wanted) + 2); exit}'
+}
+
+load_odoo_db_args() {
+  ODOO_DB_HOST="${ODOO_DB_HOST:-$(container_env HOST)}"
+  ODOO_DB_PORT="${ODOO_DB_PORT:-5432}"
+  ODOO_DB_USER="${ODOO_DB_USER:-$(container_env USER)}"
+  ODOO_DB_PASSWORD="${ODOO_DB_PASSWORD:-$(container_env PASSWORD)}"
+
+  if [ -z "${ODOO_DB_HOST}" ] || [ -z "${ODOO_DB_USER}" ] || [ -z "${ODOO_DB_PASSWORD}" ]; then
+    echo "Could not read Odoo database connection settings from container ${ODOO_CONTAINER}." >&2
+    echo "Set ODOO_DB_HOST, ODOO_DB_USER, and ODOO_DB_PASSWORD, then rerun." >&2
+    exit 1
+  fi
+}
+
 addon_exists() {
   local addon="$1"
   docker exec -i "${ODOO_CONTAINER}" sh -s -- "${addon}" "${ADDONS_PATHS}" <<'SH'
@@ -146,6 +169,7 @@ odoo_config_args=()
 if docker exec -i "${ODOO_CONTAINER}" test -f "${ODOO_CONFIG}"; then
   odoo_config_args=(-c "${ODOO_CONFIG}")
 fi
+odoo_db_args=()
 
 run_odoo_modules() {
   local db="$1"
@@ -153,7 +177,7 @@ run_odoo_modules() {
   local modules="$3"
 
   echo "Running Odoo module ${mode} on ${db}: ${modules}"
-  docker exec -i "${ODOO_CONTAINER}" "${ODOO_BIN}" "${odoo_config_args[@]}" -d "${db}" "-${mode}" "${modules}" --stop-after-init --without-demo=all
+  docker exec -i "${ODOO_CONTAINER}" "${ODOO_BIN}" "${odoo_config_args[@]}" "${odoo_db_args[@]}" -d "${db}" "-${mode}" "${modules}" --stop-after-init --without-demo=all
 }
 
 clone_demo() {
@@ -164,6 +188,8 @@ clone_demo() {
 }
 
 require_containers
+load_odoo_db_args
+odoo_db_args=(--db_host "${ODOO_DB_HOST}" --db_port "${ODOO_DB_PORT}" --db_user "${ODOO_DB_USER}" --db_password "${ODOO_DB_PASSWORD}")
 
 if [ "${DEPLOY_ADDONS}" = "1" ]; then
   echo "Deploying repository addons to ${ODOO_CONTAINER}"
