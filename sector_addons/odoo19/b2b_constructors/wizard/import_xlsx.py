@@ -1,7 +1,13 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError, UserError
 import xlrd
-from pyxlsb import convert_date
+try:
+    from pyxlsb import convert_date
+except ImportError:
+    from datetime import datetime, timedelta
+
+    def convert_date(value):
+        return datetime(1899, 12, 30) + timedelta(days=float(value))
 import base64
 
 
