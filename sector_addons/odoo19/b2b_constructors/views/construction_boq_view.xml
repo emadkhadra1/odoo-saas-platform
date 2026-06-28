@@ -36,7 +36,7 @@
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-                            <button class="oe_stat_button" context="{'default_purchase_order_id': active_id}" icon="fa-pencil-square-o" id="qoutation_button" name="open_qoutations" type="object">
+                            <button class="oe_stat_button" context="{'default_purchase_order_id': id}" icon="fa-pencil-square-o" id="qoutation_button" name="open_qoutations" type="object">
                                 <div class="o_form_field o_stat_info">
                                     <span class="o_stat_text">
                                         Qoutations
