@@ -13,7 +13,9 @@ Odoo Mates accounting bundle is not available for Odoo 19.
     "author": "Qimam Technical Solutions",
     "license": "LGPL-3",
     "depends": ["account"],
-    "data": [],
+    "data": [
+        "security/ir.model.access.csv",
+    ],
     "installable": True,
     "application": False,
     "auto_install": False,
