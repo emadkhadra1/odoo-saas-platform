@@ -55,6 +55,70 @@ When a paid customer subscribes, create a tenant in SaaS Manager, select the sec
 
 Run these commands on the Hetzner server.
 
+### Phase 1: Pull and deploy addons
+
+```bash
+cd /opt/odoo/custom-addons/odoo-saas-platform
+git pull origin main
+bash deployment/deploy_addons_to_docker.sh
+```
+
+Upgrade the SaaS manager and website in the master database:
+
+```bash
+docker exec -it odoo19 odoo -d sass -u odoo_saas_manager,odoo_saas_website --stop-after-init
+docker restart odoo19
+```
+
+### Phase 2: Bootstrap the construction demo
+
+The construction template can be created from the Odoo 19 construction addons once all required dependencies are available inside the Odoo container.
+
+```bash
+cd /opt/odoo/custom-addons/odoo-saas-platform
+PUBLIC_BASE_URL=http://178.104.83.32:8069 RESET_TEMPLATE=1 bash deployment/bootstrap_sector_demo.sh construction
+```
+
+The script will:
+
+- copy this repository's addons into `odoo19:/mnt/extra-addons`
+- check that required dependencies exist
+- create or upgrade `tenant_template_construction`
+- clone it into `demo_construction`
+- print the demo login URL
+
+If it stops with missing dependencies such as `om_account_accountant` or `stock_analytic`, copy those Odoo 19 addons into `/mnt/extra-addons` or add their path through `ADDONS_PATHS`, then rerun the same command.
+
+### Phase 3: Check demo readiness
+
+```bash
+PUBLIC_BASE_URL=http://178.104.83.32:8069 bash deployment/check_demo_databases.sh
+```
+
+The expected first ready demo route is:
+
+```text
+http://178.104.83.32:8069/demo/construction
+```
+
+That route redirects to:
+
+```text
+http://178.104.83.32:8069/web/login?db=demo_construction
+```
+
+### Phase 4: Refresh public demo copies
+
+After a template is prepared, refresh its public demo database:
+
+```bash
+bash deployment/create_demo_databases.sh
+```
+
+This clones every template that exists and skips templates that are not ready yet.
+
+### Manual database commands
+
 List existing databases:
 
 ```bash
@@ -95,6 +159,7 @@ Set demo login credentials inside each demo database from Odoo UI or Odoo shell.
 - SaaS Manager: Odoo 19.
 - Marketing website: Odoo 19.
 - Construction modules: manifests show `19.0.1.0.0`.
-- 3PL module: original archive shows `18.0.4.6.0`; an initial Odoo 19 copy now exists at `sector_addons/odoo19/delivery_3pl` with manifest `19.0.4.6.0`, but it still needs an install test on the Odoo 19 server.
-- Saudi HR archive: currently provided as `.rar`; extract it or send it as `.zip` so manifests can be inspected.
+- Construction missing dependencies to confirm on server: `om_account_accountant`, `stock_analytic`, and any official modules not present in the Odoo image.
+- 3PL module: original archive shows `18.0.4.6.0`; an initial Odoo 19 copy now exists at `sector_addons/odoo19/delivery_3pl` with manifest `19.0.4.6.0`, but it still needs an install test on the Odoo 19 server and requires `hr_payroll`.
+- Saudi HR archive: currently provided as `.rar`; extract it or send it as `.zip` so manifests can be inspected. The available `hr_custody` addon also depends on `hr_employee_updation`, which is not in the current repo.
 - Real estate archive: inspected `jadeer-production.zip`; manifests are mostly Odoo 12 to 15 and some modules have no reliable version, so it needs an Odoo 19 conversion before it is safe as a production template.

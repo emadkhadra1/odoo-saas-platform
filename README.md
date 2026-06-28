@@ -40,6 +40,18 @@ Server deployment helper:
 bash deployment/deploy_addons_to_docker.sh
 ```
 
+Bootstrap a ready sector demo database:
+
+```bash
+bash deployment/bootstrap_sector_demo.sh construction
+```
+
+Check master/template/demo database readiness:
+
+```bash
+bash deployment/check_demo_databases.sh
+```
+
 ## Standalone Previews
 
 - `outputs/marketing_site/`

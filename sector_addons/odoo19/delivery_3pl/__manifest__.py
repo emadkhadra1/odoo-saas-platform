@@ -1,4 +1,4 @@
-﻿{
+{
     'name': '3PL Delivery Operations Management',
     'version': '19.0.4.6.0',
     'category': 'Operations/Delivery',

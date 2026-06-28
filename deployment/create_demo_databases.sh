@@ -3,10 +3,27 @@ set -euo pipefail
 
 POSTGRES_CONTAINER="${POSTGRES_CONTAINER:-odoo19-db}"
 POSTGRES_USER="${POSTGRES_USER:-odoo}"
+SKIP_MISSING_TEMPLATES="${SKIP_MISSING_TEMPLATES:-1}"
+
+db_exists() {
+  local db="$1"
+  local result
+  result="$(docker exec -i "${POSTGRES_CONTAINER}" psql -U "${POSTGRES_USER}" -d postgres -tAc "SELECT 1 FROM pg_database WHERE datname='${db}'" | tr -d '[:space:]')"
+  [ "${result}" = "1" ]
+}
 
 clone_db() {
   local template_db="$1"
   local demo_db="$2"
+
+  if ! db_exists "${template_db}"; then
+    if [ "${SKIP_MISSING_TEMPLATES}" = "1" ]; then
+      echo "Skipping ${demo_db}: source template does not exist (${template_db})."
+      return 0
+    fi
+    echo "Missing source template database: ${template_db}" >&2
+    exit 1
+  fi
 
   echo "Refreshing ${demo_db} from ${template_db}"
   docker exec -i "${POSTGRES_CONTAINER}" psql -U "${POSTGRES_USER}" -d postgres -v ON_ERROR_STOP=1 -c \
