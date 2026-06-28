@@ -159,7 +159,7 @@ Set demo login credentials inside each demo database from Odoo UI or Odoo shell.
 - SaaS Manager: Odoo 19.
 - Marketing website: Odoo 19.
 - Construction modules: manifests show `19.0.1.0.0`.
-- Construction missing dependencies to confirm on server: `om_account_accountant`, `stock_analytic`, and any official modules not present in the Odoo image.
+- Construction includes Odoo 19 compatibility shims for `om_account_accountant` and `stock_analytic` so demo templates can be installed. Replace them with full production-grade Odoo 19 addons if those accounting or inventory analytic features are required.
 - 3PL module: original archive shows `18.0.4.6.0`; an initial Odoo 19 copy now exists at `sector_addons/odoo19/delivery_3pl` with manifest `19.0.4.6.0`, but it still needs an install test on the Odoo 19 server and requires `hr_payroll`.
 - Saudi HR archive: currently provided as `.rar`; extract it or send it as `.zip` so manifests can be inspected. The available `hr_custody` addon also depends on `hr_employee_updation`, which is not in the current repo.
 - Real estate archive: inspected `jadeer-production.zip`; manifests are mostly Odoo 12 to 15 and some modules have no reliable version, so it needs an Odoo 19 conversion before it is safe as a production template.
