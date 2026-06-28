@@ -762,6 +762,147 @@ textarea {
   color: rgba(255, 255, 255, .76);
 }
 
+.demo-page {
+  background: #eef6f9;
+}
+
+.demo-hero {
+  min-height: 420px;
+}
+
+.demo-hero::before {
+  opacity: .98;
+}
+
+.demo-shell {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.demo-sidebar,
+.demo-panel,
+.demo-metric,
+.demo-table-wrap {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: 0 12px 38px rgba(8, 24, 50, .07);
+}
+
+.demo-sidebar {
+  position: sticky;
+  top: 104px;
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+}
+
+.demo-tab {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--ink);
+  background: transparent;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.demo-tab.active {
+  color: var(--white);
+  background: var(--navy);
+}
+
+.demo-content {
+  display: grid;
+  gap: 18px;
+}
+
+.demo-panel {
+  display: none;
+  padding: 24px;
+}
+
+.demo-panel.active {
+  display: block;
+}
+
+.demo-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.demo-metric {
+  padding: 18px;
+}
+
+.demo-metric strong {
+  display: block;
+  color: var(--cyan-2);
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.demo-metric span {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.demo-table-wrap {
+  overflow: hidden;
+}
+
+.demo-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.demo-table th,
+.demo-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  text-align: inherit;
+}
+
+.demo-table th {
+  color: var(--muted);
+  background: #f5fbfd;
+  font-weight: 800;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  color: #075f4c;
+  background: #dff8ef;
+  font-weight: 800;
+}
+
+.status-pill.warning {
+  color: #7a5100;
+  background: #fff2d6;
+}
+
+.demo-note {
+  padding: 16px 18px;
+  border-radius: 8px;
+  color: var(--navy);
+  background: #dff8fb;
+  border: 1px solid rgba(19, 174, 202, .22);
+}
+
 .footer {
   justify-content: space-between;
   gap: 20px;
@@ -820,7 +961,9 @@ textarea {
   .service-overview,
   .service-grid,
   .package-grid,
-  .sector-cta {
+  .sector-cta,
+  .demo-shell,
+  .demo-metrics {
     grid-template-columns: 1fr;
   }
 
