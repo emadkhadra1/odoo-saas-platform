@@ -10,8 +10,9 @@ copy_addon() {
   addon_name="$(basename "$source_path")"
 
   echo "Deploying ${addon_name}"
-  docker exec -i "${ODOO_CONTAINER}" rm -rf "${EXTRA_ADDONS_PATH}/${addon_name}"
+  docker exec -u 0 -i "${ODOO_CONTAINER}" rm -rf "${EXTRA_ADDONS_PATH:?}/${addon_name}"
   docker cp "${source_path}" "${ODOO_CONTAINER}:${EXTRA_ADDONS_PATH}/"
+  docker exec -u 0 -i "${ODOO_CONTAINER}" chown -R odoo:root "${EXTRA_ADDONS_PATH}/${addon_name}"
 }
 
 copy_addon odoo_saas_manager
