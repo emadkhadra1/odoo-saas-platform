@@ -91,7 +91,7 @@
                     <field name="sub_business_statement_id"/>
                     <field name="sub_item_id"/>
                     <field name="uom_id"/>
-                    <group name="groupby" string="Group By">
+                    <group name="groupby">
                         <filter context="{'group_by': 'main_item_id'}" name="main_item_id_groupby" string="BOQ Main Item"/>
                         <filter context="{'group_by': 'sub_item_id'}" name="sub_item_id_groupby" string="BOQ Sub Item"/>
                         <filter context="{'group_by': 'uom_id'}" name="uom_id_groupby" string="Unit"/>

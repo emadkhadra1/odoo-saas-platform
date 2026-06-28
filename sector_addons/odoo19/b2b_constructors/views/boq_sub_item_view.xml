@@ -42,7 +42,7 @@
           <field name="name"/>
           <field name="code"/>
           <field name="main_item_id"/>
-          <group string="Group By" name="groupby">
+          <group name="groupby">
             <filter name="main_item_id_groupby" string="BOQ Main Item" context="{'group_by': 'main_item_id'}"/>
           </group>
         </search>

@@ -134,7 +134,7 @@
                     <field name="project_id"/>
                     <field name="date_order" string="Date"/>
                     <field name="state"/>
-                    <group name="groupby" string="Group By">
+                    <group name="groupby">
                         <filter context="{'group_by': 'state'}" name="state_groupby" string="State"/>
                         <filter context="{'group_by': 'construction_type_id'}" name="construction_type_id_groupby" string="Construction Type"/>
                         <filter context="{'group_by': 'project_id'}" name="project_id_groupby" string="Project"/>

@@ -75,7 +75,7 @@
           <field name="current_work"/>
           <field name="total_work"/>
           <field name="work_amount"/>
-          <group string="Group By" name="groupby">
+          <group name="groupby">
             <filter name="progress_bill_id_groupby" string="Progress Bill" context="{'group_by': 'progress_bill_id'}"/>
             <filter name="uom_id_groupby" string="Unit" context="{'group_by': 'uom_id'}"/>
             <filter name="business_statement_id_groupby" string="Business Statement" context="{'group_by': 'business_statement_id'}"/>

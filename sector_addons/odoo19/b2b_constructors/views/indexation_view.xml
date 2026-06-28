@@ -67,7 +67,7 @@
           <field name="remaining_quantity"/>
           <field name="finished_quantity"/>
           <field name="total"/>
-          <group string="Group By" name="groupby">
+          <group name="groupby">
             <filter name="purchase_order_id_groupby" string="Constrution BOQ" context="{'group_by': 'purchase_order_id'}"/>
             <filter name="uom_id_groupby" string="Unit" context="{'group_by': 'uom_id'}"/>
             <filter name="main_item_id_groupby" string="Main Item" context="{'group_by': 'main_item_id'}"/>

@@ -74,7 +74,7 @@
           <field name="required_quantity"/>
           <field name="percent"/>
           <field name="total"/>
-          <group string="Group By" name="groupby">
+          <group name="groupby">
             <filter name="purchase_order_id_groupby" string="Construction BOQ" context="{'group_by': 'purchase_order_id'}"/>
             <filter name="project_id_groupby" string="Project" context="{'group_by': 'project_id'}"/>
             <filter name="consructor_id_groupby" string="Constructor" context="{'group_by': 'consructor_id'}"/>

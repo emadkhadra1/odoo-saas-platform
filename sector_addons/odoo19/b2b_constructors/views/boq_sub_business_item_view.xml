@@ -48,7 +48,7 @@
           <field name="code"/>
           <field name="sub_item_id"/>
 <!--          <field name="uom_id"/>-->
-          <group string="Group By" name="groupby">
+          <group name="groupby">
             <filter name="main_item_id_groupby" string="BOQ Main Item" context="{'group_by': 'main_item_id'}"/>
             <filter name="sub_item_id_groupby" string="BOQ Sub Item" context="{'group_by': 'sub_item_id'}"/>
 <!--            <filter name="uom_id_groupby" string="Unit" context="{'group_by': 'uom_id'}"/>-->

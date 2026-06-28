@@ -163,7 +163,7 @@
                     <field name="from_date"/>
                     <field name="to_date"/>
                     <field name="state"/>
-                    <group name="groupby" string="Group By">
+                    <group name="groupby">
                         <filter context="{'group_by': 'purchase_order_id'}" name="purchase_order_id_groupby" string="Construction BOQ"/>
                         <filter context="{'group_by': 'project_id'}" name="project_id_groupby" string="Project"/>
                         <filter context="{'group_by': 'consructor_id'}" name="consructor_id_groupby" string="Consructor"/>
