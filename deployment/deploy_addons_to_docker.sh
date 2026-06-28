@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ODOO_CONTAINER="${ODOO_CONTAINER:-odoo19}"
+EXTRA_ADDONS_PATH="${EXTRA_ADDONS_PATH:-/mnt/extra-addons}"
+
+copy_addon() {
+  local source_path="$1"
+  local addon_name
+  addon_name="$(basename "$source_path")"
+
+  echo "Deploying ${addon_name}"
+  docker exec -i "${ODOO_CONTAINER}" rm -rf "${EXTRA_ADDONS_PATH}/${addon_name}"
+  docker cp "${source_path}" "${ODOO_CONTAINER}:${EXTRA_ADDONS_PATH}/"
+}
+
+copy_addon odoo_saas_manager
+copy_addon odoo_saas_website
+
+for addon in sector_addons/odoo19/*; do
+  if [ -d "$addon" ] && [ -f "$addon/__manifest__.py" ]; then
+    copy_addon "$addon"
+  fi
+done
+
+docker restart "${ODOO_CONTAINER}"
+
+echo "Addons deployed. Open Odoo Apps, update the apps list, then upgrade/install the needed modules."

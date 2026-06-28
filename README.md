@@ -34,6 +34,12 @@ Sector demo database setup:
 docs/sector_demo_databases.md
 ```
 
+Server deployment helper:
+
+```bash
+bash deployment/deploy_addons_to_docker.sh
+```
+
 ## Standalone Previews
 
 - `outputs/marketing_site/`
