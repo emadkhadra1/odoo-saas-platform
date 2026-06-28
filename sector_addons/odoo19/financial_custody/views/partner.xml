@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="financial_custody.view_partner_property_form_inherit" model="ir.ui.view">
+            <field name="name">financial_custody.view.partner.property.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='property_account_payable_id']" position="after">
+                    <field name="custody_account_id" required="employee_id != False"/>
+                    <field invisible="1" name="employee_id"/>
+                </xpath></field>
+        </record>
+    </data>
+</odoo>

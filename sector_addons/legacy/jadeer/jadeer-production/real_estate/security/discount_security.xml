@@ -1,0 +1,16 @@
+<odoo>
+    <record id="discount_first_approve" model="res.groups">
+        <field name="name">Discount First Approve</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="discount_second_approve" model="res.groups">
+        <field name="name">Discount Second Approve</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="discount_final_approve" model="res.groups">
+        <field name="name">Discount Final Approve</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+
+    <record id="view_crm_lead2opportunity_partner" model="ir.ui.view">
+            <field name="name">crm.lead2opportunity.partner.form</field>
+            <field name="model">crm.lead2opportunity.partner</field>
+            <field name="inherit_id" ref="crm.view_crm_lead2opportunity_partner"/>
+
+            <field name="arch" type="xml">
+                <field name="user_id" position="before">
+                    <field name="has_contact" invisible="1"/>
+                    <field name="has_opp" invisible="1"/>
+                </field>
+                <field name="action" position="attributes">
+                    <attribute name="attrs">{'readonly':['|',('has_contact','=',True),('has_opp','=',True)]}</attribute>
+                </field>
+                <field name="partner_id" position="attributes">
+                    <attribute name="attrs">{'readonly':[('has_opp','=',True)]}</attribute>
+                    <attribute name="force_save">1</attribute>
+                </field>
+                <field name="name" position="attributes">
+                    <attribute name="attrs">{'readonly':[('has_contact','=',True)]}</attribute>
+                    <attribute name="force_save">1</attribute>
+                </field>
+                 <field name="user_id" position="attributes">
+                    <attribute name="attrs">{'readonly':[('user_id','!=',False),'|',('has_contact','=',True),('has_opp','=',True)]}</attribute>
+                    <attribute name="force_save">1</attribute>
+                </field>
+                 <field name="team_id" position="attributes">
+                    <attribute name="attrs">{'readonly':[('team_id','!=',False),'|',('has_contact','=',True),('has_opp','=',True)]}</attribute>
+                    <attribute name="force_save">1</attribute>
+                </field>
+<!--                <field name="opportunity_ids" position="attributes">-->
+<!--                    <attribute name="attrs">{'readonly':[('name','=','merge'),('has_opp','=',True)]}</attribute>-->
+<!--                    <attribute name="force_save">1</attribute>-->
+<!--                </field>-->
+
+
+
+            </field>
+        </record>
+
+
+
+</odoo>

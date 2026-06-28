@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        
+       <!-- Inherit Form View to Modify it -->
+       <record id="view_inherit_b2b_business_item_form" model="ir.ui.view">
+           <field name="name">view.inherit.b2b.business.items.form</field>
+           <field name="model">b2b.business.items</field>
+           <field name="inherit_id" ref="b2b_constructors.view_boq_business_item_form"/>
+           <field name="arch" type="xml">
+               
+               <!-- position: after|before|replace|attributes|inside -->
+               <xpath expr="//field[@name='line_ids']//field[@name='uom_id']" position="after">
+                   <field name="product_cost"/>
+                   <field name="supplier_discount"/>
+                   <field name="cost_after_discount"/>
+                   <field name="sales_tax"/>
+                   <field name="customs"/>
+                   <field name="clearance"/>
+                   <field name="product_price"/>
+                   <field name="hockup"/>
+                   <field name="labor_install"/>
+                   <field name="transportation"/>
+                   <field name="other_cost"/>
+               </xpath>
+               
+           </field>
+       </record>
+        
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_inherit_2b_construction_boq_form" model="ir.ui.view">
+            <field name="name">view.inherit.b2b.construction.boq.form</field>
+            <field name="model">b2b.construction.boq</field>
+            <field name="inherit_id" ref="b2b_constructors.view_b2b_construction_boq_form"/>
+            <field name="arch" type="xml">
+
+                <!-- position values: after|before|replace|attributes|inside -->
+                <xpath expr="//field[@name='total_sell']" position="after">
+                    <field name="multiplier" invisible="1"/>
+                    <field name="discount" invisible="1"/>
+                    <field name="social_insurance" invisible="1"/>
+                    <field name="contracting" invisible="1"/>
+                </xpath>
+
+                <!-- position values: after|before|replace|attributes|inside -->
+                <xpath expr="//field[@name='state']" position="before">
+                    <button name="%(account_loan_generate_wizard_action)d" class="oe_highlight" type="action" string="Update Multiplier" context="{'default_name': active_id, 'default_discount': discount, 'default_multiplier': multiplier, 'default_social_insurance': social_insurance, 'default_contracting': contracting}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='indexation_ids']" position="attributes">
+                    <attribute name="context">{'default_discount': discount, 'default_multiplier': multiplier, 'default_social_insurance': social_insurance, 'default_contracting': contracting}</attribute>
+                </xpath>
+
+                <!-- position: after|before|replace|attributes|inside -->
+                <xpath expr="//field[@name='indexation_ids']//tree//field[@name='cost']" position="after">
+                    <field name="multiplier"/>
+                    <field name="multiplier_category"/>
+                    <field name="discount"/>
+                    <field name="social_insurance"/>
+                    <field name="contracting"/>
+                </xpath>
+
+            </field>
+        </record>
+    
+    </data>
+</odoo>

@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--  breadcrumbs template-->
+    <template id="portal_my_home_training_request" name="Portal layout :  menu entries"
+              inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'TrainingRequest' or page_name == 'NewTrainingRequest'"
+                t-attf-class="breadcrumb-item #{'active ' if not training else ''}">
+                <a t-if="training or page_name == 'NewTrainingRequest'"
+                   t-attf-href="/my/training-request?{{ keep_query() }}">
+                    Training Request
+                </a>
+                <t t-else="">Training Request</t>
+            </li>
+            <li t-if="page_name == 'NewTrainingRequest'" class="breadcrumb-item active">
+                <t>Add New</t>
+            </li>
+            <li t-if="training" class="breadcrumb-item active">
+                <span t-field="training.display_name"/>
+
+            </li>
+        </xpath>
+    </template>
+    <!--  breadcrumbs template-->
+    <!--  list template-->
+    <template id="portal_my_training_request" name="My Quotations">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-set="additional_title">Training Request</t>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Training Request</t>
+            </t>
+            <div class="row mt-2 mb-2">
+                <div class="col-12">
+                    <a href="/my/training-request/new" class=" btn bg-primary">
+                        <i class="fa fa-plus-circle"></i>
+                        New Training Request
+                    </a>
+                </div>
+            </div>
+            <t t-if="not trainings">
+                <p>There are currently no Training Request for your account.</p>
+            </t>
+            <t t-if="trainings" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>#</th>
+                        <th class="text-left">Date From</th>
+                        <th class="text-left">Date To</th>
+                        <th class="text-left">Subject</th>
+                        <th class="text-left">Institute</th>
+                        <th class="text-left">State</th>
+                        <th class="text-left">Action</th>
+                    </tr>
+                </thead>
+                <t t-set="count" t-value="1"/>
+                <t t-foreach="trainings" t-as="training">
+                    <tr>
+                        <td class="text-left">
+                            <a t-attf-href="/my/training-request/#{training.id}">
+                                <t t-esc="count"/>
+                                <t t-set="count" t-value="count+1"/>
+                            </a>
+                        </td>
+                        <td class="text-left">
+                            <a t-attf-href="/my/training-request/#{training.id}">
+                                <span t-field="training.date_from"/>
+                            </a>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="training.date_to"/>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="training.subject"/>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="training.institute"/>
+                        </td>
+
+                        <td class="text-left">
+                            <span t-field="training.state"/>
+                        </td>
+                        <td class="text-left">
+                            <a t-attf-href="/my/training-request/#{training.id}" class="btn btn-primary btn-sm">
+                                <i class="fa fa-eye"></i>
+                                View
+                            </a>
+                            <a t-attf-href="/my/training-request/edit/#{training.id}" class="btn btn-info btn-sm" t-if="training.state == 'draft'">
+                                <i class="fa fa-edit"></i>
+                                Edit
+                            </a>
+                            <a t-attf-href="/my/training-request/submit/#{training.id}" class="btn btn-success btn-sm" t-if="training.state == 'draft'">
+                                <i class="fa fa-check"></i>
+                                Submit
+                            </a>
+                            <a onclick="return confirm('Are you sure you want to delete this request?');"
+                               t-if="training.state == 'draft'" t-attf-href="/my/training-request/delete/#{training.id}"
+                               class="btn btn-warning btn-sm">
+                                <i class="fa fa-trash"></i>
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <!--  list template-->
+    <!--  form template-->
+    <template id="website_portal.portal_my_training_request_new" name="Training: Submit a TrainingRequest">
+        <t t-call="portal.portal_layout">
+            <t t-set="additional_title">New Training Request</t>
+            <br/>
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">New Training Request</h3>
+                </div>
+                <form action="/my/training-request/new" method="post" class="container-fluid mt32" id="pd_form"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="date_from">Date From
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">من تاريخ
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="date_from" required="required" id="date_from_btrip"
+                                           class="form-control"
+                                           placeholder="DD/MM/YYYY"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <span class="fa fa-calendar" role="img" aria-label="Calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="date_to">Date To
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">الى تاريخ
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input  name="date_to" required="required" id="date_to_btrip"
+                                            class="form-control    "
+                                            placeholder="DD/MM/YYYY"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <span class="fa fa-calendar" role="img" aria-label="Calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="institute">Institute/Academy
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">المعهد / الأكاديمية
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="institute" required="required"
+                                           class="form-control    "/>
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="subject">Training Subject
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">موضوع التدريب
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="subject" required="required"
+                                           class="form-control    "/>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="program">Training Program
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">برنامج تدريب
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="program" required="required"
+                                           class="form-control    "/>
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="cost">Training Cost
+                                    <span style="color:red">*</span>
+                                    <span class="label_right">تكلفة التدريب
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="number" name="cost" required="required"
+                                           class="form-control    "/>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="currency_id">Currency
+                                    <span style="color:red">*</span>
+                                    <span class="label_right">العملة
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+
+                                    <select class="form-control" name="currency_id" required="required">
+                                        <option value="" selected="selected" disabled="disabled">Select Currency
+                                        </option>
+                                        <t t-foreach="currencies" t-as="currency">
+                                            <option t-att-value="currency.id">
+                                                <t t-esc="currency.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-12 col-form-label">Supporting Document
+
+
+                                        <span class="label_right">المرفقات
+
+                                        </span>
+                                    </label>
+                                    <input class="form-control" type="file" name="document" required="required"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg">
+                            <label class="col-md-12 col-form-label">Notes
+
+                                <span class="label_right">ملاحظات</span>
+                            </label>
+                            <textarea class="form-control" name="notes" placeholder="Textarea" rows="3"></textarea>
+                        </div>
+
+                    </div>
+
+
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-paper-plane"></i> Save
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="history.go(-1)">
+                            <i class="fa fa-arrow-circle-left"></i>Back
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+    <!--  form template-->
+    <!--  view template-->
+    <template id="portal_my_training_request_view" name="My  Training">
+        <t t-call="portal.portal_layout">
+            <br/>
+            <div class="card card-info card-outline">
+
+                <div class="card-body">
+                    <div style="padding: 4px;" class="callout callout-info">
+                        <h5 style="margin: 0;">Training Details</h5>
+                        <span t-foreach="training" t-as="tf" class="float-right">
+                            <span class="badge badge-light"
+                                  t-field="tf.state"/>
+                        </span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="border-bottom d-flex justify-content-between py-2 mb-3 align-items-center">
+
+                            </div>
+                            <div class="row mb-2">
+
+                                <div class="col-md-6">
+                                    <strong class="col-12">Date From :</strong>
+                                    <span t-if="training.date_from" t-field="training.date_from"/>
+                                    <span t-else="" class="text-muted">-</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <strong class="col-12">Date To :</strong>
+                                    <span t-if="training.date_to" t-field="training.date_to"/>
+                                    <span t-else="" class="text-muted">-</span>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+
+                                <div class="col-md-6">
+                                    <strong class="col-12">Institute/Academy  :</strong>
+                                    <span t-if="training.institute" t-field="training.institute"/>
+                                    <span t-else="" class="text-muted">-</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <strong class="col-12">Training Subject  :</strong>
+                                    <span t-if="training.subject" t-field="training.subject"/>
+                                    <span t-else="" class="text-muted"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+
+                                <div class="col-md-6">
+                                    <strong class="col-12">Training Program   :</strong>
+                                    <span t-if="training.program" t-field="training.program"/>
+                                    <span t-else="" class="text-muted">-</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <strong class="col-12">Training Cost  :</strong>
+                                    <span t-if="training.cost" t-field="training.cost"/>
+                                    <span t-else="" class="text-muted"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+ <div class="col-md-6">
+                                    <strong class="col-12">Currency  :</strong>
+                                    <span t-if="training.currency_id" t-field="training.currency_id"/>
+                                    <span t-else="" class="text-muted"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <strong class="col-12">Supporting Document :</strong>
+
+                                    <a t-if="training.document" class="btn btn-primary "
+                                       t-attf-href="/web/content/training.request/{{training.id}}/document?download=1">
+                                        <i class="fas fa-download"></i>
+                                        Download
+                                    </a>
+
+                                    <span t-else="" class="text-muted"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-12">
+                                    <strong class="col-12">Notes :</strong>
+                                    <span t-if="training.notes" t-field="training.notes"/>
+                                    <span t-else="" class="text-muted">-</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </t>
+    </template>
+    <!--  view template-->
+    <!--  edit template-->
+    <template id="website_portal.portal_my_training_request_edit" name="Training: Edit a TrainingRequest">
+        <t t-call="portal.portal_layout">
+            <t t-set="additional_title">Edit Training Request</t>
+            <br/>
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Edit Training Request</h3>
+                </div>
+                <form t-att-action="'/my/training-request/edit/%s' % (training.id)" method="post"
+                      class="container-fluid mt32"
+                      id="pd_form"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="date_from">Date From
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">من تاريخ
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="date" name="date_from" required="required"
+                                           class="form-control   " t-att-value="training.date_from"
+                                           placeholder="DD/MM/YYYY"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <span class="fa fa-calendar" role="img" aria-label="Calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="date_to">Date To
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">الى تاريخ
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="date" name="date_to" required="required"
+                                           class="form-control    " t-att-value="training.date_to"
+                                           placeholder="DD/MM/YYYY"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <span class="fa fa-calendar" role="img" aria-label="Calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="institute">Institute/Academy
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">المعهد / الأكاديمية
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="institute" required="required"
+                                           class="form-control    " t-att-value="training.institute"/>
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="subject">Training Subject
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">موضوع التدريب
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="subject" required="required"
+                                           class="form-control    " t-att-value="training.subject"/>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="program">Training Program
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">برنامج تدريب
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="program" required="required"
+                                           class="form-control    "    t-att-value="training.program"  />
+
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="cost">Training Cost
+                                    <span style="color:red">*</span>
+                                    <span class="label_right">تكلفة التدريب
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="number" name="cost" required="required"
+                                           class="form-control    " t-att-value="training.cost"/>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="currency_id">Currency
+                                    <span style="color:red">*</span>
+                                    <span class="label_right">العملة
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+
+                                    <select class="form-control" name="currency_id" required="required">
+                                        <option value=""  disabled="disabled">Select Currency
+                                        </option>
+                                        <t t-foreach="currencies" t-as="currency"  >
+                                            <option t-att-value="currency.id" t-att-selected="training.id == currency.id">
+                                                <t t-esc="currency.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-12 col-form-label">Supporting Document
+
+
+                                        <span class="label_right">المرفقات
+
+                                        </span>
+                                    </label>
+                                    <input class="form-control" type="file" name="document"  t-att-value="training.document" required="required"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <label class="col-md-12 col-form-label">Notes
+
+                                <span class="label_right">ملاحظات</span>
+                            </label>
+                            <textarea class="form-control" name="notes" placeholder="Textarea" rows="3"><t t-if="training" t-esc="training.notes"/>
+                            </textarea>
+                        </div>
+
+                    </div>
+
+
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-paper-plane"></i>
+                            Save
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="history.go(-1)">
+                            <i class="fa fa-arrow-circle-left"></i>Back
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,75 @@
+<data>
+    <record id="hr_payslip_attendance_form" model="ir.ui.view">
+        <field name="name">hr.payslip.attendance.form</field>
+        <field name="model">hr.payslip.attendance</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0" delete="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                            <field name="name"/>
+                            <field name="apply_hours"/>
+                        </group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="hours"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_payslip_attendance_tree" model="ir.ui.view">
+        <field name="name">hr.payslip.attendance.tree</field>
+        <field name="model">hr.payslip.attendance</field>
+        <!--<field name="field_parent">children_ids if_want_to_add_Childs</field>-->
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0">
+                <field name="date"/>
+                <field name="employee_id"/>
+                <field name="name"/>
+                <field name="apply_hours"/>
+                <field name="hours"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_payslip_attendance_search" model="ir.ui.view">
+        <field name="name">hr.payslip.attendance.search</field>
+        <field name="model">hr.payslip.attendance</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="date"/>
+                <field name="employee_id"/>
+                <field name="name"/>
+                <field name="apply_hours"/>
+                <field name="hours"/>
+                <group expand="0" string="Group By">
+                    <filter string="Date" name="group_date" context="{'group_by':'date'}"/>
+                    <filter string="Employee" name="group_employee_id" context="{'group_by':'employee_id'}"/>
+                    <filter string="Name" name="group_name" context="{'group_by':'name'}"/>
+                    <filter string="Apply Hours" name="group_apply_hours" context="{'group_by':'apply_hours'}"/>
+                    <filter string="Hours" name="group_hours" context="{'group_by':'hours'}"/>
+                    <filter name="current_month" string="Current Month" domain="[
+                        ('date', '&gt;=', (context_today()).strftime('%Y-%m-01')),
+                        ('date', '&lt;', (context_today() + relativedelta(months=1)).strftime('%Y-%m-01'))]"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_payslip_attendance_action" model="ir.actions.act_window">
+        <field name="name">Hr Payslip Attendance</field>
+        <field name="res_model">hr.payslip.attendance</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--<menuitem id="hr_payslip_attendance_menu"-->
+              <!--name="Payslip Attendance"-->
+              <!--action="hr_payslip_attendance_action"-->
+              <!--parent="hr.menu_hr_root"-->
+              <!--sequence="40"/>-->
+</data>

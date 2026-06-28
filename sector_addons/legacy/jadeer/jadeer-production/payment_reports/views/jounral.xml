@@ -1,0 +1,53 @@
+<odoo>
+    <record id="view_account_payment_form" model="ir.ui.view">
+            <field name="name">account.payment.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="pay_type"/>
+                </xpath>
+            </field>
+    </record>
+    <record id="view_account_payment_tree" model="ir.ui.view">
+            <field name="name">account.payment.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="pay_type"/>
+                </xpath>
+            </field>
+    </record>
+    <record id="view_account_payment_register_form" model="ir.ui.view">
+            <field name="name">account.payment.register.form</field>
+            <field name="model">account.payment.register</field>
+            <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='communication']" position="after">
+                    <field name="pay_type" />
+                </xpath>
+            </field>
+    </record>
+    <record id="view_account_journal_form_inherit" model="ir.ui.view">
+        <field name="name">account.journal.form</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position="after">
+                <field name="journal_address" />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_company_form" model="ir.ui.view">
+        <field name="name">res.company.form.inherit.account</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='phone']" position="after">
+                <field name="Company_Type" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

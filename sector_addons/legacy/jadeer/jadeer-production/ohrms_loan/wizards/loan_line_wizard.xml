@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="loan_line_wizard" model="ir.ui.view">
+            <field name="name">loan.line.wizard.view</field>
+            <field name="model">loan.line.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Loan Line Details">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="update_type"/>
+                                <field name="amount" attrs="{'invisible':[('update_type','!=','amount')]}"/>
+                                <field name="old_amount" invisible="1"/>
+                                <field name="loan_line_id" invisible="1"/>
+                                <field name="is_last_installment" invisible="1"/>
+                                <field name="new_date" attrs="{'invisible':[('update_type','!=','date')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Update" name="update_amount" class="btn-primary"
+                                attrs="{'invisible':[('update_type','!=','amount')]}" type="object"/>
+                        <button string="Update Date" name="update_date" class="btn-primary"
+                                attrs="{'invisible':[('update_type','!=','date')]}" type="object"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

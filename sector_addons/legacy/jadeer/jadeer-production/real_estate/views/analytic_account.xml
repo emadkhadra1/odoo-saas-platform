@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_unit_delivery_menu" model="ir.actions.server">
+            <field name="name">Deliver Unit</field>
+            <field name="model_id" ref="product.model_product_template"/>
+            <field name="binding_model_id" ref="product.model_product_template"/>
+            <field name="state">code</field>
+            <field name="code">records.with_context(env.context).create_accounting_entry()</field>
+        </record>
+        <record id="view_move_form" model="ir.ui.view">
+            <field name="name">account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="analytic_account_journal_entry.view_move_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='analytic_account_id']" position="attributes">
+                    <attribute name="attrs">{'required':[('move_type','=','out_invoice')]}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+<!--        <record id="view_account_analytic_account_form" model="ir.ui.view">-->
+<!--            <field name="name">account.analytic.form</field>-->
+<!--            <field name="model">account.analytic.account</field>-->
+<!--            <field name="inherit_id" ref="realestate_project.account_analytic_account_view_form_inherit_project"/>-->
+<!--            <field name="arch" type="xml">-->
+
+<!--                <xpath expr="//header" position="inside">-->
+<!--                    <button name="button_delivery" string="Delivery" type="object" class="oe_highlight"-->
+<!--                            attrs="{'invisible':['|',('is_delivered','=',True),('is_unit_project','=',False)]}"/>-->
+<!--                    <button name="button_accounting_entry" string="Accounting Entry" type="object" class="oe_highlight"-->
+<!--                            attrs="{'invisible':['|',('is_delivered','=',False),('is_unit_project','=',False)]}"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='is_project']" position="after">-->
+<!--                    <field name="product_areas"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='group_id']" position="after">-->
+<!--                    <field name="total_meter"/>-->
+<!--                    <field name="is_delivered" readonly="1"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='property_account_receivable_id']" position="after">-->
+<!--                    <field name="unit_type_ids" widget="many2many_tags"/>-->
+<!--                    <field name="filter_attached_areas_ids" widget="many2many_tags" invisible="1"/>-->
+<!--                    <field name="attached_areas_ids" widget="many2many_tags"-->
+<!--                           domain="[('id','in',filter_attached_areas_ids)]"/>-->
+<!--                    <field name="singularity_ids" widget="many2many_tags"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//div[@class='oe_button_box']" position="inside">-->
+<!--                    <button type="object" string="Costing Entries" class="oe_stat_button" icon="fa-list"-->
+<!--                            name="action_open_costing_entry">-->
+<!--                    </button>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+<!--        <record id="view_account_analytic_account_list" model="ir.ui.view">-->
+<!--            <field name="name">account.analytic.form</field>-->
+<!--            <field name="model">account.analytic.account</field>-->
+<!--            <field name="inherit_id" ref="analytic.view_account_analytic_account_list"/>-->
+<!--            <field name="arch" type="xml">-->
+
+<!--                <xpath expr="//field[@name='balance']" position="after">-->
+<!--                    <field name="total_meter" sum="Total"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <record id="analytic.action_account_analytic_account_form" model="ir.actions.act_window">
+            <field name="domain">[('is_unit_property','=',False)]</field>
+        </record>
+
+        <record id="action_account_analytic_account_unit_form" model="ir.actions.act_window">
+            <field name="name">Analytic Accounts Units</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.analytic.account</field>
+            <field name="search_view_id" ref="analytic.view_account_analytic_account_search"/>
+            <field name="context">{'search_default_active':1}</field>
+            <field name="domain">[('is_unit_property','=',True)]</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new analytic account
+                </p>
+            </field>
+        </record>
+
+        <menuitem action="action_account_analytic_account_unit_form" id="account_analytic_account_unit"
+                  parent="account.menu_analytic_accounting"
+                  groups="analytic.group_analytic_accounting" sequence="0"/>
+
+
+    </data>
+</odoo>

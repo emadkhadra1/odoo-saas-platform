@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_b2b_progress_owner_form" model="ir.ui.view">
+            <field name="name">view.b2b.progress.owner.form</field>
+            <field name="model">b2b.progress.owner</field>
+            <field name="arch" type="xml">
+                <form string="Owner Quotation">
+                    <header>
+                        <button class="oe_highlight" invisible="state not in ['draft']" name="action_submit" string="Submit" type="object"/>
+                        <button class="oe_highlight" groups="b2b_constructors.group_owner_construction_cancel" invisible="state not in ['sent']" name="action_cancel" string="Cancel" type="object"/>
+                        <button class="oe_highlight" invisible="state not in ['cancel']" name="action_reset" string="Reset to draft" type="object"/>
+                        <!-- <button name="action_send_by_mail" type="object" states="sent" string="Send By Mail" class="oe_highlight"/> -->
+                        <button class="oe_highlight" invisible="state not in ['sent']" name="action_print" string="Print" type="object"/>
+                        <button class="oe_highlight" groups="b2b_constructors.group_owner_construction_approve" invisible="state not in ['sent']" name="action_sent" string="Approve" type="object"/>
+                        <!-- <button name="action_add_business_items" type="object" states="draft" string="Add Business Items" class="oe_highlight"/> -->
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" icon="fa-pencil-square-o" id="qoutation_button" name="open_invoices" type="object">
+                                <div class="o_form_field o_stat_info">
+                                    <span class="o_stat_text">
+                                        Invoices
+                                    </span>
+                                </div>
+                            </button>
+                        </div>
+                        <group name="main">
+                            <group>
+                                <field name="quotation_type"/>
+                                <field invisible="quotation_type in ['without_boq', False]" name="purchase_order_id"/>
+                                <field invisible="quotation_type in [False]" name="project_id"/>
+                                <field invisible="quotation_type in [False]" name="construction_type_id"/>
+                                <field invisible="quotation_type in [False]" name="consructor_id"/>
+                                <field invisible="quotation_type in [False]" name="progress_bill_type_id"/>
+                                <!--<field name="quotation_type"/>-->
+                                <!--<field name="purchase_order_id"/>-->
+                                <!--<field name="project_id"/>-->
+                                <!--<field name="construction_type_id"/>-->
+                                <!--<field name="consructor_id"/>-->
+                                <!--<field name="progress_bill_type_id"/>-->
+                                <field name="analytic_account_id" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="name"/>
+                                <field name="from_date"/>
+                                <field name="to_date"/>
+                                <field name="journal_id"/>
+                                <!-- <field name="account_id"/>  -->
+                                <field name="invoice_id"/>
+                                <field invisible="1" name="business_statement_domain_ids"/>
+                                <!--                                <label for="business_item_ids" attrs="{'invisible': [('quotation_type', 'in', ['without_boq', False])]}"/>-->
+                                <!--                                <div attrs="{'invisible': [('quotation_type', 'in', ['without_boq', False])]}">-->
+                                <!--                                    <field name="business_item_ids" widget="many2many_tags" class="oe_inline" domain="[('id', 'in', business_statement_domain_ids)]"/>-->
+                                <!--                                    <button name="button_insert_lines" type="object" string="Update Lines" class="oe_link"/>-->
+                                <!--                                </div>-->
+                            </group>
+                        </group>
+                        <notebook>
+                            <page invisible="quotation_type in ['without_boq', False]" string="Construction Quotation Lines">
+                                <field context="{'default_consructor_id': consructor_id}" name="line_ids">
+                                    <list decoration-danger="total_work > required_quantity" editable="bottom">
+                                        <!--<list editable="bottom" >-->
+                                        <field invisible="1" name="purchase_order_id"/>
+                                        <field invisible="1" name="consructor_id"/>
+                                        <field name="main_item_id"/>
+                                        <field name="sub_item_id"/>
+                                        <field name="sub_business_statement_id"/>
+                                        <field invisible="1" name="indexation_id"/>
+                                        <field name="entrepreneurs_id"/>
+                                        <field invisible="1" name="business_statement_id"/>
+                                        <field name="uom_id"/>
+                                        <field invisible="0" name="required_quantity" readonly="1"/>
+                                        <field name="previous_work" readonly="1"/>
+                                        <field name="current_work"/>
+                                        <field name="total_work"/>
+                                        <field name="category" readonly="1" string="Price"/>
+                                        <field name="perc_c"/>
+                                        <field name="work_amount"/>
+                                        <field groups="b2b_constructors.group_construction_notes" name="notes"/>
+                                    </list></field>
+                            </page>
+                            <page invisible="quotation_type in ['with_boq', False]" string="Construction Quotation Lines">
+                                <field context="{'default_consructor_id': consructor_id}" name="line2_ids">
+                                    <list decoration-danger="total_work > required_quantity" editable="bottom">
+                                        <!--<list editable="bottom" >-->
+                                        <field invisible="1" name="consructor_id"/>
+                                        <field name="main_item_id"/>
+                                        <field name="sub_item_id"/>
+                                        <field name="sub_business_statement_id"/>
+                                        <field name="business_statement_id"/>
+                                        <field name="uom_id"/>
+                                        <field invisible="1" name="required_quantity"/>
+                                        <field name="previous_work"/>
+                                        <field name="current_work"/>
+                                        <field name="total_work"/>
+                                        <field name="category" string="price"/>
+                                        <field name="work_amount"/>
+                                    </list></field>
+                            </page>
+                        </notebook>
+                        <group>
+                            <group>
+                                <div class="oe_inline">
+                                    <!--<button type="object" class="oe_stat_button" string="Check Deduction"-->
+                                    <!--name="check_deduction"/>-->
+                                    <field invisible="1" name="my_domain"/>
+                                    <field domain="[('id', 'in', my_domain)]" invisible="1" name="deduction_ids" options="{'no_create': True}"/>
+                                    <field name="deduction_ids"/>
+                                </div>
+                            </group>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="work_amount_total"/>
+                                <field name="already_cashed"/>
+                                <field name="down_payment"/>
+                                <field name="down_payment_amount"/>
+                                <field name="pay_required"/>
+                                <field name="deductions"/>
+                                <field class="oe_subtotal_footer_separator" name="pay_due"/>
+                                <!-- <field name="invoice_remaining" class="oe_subtotal_footer_separator"/> -->
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form></field>
+        </record>
+        <record id="view_b2b_progress_owner_tree" model="ir.ui.view">
+            <field name="name">view.b2b_progress_owner.tree</field>
+            <field name="model">b2b.progress.owner</field>
+            <field name="arch" type="xml">
+                <list string="Owner Quotation">
+                    <field name="name"/>
+                    <!--<field name="purchase_order_id"/>-->
+                    <field name="project_id"/>
+                    <field name="consructor_id"/>
+                    <field name="construction_type_id"/>
+                    <field name="progress_bill_type_id"/>
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                    <field name="work_amount_total"/>
+                    <field name="already_cashed"/>
+                    <field name="down_payment"/>
+                    <field name="pay_required"/>
+                    <field name="deductions"/>
+                    <field name="pay_due"/>
+                    <field name="state"/>
+                </list></field>
+        </record>
+        <record id="view_b2b_progress_owner_search" model="ir.ui.view">
+            <field name="name">view.b2b_progress_owner.search</field>
+            <field name="model">b2b.progress.owner</field>
+            <field name="arch" type="xml">
+                <search string="Owner Quotation">
+                    <field name="purchase_order_id"/>
+                    <field name="project_id"/>
+                    <field name="consructor_id"/>
+                    <field name="construction_type_id"/>
+                    <field name="progress_bill_type_id"/>
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                    <field name="state"/>
+                    <group name="groupby" string="Group By">
+                        <filter context="{'group_by': 'purchase_order_id'}" name="purchase_order_id_groupby" string="Construction BOQ"/>
+                        <filter context="{'group_by': 'project_id'}" name="project_id_groupby" string="Project"/>
+                        <filter context="{'group_by': 'consructor_id'}" name="consructor_id_groupby" string="Consructor"/>
+                        <filter context="{'group_by': 'construction_type_id'}" name="construction_type_id_groupby" string="Construction Type"/>
+                        <filter context="{'group_by': 'progress_bill_type_id'}" name="progress_bill_type_id_groupby" string="Progress Bill Type"/>
+                        <filter context="{'group_by': 'state'}" name="state_groupby" string="State"/>
+                    </group>
+                </search></field>
+        </record>
+        <record id="b2b_progress_owner_pivot" model="ir.ui.view">
+            <field name="name">b2b.progress.owner.pivot</field>
+            <field name="model">b2b.progress.owner</field>
+            <field name="arch" type="xml">
+                <pivot string="Owner Quotation">
+                    <field name="project_id" type="row"/>
+                    <field name="consructor_id" type="col"/>
+                    <!--<field name="date" interval="year" type="col"/>-->
+                    <field name="work_amount_total" type="measure"/>
+                    <!--<field name="pay_due" type="measure"/>-->
+                </pivot></field>
+        </record>
+        <record id="b2b_progress_owner_graph" model="ir.ui.view">
+            <field name="name">b2b.progress.owner.graph</field>
+            <field name="model">b2b.progress.owner</field>
+            <field name="arch" type="xml">
+                <graph string="Owner Quotation">
+                    <field name="project_id" type="row"/>
+                    <!--<field name="consructor_id" type="col"/>-->
+                    <!--<field name="date" interval="year" type="col"/>-->
+                    <field name="work_amount_total" type="measure"/>
+                    <!--<field name="pay_due" type="measure"/>-->
+                </graph></field>
+        </record>
+        <record id="b2b_progress_owner_action" model="ir.actions.act_window">
+            <field name="name">Owner Quotation</field>
+            <field name="res_model">b2b.progress.owner</field>
+            <field name="view_mode">list,form,pivot,graph</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new Owner Quotation.
+                </p></field>
+        </record>
+        <report file="b2b_constructors.b2b_owner_qoutation_report" id="report_b2b_owner_qoutation_print" menu="True" model="b2b.progress.owner" name="b2b_constructors.b2b_owner_qoutation_report" report_type="qweb-pdf" string="B2B Owner Qoutation"/>
+    </data>
+</odoo>

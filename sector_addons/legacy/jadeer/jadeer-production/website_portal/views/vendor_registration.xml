@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--  Vendor Registration menu    -->
+    <template id="vendor_registration" name=" Vendor Registration ">
+        <t t-call="website.layout">
+            <t t-set="states" t-value="request.env['res.country.state'].sudo().search([('country_id.code','=','SA')])"/>
+            <t t-set="countries" t-value="request.env['res.country'].sudo().search([('code','=','SA')])"/>
+            <t t-set="fields" t-value="request.env['partner.fields'].sudo().search([])"/>
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                         data-snippet="s_title" data-scroll-background-ratio="1">
+                    <span class="s_parallax_bg oe_img_bg"
+                          style="background-image: url('/web/image/website.s_banner_default_image'); background-position: 50% 0;"/>
+                    <div class="o_we_bg_filter bg-black-50"/>
+                    <div class="container">
+                        <h1>Vendor Registration</h1>
+                    </div>
+                </section>
+                <section class="s_text_block pt40 pb40 o_colored_level ">
+
+                    <div class="container s_allow_columns">
+                        <div class="row mt-4 mt-lg-0">
+                            <div class="col-lg-12 ">
+                                <div class="alert alert-warning alert-dismissible fade show" style="text-align: center;"
+                                     role="alert">
+                                    <strong>Vendor Registration Check!</strong>
+                                    <br/>
+                                    After complete the vendor registration form and submit you will receive email with Acceptance or Rejection
+                                    <br/>
+                                    You can check your registration status from the following link :
+                                    <br/>
+                                    <a href="/vendor-registration-check" class="btn btn-primary  " role="button"
+                                       aria-pressed="true">
+                                        <i class="fa fa-check"></i>
+                                        Registration Check
+                                    </a>
+
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                        <form action="/vendor-registration/submit" method="post"
+                              enctype="multipart/form-data" class="o_mark_required">
+                            <div class="row ">
+                                <div class="col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="name">Vendor Name
+                                            <span style="color:red">*</span>
+                                        </label>
+                                        <input type="text" class="form-control" name="name" required="required"
+                                               aria-describedby="name" placeholder="Enter Vendor Name"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="street">Street</label>
+                                        <input type="text" class="form-control" name="street"
+                                               placeholder="Enter Street"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="city">City
+                                            <span style="color:red">*</span>
+                                        </label>
+                                        <input type="text" class="form-control" name="city" required="required"
+                                               aria-describedby="city" placeholder="Enter City"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="state_id">State
+                                            <span style="color:red">*</span>
+                                        </label>
+                                        <select class="form-control " required="required" name="state_id">
+                                            <option value="" selected="selected" disabled="disabled">Select State
+                                            </option>
+                                            <t t-foreach="states" t-as="state">
+                                                <option t-att-value="state.id">
+                                                    <t t-esc="state.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="zip">Postal Code</label>
+                                        <input type="text" class="form-control" name="zip"
+                                               aria-describedby="Postal Code" placeholder="Enter Postal Code"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="country_id">Country
+                                            <span style="color:red">*</span>
+                                        </label>
+                                        <select class="form-control " required="required" name="country_id">
+                                            <option value="" selected="selected" disabled="disabled">Select Country
+                                            </option>
+                                            <t t-foreach="countries" t-as="country">
+                                                <option t-att-value="country.id">
+                                                    <t t-esc="country.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="phone">Phone</label>     <span style="color:red">*</span>
+                                        <input type="text" class="form-control" name="phone" placeholder="Enter Phone" required="required"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="mobile">Mobile
+                                            <span style="color:red">*</span>
+                                        </label>
+                                        <input type="text" class="form-control" name="mobile" required="required"
+                                               placeholder="Enter Mobile"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="email">Email
+                                            <span style="color:red">*</span>
+                                        </label>
+                                        <input type="email" class="form-control" required="required" name="email"
+                                               placeholder="Enter Email"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="website">Website</label>
+                                        <input type="text" class="form-control" name="website"
+                                               placeholder="Enter Website Link"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="partner_fields">Fields
+                                            <span style="color:red">*</span>
+                                        </label>
+                                        <select class="form-control " multiple="multiple" required="required"
+                                                name="partner_fields">
+                                            <option value="" selected="selected" disabled="disabled">Select Fields
+                                            </option>
+                                            <t t-foreach="fields" t-as="field">
+                                                <option t-att-value="field.id">
+                                                    <t t-esc="field.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="comm_reg_id">Comm. Reg. ID
+                                            <span style="color:red">*</span>
+                                        </label>
+                                        <input type="text" class="form-control" name="comm_reg_id" required="required"
+                                               placeholder="Enter Comm. Reg. ID"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="vat">Tax ID
+                                            <span style="color:red">*</span>
+                                        </label>
+                                        <input type="text" class="form-control" name="vat" required="required"
+                                               placeholder="Enter Tax ID"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <h4>Portfolio</h4>
+                            <hr/>
+                            <div class="card">
+                                <button type="button" id="addProduct" class="btn btn-info btn-block">
+                                    <i class="fa fa-plus"></i>
+                                    Add New Portfolio
+                                </button>
+                                <div class="card-body row">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-scroll mt-3" id="qualifications">
+                                            <thead id="qualifications_head" style="display:none">
+                                                <tr>
+                                                    <th scope="col">Name
+                                                        <span style="color:red">*</span>
+                                                    </th>
+                                                    <th scope="col">Description
+                                                        <span style="color:red">*</span>
+                                                    </th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="multi">
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br/>
+                            <h4>Files</h4>
+                            <hr/>
+                            <div class="row">
+
+                                <div class="col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="comm_reg">Commercial Registration
+                                            <span style="color:red">*</span>
+                                        </label>
+                                        <input type="file" class="form-control" name="comm_reg" required="required"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="tax_reg">Tax Registration
+                                            <span style="color:red">*</span>
+                                        </label>
+                                        <input type="file" class="form-control" name="tax_reg" required="required"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="gosi">GOSI
+                                            <span style="color:red">*</span>
+                                        </label>
+                                        <input type="file" class="form-control" name="gosi" required="required"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="saudization">Saudization
+                                            <span style="color:red">*</span>
+                                        </label>
+                                        <input type="file" class="form-control" name="saudization" required="required"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="iban">Bank IBAN
+                                            <span style="color:red">*</span>
+                                        </label>
+                                        <input type="file" class="form-control" name="iban" required="required"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="form-group col-12 col-offset-2">
+
+                                    <input type="submit" role="button" class="btn btn-primary btn-lg  "/>
+
+
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+    <record id="vendor_thankyou" model="website.page">
+        <field name="name">Thanks (Vendor Registration)</field>
+        <field name="type">qweb</field>
+        <field name="url">/vendor_thankyou</field>
+        <field name="website_indexed" eval="False"/>
+        <field name="is_published">True</field>
+        <field name="key">website_portal.vendor_thankyou</field>
+        <field name="arch" type="xml">
+            <t name="Thanks (Vendor Registration)" t-name="website_portal.vendor_thankyou">
+                <t t-call="website.layout">
+                    <div id="wrap" class="oe_structure oe_empty">
+                        <section class="s_text_block pt40 pb40 o_colored_level " data-snippet="s_text_block">
+                            <div class="container s_allow_columns">
+                                <div class="row">
+                                    <div class="col-lg-7 col-xl-6 mr-lg-auto">
+                                        <span class="d-block fa fa-4x fa-thumbs-up mx-auto rounded-circle bg-primary"/>
+                                        <br/>
+                                        <h1 class="text-center">Thank You!</h1>
+                                        <div class="pb16 pt16 s_hr" data-snippet="s_hr" data-name="Separator">
+                                            <hr class="mx-auto border-top w-50 border-dark text-center"/>
+                                        </div>
+                                        <h5 class="text-center">
+                                            <span class="fa fa-check-circle"/>
+                                            <span>Your request has been received, our team will review it and send you
+                                                request updates. To check request status
+                                                please use the following request number:
+                                                <b>
+                                                    <t t-esc="vendor.id"/>
+                                                </b>
+                                            </span>
+                                        </h5>
+                                        <p class="text-center">We will get back to you shortly.</p>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <ul class="list-unstyled mb-0 pl-2">
+                                            <li>My Company</li>
+                                            <li>
+                                                <i class="fa fa-map-marker fa-fw mr-2"/>
+                                                <span class="o_force_ltr">3575 Fake Buena Vista Avenue</span>
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-phone fa-fw mr-2"/>
+                                                <span class="o_force_ltr">+1 (650) 555-0111</span>
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-1x fa-fw fa-envelope mr-2"/>
+                                                <span>info@yourcompany.example.com</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
+    <record id="vendor_registration_check" model="website.page">
+        <field name="name">Vendor Registration Check</field>
+        <field name="type">qweb</field>
+        <field name="url">/vendor_registration_check</field>
+        <field name="website_indexed" eval="False"/>
+        <field name="is_published">True</field>
+        <field name="key">website_portal.vendor_registration_check</field>
+        <field name="arch" type="xml">
+            <t name="Vendor Registration Check" t-name="website_portal.vendor_registration_check">
+                <t t-call="website.layout">
+                    <div id="wrap" class="oe_structure oe_empty">
+                        <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                                 data-snippet="s_title" data-scroll-background-ratio="1">
+                            <span class="s_parallax_bg oe_img_bg"
+                                  style="background-image: url('/web/image/website.s_banner_default_image'); background-position: 50% 0;"/>
+                            <div class="o_we_bg_filter bg-black-50"/>
+                            <div class="container">
+                                <h1>Vendor Registration Check</h1>
+                            </div>
+                        </section>
+                        <section class="s_text_block pt40 pb40 o_colored_level " data-snippet="s_text_block">
+                            <div class="container s_allow_columns">
+                                <form action="/vendor-registration-check" method="post">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="row">
+
+                                        <div class="col-lg-7 col-xl-6 mr-lg-auto">
+
+                                            <h2 class="text-center">Vendor Registration Check</h2>
+                                            <div class="pb16 pt16 s_hr" data-snippet="s_hr" data-name="Separator">
+                                                <hr class="mx-auto border-top w-50 border-dark text-center"/>
+                                            </div>
+
+                                            <div class="form-group col-12 s_website_form_field">
+                                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                    <label class="col-form-label col-sm-auto s_website_form_label"
+                                                           style="width: 200px" for="check1">
+                                                        <span class="s_website_form_label_content">Comm. Reg. ID</span>
+
+                                                        <span style="color:red">*</span>
+                                                    </label>
+                                                    <div class="col-sm">
+                                                        <input id="check1" type="text" class="form-control"
+                                                               name="check1"
+                                                               required="required"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-12">
+                                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                    <label class="col-form-label col-sm-auto s_website_form_label"
+                                                           style="width: 200px" for="check2">
+                                                        <span class="s_website_form_label_content">Request Number</span>
+                                                        <span style="color:red">*</span>
+                                                    </label>
+                                                    <div class="col-sm">
+                                                        <input id="check2" type="number"
+                                                               class="form-control s_website_form_input" name="check2"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-12 col-offset-2" style="text-align: center;">
+                                                <input type="submit" role="button" value="Check"
+                                                       class="btn btn-primary  "/>
+                                            </div>
+                                            <t t-if="reg_status and reg_status != 'not_found'">
+
+                                                <h5 class="text-center"
+                                                    t-if="reg_status.state not in  ['accepted','rejected']">
+                                                    <span class="fa fa-check-circle"/>
+                                                    <span>Request status is :
+                                                        <b>
+                                                            <t t-if="reg_status.state == 'new'">New</t>
+                                                            <t t-if="reg_status.state == 'under_revision'">Under
+                                                                Revision
+                                                            </t>
+                                                        </b>
+                                                        , please check again later
+                                                    </span>
+                                                </h5>
+                                                <h5 class="text-center" t-if=" reg_status.state == 'accepted'">
+                                                    <span class="fa fa-check-circle"/>
+                                                    <span>Your request was accepted. An e-mail
+                                                        sent to :
+                                                        <b>
+                                                            <t t-esc="reg_status.email"/>
+                                                        </b>
+                                                        with access information, please use the information in this
+                                                        email to access your
+                                                        account. If you have problems call us on
+                                                        <t t-esc="res_company.mobile"/>
+                                                        or email us on
+                                                        <t t-esc="res_company.email"/>
+
+                                                    </span>
+                                                </h5>
+                                                <h5 class="text-center" t-if=" reg_status.state == 'rejected'">
+                                                    <span class="fa fa-times"/>
+                                                    <span>Your request was rejected. An e-mail
+                                                        sent to :
+                                                        <b>
+                                                            <t t-esc="reg_status.email"/>
+                                                        </b>
+                                                        with rejection reason, please use the information in this
+                                                        email to access your
+                                                        account. If you have problems call us on
+                                                        <t t-esc="res_company.mobile"/>
+                                                        or email us on
+                                                        <t t-esc="res_company.email"/>
+
+                                                    </span>
+                                                </h5>
+
+                                            </t>
+                                            <t t-if="reg_status and reg_status == 'not_found'">
+
+
+                                                <h5 class="text-center">
+                                                    <span class="fa fa-times"/>
+                                                    <span>Registration information not found, please make sure you
+                                                        entered correct data or submit a registration request if you
+                                                        didn't register. If you have problems call us on
+                                                        <t t-esc="res_company.mobile"/>
+                                                        or email us on
+                                                        <t t-esc="res_company.email"/>
+
+                                                    </span>
+                                                </h5>
+                                            </t>
+
+                                        </div>
+
+
+                                        <div class="col-lg-4">
+                                            <ul class="list-unstyled mb-0 pl-2">
+                                                <li>
+                                                    <t t-esc="res_company.name"/>
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-map-marker fa-fw mr-2"/>
+                                                    <span class="o_force_ltr">
+                                                        <t t-esc="res_company.street"/>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-phone fa-fw mr-2"/>
+                                                    <span class="o_force_ltr">
+                                                        <t t-esc="res_company.mobile"/>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-1x fa-fw fa-envelope mr-2"/>
+                                                    <span>
+                                                        <t t-esc="res_company.email"/>
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
+    <record id="vendor_registration_page" model="website.page">
+        <field name="url">/vendor-registration</field>
+        <field name="is_published">True</field>
+        <field name="view_id" ref="vendor_registration"/>
+        <field name="cache_time">0</field>
+        <field name="track">True</field>
+    </record>
+    <record id="menu_vendor_registration" model="website.menu">
+        <field name="name">Vendor Registration</field>
+        <field name="url">/vendor-registration</field>
+        <field name="page_id" ref="vendor_registration_page"/>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">50</field>
+    </record>
+    <!--  Vendor Registration menu    -->
+</odoo>

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_b2b_constructor_update_multiplier,b2b_constructor_edit.update_multiplier,model_update_multiplier,,1,1,1,1

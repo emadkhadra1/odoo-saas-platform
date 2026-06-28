@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="portal_pd" name="Professional Development Activity">
+            <t t-call="portal.portal_layout">
+                <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+                <t t-call="portal.portal_searchbar">
+                    <t t-set="title">PD Request
+                    </t>
+                </t>
+                <div class="row mt-2 mb-2">
+                    <div class="col-12">
+                        <a href="/my/pd/submit" class="create_new btn bg-gradient-info">
+                            <i class="fas fa-graduation-cap"></i>
+                            Request New PD
+                        </a>
+                    </div>
+                </div>
+                <div t-if="not pds" class="alert alert-info">
+                    There are currently no PD for your account.
+                </div>
+                <t t-if="pds" t-call="portal.portal_table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Request Date</th>
+                            <th>PD</th>
+                            <th>From</th>
+                            <th>To</th>
+
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <t t-set="i" t-value="1"/>
+                    <t t-foreach="pds" t-as="pd">
+                        <tr>
+                            <td>
+                                <span t-esc="i"/>
+                                <t t-set="i" t-value="i+1"/>
+                            </td>
+                            <td>
+                                <span t-field="pd.request_date"   t-options='{"widget": "date"}'/>
+
+                            </td>
+                            <td>
+                                <i t-if="pd.pd_activity" data-trigger="click" type="button"
+                                   class="fa fa-info-circle" data-toggle="tooltip" data-placement="top"
+                                   t-att-title="pd.pd_activity">
+
+                                </i>
+
+                            </td>
+                            <td>
+                                <span t-field="pd.date_from"  t-options='{"widget": "date"}'/>
+
+                            </td>
+                            <td>
+                                <span t-field="pd.date_to"  t-options='{"widget": "date"}'/>
+
+                            </td>
+                            <td class="text-center">
+                                <span class="badge badge-pill badge-info" t-field="pd.state"/>
+                            </td>
+                            <td class="text-center py-0 align-middle">
+                                <div class="btn-group btn-group-sm">
+                                    <a t-attf-href="/my/pd/#{pd.id}" class="btn btn-info">
+                                        <i class="fas fa-eye"></i>
+                                        View
+                                    </a>
+                                    <a t-if="pd.state == 'draft'"
+                                       t-attf-href="/my/pd/edit/#{pd.id}" class="btn btn-primary">
+                                        <i class="fas fa-edit"></i>
+                                        Edit
+                                    </a>
+                                   <!-- <a t-if="pd.state == 'draft'" t-attf-href="/my/pd/delete/#{pd.id}"
+                                       class="btn btn-danger">
+                                        <i class="fas fa-trash"></i>
+                                        Delete
+                                    </a>-->
+                                </div>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+        <template id="portal_my_pd" name="My PD Request">
+            <t t-call="portal.portal_layout">
+                <br/>
+
+                <div class="card card-info card-outline">
+                    <div class="card-header">
+
+                        <h3 class="card-title">
+                            <small class="text-muted">PD Request -</small>
+                            <span t-field="pd.display_name"/>
+                        </h3>
+
+                        <div class="col-md text-md-right">
+                            <div class="d-inline-block">
+                                <small class="mr-2 mt-1 float-left">
+                                    <b>State:</b>
+                                </small>
+                                <div t-foreach="pd" t-as="tf" class="float-left">
+                                    <span t-att-class="'badge badge-success' if tf.state=='validate' else ''
+                                                       'badge badge-primary' if tf.state=='confirm' else ''
+                                                       'badge badge-danger' if tf.state=='cancel' else ''
+                                                       'badge badge-warning' if tf.state=='refuse' else ''
+                                                       'badge badge-light' if tf.state=='draft' else ''
+                                                       'badge badge-info' if tf.state=='validate1' else ''
+                                                       " t-field="tf.state"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card-body">
+                        <div style="padding: 4px;" class="callout callout-info">
+                            <h5 style="margin: 0;">PD Request Details
+                            </h5>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <div class="border-bottom d-flex justify-content-between py-2 mb-3 align-items-center">
+                                    <h5 class="mb-0">
+                                        <span class="text-nowrap" t-esc="pd.pd_activity"/>
+                                    </h5>
+
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <strong class="col-12 ">Grade/Subject Level :</strong>
+
+                                        <span t-if="pd.grade_level" t-field="pd.grade_level"/>
+                                        <span t-else="" class="text-muted">-</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong class="col-12 ">Location/Institution :</strong>
+
+                                        <span t-if="pd.location_institution" t-field="pd.location_institution"/>
+                                        <span t-else="" class="text-muted">-</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <strong class="col-12 ">Start Date :</strong>
+
+                                        <span t-if="pd.date_from" t-field="pd.date_from"  t-options='{"widget": "date"}'/>
+                                        <span t-else="" class="text-muted">-</span>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <strong class="col-12 ">End Date :</strong>
+
+                                        <span t-if="pd.date_to" t-field="pd.date_to"   t-options='{"widget": "date"}'>
+                                        <span t-else="" class="text-muted">-</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <strong class="col-12 ">Registration cost :</strong>
+                                        <span t-if="pd.cost" t-field="pd.cost"/>
+                                        <span t-else="" class="text-muted">-</span>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <strong class="col-12 ">Additional costs :</strong>
+                                        <span t-if="pd.additional_cost" t-field="pd.additional_cost"/>
+                                        <span t-else="" class="text-muted">-</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <strong class="col-12 ">Paid Amount	:</strong>
+                                        <span t-if="pd.paid_amount" t-field="pd.paid_amount"/>
+                                        <span t-else="" class="text-muted">-</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-12">
+                                        <strong class="col-12 ">Brief Explanation:</strong>
+                                        <span t-if="pd.brief_explanation" t-field="pd.brief_explanation"/>
+                                        <span t-else="" class="text-muted">-</span>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <strong class="col-12 ">Quality Description :</strong>
+                                        <span t-if="pd.quality_description" t-field="pd.quality_description"/>
+                                        <span t-else="" class="text-muted">-</span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <strong class="col-12 ">Knowledge Description :</strong>
+                                        <span t-if="pd.knowledge_description" t-field="pd.knowledge_description"/>
+                                        <span t-else="" class="text-muted">-</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-info card-outline">
+                    <div class="mt32 card-body">
+                        <h4>
+                            <strong>Message and communication history</strong>
+                        </h4>
+                        <div class="mt16">
+                            <h1 t-esc="object"/>
+                            <t t-call="portal.message_thread">
+                                <t t-set="object" t-value="pd"/>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+
+        <template id="website_portal.pd_submit" name="PD: Submit a PD">
+            <t t-call="portal.portal_layout">
+                <t t-set="additional_title">PD</t>
+                <br/>
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">New PD</h3>
+                    </div>
+                    <div class="card bg-success">
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <i class="fas fa-info-circle"></i>  Please be sure to hand in the original receipt when you pick up your cash
+                        </div>
+                        <!-- /.card-body -->
+                    </div>    					
+                    <form action="/pd/pd_insert" method="post"
+                          class="container-fluid mt32 " id="pd_form"
+                          enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="card-body">
+
+
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label class="control-label" for="pd_activity">Professional Development Activity
+                                    </label>
+                                    <div class="input-group date">
+                                        <input type="text" name="pd_activity" required="required" id="pd_activity"
+                                               class="form-control pd_activity"
+                                        />
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="location_institution">Location/Institution</label>
+                                    <div class="input-group date">
+                                        <input type="text" name="location_institution" required="required"
+                                               class="form-control location"
+                                        />
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="grade_level">Grade/Subject Level</label>
+                                    <div class="input-group date">
+                                        <input type="text" name="grade_level" required="required"
+                                               class="form-control grade"
+                                        />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="date_from">Date From</label>
+                                    <div class="input-group date">
+                                        <input type="date" name="date_from" required="required"
+                                               class="form-control  date_from"
+                                        />
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="date_to">Date To</label>
+                                    <div class="input-group date">
+                                        <input type="date" name="date_to" required="required"
+                                               class="form-control date_to"
+                                        />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="cost">Registration cost</label>
+                                    <div class="input-group date">
+                                        <input type="number" step="0.01" name="cost" required="required"
+                                               class="form-control cost"
+                                        />
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="additional_cost">Additional costs</label>
+                                    <div class="input-group date">
+                                        <input type="number" step="0.01" name="additional_cost" required="required"
+                                               class="form-control add_cost"
+                                        />
+
+                                    </div>
+                                </div>
+                            </div>
+<!--                             <div class="row">-->
+
+<!--                                <div class="form-group col-md-6">-->
+<!--                                    <label class="control-label" for="paid_amount">Paid Amount	</label>-->
+<!--                                    <div class="input-group date">-->
+<!--                                        <input type="number" step="0.01" name="paid_amount" required="required"-->
+<!--                                               class="form-control paid_amount"-->
+<!--                                        />-->
+
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <div class="form-group">
+                                <label>Additional Information</label>
+                                <br/>
+                                <label for="brief_explanation">Brief Explanation</label>
+                                <textarea class="form-control brief" rows="3" name="brief_explanation"
+                                          placeholder="Brief explanation of your purpose in taking this course/workshop and how it will benefit your classroom instruction and/or professional growth"
+                                          style="margin-top: 0px; margin-bottom: 0px; height: 81px;"></textarea>
+
+
+                            </div>
+                            <div class="form-group">
+                                <label for="quality_description">Quality Description</label>
+                                <textarea class="form-control quality" rows="3" name="quality_description"
+                                          placeholder="Describe the quality of the program and how it supports the school’s mission, statement, goals, and strategic improvement plan"
+                                          style="margin-top: 0px; margin-bottom: 0px; height: 81px;"></textarea>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="knowledge_description">Knowledge Description</label>
+                                <textarea class="form-control knowledge" rows="3" name="knowledge_description"
+                                          placeholder="Describe how you would “share” your knowledge/experience which you will gain with other AISE faculty members"
+                                          style="margin-top: 0px; margin-bottom: 0px; height: 81px;"></textarea>
+
+                            </div>
+<!--                            <div class="form-group">-->
+<!--                                <label for="attachment">PD Attachments</label>-->
+<!--                                <div class="input-group ">-->
+<!--                                    <input type="file" name="attachment" multiple="multiple"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary ">
+                                <i class="fa fa-paper-plane"></i>
+                                Submit
+                            </button>
+                            <button type="button" class="btn btn-secondary  " onclick="history.go(-1)">
+                                <i class="fa fa-arrow-circle-left"></i>
+                                Back
+                            </button>
+
+                        </div>
+
+                    </form>
+
+
+                </div>
+            </t>
+
+        </template>
+
+
+        <template id="website_portal.portal_my_pd_edit" name="PD: Edit a PD">
+            <t t-call="portal.portal_layout">
+                <t t-set="additional_title">PD</t>
+                <br/>
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">New PD</h3>
+                    </div>
+                    <form t-att-action="'/my/pd/edit/%s' % (pd.id)" method="post"
+                          class="container-fluid mt32 " id="pd_form"
+                          enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="card-body">
+
+
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label class="control-label" for="pd_activity">Professional Development Activity
+                                    </label>
+                                    <div class="input-group date">
+                                        <input type="text" name="pd_activity" t-att-value="pd.pd_activity"
+                                               required="required" id="pd_activity"
+                                               class="form-control pd_activity"
+                                        />
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="location_institution">Location/Institution</label>
+                                    <div class="input-group date">
+                                        <input type="text" name="location_institution"
+                                               t-att-value="pd.location_institution" required="required"
+                                               class="form-control location"
+                                        />
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="grade_level">Grade/Subject Level</label>
+                                    <div class="input-group date">
+                                        <input type="text" name="grade_level" t-att-value="pd.grade_level"
+                                               required="required"
+                                               class="form-control grade"
+                                        />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="date_from">Date From</label>
+                                    <div class="input-group date">
+                                        <input type="date" name="date_from" t-att-value="pd.date_from"
+                                               required="required"
+                                               class="form-control  date_from"
+                                        />
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="date_to">Date To</label>
+                                    <div class="input-group date">
+                                        <input type="date" name="date_to" t-att-value="pd.date_to" required="required"
+                                               class="form-control date_to"
+                                        />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="cost">Registration cost</label>
+                                    <div class="input-group date">
+                                        <input type="number" step="0.01" t-att-value="pd.cost" name="cost"
+                                               required="required"
+                                               class="form-control cost"
+                                        />
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="additional_cost">Additional costs</label>
+                                    <div class="input-group date">
+                                        <input type="number" step="0.01" t-att-value="pd.additional_cost"
+                                               name="additional_cost" required="required"
+                                               class="form-control add_cost"
+                                        />
+
+                                    </div>
+                                </div>
+                            </div>
+<!--                            <div class="row">-->
+
+<!--                                <div class="form-group col-md-6">-->
+<!--                                    <label class="control-label" for="paid_amount">Paid Amount</label>-->
+<!--                                    <div class="input-group date">-->
+<!--                                        <input type="number" step="0.01" t-att-value="pd.paid_amount"-->
+<!--                                               name="paid_amount" required="required"-->
+<!--                                               class="form-control paid_amount"-->
+<!--                                        />-->
+
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <div class="form-group">
+                                <label>Additional Information</label>
+                                <br/>
+                                <label for="brief_explanation">Brief Explanation</label>
+                                <textarea class="form-control brief" rows="3" name="brief_explanation"
+                                          placeholder="Brief explanation of your purpose in taking this course/workshop and how it will benefit your classroom instruction and/or professional growth"
+                                          style="margin-top: 0px; margin-bottom: 0px; height: 81px;"><t t-esc="pd.brief_explanation"/>
+                                </textarea>
+
+
+                            </div>
+                            <div class="form-group">
+                                <label for="quality_description">Quality Description</label>
+                                <textarea class="form-control quality" rows="3" name="quality_description"
+                                          placeholder="Describe the quality of the program and how it supports the school’s mission, statement, goals, and strategic improvement plan"
+                                          style="margin-top: 0px; margin-bottom: 0px; height: 81px;"><t t-esc="pd.quality_description"/>
+                                </textarea>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="knowledge_description">Knowledge Description</label>
+                                <textarea class="form-control knowledge" rows="3" name="knowledge_description"
+                                          placeholder="Describe how you would “share” your knowledge/experience which you will gain with other AISE faculty members"
+                                          style="margin-top: 0px; margin-bottom: 0px; height: 81px;"><t t-esc="pd.knowledge_description"/>
+                                </textarea>
+
+                            </div>
+<!--                            <div class="form-group">-->
+<!--                                <label for="attachment">PD Attachments</label>-->
+<!--                                <div class="input-group ">-->
+<!--                                    <input type="file" name="attachment" multiple="multiple"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary ">
+                                <i class="fa fa-paper-plane"></i>
+                                Submit
+                            </button>
+                            <button type="button" class="btn btn-secondary  " onclick="history.go(-1)">
+                                <i class="fa fa-arrow-circle-left"></i>
+                                Back
+                            </button>
+
+                        </div>
+
+                    </form>
+
+
+                </div>
+            </t>
+
+        </template>
+    </data>
+</odoo>

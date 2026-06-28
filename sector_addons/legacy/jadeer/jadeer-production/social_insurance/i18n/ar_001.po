@@ -1,0 +1,447 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* social_insurance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-06 09:30+0000\n"
+"PO-Revision-Date: 2022-06-06 11:38+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: ar\n"
+"X-Generator: Poedit 2.3\n"
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.social_insurance_form
+msgid "/Month"
+msgstr ""
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.res_config_settings_payroll
+msgid "<span class=\"o_form_label\">Insurance Percentage %</span>"
+msgstr ""
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.view_contract_insurance_form
+msgid "<span>/ month</span>"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__additional_salary
+msgid "Additional Salary"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__age_above_60
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__age_above_60
+msgid "Age Above 60"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__4
+msgid "April"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__8
+msgid "August"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__basic_salary
+msgid "Basic"
+msgstr "علاوة"
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__basic_insurance_amount
+msgid "Basic Insurance Amount"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__company_basic
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__employee_basic
+msgid "Basic Insurance Percent"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__basic_insurance_salary
+#: model:ir.model.fields,field_description:social_insurance.field_hr_payslip__basic_insurance_salary
+msgid "Basic Insurance Salary"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__bonus_allowance
+msgid "Bonus Allowance"
+msgstr "بدل مكافأة"
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.insurance_wizard_report_form
+msgid "Cancel"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__car_allowance
+msgid "Car Allowance"
+msgstr "بدل سيارة"
+
+#. module: social_insurance
+#: model:ir.model,name:social_insurance.model_res_company
+msgid "Companies"
+msgstr "شركات"
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report__company_id
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__company_id
+#: model_terms:ir.ui.view,arch_db:social_insurance.social_insurance_form
+msgid "Company"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__company_share_basic
+msgid "Company Share Basic"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__company_share_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_payslip__company_share_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.print_report_template
+msgid "Company Share Insurance"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__company_share_variable
+msgid "Company Share Variable"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model,name:social_insurance.model_res_config_settings
+msgid "Config Settings"
+msgstr "ضبط الاعدادات"
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report__create_uid
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report__create_date
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__12
+msgid "December"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report__display_name
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model,name:social_insurance.model_hr_employee
+#: model_terms:ir.ui.view,arch_db:social_insurance.print_report_template
+#: model_terms:ir.ui.view,arch_db:social_insurance.social_insurance_form
+msgid "Employee"
+msgstr "الموظف"
+
+#. module: social_insurance
+#: model:ir.model,name:social_insurance.model_hr_contract
+msgid "Employee Contract"
+msgstr "عقد الموظف"
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__employee_share_basic
+msgid "Employee Share Basic"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__employee_share_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_payslip__employee_share_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.print_report_template
+msgid "Employee Share Insurance"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__employee_share_variable
+msgid "Employee Share Variable"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report__employee_ids
+msgid "Employee/s"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__2
+msgid "February"
+msgstr ""
+
+#. module: social_insurance
+#: code:addons/social_insurance/wizard/insurance_wizard.py:0
+#, python-format
+msgid "Form content is missing, this report cannot be printed."
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__gross_salary
+msgid "Gross Salary"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report__id
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__id
+msgid "ID"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_res_company__insurance_percentage
+#: model:ir.model.fields,field_description:social_insurance.field_res_config_settings__insurance_percentage
+msgid "Insurance Percentage"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.actions.report,name:social_insurance.print_insurance_report_id
+#: model:ir.ui.menu,name:social_insurance.insurance_wizard_report_form_action_menu
+msgid "Insurance Report"
+msgstr ""
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.print_report_template
+msgid "Insurance Report For Month:"
+msgstr ""
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.print_report_template
+msgid "Insurance Salary"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__insurance_start_date
+#: model:ir.model.fields,field_description:social_insurance.field_hr_employee__insurance_start_date
+msgid "Insurance Start Date"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.actions.act_window,name:social_insurance.insurance_wizard_report_form_action
+msgid "Insurance report"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__hr_contract__statue__in
+msgid "Insured"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__is_insured
+#: model:ir.model.fields,field_description:social_insurance.field_hr_employee__is_insured
+#: model:ir.model.fields,field_description:social_insurance.field_hr_payslip__is_insured
+msgid "Is Insured"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__1
+msgid "January"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__7
+msgid "July"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__6
+msgid "June"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report____last_update
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report__write_uid
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report__write_date
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__3
+msgid "March"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__company_max_limit_basic
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__company_max_limit_variable
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__employee_max_limit_basic
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__employee_max_limit_variable
+msgid "Max Limit"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__5
+msgid "May"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__medical_insurance_salary
+#: model_terms:ir.ui.view,arch_db:social_insurance.view_hr_payslip_form_inherit
+msgid "Medical Insurance"
+msgstr "تأمين طبى"
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__company_min_limit_basic
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__company_min_limit_variable
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__employee_min_limit_basic
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__employee_min_limit_variable
+msgid "Min Limit"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__mobile_allowance
+msgid "Mobile Allowance"
+msgstr "بدل موبايل"
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report__month
+msgid "Month"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__name
+msgid "Name"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__11
+msgid "November"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__10
+msgid "October"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__hr_contract__statue__out
+msgid "Outsource"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model,name:social_insurance.model_hr_payslip
+msgid "Pay Slip"
+msgstr "قسيمة المرتب"
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.insurance_wizard_report_form
+msgid "Print"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__9
+msgid "September"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.actions.act_window,name:social_insurance.action_social_insurance
+#: model:ir.model,name:social_insurance.model_social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__social_insurance_salary
+#: model:ir.ui.menu,name:social_insurance.social_insurance_menu
+#: model_terms:ir.ui.view,arch_db:social_insurance.social_insurance_form
+#: model_terms:ir.ui.view,arch_db:social_insurance.social_insurance_tree
+#: model_terms:ir.ui.view,arch_db:social_insurance.view_contract_insurance_form
+#: model_terms:ir.ui.view,arch_db:social_insurance.view_employee_form_inherit
+msgid "Social Insurance"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__social_insurance_number
+#: model:ir.model.fields,field_description:social_insurance.field_hr_employee__social_insurance_number
+msgid "Social Insurance Number"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__statue
+#: model:ir.model.fields,field_description:social_insurance.field_hr_employee__statue
+msgid "Statue"
+msgstr ""
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.print_report_template
+msgid "Total"
+msgstr ""
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.print_report_template
+msgid "Total Salary"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__transport_allowance
+msgid "Transportation Allowance"
+msgstr "بدل مواصلات"
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__payment_method
+msgid "Payment Method"
+msgstr "طريقة الدفع"
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__varaible_insurance_amount
+msgid "Varaible Insurance Amount"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__company_variable
+#: model:ir.model.fields,field_description:social_insurance.field_social_insurance__employee_variable
+msgid "Variable Insurance Percent"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_hr_contract__variable_insurance_salary
+#: model:ir.model.fields,field_description:social_insurance.field_hr_payslip__variable_insurance_salary
+msgid "Variable Insurance Salary"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model,name:social_insurance.model_insurance_wizard_report
+msgid "insurance.wizard.report"
+msgstr ""
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.insurance_wizard_report_form
+msgid "or"
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model,name:social_insurance.model_report_social_insurance_print_report_template
+msgid "report.social_insurance.print_report_template"
+msgstr ""
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__wage
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_history__wage
+msgid "Wage"
+msgstr "الأساسي"

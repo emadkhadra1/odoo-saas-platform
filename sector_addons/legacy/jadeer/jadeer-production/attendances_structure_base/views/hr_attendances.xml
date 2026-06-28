@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Customize Attendance Report -->
+    <record id="inherited_view_attendance_tree_late" model="ir.ui.view">
+        <field name="name">hr.attendance.tree</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="pin"/>
+            </xpath>
+            <xpath expr="//field[@name='check_out']" position="after">
+                <field name="resource_id" readonly="1" force_save="1"/>
+                <field name="late" type="measure" widget="float_time" sum="TOTAL"/>
+                <field name="early" widget="float_time" type="measure" sum="TOTAL"/>
+                <field name="over_time" widget="float_time" readonly="1" force_save="1" sum="TOTAL"/>
+                <field name="overtime_type" readonly="1" force_save="1" sum="TOTAL"/>
+            </xpath>
+<!--            <xpath expr="//field[@name='worked_hours']" position="attributes">-->
+<!--                <attribute name="sum">TOTAL</attribute>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+
+
+    <!--************************* Inherit Tree View *************************-->
+
+    <record id="hr_attendance_search" model="ir.ui.view">
+        <field name="name">hr.attendance.search</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[2]" position="attributes">
+                <attribute name="name">current_month</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="hr_attendance_view_form_inherit" model="ir.ui.view">
+        <field name="name">hr.attendance.form</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+        <field name="arch" type="xml">
+            <!--<xpath expr="//sheet" position="before">-->
+            <!--<header>-->
+            <!--<button name="compute_late_hours"-->
+            <!--type="object"-->
+            <!--string="late"-->
+            <!--class="oe_highlight"/>-->
+            <!--</header>-->
+
+            <!--</xpath>-->
+            <xpath expr="//sheet" position="after">
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!--************************* Action Inherit *************************-->
+
+    <record id="hr_attendance.hr_attendance_action" model="ir.actions.act_window">
+        <field name="context">{'search_default_employee': '1','search_default_current_month': '1'}</field>
+    </record>
+</odoo>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data >
+<!--        <record id="leaves_portal_view_rule" model="ir.rule">-->
+<!--            <field name="name">Leaves: portal users: portal or following</field>-->
+<!--            <field name="model_id" ref="hr_holidays_custom.model_hr_leave"/>-->
+<!--            <field name="domain_force">[-->
+<!--                '|','|',-->
+<!--                ('message_partner_ids', 'child_of', [user.partner_id.commercial_partner_id.id]),-->
+<!--                ('message_partner_ids', 'in', [user.partner_id.id]),-->
+<!--                ('employee_id', 'in', [user.employee_id.id])-->
+<!--                ]-->
+<!--            </field>-->
+<!--            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>-->
+<!--        </record>-->
+
+        <record id="business_portal_view_rule" model="ir.rule">
+            <field name="name">business trip: portal users: portal or following</field>
+            <field name="model_id" ref="hr_custom_adi.model_business_trip_request"/>
+            <field name="domain_force">[
+                ('employee_id', 'in', [user.employee_id.id])
+                ]
+            </field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+        <record id="letter_request_portal_view_rule" model="ir.rule">
+            <field name="name">letter request: portal users: portal or following</field>
+            <field name="model_id" ref="hr_custom_adi.model_letter_request"/>
+            <field name="domain_force">[
+                ('employee_id', 'in', [user.employee_id.id])
+                ]
+            </field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+        <record id="training_request_portal_view_rule" model="ir.rule">
+            <field name="name">training request: portal users: portal or following</field>
+            <field name="model_id" ref="hr_custom_adi.model_training_request"/>
+            <field name="domain_force">[
+                ('employee_id', 'in', [user.employee_id.id])
+                ]
+            </field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+        <record id="salary_letter_request_portal_view_rule" model="ir.rule">
+            <field name="name">salary request: portal users: portal or following</field>
+            <field name="model_id" ref="hr_custom_adi.model_salary_letter_request"/>
+            <field name="domain_force">[
+                ('employee_id', 'in', [user.employee_id.id])
+                ]
+            </field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+        <record id="bank_update_request_portal_view_rule" model="ir.rule">
+            <field name="name">bank request: portal users: portal or following</field>
+            <field name="model_id" ref="hr_custom_adi.model_bank_update_request"/>
+            <field name="domain_force">[
+                ('employee_id', 'in', [user.employee_id.id])
+                ]
+            </field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+        <record id="hr_employee_letter_request_portal_view_rule" model="ir.rule">
+            <field name="name">hr.employee.letter.request: portal users: portal or following</field>
+            <field name="model_id" ref="hr_custom_adi.model_hr_employee_letter_request"/>
+            <field name="domain_force">[
+                ('employee_id', 'in', [user.employee_id.id])
+                ]
+            </field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+        <record id="hr_employee_permit_request_portal_view_rule" model="ir.rule">
+            <field name="name">hr.employee.permit.request: portal users: portal or following</field>
+            <field name="model_id" ref="hr_employee_custom.model_hr_permit_request"/>
+            <field name="domain_force">[
+                ('employee_id', 'in', [user.employee_id.id])
+                ]
+            </field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+        <record id="hr_employee_hr_payslip_portal_view_rule" model="ir.rule">
+            <field name="name">hr.employee.payslip.request: portal users: portal or following</field>
+            <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+            <field name="domain_force">[
+                ('employee_id', 'in', [user.employee_id.id])
+                ]
+            </field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+        <record id="hr_employee_hr_attendance_portal_view_rule" model="ir.rule">
+            <field name="name">hr_attendance.payslip.request: portal users: portal or following</field>
+            <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+            <field name="domain_force">[
+                ('employee_id', 'in', [user.employee_id.id])
+                ]
+            </field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+        <record id="hr_employee_hr_expense_portal_view_rule" model="ir.rule">
+            <field name="name">hr_expense.payslip.request: portal users: portal or following</field>
+            <field name="model_id" ref="hr_expense.model_hr_expense"/>
+            <field name="domain_force">[
+                ('employee_id', 'in', [user.employee_id.id])
+                ]
+            </field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+    </data>
+</odoo>

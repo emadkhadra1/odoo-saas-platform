@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_b2b_constructors_inherit" model="ir.ui.view">
+            <field name="name">view.b2b.constructors.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='lang']" position="after">
+                    <field name="is_constructors"/>
+                </xpath>
+                <xpath expr="//page[@name='sales_purchases']" position="after">
+                    <page name="deduction" string="Deductions">
+                        <field name="deduction_ids" >
+                            <list editable="bottom">
+
+                                <field name="deduction_id" options="{'no_create_edit': True}"/>
+                                <field name="name" readonly="1"/>
+                                                                <field name="type" readonly="1"/>
+
+                                <field name="amount" readonly="1"/>
+                                <field name="account_id" readonly="1"/>
+
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="base.action_partner_customer_form" model="ir.actions.act_window">
+            <field name="name">Customers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="domain">[("is_constructors", "=", False)]</field>
+            <field name="context">{'default_customer_rank':1, 'search_default_customer':1}</field>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a contact in your address book.
+                </p>
+                <p>
+                    Odoo helps you easily track all activities related to a customer: discussions, history of business
+                    opportunities, documents, etc.
+                </p>
+            </field>
+        </record>
+
+        <record id="base.action_partner_form" model="ir.actions.act_window">
+            <field name="name">Customers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="domain">[("is_constructors", "=", False)]</field>
+            <field name="context">{"search_default_customer":1}</field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a contact in your address book.
+                </p>
+                <p>
+                    Odoo helps you easily track all activities related to
+                    a customer; discussions, history of business opportunities,
+                    documents, etc.
+                </p>
+            </field>
+        </record>
+
+        <record id="base.action_partner_supplier_form" model="ir.actions.act_window">
+            <field name="name">Suppliers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="domain">[("is_constructors", "=", False)]</field>
+            <field name="context">{'search_default_supplier': 1,'default_customer_rank': 0,'default_supplier_rank': 1}</field>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a contact in your address book.
+                </p>
+                <p>
+                    Odoo helps you easily track all activities related to
+                    a supplier: discussions, history of purchases,
+                    documents, etc.
+                </p>
+            </field>
+        </record>
+
+        <record id="constructors_action" model="ir.actions.act_window">
+            <field name="name">Constructors</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="domain">[("is_constructors", "=", True)]</field>
+            <field name="context">{"default_is_constructors": True, "default_supplier": True}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new Constructors.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_b2b_owner_qoutation_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context({'lang':o.consructor_id.lang})"/>
+            <div class="page">
+
+                <style type="text/css">
+                    body,div,table,thead,tbody,tfoot,tr,th,td,p { font-family:"KacstOne"; font-size:large }
+                    a.comment-indicator:hover + comment { background:#ffd; position:absolute; display:block; border:1px
+                    solid black; padding:0.5em; }
+                    a.comment-indicator { background:red; display:inline-block; border:1px solid black; width:0.5em;
+                    height:0.5em; }
+                    comment { display:none; }
+                </style>
+
+                <t t-foreach="docs" t-as="o">
+
+                    <table cellspacing="0" border="0">
+                        <colgroup span="8" width="144"></colgroup>
+                        <tr>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan="4" height="34" align="center" valign="middle">
+                                <t t-esc="o.project_id.name"/>
+                                <br/>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="center" valign="middle">
+                                <b>اسم المشروع</b>
+                            </td>
+                            <td colspan="3" align="right" valign="middle">
+                                <b>
+                                    مستخلص اعمال جاري مالك
+                                </b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan="4" height="34" align="center" valign="middle">
+                                <t t-esc="o.consructor_id.name"/>
+                                <br/>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="center" valign="middle">
+                                <b>المقاول</b>
+                            </td>
+                            <td colspan="2" dir="rtl" align="right" valign="middle">
+                                <t t-esc="o.from_date"/>
+                                الى
+                                <t t-esc="o.to_date"/>
+                            </td>
+                            <td align="right" valign="middle">
+                                <b>
+                                    عن الفترة من
+                                </b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan="4" height="34" align="center" valign="middle">
+                                <t t-esc="o.construction_type_id.name"/>
+                                <br/>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="center" valign="middle">
+                                <b>نوع المقاولة</b>
+                            </td>
+                            <td align="left" valign="middle">
+                                <br/>
+                            </td>
+                            <td align="right" sdval="1" sdnum="1033;">
+                                <t t-esc="o.name"/>
+                            </td>
+                            <td align="right" valign="middle">
+                                <b>مستخلص رقم</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="27" align="left">
+                                <br/>
+                            </td>
+                            <td align="left">
+                                <br/>
+                            </td>
+                            <td align="left">
+                                <br/>
+                            </td>
+                            <td align="left">
+                                <br/>
+                            </td>
+                            <td align="left">
+                                <br/>
+                            </td>
+                            <td align="left">
+                                <br/>
+                            </td>
+                            <td align="left">
+                                <br/>
+                            </td>
+                            <td align="right" valign="middle">
+                                <b>
+                                    <br/>
+                                </b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color:#dddddd;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                rowspan="2" height="64" align="center" valign="middle">
+                                <b>ملاحظات</b>
+                            </td>
+                            <td style="background-color:#dddddd;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                rowspan="2" height="64" align="center" valign="middle">
+                                <b>قيمة الاعمال</b>
+                            </td>
+                            <td style="background-color:#dddddd;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                rowspan="2" height="64" align="center" valign="middle">
+                                <b>نسبة الانجاز %</b>
+                            </td>
+                            <td style="background-color:#dddddd;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                rowspan="2" align="center" valign="middle">
+                                <b>الفئة</b>
+                            </td>
+                            <td style="background-color:#dddddd;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan="3" align="center" valign="middle">
+                                <b>الاعمال</b>
+                            </td>
+                            <td style="background-color:#dddddd;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                rowspan="2" align="center" valign="middle">
+                                <b>الوحدة</b>
+                            </td>
+                            <td style="background-color:#dddddd;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                rowspan="2" align="center" valign="middle">
+                                <b>بيان الاعمال</b>
+                            </td>
+                            <td style="background-color:#dddddd;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                rowspan="2" align="center" valign="middle">
+                                <b>م</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color:#dddddd;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="center" valign="middle">
+                                <b>الاجمالي</b>
+                            </td>
+                            <td style="background-color:#dddddd;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="center" valign="middle">
+                                <b>الحالي</b>
+                            </td>
+                            <td style="background-color:#dddddd;border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="center" valign="middle">
+                                <b>السابق</b>
+                            </td>
+                        </tr>
+
+                        <t t-set="sequence" t-value="1"/>
+
+                        <t t-foreach="o.line_ids" t-as="i">
+                            <tr>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    height="17" align="right">
+                                    <t t-esc="i.notes"/>
+                                    <br/>
+                                </td>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    height="17" align="right">
+                                    <t t-esc="i.perc_c"/>
+                                    <br/>
+                                </td>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    height="17" align="right">
+                                    <t t-esc="i.work_amount"/>
+                                    <br/>
+                                </td>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    align="right">
+                                    <t t-esc="i.category"/>
+                                    <br/>
+                                </td>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    align="right">
+                                    <t t-esc="i.total_work"/>
+                                    <br/>
+                                </td>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    align="right">
+                                    <t t-esc="i.current_work"/>
+                                    <br/>
+                                </td>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    align="right">
+                                    <t t-esc="i.previous_work"/>
+                                    <br/>
+                                </td>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    align="center">
+                                    <t t-esc="i.uom_id.name"/>
+                                    <br/>
+                                </td>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    align="right">
+                                    <t t-esc="i.business_statement_id.name"/>
+                                    <br/>
+                                </td>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    align="center">
+                                    <span t-esc="sequence"/>
+                                    <t t-set="sequence" t-value="sequence + 1"/>
+                                    <br/>
+                                </td>
+                            </tr>
+                        </t>
+
+
+                    </table>
+
+                    <br/>
+
+                    <table cellspacing="0" border="0" width="100%">
+                        <colgroup span="8" width="144"></colgroup>
+                        <tr>
+                            <td align="left">
+                                <table cellspacing="0" border="0">
+                                    <colgroup width="188"></colgroup>
+                                    <colgroup width="202"></colgroup>
+                                    <tr>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="26" align="center" valign="middle">
+                                            <t t-esc="o.work_amount_total"/>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="26" align="center" valign="middle">
+                                            <b>الاجمالي</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="26" align="center" valign="middle">
+                                            <t t-esc="o.already_cashed"/>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="26" align="center" valign="middle">
+                                            <b>
+                                                ما سبق صرفة
+                                            </b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="26" align="center" valign="middle">
+                                            <t t-esc="o.down_payment"/>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="26" align="center" valign="middle">
+                                            <b> دفعة مقدمة</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="26" align="center" valign="middle">
+                                            <t t-esc="o.pay_required"/>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="26" align="center" valign="middle">
+                                            <b>الاستحقاقات</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="26" align="center" valign="middle">
+                                            <t t-esc="o.deductions"/>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="26" align="center" valign="middle">
+                                            <b>استقطاعات</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="26" align="center" valign="middle">
+                                            <t t-esc="o.pay_due"/>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="26" align="center" valign="middle">
+                                            <b>المستحق للصرف</b>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td align="center">
+                                <br/>
+                            </td>
+                            <td align="right">
+                                <table cellspacing="0" border="0">
+                                    <colgroup width="120"></colgroup>
+                                    <colgroup span="2" width="85"></colgroup>
+                                    <colgroup width="128"></colgroup>
+                                    <tr>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="26" align="center" valign="middle">
+                                            <b>نوع الخصم</b>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="26" align="center" valign="middle">
+                                            <b>المبلغ</b>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            colspan="3" align="center" valign="middle">
+                                            <b>بيان الاستقطاعات</b>
+                                        </td>
+                                    </tr>
+
+                                    <t t-set="deduction_total" t-value="0"/>
+                                    <t t-foreach="o.deduction_ids" t-as="s">
+                                        <tr>
+                                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                                height="26" align="center" valign="middle">
+                                                <t t-if="s.type == 'amount'">
+                                                    مبلغ
+                                                </t>
+
+                                                <t t-if="s.type == 'percent'">
+                                                    نسبه
+                                                </t>
+
+                                            </td>
+                                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                                height="26" align="center" valign="middle">
+                                                <t t-if="s.type == 'amount'">
+                                                    <t t-esc="s.amount"/>
+                                                    <t t-set="deduction_total" t-value="deduction_total + s.amount"/>
+
+                                                </t>
+
+                                                <t t-if="s.type == 'percent'">
+                                                    <t t-esc="o.work_amount_total * (s.amount / 100) "/>
+                                                    <t t-set="deduction_total"
+                                                       t-value="deduction_total + (o.work_amount_total * (s.amount / 100))"/>
+
+                                                </t>
+                                            </td>
+                                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                                colspan="3" align="right" valign="middle">
+                                                <t t-esc="s.name"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+
+                                    <tr>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="26" align="center" valign="middle">
+                                            <span t-esc="deduction_total"/>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            colspan="3" align="center" valign="middle">
+                                            <b>الاجمالي</b>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <br/>
+
+                    <table cellspacing="0" border="0">
+                        <colgroup span="8" width="144"></colgroup>
+                        <tr>
+                            <td height="17" align="left">
+                                <br/>
+                            </td>
+
+
+                            <td align="left">
+                                <b>المدير العام</b>
+                            </td>
+                            <td align="left">
+                                <br/>
+                            </td>
+
+                            <td align="left">
+                                <b>الحسابات</b>
+                            </td>
+                            <td align="left">
+                                <br/>
+                            </td>
+
+                            <td align="left">
+                                <b>
+                                    مدير المشروعات
+                                </b>
+                            </td>
+                            <td align="left">
+                                <br/>
+                            </td>
+                            <td align="left">
+                                <br/>
+                            </td>
+                            <td align="left">
+                                <b>مهندس المشروع</b>
+                            </td>
+
+
+                        </tr>
+                    </table>
+
+
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <template id="b2b_owner_qoutation_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="b2b_constructors.report_b2b_owner_qoutation_document" t-lang="o.consructor_id.lang"/>
+            </t>
+        </t>
+    </template>
+
+</odoo>

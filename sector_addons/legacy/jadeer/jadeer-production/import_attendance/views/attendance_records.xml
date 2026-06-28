@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="attendance_records_sequences" model="ir.ui.view">
+            <field name="name">attendance.records.form</field>
+            <field name="model">attendance.records</field>
+            <field name="arch" type="xml">
+                <form string="Attendace Records Sequences">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="attendance_record_ids">
+                                    <tree editable="bottom">
+                                        <field name="column"/>
+                                        <field name="sequence"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group>
+                                <field name="date_format"/>
+                                <field name="time_format"/>
+                            </group>
+                            <group string="Legends for supported Date and Time Formats">
+                                <div>%%a - Abbreviated weekday name.</div>
+                                <div>%%A - Full weekday name.</div>
+                                <div>%%b - Abbreviated month name.</div>
+                                <div>%%B - Full month name."</div>
+                                <div>%%d - Day of the month [01,31]."</div>
+                                <div>%%j - Day of the year [001,366]."</div>
+                                <div>%%H - Hour (24-hour clock) [00,23]."</div>
+                                <div>%%I - Hour (12-hour clock) [01,12]."</div>
+                                <div>%%M - Minute [00,59]."</div>
+                                <div>%%p - Equivalent of either AM or PM."</div>
+                                <div>%%S - Seconds [00,61]."</div>
+                                <div>%%w - Weekday number [0(Sunday),6]."</div>
+                                <div>%%y - Year without century [00,99]."</div>
+                                <div>%%Y - Year with century."</div>
+                                <div>%%m - Month number [01,12]."</div>
+                            </group>
+                            <group string="Examples">
+                                <div>1. %%b, %%B ==> Dec, December</div>
+                                <div>2. %%a ,%%A ==> Fri, Friday</div>
+                                <div>3. %%y, %%Y ==> 08, 2008</div>
+                                <div>4. %%d, %%m ==> 05, 12</div>
+                                <div>5. %%H:%%M:%%S ==> 18:25:20</div>
+                                <div>6. %%I:%%M:%%S %%p ==> 06:25:20 PM</div>
+                                <div>7. %%j ==> 340</div>
+                                <div>8. %%S ==> 20</div>
+                                <div>9. %%w ==> 5 ( Friday is the 6th day)</div>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="attendance_records_seq_tree" model="ir.ui.view">
+            <field name="name">attendance.records.tree</field>
+            <field name="model">attendance.records</field>
+            <field name="arch" type="xml">
+                <tree string="Attendace Records Sequences">
+                    <field name="name"/>
+                    <field name="create_uid" string="User"/>
+                    <field name="create_date" string="Create Date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_attendance_records_seq" model="ir.actions.act_window">
+            <field name="name">Import Attendances Sequences</field>
+            <field name="res_model">attendance.records</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="attendance_records_seq_tree"/>
+        </record>
+
+        <menuitem id="attendance_records_seq_menu_categ"
+                  parent="base.menu_custom" name="Attendances Import"/>
+        <menuitem action="action_attendance_records_seq"
+                  id="attendance_records_seq_menu"
+                  parent="attendance_records_seq_menu_categ"
+                  sequence="5"/>
+    </data>
+</odoo>

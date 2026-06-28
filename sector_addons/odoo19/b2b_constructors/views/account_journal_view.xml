@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <record id="view_b2b_account_journal_inherit" model="ir.ui.view">
+      <field name="name">view.b2b.account.journal.inherit</field>
+      <field name="model">account.journal</field>
+      <field name="inherit_id" ref="account.view_account_journal_form"/>
+      <field name="arch" type="xml">
+
+        <xpath expr="//field[@name='type']" position="after">
+          <field name="is_construction_journal"/>
+        </xpath>
+
+      </field>
+    </record>
+
+  </data>
+</odoo>

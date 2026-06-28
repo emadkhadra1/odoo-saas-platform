@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+     <record id="sale_order_report_py3o" model="ir.actions.report">
+        <field name="name">Offer Docx</field>
+        <field name="type">ir.actions.report</field>
+        <field name="model">sale.order</field>
+        <field name="report_name">py3o_sale_order</field>
+        <field name="report_type">py3o</field>
+        <field name="py3o_filetype">pdf</field>
+        <field name="module">report_py3o</field>
+        <field name="binding_model_id" ref="sale.model_sale_order" />
+    </record>
+</odoo>

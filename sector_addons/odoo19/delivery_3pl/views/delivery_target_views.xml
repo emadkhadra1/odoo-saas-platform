@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ══════════════════════════════════════════════════════════════
+         Company Target Views — تارجيت الشركة الشهري
+         (مُبسَّط في v4.4.0 — الشرائح المرنة بدلاً من A/B/C/D الثابتة)
+    ══════════════════════════════════════════════════════════════ -->
+
+    <record id="view_delivery_company_target_tree" model="ir.ui.view">
+        <field name="name">delivery.company.target.tree</field>
+        <field name="model">delivery.company.target</field>
+        <field name="arch" type="xml">
+            <list string="تارجيت الشركة / Company Targets"
+                  decoration-success="target_met == True"
+                  decoration-danger="target_met == False">
+                <field name="period_display" string="الفترة"/>
+                <field name="company_id" string="الشركة"/>
+                <field name="branch_id" string="الفرع" optional="show"/>
+                <field name="contract_id" string="العقد" optional="show"/>
+                <field name="actual_valid_das" string="المناديب الصالحون الفعليون"/>
+                <field name="actual_total_riders" string="إجمالي المناديب" optional="show"/>
+                <field name="achieved_level" string="الشريحة المحققة" widget="badge"/>
+                <field name="target_met" string="تحقق؟" widget="boolean"/>
+                <field name="tga_excl_vat" string="إجمالي الشركة (بدون ضريبة)"/>
+                <field name="total_due" string="المستحق الكلي"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_delivery_company_target_form" model="ir.ui.view">
+        <field name="name">delivery.company.target.form</field>
+        <field name="model">delivery.company.target</field>
+        <field name="arch" type="xml">
+            <form string="تارجيت الشركة / Company Target">
+                <sheet>
+                    <!-- ── الربط والفترة ──────────────────────────── -->
+                    <group>
+                        <group string="🏢 الشركة والفرع / Company &amp; Branch">
+                            <field name="company_id"/>
+                            <field name="branch_id"/>
+                            <field name="contract_id"/>
+                        </group>
+                        <group string="📅 الفترة / Period">
+                            <field name="month"/>
+                            <field name="year"/>
+                            <field name="period_display" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <!-- ── النتائج الفعلية ──────────────────────────── -->
+                    <group string="📊 النتائج الفعلية / Actual Results">
+                        <group>
+                            <field name="actual_valid_das"
+                                   string="المناديب الصالحون الفعليون (Valid DAs)"
+                                   readonly="1"/>
+                            <field name="actual_total_riders"
+                                   string="إجمالي المناديب"
+                                   readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="achieved_level"
+                                   string="الشريحة المحققة / Achieved Level"
+                                   readonly="1"
+                                   widget="badge"/>
+                            <field name="target_met"
+                                   string="تم تحقيق التارجيت؟"
+                                   readonly="1"
+                                   widget="boolean"/>
+                        </group>
+                    </group>
+
+                    <!-- ── المبالغ المالية ──────────────────────────── -->
+                    <group string="💰 المبالغ المالية / Financials">
+                        <group>
+                            <field name="tga_excl_vat"
+                                   string="إجمالي الشركة بدون ضريبة (TGA excl. VAT)"/>
+                            <field name="total_due"
+                                   string="المبلغ المستحق الكلي (Total Due)"/>
+                            <field name="currency_id"/>
+                        </group>
+                        <group string="معدلات المنصة / Platform Rates (كيتا)">
+                            <field name="keeta_base_rate" string="المعدل الأساسي"/>
+                            <field name="keeta_ontime_rate" string="معدل التوصيل في الوقت"/>
+                            <field name="keeta_shift_rate" string="معدل أوقات الدوام"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <!-- ── إعدادات الشرائح القديمة (للتوافق) ──── -->
+                        <page string="⚙ إعدادات A/B/C/D القديمة (Legacy — للتوافق مع النمط المتقدم)"
+                              name="legacy_levels">
+                            <div class="alert alert-warning" role="alert">
+                                <strong>ملاحظة:</strong> هذه الإعدادات مخصصة للعقود التي تستخدم "النمط المتقدم".
+                                إذا كان عقدك على نمط "شرائح لكل طلب (كيتا)"، استخدم تبويب
+                                <strong>شرائح التسعير</strong> في العقد بدلاً من هذا.
+                            </div>
+                            <group>
+                                <group string="المستوى A">
+                                    <field name="level_a_min_valid_das" string="الحد الأدنى (DA)"/>
+                                    <field name="level_a_max_valid_das" string="الحد الأقصى (DA)"/>
+                                    <field name="level_a_bike_amount" string="حافز الدراجة (ريال)"/>
+                                    <field name="level_a_car_amount" string="حافز السيارة (ريال)"/>
+                                </group>
+                                <group string="المستوى B">
+                                    <field name="level_b_min_valid_das" string="الحد الأدنى (DA)"/>
+                                    <field name="level_b_max_valid_das" string="الحد الأقصى (DA)"/>
+                                    <field name="level_b_bike_amount" string="حافز الدراجة (ريال)"/>
+                                    <field name="level_b_car_amount" string="حافز السيارة (ريال)"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group string="المستوى C">
+                                    <field name="level_c_min_valid_das" string="الحد الأدنى (DA)"/>
+                                    <field name="level_c_max_valid_das" string="الحد الأقصى (DA)"/>
+                                    <field name="level_c_bike_amount" string="حافز الدراجة (ريال)"/>
+                                    <field name="level_c_car_amount" string="حافز السيارة (ريال)"/>
+                                </group>
+                                <group string="المستوى D (أدنى)">
+                                    <field name="level_d_below" string="عدد DA أقل من"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <!-- ── ملاحظات ──────────────────────────────── -->
+                        <page string="📝 ملاحظات / Notes" name="notes_page">
+                            <field name="notes" placeholder="أدخل أي ملاحظات خاصة بهذا الشهر..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_delivery_company_target_search" model="ir.ui.view">
+        <field name="name">delivery.company.target.search</field>
+        <field name="model">delivery.company.target</field>
+        <field name="arch" type="xml">
+            <search string="بحث في التارجيت / Search Targets">
+                <field name="company_id"/>
+                <field name="branch_id"/>
+                <field name="period_display"/>
+                <filter name="target_met" string="تحقق التارجيت" domain="[('target_met', '=', True)]"/>
+                <filter name="target_not_met" string="لم يتحقق التارجيت" domain="[('target_met', '=', False)]"/>
+                <group expand="0" string="تجميع بـ / Group By">
+                    <filter name="group_company" string="الشركة" context="{'group_by': 'company_id'}"/>
+                    <filter name="group_year" string="السنة" context="{'group_by': 'year'}"/>
+                    <filter name="group_month" string="الشهر" context="{'group_by': 'month'}"/>
+                    <filter name="group_level" string="الشريحة المحققة" context="{'group_by': 'achieved_level'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_delivery_company_target" model="ir.actions.act_window">
+        <field name="name">تارجيت الشركة / Company Targets</field>
+        <field name="res_model">delivery.company.target</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_group_company': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">سجّل أول تارجيت شهري / Record your first monthly target</p>
+            <p>
+                التارجيت الشهري يوثّق عدد المناديب الصالحين الفعلي والشريحة المحققة لكل فرع شهرياً.
+            </p>
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         Rider Deduction Views — خصومات المناديب
+    ══════════════════════════════════════════════════════════════ -->
+
+    <record id="view_delivery_rider_deduction_tree" model="ir.ui.view">
+        <field name="name">delivery.rider.deduction.tree</field>
+        <field name="model">delivery.rider.deduction</field>
+        <field name="arch" type="xml">
+            <list string="خصومات المناديب / Rider Deductions">
+                <field name="period_display" string="الفترة"/>
+                <field name="rider_id" string="المندوب"/>
+                <field name="branch_id" string="الفرع" optional="show"/>
+                <field name="fuel_deduction" string="وقود"/>
+                <field name="car_rent" string="إيجار سيارة"/>
+                <field name="housing" string="سكن"/>
+                <field name="car_installment" string="قسط سيارة"/>
+                <field name="advance_salary" string="سلفة"/>
+                <field name="food_allowance" string="وجبات"/>
+                <field name="total_deduction" string="الإجمالي"/>
+                <field name="collection_amount" string="التحصيل"/>
+                <field name="is_active_rider" string="مندوب نشط؟" widget="boolean"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_delivery_rider_deduction_form" model="ir.ui.view">
+        <field name="name">delivery.rider.deduction.form</field>
+        <field name="model">delivery.rider.deduction</field>
+        <field name="arch" type="xml">
+            <form string="خصم مندوب / Rider Deduction">
+                <sheet>
+                    <group>
+                        <group string="المندوب والفترة / Rider &amp; Period">
+                            <field name="rider_id"/>
+                            <field name="branch_id"/>
+                            <field name="company_id"/>
+                            <field name="settlement_id"/>
+                            <field name="month"/>
+                            <field name="year"/>
+                            <field name="is_active_rider"/>
+                        </group>
+                        <group string="الخصومات / Deductions">
+                            <field name="fuel_deduction" string="وقود / Fuel"/>
+                            <field name="car_rent" string="إيجار سيارة / Car Rent"/>
+                            <field name="housing" string="سكن / Housing"/>
+                            <field name="car_installment" string="قسط سيارة / Installment"/>
+                            <field name="advance_salary" string="سلفة / Advance"/>
+                            <field name="food_allowance" string="وجبات / Food"/>
+                            <field name="other_deduction" string="أخرى / Other"/>
+                            <field name="total_deduction" string="الإجمالي / Total" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="التحصيل / Collection">
+                            <field name="collection_amount" string="مبلغ التحصيل"/>
+                        </group>
+                    </group>
+                    <field name="notes" placeholder="ملاحظات..."/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_delivery_rider_deduction" model="ir.actions.act_window">
+        <field name="name">خصومات المناديب / Rider Deductions</field>
+        <field name="res_model">delivery.rider.deduction</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

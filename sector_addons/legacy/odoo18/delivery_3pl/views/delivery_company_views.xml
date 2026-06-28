@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_delivery_company_tree" model="ir.ui.view">
+        <field name="name">delivery.company.tree</field>
+        <field name="model">delivery.company</field>
+        <field name="arch" type="xml">
+            <list string="شركات التوصيل" decoration-success="is_active == True" decoration-muted="is_active == False">
+                <field name="name" string="الاسم بالإنجليزية"/>
+                <field name="name_ar" string="الاسم بالعربية"/>
+                <field name="contact_email" string="البريد الإلكتروني"/>
+                <field name="contact_phone" string="الهاتف"/>
+                <field name="operations_manager_id" string="مدير العمليات" optional="show"/>
+                <field name="settlement_cycle" string="دورة التسوية"/>
+                <field name="branch_count" string="الفروع"/>
+                <field name="contract_count" string="العقود"/>
+                <field name="rider_count" string="المناديب"/>
+                <field name="is_active" string="نشطة؟" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_delivery_company_form" model="ir.ui.view">
+        <field name="name">delivery.company.form</field>
+        <field name="model">delivery.company</field>
+        <field name="arch" type="xml">
+            <form string="شركة توصيل">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_branches" type="object"
+                                class="oe_stat_button" icon="fa-building-o">
+                            <field name="branch_count" widget="statinfo" string="الفروع"/>
+                        </button>
+                        <button name="action_view_contracts" type="object"
+                                class="oe_stat_button" icon="fa-file-text-o">
+                            <field name="contract_count" widget="statinfo" string="العقود"/>
+                        </button>
+                        <button name="action_view_riders" type="object"
+                                class="oe_stat_button" icon="fa-motorcycle">
+                            <field name="rider_count" widget="statinfo" string="المناديب"/>
+                        </button>
+                    </div>
+                    <field name="logo" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="اسم الشركة بالإنجليزية"/></h1>
+                    </div>
+                    <group>
+                        <group string="البيانات الأساسية">
+                            <field name="name_ar" string="الاسم بالعربية"/>
+                            <field name="contact_email" string="البريد الإلكتروني"/>
+                            <field name="contact_phone" string="رقم الهاتف"/>
+                        </group>
+                        <group string="الإعدادات التشغيلية">
+                            <field name="operations_manager_id" string="مدير العمليات"/>
+                            <field name="settlement_cycle" string="دورة التسوية"/>
+                            <field name="is_active" string="نشطة؟"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="الفروع" name="branches">
+                            <field name="branch_ids">
+                                <list string="الفروع">
+                                    <field name="branch_code" string="كود الفرع"/>
+                                    <field name="name" string="اسم الفرع"/>
+                                    <field name="city_id" string="المدينة"/>
+                                    <field name="contact_person" string="مسؤول التواصل"/>
+                                    <field name="contract_count" string="العقود"/>
+                                    <field name="rider_count" string="المناديب"/>
+                                    <field name="is_active" string="نشط؟" widget="boolean_toggle"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="العقود" name="contracts">
+                            <field name="contract_ids">
+                                <list string="العقود">
+                                    <field name="contract_number" string="رقم العقد"/>
+                                    <field name="branch_id" string="الفرع"/>
+                                    <field name="version" string="الإصدار"/>
+                                    <field name="status" string="الحالة" widget="badge"
+                                           decoration-success="status == 'active'"
+                                           decoration-info="status == 'draft'"
+                                           decoration-warning="status == 'expired'"
+                                           decoration-danger="status == 'terminated'"/>
+                                    <field name="start_date" string="تاريخ البدء"/>
+                                    <field name="end_date" string="تاريخ الانتهاء"/>
+                                    <field name="settlement_cycle" string="دورة التسوية"/>
+                                    <field name="commission_rate" string="نسبة العمولة"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="قواعد التسعير" name="pricing">
+                            <field name="pricing_rule_ids">
+                                <list string="قواعد التسعير">
+                                    <field name="name" string="اسم القاعدة"/>
+                                    <field name="branch_id" string="الفرع"/>
+                                    <field name="pricing_type" string="نوع التسعير" widget="badge"/>
+                                    <field name="base_amount" string="المبلغ الأساسي"/>
+                                    <field name="effective_from" string="تاريخ التطبيق"/>
+                                    <field name="is_active" string="نشطة؟"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="ملاحظات" name="notes">
+                            <field name="notes" placeholder="ملاحظات عامة..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_delivery_company_search" model="ir.ui.view">
+        <field name="name">delivery.company.search</field>
+        <field name="model">delivery.company</field>
+        <field name="arch" type="xml">
+            <search string="بحث في الشركات">
+                <field name="name"/>
+                <field name="name_ar"/>
+                <filter name="active" string="نشطة" domain="[('is_active', '=', True)]"/>
+                <filter name="inactive" string="غير نشطة" domain="[('is_active', '=', False)]"/>
+                <group expand="0" string="تجميع بـ">
+                    <filter name="group_cycle" string="دورة التسوية" context="{'group_by': 'settlement_cycle'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_delivery_company" model="ir.actions.act_window">
+        <field name="name">الشركات</field>
+        <field name="res_model">delivery.company</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">أضف أول شركة توصيل</p>
+            <p>أدر شراكاتك مع كيتا وهنقرستيشن وجاهز ونون فود وتوجو وغيرها.</p>
+        </field>
+    </record>
+</odoo>

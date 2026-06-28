@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_boq_business_item_form" model="ir.ui.view">
+            <field name="name">view.b2b.boq.business.items.form</field>
+            <field name="model">b2b.business.items</field>
+            <field name="arch" type="xml">
+                <form string="BOQ Business Item">
+                    <sheet>
+                        <div class="oe_button_box" position="inside">
+                            <button class="oe_stat_button" icon="fa-shopping-cart" name="action_view_purchase_order_line" type="object">
+                                <div class="o_form_field o_stat_info">
+                                    <span class="o_stat_text">
+                                        Purchase Lines
+                                    </span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" icon="fa-truck" name="action_view_stock_move" type="object">
+                                <div class="o_form_field o_stat_info">
+                                    <span class="o_stat_text">
+                                        Stock Moves
+                                    </span>
+                                </div>
+                            </button>
+                        </div>
+                        <group name="main">
+                            <group>
+                                <field name="name"/>
+                                <field class="oe_edit_only" name="code"/>
+                                <field class="oe_read_only" name="group_code"/>
+                                <field name="uom_id"/>
+                            </group>
+                            <group>
+                                <field name="sub_business_statement_id"/>
+                                <field name="sub_item_id"/>
+                                <field name="main_item_id"/>
+                                <field invisible="1" name="currency_id"/>
+                                <field name="estimated_cost"/>
+                                <field name="creation_date"/>
+                                <field name="type_ids" widget="many2many_tags"/>
+                                <field name="analytic_tags_ids" widget="many2many_tags"/>
+                                <field invisible="1" name="set_lines_readonly"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Bill of Materials">
+                                <field name="line_ids" readonly="set_lines_readonly == True">
+                                    <list editable="bottom">
+                                        <field name="name"/>
+                                        <field name="qty"/>
+                                        <field name="uom_id"/>
+                                        <field invisible="1" name="currency_id"/>
+                                        <field name="cost"/>
+                                        <field name="margin"/>
+                                        <field name="selling_price"/>
+                                        <field name="subtotal"/>
+                                        <field name="total_selling_price"/>
+                                    </list></field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form></field>
+        </record>
+        <record id="view_boq_business_item_tree" model="ir.ui.view">
+            <field name="name">view.boq_business_item.tree</field>
+            <field name="model">b2b.business.items</field>
+            <field name="arch" type="xml">
+                <list string="BOQ Business Item">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="sub_business_statement_id"/>
+                    <field name="creation_date"/>
+                    <field invisible="1" name="currency_id"/>
+                    <field name="estimated_cost"/>
+                    <field name="sub_item_id"/>
+                    <field name="main_item_id"/>
+                    <field name="uom_id"/>
+                </list></field>
+        </record>
+        <record id="view_boq_business_item_search" model="ir.ui.view">
+            <field name="name">view.boq_business_item.search</field>
+            <field name="model">b2b.business.items</field>
+            <field name="arch" type="xml">
+                <search string="BOQ Business Item">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="sub_business_statement_id"/>
+                    <field name="sub_item_id"/>
+                    <field name="uom_id"/>
+                    <group name="groupby" string="Group By">
+                        <filter context="{'group_by': 'main_item_id'}" name="main_item_id_groupby" string="BOQ Main Item"/>
+                        <filter context="{'group_by': 'sub_item_id'}" name="sub_item_id_groupby" string="BOQ Sub Item"/>
+                        <filter context="{'group_by': 'uom_id'}" name="uom_id_groupby" string="Unit"/>
+                    </group>
+                </search></field>
+        </record>
+        <record id="boq_business_item_action" model="ir.actions.act_window">
+            <field name="name">BOQ Business Item</field>
+            <field name="res_model">b2b.business.items</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new BOQ Business Item.
+                </p></field>
+        </record>
+    </data>
+</odoo>

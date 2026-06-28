@@ -1,0 +1,314 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* elnasr_coding
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e-20181104\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-18 11:25+0000\n"
+"PO-Revision-Date: 2019-03-18 11:25+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_expense__account_ids
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_progress__account_ids
+msgid "Account"
+msgstr "حساب"
+
+#. module: elnasr_coding
+#: model_terms:ir.actions.act_window,help:elnasr_coding.action_account_analytic_account_form_nasr
+msgid "Add a new analytic account"
+msgstr "أضف حساب تحليلي جديد"
+
+#. module: elnasr_coding
+#: model:ir.model,name:elnasr_coding.model_account_analytic_account
+#: model_terms:ir.ui.view,arch_db:elnasr_coding.view_account_analytic_account_search_project
+msgid "Analytic Account"
+msgstr "حساب تحليلي"
+
+#. module: elnasr_coding
+#: model:ir.actions.act_window,name:elnasr_coding.action_account_analytic_account_form_nasr
+msgid "Analytic Accounts"
+msgstr "حسابات التحليل"
+
+#. module: elnasr_coding
+#: model_terms:ir.ui.view,arch_db:elnasr_coding.view_account_analytic_account_search_project
+msgid "Archived"
+msgstr "مؤرشف"
+
+#. module: elnasr_coding
+#: model_terms:ir.ui.view,arch_db:elnasr_coding.product_real_estate_encoding
+#: model_terms:ir.ui.view,arch_db:elnasr_coding.real_product_area_form
+#: model_terms:ir.ui.view,arch_db:elnasr_coding.real_product_area_tree
+msgid "Area"
+msgstr "المنطقة"
+
+#. module: elnasr_coding
+#: model:ir.actions.act_window,name:elnasr_coding.action_product_area_all
+#: model:ir.ui.menu,name:elnasr_coding.menu_product_area_all
+msgid "Areas"
+msgstr "المناطق"
+
+#. module: elnasr_coding
+#: model_terms:ir.ui.view,arch_db:elnasr_coding.view_account_analytic_account_search_project
+msgid "Associated Partner"
+msgstr ""
+
+#. module: elnasr_coding
+#: model:ir.actions.act_window,name:elnasr_coding.action_product_building_all
+#: model:ir.ui.menu,name:elnasr_coding.menu_product_building_all
+#: model_terms:ir.ui.view,arch_db:elnasr_coding.product_real_estate_encoding
+#: model_terms:ir.ui.view,arch_db:elnasr_coding.real_product_building_form
+#: model_terms:ir.ui.view,arch_db:elnasr_coding.real_product_building_tree
+msgid "Building"
+msgstr "المبني"
+
+#. module: elnasr_coding
+#: model_terms:ir.actions.act_window,help:elnasr_coding.action_product_area_all
+#: model_terms:ir.actions.act_window,help:elnasr_coding.action_product_building_all
+msgid "Create a new project"
+msgstr "إنشاء مشروع جديد"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_expense__create_uid
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_progress__create_uid
+#: model:ir.model.fields,field_description:elnasr_coding.field_lead_project__create_uid
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_area__create_uid
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_building__create_uid
+msgid "Created by"
+msgstr "إنشئت بواسطة"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_expense__create_date
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_progress__create_date
+#: model:ir.model.fields,field_description:elnasr_coding.field_lead_project__create_date
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_area__create_date
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_building__create_date
+msgid "Created on"
+msgstr "إنشئ في"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_expense__date_from
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_progress__date_from
+msgid "Date From"
+msgstr "التاريخ من"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_expense__date_to
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_progress__date_to
+msgid "Date To"
+msgstr "التاريخ إلي"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_expense__display_name
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_progress__display_name
+#: model:ir.model.fields,field_description:elnasr_coding.field_lead_project__display_name
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_area__display_name
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_building__display_name
+msgid "Display Name"
+msgstr "الإسم"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_account__expense_ids
+msgid "Expense"
+msgstr "المصروف"
+
+#. module: elnasr_coding
+#: model_terms:ir.ui.view,arch_db:elnasr_coding.account_analytic_account_view_form_inherit_project
+msgid "Expenses"
+msgstr "المصروفات"
+
+#. module: elnasr_coding
+#: model_terms:ir.ui.view,arch_db:elnasr_coding.view_account_analytic_account_search_project
+msgid "Group By..."
+msgstr "تجميع بواسطة"
+
+#. module: elnasr_coding
+#: model:ir.model,name:elnasr_coding.model_helpdesk_ticket
+msgid "Helpdesk Ticket"
+msgstr "الشكوي"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_expense__id
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_progress__id
+#: model:ir.model.fields,field_description:elnasr_coding.field_lead_project__id
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_area__id
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_building__id
+msgid "ID"
+msgstr "المعرف"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_account__is_project
+msgid "Is Project"
+msgstr "مشروع"
+
+#. module: elnasr_coding
+#: model_terms:ir.ui.view,arch_db:elnasr_coding.account_analytic_account_view_form_inherit_project
+msgid "Is a Project"
+msgstr "مشروع"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_expense____last_update
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_progress____last_update
+#: model:ir.model.fields,field_description:elnasr_coding.field_lead_project____last_update
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_area____last_update
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_building____last_update
+msgid "Last Modified on"
+msgstr "أخر تعديل"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_expense__write_uid
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_progress__write_uid
+#: model:ir.model.fields,field_description:elnasr_coding.field_lead_project__write_uid
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_area__write_uid
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_building__write_uid
+msgid "Last Updated by"
+msgstr "اخر تحدي بواسطة"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_expense__write_date
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_progress__write_date
+#: model:ir.model.fields,field_description:elnasr_coding.field_lead_project__write_date
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_area__write_date
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_building__write_date
+msgid "Last Updated on"
+msgstr "اخر تحديث في"
+
+#. module: elnasr_coding
+#: model:ir.model,name:elnasr_coding.model_lead_project
+msgid "Lead Project"
+msgstr "المشروع"
+
+#. module: elnasr_coding
+#: model:ir.model,name:elnasr_coding.model_crm_lead
+msgid "Lead/Opportunity"
+msgstr "فرصة محتملة"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,help:elnasr_coding.field_helpdesk_ticket__analytic_account_id
+msgid "Link this project to an analytic account if you need financial management on projects. It enables you to connect projects with budgets, planning, cost and revenue analysis, timesheets on projects, etc."
+msgstr ""
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_expense__name
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_progress__name
+#: model:ir.model.fields,field_description:elnasr_coding.field_lead_project__name
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_area__name
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_building__name
+msgid "Name"
+msgstr "الإسم"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_progress__note
+msgid "Note"
+msgstr "ملحوظة"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_account__penalty_percentage
+msgid "Penalty Percentage"
+msgstr "نسبة الغرامة"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_lead_project__product_id
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_area__product_id
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_building__product_id
+msgid "Product"
+msgstr "منتج"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_template__product_areas
+msgid "Product Areas"
+msgstr "المساحات"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_template__product_building
+msgid "Product Building"
+msgstr "المبني"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_template__product_project
+msgid "Product Project"
+msgstr "المشروع"
+
+#. module: elnasr_coding
+#: model:ir.model,name:elnasr_coding.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_account__progress_ids
+msgid "Progress"
+msgstr "التقدم"
+
+#. module: elnasr_coding
+#: model_terms:ir.ui.view,arch_db:elnasr_coding.account_analytic_account_view_form_inherit_project
+msgid "Progress Percentage"
+msgstr "نسبة التقدم"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_crm_lead__project_ids
+#: model_terms:ir.ui.view,arch_db:elnasr_coding.product_real_estate_encoding
+#: model_terms:ir.ui.view,arch_db:elnasr_coding.view_account_analytic_account_search_project
+msgid "Project"
+msgstr "مشروع"
+
+#. module: elnasr_coding
+#: model:ir.ui.menu,name:elnasr_coding.menu_lead_project
+msgid "Projects"
+msgstr "المشاريع"
+
+#. module: elnasr_coding
+#: code:addons/elnasr_coding/models/account.py:53
+#, python-format
+msgid "This Progress has been created before"
+msgstr ""
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_helpdesk_ticket__analytic_account_id
+msgid "Unit"
+msgstr "وحدة سكنية"
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_account_analytic_expense__value
+msgid "Value"
+msgstr "القيمة"
+
+#. module: elnasr_coding
+#: model_terms:ir.actions.act_window,help:elnasr_coding.action_product_area_all
+#: model_terms:ir.actions.act_window,help:elnasr_coding.action_product_building_all
+msgid "You must define a project for everything you purchase,\n"
+"                    whether it's a physical product, a consumable or services."
+msgstr ""
+
+#. module: elnasr_coding
+#: model:ir.model,name:elnasr_coding.model_account_analytic_expense
+msgid "account.analytic.expense"
+msgstr ""
+
+#. module: elnasr_coding
+#: model:ir.model,name:elnasr_coding.model_account_analytic_progress
+msgid "account.analytic.progress"
+msgstr ""
+
+#. module: elnasr_coding
+#: model:ir.model.fields,field_description:elnasr_coding.field_lead_project__code
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_area__code
+#: model:ir.model.fields,field_description:elnasr_coding.field_product_building__code
+msgid "code"
+msgstr "الكود"
+
+#. module: elnasr_coding
+#: model:ir.model,name:elnasr_coding.model_product_area
+msgid "product.area"
+msgstr ""
+
+#. module: elnasr_coding
+#: model:ir.model,name:elnasr_coding.model_product_building
+msgid "product.building"
+msgstr ""

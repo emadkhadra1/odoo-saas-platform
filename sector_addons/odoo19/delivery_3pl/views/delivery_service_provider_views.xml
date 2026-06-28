@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ══════════════════════════════════════════════
+         الشركات المزودة للخدمة — القائمة
+    ══════════════════════════════════════════════ -->
+    <record id="view_delivery_service_provider_tree" model="ir.ui.view">
+        <field name="name">delivery.service.provider.tree</field>
+        <field name="model">delivery.service.provider</field>
+        <field name="arch" type="xml">
+            <list string="الشركات المزودة للخدمة"
+                  decoration-muted="active == False">
+                <field name="name" string="اسم الشركة المزودة"/>
+                <field name="contact_person" string="الشخص المسؤول" optional="show"/>
+                <field name="phone" string="الهاتف" optional="show"/>
+                <field name="monthly_fee_per_rider" string="الرسوم الشهرية/مندوب (ريال)"
+                       widget="monetary"/>
+                <field name="rider_count" string="عدد المناديب" widget="integer"/>
+                <field name="active" string="نشط؟" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════
+         الشركات المزودة للخدمة — النموذج التفصيلي
+    ══════════════════════════════════════════════ -->
+    <record id="view_delivery_service_provider_form" model="ir.ui.view">
+        <field name="name">delivery.service.provider.form</field>
+        <field name="model">delivery.service.provider</field>
+        <field name="arch" type="xml">
+            <form string="شركة مزودة للخدمة">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_delivery_rider)d" type="action"
+                                class="oe_stat_button" icon="fa-users"
+                                domain="[('service_provider_id', '=', active_id)]">
+                            <field name="rider_count" widget="statinfo" string="المناديب"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="اسم الشركة المزودة"/></h1>
+                    </div>
+                    <group>
+                        <group string="بيانات الشركة المزودة">
+                            <field name="contact_person" string="الشخص المسؤول"/>
+                            <field name="phone" string="الهاتف"/>
+                            <field name="email" string="البريد الإلكتروني"/>
+                            <field name="active" string="نشط؟"/>
+                        </group>
+                        <group string="إعدادات التسعير">
+                            <field name="monthly_fee_per_rider"
+                                   string="الرسوم الشهرية لكل مندوب (ريال)"
+                                   widget="monetary"/>
+                            <div class="alert alert-info" role="alert" colspan="2">
+                                <strong>آلية الحساب:</strong><br/>
+                                الشركة تتفق مع مزود الخدمة — عند إغلاق الشهر:
+                                <br/>
+                                <em>صافي مزود الخدمة = إجمالي من التطبيق − (الرسوم × عدد المناديب)</em>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="المناديب المرتبطون" name="riders">
+                            <field name="rider_ids">
+                                <list string="المناديب" create="0">
+                                    <field name="name" string="الاسم"/>
+                                    <field name="name_ar" string="الاسم بالعربية"/>
+                                    <field name="phone" string="الهاتف"/>
+                                    <field name="platform_account_id" string="حساب المنصة"/>
+                                    <field name="primary_company_id" string="الشركة الرئيسية"/>
+                                    <field name="status" string="الحالة" widget="badge"
+                                           decoration-success="status == 'active'"
+                                           decoration-danger="status == 'suspended'"/>
+                                    <field name="advance_paid" string="سلفة مدفوعة؟" widget="boolean_toggle"/>
+                                    <field name="advance_amount" string="مبلغ السلفة (ريال)" optional="show"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="ملاحظات" name="notes">
+                            <field name="notes" placeholder="ملاحظات عن الشركة المزودة..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════
+         بحث الشركات المزودة
+    ══════════════════════════════════════════════ -->
+    <record id="view_delivery_service_provider_search" model="ir.ui.view">
+        <field name="name">delivery.service.provider.search</field>
+        <field name="model">delivery.service.provider</field>
+        <field name="arch" type="xml">
+            <search string="بحث في الشركات المزودة">
+                <field name="name" string="الاسم"/>
+                <field name="contact_person" string="الشخص المسؤول"/>
+                <field name="phone" string="الهاتف"/>
+                <filter name="active_only" string="نشطة" domain="[('active', '=', True)]"/>
+                <filter name="archived" string="مؤرشفة" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_delivery_service_provider" model="ir.actions.act_window">
+        <field name="name">الشركات المزودة للخدمة</field>
+        <field name="res_model">delivery.service.provider</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active_only': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">أضف أول شركة مزودة للخدمة</p>
+            <p>
+                الشركات المزودة للخدمة هي الشركات التي تزوّد المناديب الفرى لانسر.
+                يُخصم منها مبلغ ثابت شهرياً عن كل مندوب وتُصرف لها الباقي.
+            </p>
+        </field>
+    </record>
+</odoo>

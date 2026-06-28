@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <!--menuitems-->
+        <!--web_icon="account,static/description/icon.png"-->
+        <!--menuitems-->
+        <!--web_icon="account,static/description/icon.png"-->
+        <menuitem id="cp_root" name="Construction Project" sequence="1" web_icon="construction_project,static/description/icon.png"/>
+
+
+        <!--<menuitem id="menu_board_Project_1" name="Dashboard"-->
+        <!--action="open_construction_project_dashboard_kanban" parent="cp_root"-->
+        <!--sequence="0"  />-->
+
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="menu_cp_categ" name="Construction Project"
+                  parent="cp_root" sequence="10"/>
+
+
+        <menuitem id="menu_construction_project" name="Construction Project"
+                  parent="menu_cp_categ" groups="construction_project.construction_project_group"
+                  action="view_construction_project_action" sequence="21"/>
+
+        <menuitem id="menu_project_unit" name="Construction Unit"
+                  parent="menu_cp_categ" groups="construction_project.construction_project_group"
+                  action="view_project_unit_action" sequence="22"/>
+
+
+        <menuitem id="menu_project_item" name="Construction Item"
+                  parent="menu_cp_categ" groups="construction_project.construction_project_group"
+                  action="view_project_item_action" sequence="23"/>
+
+
+        <menuitem id="menu_project_component" name="Construction Component"
+                  parent="menu_cp_categ" groups="construction_project.construction_project_group"
+                  action="view_project_component_action" sequence="24"/>
+
+
+        <menuitem id="menu_construction_receive_order" name="Receive Orders"
+                  parent="menu_cp_categ"
+                  groups="construction_project.receive_order_user_group,construction_project.receive_order_manager_group"
+                  action="view_receive_order_action" sequence="31"/>
+
+
+        <menuitem id="menu_construction_delay_order" name="Delay Orders"
+                  parent="menu_cp_categ"
+                  groups="construction_project.receive_order_user_group,construction_project.receive_order_manager_group"
+                  action="view_construction_receive_order_line_delay_acction" sequence="31"/>
+
+
+        <menuitem id="menu_construction_labor_order" name="Order Labors"
+                  parent="menu_cp_categ" groups="construction_project.service_user_group"
+                  action="view_construction_labor_action" sequence="41"/>
+
+
+        <menuitem id="menu_construction_machine_order" name="Order Machines"
+                  parent="menu_cp_categ" groups="construction_project.service_user_group"
+                  action="view_construction_machine_action" sequence="42"/>
+        <menuitem id="menu_construction_tool_order" name="Order Tools"
+                  parent="menu_cp_categ" groups="construction_project.service_user_group"
+                  action="view_construction_tool_action" sequence="43"/>
+
+
+        <menuitem id="menu_cp_configuration_categ" name="Construction Configuration" parent="cp_root" sequence="100"
+                  groups="construction_project.construction_project_group,construction_project.receive_order_manager_group,construction_project.service_manager_group"/>
+
+
+        <record id="view_product_normal_action" model="ir.actions.act_window">
+            <field name="name">Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.product</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{"search_default_filter_to_purchase":0}</field>
+            <field name="search_view_id" eval="False"/> <!-- Force empty -->
+            <field name="view_id" eval="False"/> <!-- Force empty -->
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+
+                </p>
+            </field>
+        </record>
+        <menuitem name="Products" id="menu_product_view" action="view_product_normal_action"
+                  parent="menu_cp_configuration_categ" sequence="20"/>
+
+
+        <menuitem id="menu_project_process" name="Construction Process"
+                  parent="menu_cp_configuration_categ"
+                  action="view_construction_process_action" sequence="20"/>
+
+
+        <menuitem id="menu_project_labors" name="Labors"
+                  parent="menu_cp_configuration_categ"
+                  action="view_labors_action" sequence="11"/>
+
+
+        <menuitem id="menu_project_machines" name="Machines"
+                  parent="menu_cp_configuration_categ"
+                  action="view_machines_action" sequence="12"/>
+
+
+        <menuitem id="menu_project_tools" name="Tools"
+                  parent="menu_cp_configuration_categ"
+                  action="view_tools_action" sequence="13"/>
+
+        <menuitem id="contract_type_menu" name="Contract Type" parent="menu_cp_configuration_categ"
+                  action="contract_type_action" sequence="14"/>
+
+
+        <!--<template id="MY_login_layout" inherit_id="web.login_layout">-->
+        <!--<xpath expr="//div[@class='header']" position="replace">-->
+        <!--<div class ="header">-->
+        <!--Your Code-->
+        <!--</div>-->
+        <!--</xpath>-->
+        <!--</template>-->
+<!--        <template id="web.login_layout" name="Login Layout">-->
+<!--            <t t-call="web.layout">-->
+<!--                <t t-set="html_data" t-value="{'style': 'height: 100%;'}"/>-->
+<!--                <t t-set="head">-->
+<!--                    <t t-call-assets="web.assets_common" t-js="false"/>-->
+<!--                    <t t-call-assets="web.assets_frontend" t-js="false"/>-->
+<!--                    <t t-call-assets="web.assets_common" t-css="false"/>-->
+<!--                    <t t-call-assets="web.assets_frontend" t-css="false"/>-->
+<!--                </t>-->
+<!--                <t t-set="body_classname" t-value="'container'"/>-->
+
+<!--                <div class="row">-->
+<!--                    <div class="col-md-6 col-md-offset-3 o_database_list">-->
+<!--                        <div class="text-center">-->
+<!--                            <img t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}"/>-->
+<!--                        </div>-->
+<!--                        <t t-raw="0"/>-->
+<!--                        <div class="text-center" t-if="not disable_footer">-->
+<!--                            <t t-if="not disable_database_manager">-->
+<!--                                <a class="" href="/web/database/manager">Manage Databases</a>-->
+<!--                                |-->
+<!--                            </t>-->
+<!--                            <a href="https://www.odoo.com" target="_blank">Powered by-->
+<!--                                <span>Odoo</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </t>-->
+<!--        </template>-->
+
+
+        <!--         <template id="web.menu_secondary">-->
+        <!--        <a class="o_sub_menu_logo" t-att-href="'/web/?debug' if debug else '/web'">-->
+        <!--            <span class="oe_logo_edit">Edit Company data</span>-->
+        <!--            <img src='/web/binary/company_logo'/>-->
+        <!--        </a>-->
+        <!--        <div class="o_sub_menu_content">-->
+        <!--            <t t-foreach="menu_data['children']" t-as="menu">-->
+        <!--                <div style="display: none" class="oe_secondary_menu" t-att-data-menu-parent="menu['id']">-->
+        <!--                    <t t-foreach="menu['children']" t-as="menu">-->
+        <!--                        <div class="oe_secondary_menu_section" t-att-data-menu-xmlid="menu.get('xmlid')">-->
+        <!--                            <t t-if="menu['children']"><t t-esc="menu['name']"/></t>-->
+        <!--                            <t t-if="not menu['children']"><t t-call="web.menu_link"/></t>-->
+        <!--                        </div>-->
+        <!--                        <t t-call="web.menu_secondary_submenu"/>-->
+        <!--                    </t>-->
+        <!--                </div>-->
+        <!--            </t>-->
+        <!--        </div>-->
+        <!--        <div class="o_sub_menu_footer">-->
+        <!--            Powered by <a href="https://www.odoo.com" target="_blank">Powered by <span>Odoo</span></a>-->
+
+        <!--        </div>-->
+        <!--    </template>-->
+
+    </data>
+</odoo>

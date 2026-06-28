@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+<!--        <record id="res_config_settings_view_realestate" model="ir.ui.view">-->
+<!--            <field name="name">res.config.settings.view.form</field>-->
+<!--            <field name="model">res.config.settings</field>-->
+<!--            <field name="inherit_id" ref="base.res_config_settings_view_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//div[hasclass('settings')]" position="inside">-->
+<!--                    <div class="app_settings_block" data-string="Real Estate" string="Real Estate"-->
+<!--                         data-key="real_estate">-->
+<!--                        <h2>Real Estate</h2>-->
+<!--                        <div class="row mt16 o_settings_container">-->
+<!--                            <div class="col-12 col-lg-6 o_setting_box">-->
+<!--                                <div class="o_setting_left_pane">-->
+<!--                                </div>-->
+<!--                                <div class="o_setting_right_pane">-->
+<!--                                    <label for="booked_days"/>-->
+<!--                                    <div class="text-muted">-->
+<!--                                        Enter max. # days a unit can be on hold-->
+<!--                                    </div>-->
+<!--                                    <div class="content-group">-->
+<!--                                        <div class="mt16">-->
+<!--                                            <field name="booked_days"/>-->
+<!--                                            <font color="teal">Days</font>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                        </div>-->
+
+<!--                    </div>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+    <record id="inherit_crm_config_settings_form" model="ir.ui.view">
+        <field name="name">res.config.settings.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="crm.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@data-key='crm']" position="inside">
+                <h2>Crm limit hour</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Limited Hours</span>
+                            <div class="text-muted">
+                                <field name="crm_last_limited_time" widget="float_time"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Stage</span>
+                            <div class="text-muted">
+                                <field name="crm_stage_ids"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </xpath>
+        </field>
+    </record>
+<!--        <record id="action_real_estate_config_settings" model="ir.actions.act_window">-->
+<!--            <field name="name">Settings</field>-->
+<!--            <field name="res_model">res.config.settings</field>-->
+<!--            <field name="view_id" ref="res_config_settings_view_realestate"/>-->
+<!--            <field name="context">{'module' : 'real_estate'}</field>-->
+<!--        </record>-->
+
+<!--        <menuitem id="menu_real_estate_general_settings"-->
+<!--                  name="Settings"-->
+<!--                  parent="realestate_project.real_estate_configuration_menu"-->
+<!--                  action="action_real_estate_config_settings"-->
+<!--                  web_icon="real_estate,static/description/icon.png"-->
+<!--        />-->
+    </data>
+</odoo>
+

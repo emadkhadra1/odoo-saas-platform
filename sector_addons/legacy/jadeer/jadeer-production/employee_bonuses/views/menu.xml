@@ -1,0 +1,16 @@
+<data>
+    <menuitem id="employee_bonus_root_menu"
+              name="Employee Bonus"
+              parent="hr_work_entry_contract_enterprise.menu_hr_payroll_root"
+              sequence="66"/>
+    <menuitem id="employee_bonus_menu"
+              name="Employee Bonus"
+              action="employee_bonus_action"
+              parent="employee_bonus_root_menu"
+              />
+    <menuitem id="employee_bonus_type_menu"
+              name="Bonus Types"
+              action="employee_bonus_type_action"
+              parent="employee_bonus_root_menu"
+              />
+</data>

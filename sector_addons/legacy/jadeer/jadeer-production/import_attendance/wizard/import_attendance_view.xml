@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="import_attendance_form_view" model="ir.ui.view">
+        <field name="name">import.attendance.form.view</field>
+        <field name="model">import.attendance</field>
+        <field name="arch" type="xml">
+            <form string="Import Attendance">
+                <header>
+                    <button name="import_attendance" string="Import" type="object" class="oe_highlight" states="draft"/>
+                    <button name="action_draft" string="Reset To Draft" type="object" class="oe_highlight"
+                            states="imported"/>
+                    <button name="action_close" string="Close" type="object" class="oe_highlight"
+                            states="draft"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_colors="{'KEY_IS_STATE':'VALUE_IS_COLOR'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box">
+                        <button name="%(hr_attendance.hr_attendance_action)d"
+                                type="action"
+                                class="oe_stat_button"
+                                icon="fa-tasks"
+                                domain="[('id','in',attendance_ids)]">
+                            <field name="attendance_count" string="Attendance" widget="statinfo"/>
+                            <field name="attendance_ids" invisible="1"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Exp: March 2020"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group>
+                            <field name="file" filename="file_name"
+                                   attrs="{'readonly':[('state','=','imported')]}"/>
+                            <field name="file_name" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Import Result">
+                            <field name="result_ids">
+                                <tree>
+                                    <field name="employee_id" width="50%"/>
+                                    <field name="imported_lines" width="50%"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Import Error">
+                            <field name="error_ids">
+                                <tree>
+                                    <field name="code"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="import_attendance_tree_view" model="ir.ui.view">
+        <field name="name">import.attendance.tree</field>
+        <field name="model">import.attendance</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name"/>
+                <field name="file" filename="file_name"/>
+                <field name="file_name" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_attendance" model="ir.actions.act_window">
+        <field name="name">Import Attendance</field>
+        <field name="res_model">import.attendance</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="target">current</field>
+    </record>
+
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="action_attendance_menu" name="Import Attendance"
+              parent="attendance_rules.attendance_rules_menu" action="action_attendance" sequence="12"/>
+</odoo>

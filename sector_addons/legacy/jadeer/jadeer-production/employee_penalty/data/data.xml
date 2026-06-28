@@ -1,0 +1,24 @@
+<data noupdate="0">
+
+        <record id="hr_payroll_salary_structure_type_eg_emp" model="hr.payroll.structure.type">
+            <field name="name">Salary Structure Type</field>
+            <field name="country_id" ref="base.eg"/>
+        </record>
+
+        <record id="hr_payroll_salary_structure_eg_emp" model="hr.payroll.structure">
+            <field name="name">Salary Structure</field>
+            <field name="country_id" ref="base.eg"/>
+            <field name="type_id" ref="hr_payroll_salary_structure_type_eg_emp"/>
+        </record>
+
+        <record id="hr_rule_penalty" model="hr.salary.rule">
+            <field name="name">Penalties</field>
+            <field name="sequence" eval="180"/>
+            <field name="code">pen</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result=-payslip.penalty_amount</field>
+            <field name="struct_id" ref="employee_penalty.hr_payroll_salary_structure_eg_emp"/>
+        </record>
+</data>

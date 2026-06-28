@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <!--  breadcrumbs template-->
+    <template id="portal_my_home_reimbursement" name="Portal layout :  menu entries"
+              inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'reimbursement' or page_name == 'reimbursement_new' or reimbursement"
+                t-attf-class="breadcrumb-item #{'active ' if not reimbursement else ''}">
+                <a t-if="reimbursement or page_name == 'reimbursement_new'" t-attf-href="/my/reimbursement?{{ keep_query() }}">
+                    Expenses
+                </a>
+                <t t-else="">Expenses</t>
+            </li>
+            <li t-if="reimbursement" class="breadcrumb-item active">
+                <span t-field="reimbursement.display_name"/>
+
+            </li>
+        </xpath>
+    </template>
+    <!--  breadcrumbs template-->
+        <template id="portal_my_reimbursement" name="My Expenses">
+            <t t-call="portal.portal_layout">
+                <br/>
+
+                <div class="card card-info card-outline">
+                    <div class="card-header">
+
+                        <h3 class="card-title">
+                            <small class="text-muted">Expenses -</small>
+                            <span t-field="reimbursement.display_name"/>
+                        </h3>
+
+                        <div class="col-md text-md-right">
+                            <div class="d-inline-block">
+                                <small class="mr-2 mt-1 float-left">
+                                    <b>State:</b>
+                                </small>
+                                <div t-foreach="reimbursement" t-as="tf" class="float-left">
+                                    <span t-att-class="'badge badge-success' if tf.state=='validate' else ''
+                                                       'badge badge-primary' if tf.state=='confirm' else ''
+                                                       'badge badge-danger' if tf.state=='cancel' else ''
+                                                       'badge badge-warning' if tf.state=='refuse' else ''
+                                                       'badge badge-light' if tf.state=='draft' else ''
+                                                       'badge badge-info' if tf.state=='validate1' else ''
+                                                       " t-field="tf.state"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Description:</label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">
+                                            <span t-field="reimbursement.name"/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3" style="float: left;">Product:</label>
+                                    <div class="col-md-9" style="float: left;">
+                                        <p class="form-control-static">
+                                            <span t-field="reimbursement.product_id"/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3" style="float: left;">Bill Reference:</label>
+                                    <div class="col-md-9" style="float: left;">
+                                        <p class="form-control-static">
+                                            <span t-field="reimbursement.product_id"/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3" style="float: left;">Unit Price:</label>
+                                    <div class="col-md-9" style="float: left;">
+                                        <p class="form-control-static">
+                                            <span t-field="reimbursement.unit_amount"/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3" style="float: left;">Quantity:</label>
+                                    <div class="col-md-9" style="float: left;">
+                                        <p class="form-control-static">
+                                            <span t-field="reimbursement.quantity"/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3" style="float: left;">Notes:</label>
+                                    <div class="col-md-9" style="float: left;">
+                                        <p class="form-control-static">
+                                            <span t-field="reimbursement.description"/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding: 4px;" class="callout callout-info">
+                            <h5 style="margin: 0;">Attachments
+                            </h5>
+                        </div>
+
+                        <table class="table table-hover table-bordered">
+
+                            <tbody>
+                                <t t-foreach="attachment_ids" t-as="attachment">
+                                    <tr>
+
+                                        <td>
+                                            <span t-field="attachment.sudo().name"/>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-primary "
+                                               t-attf-href="/web/content/{{attachment.id}}?download=true">
+                                                <i class="fa fa-download"></i>
+                                                Download
+                                            </a>
+                                        </td>
+
+
+                                    </tr>
+
+                                </t>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+
+            </t>
+        </template>
+
+
+        <template id="website_portal.reimbursement_submit" name="Expenses: Submit a Expenses">
+            <t t-call="portal.portal_layout">
+                <t t-set="additional_title">Expenses</t>
+                <br/>
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">New Expense</h3>
+                    </div>
+                    <form action="/reimbursement/insert" method="post" id="reimbursement_form"
+                          class="container-fluid mt32" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="card-body o_portal_leaves_details">
+                            <div class="form-group">
+                                <label for="name">Description</label>
+                                <input type="text" class="form-control name" name="name"
+                                       required="required"/>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Product</label>
+                                    <select class="form-control "
+                                            required="required" id="pd_product_id"
+                                            name="product_id">
+                                        <option value="" selected="selected"
+                                                disabled="disabled">Select Product
+                                        </option>
+                                        <t t-foreach="products" t-as="product">
+                                            <option
+                                                    t-att-value="product.id">
+                                                <t t-esc="product.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="unit_amount">Bill Reference</label>
+                                    <div class="input-group date">
+                                        <input type="text" name="reference"
+                                               class="form-control "
+                                        />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="unit_amount">Unit Price</label>
+                                    <div class="input-group date">
+                                        <input type="number" step="0.01" name="unit_amount" required="required"
+                                               class="form-control "
+                                        />
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="quantity">Quantity</label>
+                                    <div class="input-group date">
+                                        <input type="number" step="0.01" name="quantity" required="required"
+                                               class="form-control d"
+                                        />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Taxes</label>
+                                    <select class="form-control  select"
+
+                                            name="tax_ids" multiple="multiple">
+                                        <option value="" selected="selected"
+                                                disabled="disabled">Select Taxes
+                                        </option>
+                                        <t t-foreach="taxes" t-as="tax">
+                                            <option
+                                                    t-att-value="tax.id">
+                                                <t t-esc="tax.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Currency</label>
+                                    <select class="form-control "
+                                            required="required"
+                                            name="currency_id">
+                                        <option value="" selected="selected"
+                                                disabled="disabled">Select Currency
+                                        </option>
+                                        <t t-foreach="currencies" t-as="currency">
+                                            <option
+                                                    t-att-value="currency.id">
+                                                <t t-esc="currency.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Notes</label>
+                                <input type="text" class="form-control name" name="description"
+                                       required="required"/>
+                            </div>
+                            <h5 class="mt-4 mb-2">Please Upload  Receipts</h5>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_1">Attachment 1</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_1" required="required"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_2">Attachment 2</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_2"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_3">Attachment 3</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_3"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_4">Attachment 4</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_4"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_5">Attachment 5</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_5"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_6">Attachment 6</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_6"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_7">Attachment 7</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_7"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_8">Attachment 8</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_8"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_9">Attachment 9</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_9"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_10">Attachment 10</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_10"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary ">
+                                <i class="fa fa-paper-plane"></i>
+                                Submit
+                            </button>
+                            <button type="button" class="btn btn-secondary  " onclick="history.go(-1)">
+                                <i class="fa fa-arrow-circle-left"></i>
+                                Back
+                            </button>
+                        </div>
+
+                    </form>
+
+
+                </div>
+            </t>
+
+        </template>
+
+
+        <template id="portal_reimbursement" name="Helpdesk Ticket">
+            <t t-call="portal.portal_layout">
+                <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+                <t t-call="portal.portal_searchbar">
+                    <t t-set="title">Expenses</t>
+                </t>
+            <div class="row mt-2 mb-2">
+                <div class="col-12">
+                    <a href="/my/reimbursement/submit" class=" btn bg-primary">
+                        <i class="fa fa-plus-circle"></i> New Expense
+                    </a>
+                </div>
+            </div>
+                <div t-if="not tickets" class="alert alert-info">
+                    There are currently no Expenses for your account.
+                </div>
+                <t t-if="tickets" t-call="portal.portal_table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th class="text-center">Date</th>
+                            <th class="w-20 text-center">Description</th>
+                            <th class="text-center">Total</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <t t-set="i" t-value="1"/>
+                    <t t-foreach="tickets" t-as="ticket">
+                        <tr>
+                            <td class="text-center">
+                                <span t-esc="i"/>
+                                <t t-set="i" t-value="i+1"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="ticket.date"   t-options='{"widget": "date"}'/>
+
+                            </td>
+                             <td class="text-center">
+                                <span t-field="ticket.name"/>
+
+                            </td>
+                            <td class="text-center">
+                                <span t-field="ticket.total_amount"/>
+
+                            </td>
+                            <td class="text-center">
+                                <span class="badge badge-pill badge-info" t-field="ticket.state"/>
+                            </td>
+                            <td class="text-center py-0 align-middle">
+                                <div class="btn-group btn-group-sm">
+                                    <a t-attf-href="/my/reimbursement/#{ticket.id}" class="btn btn-info">
+                                        <i class="fa fa-eye"></i>
+                                        View
+                                    </a>
+                                    <a t-if="ticket.state == 'draft'"
+                                       t-attf-href="/my/reimbursement/to_submit/#{ticket.id}"
+                                       class="btn btn-success">
+                                        <i class="fa fa-check"></i>
+                                        Submit
+                                    </a>
+                                    <a t-if="ticket.state == 'draft'"
+                                       t-attf-href="/my/reimbursement/edit/#{ticket.id}" class="btn btn-primary">
+                                        <i class="fa fa-edit"></i>
+                                        Edit
+                                    </a>
+                                       <a t-if="ticket.state == 'draft'"
+                                       t-attf-href="/my/reimbursement/delete/#{ticket.id}"
+                                       class="btn btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                        Delete
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+ <template id="website_portal.portal_my_reimbursement_edit" name="Reimbursement: Edit a Reimbursement">
+            <t t-call="portal.portal_layout">
+                <t t-set="additional_title">Expenses</t>
+                <br/>
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">New Expense</h3>
+                    </div>
+                    <form t-att-action="'/my/reimbursement/edit/%s' % (reimbursement.id)" method="post" id="reimbursement_form"
+                          class="container-fluid mt32" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="card-body o_portal_leaves_details">
+                            <div class="form-group">
+                                <label for="name">Description</label>
+                                <input type="text" class="form-control name" name="name"
+                                       required="required"  t-att-value="reimbursement.name"/>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Product</label>
+                                    <select class="form-control "
+                                            required="required" id="pd_product_id"
+                                            name="product_id">
+                                        <option value=""
+                                                disabled="disabled">Select Product
+                                        </option>
+                                        <t t-foreach="products" t-as="product">
+                                            <option t-att-selected="reimbursement.product_id.id == product.id"
+                                                    t-att-value="product.id">
+                                                <t t-esc="product.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="unit_amount">Bill Reference</label>
+                                    <div class="input-group date">
+                                        <input type="text" name="reference"
+                                               class="form-control"  t-att-value="reimbursement.reference"
+                                        />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="unit_amount">Unit Price</label>
+                                    <div class="input-group date">
+                                        <input type="number" step="0.01" name="unit_amount" required="required"
+                                               class="form-control "  t-att-value="reimbursement.unit_amount"
+                                        />
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="quantity">Quantity</label>
+                                    <div class="input-group date">
+                                        <input type="number" step="0.01" name="quantity" required="required"
+                                               class="form-control d" t-att-value="reimbursement.quantity"
+                                        />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Taxes</label>
+                                    <select class="form-control  select"
+
+                                            name="tax_ids" multiple="multiple">
+                                        <option value=""
+                                                disabled="disabled">Select Taxes
+                                        </option>
+                                        <t t-foreach="taxes" t-as="tax">
+                                            <option t-att-selected="tax.id in reimbursement.sudo().tax_ids.ids"
+                                                    t-att-value="tax.id">
+                                                <t t-esc="tax.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Currency</label>
+                                    <select class="form-control "
+                                            required="required"
+                                            name="currency_id">
+                                        <option value=""
+                                                disabled="disabled">Select Currency
+                                        </option>
+                                        <t t-foreach="currencies" t-as="currency">
+                                            <option t-att-selected="currency.id == reimbursement.currency_id.id"
+                                                    t-att-value="currency.id">
+                                                <t t-esc="currency.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Notes</label>
+                                <input type="text" class="form-control name" name="description"
+                                       required="required" t-att-value="reimbursement.description"/>
+                            </div>
+                            <h5 class="mt-4 mb-2">Please Upload Receipts</h5>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_1">Attachment 1</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_1"  />
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_2">Attachment 2</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_2"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_3">Attachment 3</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_3"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_4">Attachment 4</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_4"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_5">Attachment 5</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_5"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_6">Attachment 6</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_6"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_7">Attachment 7</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_7"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_8">Attachment 8</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_8"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_9">Attachment 9</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_9"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="attachment_10">Attachment 10</label>
+                                        <div class="input-group ">
+                                            <input type="file" name="attachment_10"/>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary ">
+                                <i class="fa fa-paper-plane"></i>
+                                Submit
+                            </button>
+                            <button type="button" class="btn btn-secondary  " onclick="history.go(-1)">
+                                <i class="fa fa-arrow-circle-left"></i>
+                                Back
+                            </button>
+                        </div>
+
+                    </form>
+
+
+                </div>
+            </t>
+
+        </template>
+
+    </data>
+</odoo>

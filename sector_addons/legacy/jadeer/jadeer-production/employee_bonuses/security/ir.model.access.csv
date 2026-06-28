@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+employee_bonus_id,employee_bonus_name,model_employee_bonus,,1,1,1,1
+access_employee_bonus_type,employee_bonus_type,model_employee_bonus_type,,1,1,1,1

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--<record id="seq_ostensible_marble" model="ir.sequence.type">-->
+        <!--<field name="name">Serial OM</field>-->
+        <!--<field name="code">ostensible.marble</field>-->
+        <!--</record>-->
+
+        <!--<record id="seq_ostensible_marble_sequence" model="ir.sequence">-->
+        <!--<field name="name">Serial OM</field>-->
+        <!--<field name="code">ostensible.marble</field>-->
+        <!--&lt;!&ndash;%(year)s%(month)s/&ndash;&gt;-->
+        <!--<field name="prefix">OM/%(year)s%(month)s/</field>-->
+        <!--<field name="padding">4</field>-->
+        <!--</record>-->
+
+    </data>
+
+    <data>
+
+
+        <record id="view_project_unit_form" model="ir.ui.view">
+            <field name="name">project.unit.form</field>
+            <field name="model">project.unit</field>
+            <field name="arch" type="xml">
+                <form string="Project Unit">
+
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="project_id"/>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="unit_location"/>
+                                <field name="unit_description"/>
+                                <field name="total_unit_cost"/>
+                            </group>
+                        </group>
+                        <field name="project_item_ids"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_project_unit_tree" model="ir.ui.view">
+            <field name="name">project.unit.tree</field>
+            <field name="model">project.unit</field>
+            <field name="arch" type="xml">
+                <list string="Project Unit">
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="unit_location"/>
+                    <field name="unit_description"/>
+                    <field name="total_unit_cost"/>
+                    <field name="project_item_ids"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_project_unit_action" model="ir.actions.act_window">
+            <field name="name">Project Unit</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.unit</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

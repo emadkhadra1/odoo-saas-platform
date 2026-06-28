@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access.project.phase,project.phase,model_project_phase,base.group_user,1,1,1,1
+access.project.building,project.building,model_project_building,base.group_user,1,1,1,1
+access.building.floor,access.building.floor,model_building_floor,base.group_user,1,1,1,1
+

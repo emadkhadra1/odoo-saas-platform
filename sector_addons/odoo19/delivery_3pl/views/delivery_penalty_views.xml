@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- أنواع الجزاءات -->
+    <record id="view_delivery_penalty_type_tree" model="ir.ui.view">
+        <field name="name">delivery.penalty.type.tree</field>
+        <field name="model">delivery.penalty.type</field>
+        <field name="arch" type="xml">
+            <list string="أنواع الجزاءات">
+                <field name="name" string="الاسم بالإنجليزية"/>
+                <field name="name_ar" string="الاسم بالعربية"/>
+                <field name="default_amount" string="المبلغ الافتراضي (ريال)"/>
+                <field name="is_percentage" string="نسبة مئوية؟"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_delivery_penalty_type_form" model="ir.ui.view">
+        <field name="name">delivery.penalty.type.form</field>
+        <field name="model">delivery.penalty.type</field>
+        <field name="arch" type="xml">
+            <form string="نوع الجزاء">
+                <sheet>
+                    <group>
+                        <group string="الاسم">
+                            <field name="name" string="الاسم بالإنجليزية"/>
+                            <field name="name_ar" string="الاسم بالعربية"/>
+                        </group>
+                        <group string="المبلغ">
+                            <field name="default_amount" string="المبلغ الافتراضي (ريال)"/>
+                            <field name="is_percentage" string="نسبة مئوية؟"/>
+                        </group>
+                    </group>
+                    <field name="description" placeholder="وصف نوع الجزاء..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_delivery_penalty_type" model="ir.actions.act_window">
+        <field name="name">أنواع الجزاءات</field>
+        <field name="res_model">delivery.penalty.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">أضف أول نوع جزاء</p>
+        </field>
+    </record>
+
+    <!-- أنواع التأمينات -->
+    <record id="view_delivery_deposit_type_tree" model="ir.ui.view">
+        <field name="name">delivery.deposit.type.tree</field>
+        <field name="model">delivery.deposit.type</field>
+        <field name="arch" type="xml">
+            <list string="أنواع التأمينات">
+                <field name="name" string="الاسم بالإنجليزية"/>
+                <field name="name_ar" string="الاسم بالعربية"/>
+                <field name="default_amount" string="المبلغ الافتراضي (ريال)"/>
+                <field name="is_refundable" string="قابل للاسترداد؟"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_delivery_deposit_type_form" model="ir.ui.view">
+        <field name="name">delivery.deposit.type.form</field>
+        <field name="model">delivery.deposit.type</field>
+        <field name="arch" type="xml">
+            <form string="نوع التأمين">
+                <sheet>
+                    <group>
+                        <group string="الاسم">
+                            <field name="name" string="الاسم بالإنجليزية"/>
+                            <field name="name_ar" string="الاسم بالعربية"/>
+                        </group>
+                        <group string="الإعداد">
+                            <field name="default_amount" string="المبلغ الافتراضي (ريال)"/>
+                            <field name="is_refundable" string="قابل للاسترداد؟"/>
+                        </group>
+                    </group>
+                    <field name="description" placeholder="وصف نوع التأمين..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_delivery_deposit_type" model="ir.actions.act_window">
+        <field name="name">أنواع التأمينات</field>
+        <field name="res_model">delivery.deposit.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">أضف أول نوع تأمين</p>
+        </field>
+    </record>
+
+    <!-- جزاءات المناديب -->
+    <record id="view_delivery_rider_penalty_tree" model="ir.ui.view">
+        <field name="name">delivery.rider.penalty.tree</field>
+        <field name="model">delivery.rider.penalty</field>
+        <field name="arch" type="xml">
+            <list string="جزاءات المناديب"
+                  decoration-danger="status == 'pending'"
+                  decoration-muted="status == 'waived'">
+                <field name="rider_id" string="المندوب"/>
+                <field name="penalty_type_id" string="نوع الجزاء"/>
+                <field name="amount" string="المبلغ (ريال)"/>
+                <field name="date" string="التاريخ"/>
+                <field name="reason" string="السبب"/>
+                <field name="settlement_id" string="التسوية"/>
+                <field name="status" string="الحالة" widget="badge"
+                       decoration-warning="status == 'pending'"
+                       decoration-success="status == 'applied'"
+                       decoration-muted="status == 'waived'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_delivery_rider_penalty_form" model="ir.ui.view">
+        <field name="name">delivery.rider.penalty.form</field>
+        <field name="model">delivery.rider.penalty</field>
+        <field name="arch" type="xml">
+            <form string="جزاء مندوب">
+                <sheet>
+                    <group>
+                        <group string="بيانات الجزاء">
+                            <field name="rider_id" string="المندوب"/>
+                            <field name="penalty_type_id" string="نوع الجزاء"/>
+                            <field name="amount" string="المبلغ (ريال)"/>
+                            <field name="currency_id" string="العملة"/>
+                        </group>
+                        <group string="التفاصيل">
+                            <field name="date" string="تاريخ الجزاء"/>
+                            <field name="settlement_id" string="التسوية المرتبطة"/>
+                            <field name="status" string="الحالة"/>
+                        </group>
+                    </group>
+                    <field name="reason" placeholder="سبب الجزاء..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_delivery_rider_penalty_search" model="ir.ui.view">
+        <field name="name">delivery.rider.penalty.search</field>
+        <field name="model">delivery.rider.penalty</field>
+        <field name="arch" type="xml">
+            <search string="بحث في الجزاءات">
+                <field name="rider_id"/>
+                <field name="penalty_type_id"/>
+                <filter name="pending" string="معلّقة" domain="[('status', '=', 'pending')]"/>
+                <filter name="applied" string="مطبّقة" domain="[('status', '=', 'applied')]"/>
+                <filter name="waived" string="متنازل عنها" domain="[('status', '=', 'waived')]"/>
+                <group expand="0" string="تجميع بـ">
+                    <filter name="group_rider" string="المندوب" context="{'group_by': 'rider_id'}"/>
+                    <filter name="group_type" string="نوع الجزاء" context="{'group_by': 'penalty_type_id'}"/>
+                    <filter name="group_status" string="الحالة" context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_delivery_rider_penalty" model="ir.actions.act_window">
+        <field name="name">جزاءات المناديب</field>
+        <field name="res_model">delivery.rider.penalty</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">لا توجد جزاءات بعد</p>
+        </field>
+    </record>
+</odoo>

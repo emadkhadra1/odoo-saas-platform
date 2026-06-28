@@ -1,0 +1,84 @@
+<odoo>
+    <record id="construction_project_dashboard_kanban_view" model="ir.ui.view">
+        <field name="name">construction.project.dashboard.kanban</field>
+        <field name="model">construction.project</field>
+        <field name="arch" type="xml">
+            <kanban create="false" class="oe_background_grey o_kanban_dashboard o_account_kanban">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="total_cost"/>
+                <field name="selling_price"/>
+
+                <field name="estimated_costs"/>
+                <field name="estimated_net_profit"/>
+                <field name="estimated_profit_margin_ratio"/>
+                <field name="net_profit"/>
+                <field name="net_profit_ratio"/>
+
+                <templates>
+
+                    <t t-name="kanban-box">
+
+                        <div class="oe_kanban_content">
+                            <h4 class="text-center">
+                                <strong>
+                                    <field name="name"/>
+                                </strong>
+                            </h4>
+                            <div class="oe_right">
+                                <!--<a name="open_barcode_interface" type="object">-->
+                                <!--<img src="/stock/static/src/img/scan.png"-->
+                                <!--alt="Click to launch the barcode interface"-->
+                                <!--class="oe_stock_scan_image" title="Click to launch the barcode interface"/>-->
+                                <!--</a>-->
+                            </div>
+                            <div class="oe_items_list oe_kanban_ellipsis">
+                                <div>
+                                    <a name="%(view_construction_project_action)d" type="action">
+
+                                      Name:  <field name="name"/><br/>
+                                       Customer: <field name="partner_id"/><br/>
+                                       Total Cost: <field name="total_cost"/><br/>
+                                     Selling Price:   <field name="selling_price"/><br/>
+                                     Estimated Cost:   <field name="estimated_costs"/>
+                                     Estimated Net Profit:   <field name="estimated_net_profit"/><br/>
+                                      estimated_profit_margin_ratio:  <field name="estimated_profit_margin_ratio"/><br/>
+                                        <field name="net_profit"/><br/>
+                                        <field name="net_profit_ratio"/><br/>
+
+
+
+                                    </a>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                    </t>
+
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="open_construction_project_dashboard_kanban" model="ir.actions.act_window">
+        <field name="name">Accounting Dashboard</field>
+        <field name="res_model">construction.project</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="usage">menu</field>
+        <!--<field name="context">{'search_default_dashboard':1}</field>-->
+
+        <field name="help" type="html">
+            <p>
+                This is the accounting dashboard. If you have not yet
+                installed a chart of account, please install one first.
+
+            </p>
+        </field>
+    </record>
+
+</odoo>

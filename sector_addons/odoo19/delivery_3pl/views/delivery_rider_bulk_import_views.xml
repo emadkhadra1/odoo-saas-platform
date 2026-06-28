@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_delivery_rider_bulk_import_form" model="ir.ui.view">
+        <field name="name">delivery.rider.bulk.import.form</field>
+        <field name="model">delivery.rider.bulk.import</field>
+        <field name="arch" type="xml">
+            <form string="استيراد جماعي للمناديب">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>استيراد جماعي للمناديب</h1>
+                        <h2>من ملف Excel</h2>
+                    </div>
+
+                    <group invisible="state == 'done'">
+                        <group string="الملف">
+                            <field name="file_data" widget="binary" filename="file_name" string="ملف Excel"/>
+                            <field name="file_name" invisible="1"/>
+                            <field name="sheet_name" string="اسم الورقة"
+                                   placeholder="اتركه فارغاً للورقة الأولى"/>
+                        </group>
+                        <group string="الخيارات">
+                            <field name="match_by" string="المطابقة بـ"/>
+                            <field name="update_existing" string="تحديث المناديب الموجودين؟"/>
+                            <field name="default_rider_type_id" string="نوع المندوب الافتراضي"/>
+                            <field name="default_company_id" string="الشركة الافتراضية"/>
+                        </group>
+                    </group>
+
+                    <group string="الأعمدة المدعومة في الملف" invisible="state == 'done'">
+                        <div class="alert alert-info" role="alert">
+                            <strong>الأعمدة المطلوبة:</strong><br/>
+                            <ul>
+                                <li><b>Full Name (EN)</b> أو <b>الاسم</b> — الاسم بالإنجليزية</li>
+                                <li><b>Phone</b> أو <b>هاتف</b> — رقم الجوال</li>
+                            </ul>
+                            <strong>الأعمدة الاختيارية:</strong><br/>
+                            <ul>
+                                <li><b>Full Name (AR)</b> أو <b>الاسم بالعربي</b></li>
+                                <li><b>Platform Account ID</b> أو <b>معرف الحساب</b></li>
+                                <li><b>Parent Rider</b> أو <b>البيرنت</b> — اسم أو معرف المندوب الرئيسي</li>
+                                <li><b>Rider Type</b> أو <b>نوع المندوب</b></li>
+                                <li><b>Primary Company</b> أو <b>الشركة</b></li>
+                                <li><b>Branch</b> أو <b>الفرع</b></li>
+                                <li><b>Vehicle Type</b> أو <b>نوع المركبة</b></li>
+                                <li><b>License Plate</b> أو <b>اللوحة</b></li>
+                                <li><b>Status</b> أو <b>الحالة</b></li>
+                                <li><b>Join Date</b> أو <b>تاريخ الانضمام</b></li>
+                            </ul>
+                            <strong>ملاحظة:</strong>
+                            النظام يُنشئ جميع المناديب أولاً، ثم يربط المناديب الرئيسيين تلقائياً.
+                        </div>
+                    </group>
+
+                    <group string="نتائج الاستيراد" invisible="state != 'done'">
+                        <field name="result_summary" widget="text" nolabel="1"
+                               style="font-family: monospace; font-size: 13px; background: #f8f9fa; padding: 12px; border-radius: 4px;"/>
+                    </group>
+                </sheet>
+
+                <footer>
+                    <button name="action_import"
+                            string="🚀 ابدأ الاستيراد"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state == 'done'"/>
+                    <button name="action_open_riders"
+                            string="📋 عرض المناديب"
+                            type="object"
+                            class="btn-success"
+                            invisible="state != 'done'"/>
+                    <button string="إغلاق"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_delivery_rider_bulk_import" model="ir.actions.act_window">
+        <field name="name">استيراد جماعي للمناديب</field>
+        <field name="res_model">delivery.rider.bulk.import</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="help" type="html">
+            <p>استيراد مناديب من ملف Excel مع دعم ربط المناديب الرئيسيين تلقائياً.</p>
+        </field>
+    </record>
+</odoo>

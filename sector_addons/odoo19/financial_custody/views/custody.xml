@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="view_financial_custody_form" model="ir.ui.view">
+            <field name="name">view.financial.custody.form</field>
+            <field name="model">financial.custody</field>
+            <field name="arch" type="xml">
+                <form string="Financial Custody Form">
+                    <header>
+                        <button class="oe_highlight" groups="financial_custody.group_financial_custody_manager" invisible="state not in ['draft']" name="custody_first_approve" string="Approve" type="object"/>
+                        <button class="oe_highlight" groups="financial_custody.group_financial_custody_accountant" invisible="state not in ['approved']" name="custody_second_approve" string="Approve" type="object"/>
+                        <button groups="financial_custody.group_financial_custody_manager,financial_custody.group_financial_custody_accountant" invisible="state not in ['draft','approved']" name="custody_reject" string="Reject" type="object"/>
+                        <button groups="financial_custody.group_financial_custody_manager" invisible="state not in ['draft']" name="custody_cancel" string="Cancel" type="object"/>
+                        <button class="btn-primary" groups="financial_custody.group_financial_custody_accountant" invisible="remaining_amount > 0 or state != 'second_approve'" name="custody_action_open" string="Open" type="object"/>
+                        <button class="btn-primary" confirm="Are you sure? All remaining un-instalment amount will be reverse as instalment" groups="financial_custody.group_financial_custody_accountant" invisible="state not in ['open']" name="custody_action_validate" string="Validate" type="object"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" icon="fa-pencil-square-o" invisible="state not in ['second_approve', 'open', 'validate']" name="action_open_custody_payment" type="object">
+                                <div class="o_form_field o_stat_info">
+                                    <field name="payment_count"/>
+                                    /
+                                    <field name="paid_amount"/>
+                                    <span class="o_stat_text">
+                                        Payments
+                                    </span>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="name"/>
+                            <h1>
+                                <field name="name" placeholder="Custody Number" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field invisible="1" name="currency_id"/>
+                                <field name="partner_id"/>
+                                <field name="custody_amount" readonly="state != 'draft'"/>
+                                <field name="due_date"/>
+                                <field invisible="remaining_move_id == False and state in ['draft', 'approved']" name="remaining_move_id" readonly="1"/>
+                                <field invisible="state in ['draft', 'approved']" name="remaining_amount" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="create_uid" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
+                                <field invisible="state in ['draft']" name="journal_id" required="state == 'approved'"/>
+                                <field force_save="1" invisible="state in ['draft']" name="account_id" readonly="1"/>
+                                <field name="analytic_account_id" required="1"/>
+                                <field name="analytic_tags_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <group invisible="state != 'rejected'">
+                            <group>
+                                <field name="reject_reason"/>
+                                <field name="reject_step"/>
+                            </group>
+                            <group>
+                                <field name="reject_uid"/>
+                                <field name="reject_date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Reason">
+                                <field name="reason"/>
+                            </page>
+                            <page invisible="state not in ['open', 'validate']" string="Installments">
+                                <field context="{'default_custody_id': active_id}" mode="tree" name="installment_ids" readonly="state == 'validate'">
+                                    <list editable="bottom" string="Installments">
+                                        <field invisible="1" name="custody_id"/>
+                                        <field name="due_date"/>
+                                        <field name="amount"/>
+                                        <field name="note"/>
+                                        <field name="account_id" readonly="bill_id != False"/>
+                                        <field name="bill_id" readonly="account_id != False"/>
+                                        <field force_save="1" name="move_id" readonly="1"/>
+                                    </list>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field invisible="1" name="custody_id"/>
+                                                <field name="due_date"/>
+                                                <field name="amount"/>
+                                                <field name="note"/>
+                                            </group>
+                                            <group>
+                                                <field name="account_id"/>
+                                                <field force_save="1" name="move_id" readonly="1"/>
+                                            </group>
+                                        </group>
+                                    </form></field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form></field>
+        </record>
+        <record id="view_financial_custody_tree" model="ir.ui.view">
+            <field name="name">view.financial.custody.tree</field>
+            <field name="model">financial.custody</field>
+            <field name="arch" type="xml">
+                <list decoration-danger="state == 'rejected'" decoration-info="state == 'draft'" decoration-muted="state == 'cancelled'" string="Financial Custody Tree">
+                    <field name="name"/>
+                    <field name="create_uid"/>
+                    <field name="custody_amount" sum="Total"/>
+                    <field invisible="1" name="currency_id"/>
+                    <field name="create_date"/>
+                    <field name="state"/>
+                </list></field>
+        </record>
+        <record id="action_financial_custody_view" model="ir.actions.act_window">
+            <field name="name">Financial Custody</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">financial.custody</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Financial Custody
+                </p>
+                <p>
+                    Click to create Financial Custody
+                </p></field>
+        </record>
+        <menuitem groups="financial_custody.group_financial_custody_user" id="menu_financial_custody_root" name="Financial Custody" sequence="25" web_icon="financial_custody,static/src/img/icon.png"/>
+        <menuitem groups="financial_custody.group_financial_custody_user" id="menu_financial_custody_categ" name="Financial Custody" parent="menu_financial_custody_root" sequence="1"/>
+        <menuitem action="action_financial_custody_view" groups="financial_custody.group_financial_custody_user" id="menu_financial_custody_view" name="Financial Custody" parent="menu_financial_custody_categ" sequence="1"/>
+        <record id="financial_custody.view_custody_reject_wizard" model="ir.ui.view">
+            <field name="name">financial_custody.view.custody.reject.wizard</field>
+            <field name="model">financial.custody.reject.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field invisible="1" name="custody_id"/>
+                            <field name="reason"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button class="btn-primary" name="action_confirm" string="Confirm" type="object"/>
+                        <button class="btn-default" special="cancel" string="Cancel"/>
+                    </footer>
+                </form></field>
+        </record>
+    </data>
+</odoo>

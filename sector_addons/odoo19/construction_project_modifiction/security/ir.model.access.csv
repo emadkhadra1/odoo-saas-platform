@@ -1,0 +1,4 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_penalties,hr.penalties,model_hr_penalties,base.group_user,1,1,1,1
+access_hr_penalties_lines,hr.penalties.lines,model_hr_penalties_lines,base.group_user,1,1,1,1
+access_hr_penalties_total_lines,hr.penalties.total.lines,model_hr_penalties_total_lines,base.group_user,1,1,1,1

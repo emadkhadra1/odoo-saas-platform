@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="group_loan_reschedule" model="res.groups">
+            <field name="name">Allow Loan Reschedule</field>
+        </record>
+
+    </data>
+</odoo>

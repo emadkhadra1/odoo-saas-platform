@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--  breadcrumbs template-->
+    <template id="portal_my_home_salary_request" name="Portal layout :  menu entries"
+              inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'SalaryRequest' or page_name == 'NewSalaryRequest'"
+                t-attf-class="breadcrumb-item #{'active ' if not salary else ''}">
+                <a t-if="salary or page_name == 'NewSalaryRequest'" t-attf-href="/my/salary-request?{{ keep_query() }}">
+                    Salary Request
+                </a>
+                <t t-else="">Salary Request</t>
+            </li>
+            <li t-if="page_name == 'NewSalaryRequest'" class="breadcrumb-item active">
+                <t>Add New</t>
+            </li>
+            <li t-if="salary" class="breadcrumb-item active">
+                <span t-field="salary.display_name"/>
+
+            </li>
+        </xpath>
+    </template>
+    <!--  breadcrumbs template-->
+    <!--  list template-->
+    <template id="portal_my_salary_request" name="My Quotations">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-set="additional_title">salary Request</t>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">salary Request</t>
+            </t>
+            <div class="row mt-2 mb-2">
+                <div class="col-12">
+                    <a href="/my/salary-request/new" class=" btn bg-primary">
+                        <i class="fa fa-plus-circle"></i>
+                        New salary Request
+                    </a>
+                </div>
+            </div>
+            <t t-if="not salarys">
+                <p>There are currently no salary Request for your account.</p>
+            </t>
+            <t t-if="salarys" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>#</th>
+                        <th class="text-left">Submit To</th>
+                        <th class="text-left">Reason</th>
+                        <th class="text-left">Request Type</th>
+                        <th class="text-left">Verification</th>
+                        <th class="text-left">State</th>
+                        <th class="text-left">Action</th>
+                    </tr>
+                </thead>
+                <t t-set="count" t-value="1"/>
+                <t t-foreach="salarys" t-as="salary">
+                    <tr>
+                        <td class="text-left">
+                            <a t-attf-href="/my/salary-request/#{salary.id}">
+                                <t t-esc="count"/>
+                                <t t-set="count" t-value="count+1"/>
+                            </a>
+                        </td>
+                        <td class="text-left">
+                            <a t-attf-href="/my/salary-request/#{salary.id}">
+                                <span t-field="salary.submit_to"/>
+                            </a>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="salary.reason"/>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="salary.request_type"/>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="salary.request_verify"/>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="salary.state"/>
+                        </td>
+                        <td class="text-left">
+                            <a t-attf-href="/my/salary-request/#{salary.id}" class="btn btn-primary btn-sm">
+                                <i class="fa fa-eye"></i>
+                                View
+                            </a>
+                            <a t-attf-href="/my/salary-request/edit/#{salary.id}" class="btn btn-info btn-sm"
+                               t-if="salary.state == 'draft'">
+                                <i class="fa fa-edit"></i>
+                                Edit
+                            </a>
+                            <a t-attf-href="/my/salary-request/submit/#{salary.id}" class="btn btn-success btn-sm"
+                               t-if="salary.state == 'draft'">
+                                <i class="fa fa-check"></i>
+                                Submit
+                            </a>
+                            <a onclick="return confirm('Are you sure you want to delete this request?');"
+                               t-if="salary.state == 'draft'" t-attf-href="/my/salary-request/delete/#{salary.id}"
+                               class="btn btn-warning btn-sm">
+                                <i class="fa fa-trash"></i>
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <!--  list template-->
+    <!--  form template-->
+    <template id="website_portal.portal_my_salary_request_new" name="salary: Submit a Businesssalary">
+        <t t-call="portal.portal_layout">
+            <t t-set="additional_title">New salary Request</t>
+            <br/>
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">New salary Request</h3>
+                </div>
+                <form action="/my/salary-request/new" method="post" class="container-fluid mt32" id="pd_form"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="submit_to">Submit To
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">مقدم الى
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="submit_to" required="required"
+                                           class="form-control    "/>
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="reason">Reason
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">السبب
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="reason" required="required"
+                                           class="form-control    "/>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="request_type">Request Type
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">نوع الطلب
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <select name="request_type" required="required" class="form-control  "
+                                            id="salary_request_type">
+                                        <option value="define">Define - تعريف فقط</option>
+                                        <option value="adddefine">Define &amp; ِAdd - تعريف وتثبيت</option>
+                                        <option value="add">ِAdd -  تثبيت فقط</option>
+                                    </select>
+
+                                </div>
+                                <input class="form-control" type="hidden"
+                                       t-att-value="user_id.employee_id.related_to_bank" id="salary_related_to_bank"/>
+                                <input type="text" id="salary_related_to_bank_required" class="input-hidden"/>
+                                <div id="salary_related_to_bank_msg" class="alert alert-danger" role="alert"
+                                     style="display:none">
+                                    You Already have Bank Related with your profile!
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-12 col-form-label">Supporting Document
+
+                                        <span class="label_right">المرفقات
+
+                                        </span>
+                                    </label>
+                                    <input class="form-control" type="file" name="document"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="request_verify">Request Verification
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">طلب التصديق
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <select name="request_verify" required="required" class="form-control">
+                                        <option value="verify">Attested / مصدق</option>
+                                        <option value="unverified">Not Attested / غير مصدق</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label class="col-md-12 col-form-label">Notes
+
+                                    <span class="label_right">ملاحظات</span>
+                                </label>
+                                <textarea class="form-control" name="notes" placeholder="Textarea" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-paper-plane"></i>
+                            Save
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="history.go(-1)">
+                            <i class="fa fa-arrow-circle-left"></i>Back
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+    <!--  form template-->
+    <!--  view template-->
+    <template id="portal_my_salary_request_view" name="My  salary">
+        <t t-call="portal.portal_layout">
+            <br/>
+            <div class="card card-info card-outline">
+
+                <div class="card-body">
+                    <div style="padding: 4px;" class="callout callout-info">
+                        <h5 style="margin: 0;">salary Details</h5>
+                        <span t-foreach="salary" t-as="tf" class="float-right">
+                            <span class="badge badge-light"
+                                  t-field="tf.state"/>
+                        </span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="border-bottom d-flex justify-content-between py-2 mb-3 align-items-center">
+
+                            </div>
+
+                            <div class="row mb-2">
+
+                                <div class="col-md-6">
+                                    <strong class="col-12">Submit To :</strong>
+                                    <span t-if="salary.submit_to" t-field="salary.submit_to"/>
+                                    <span t-else="" class="text-muted">-</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <strong class="col-12">Reason :</strong>
+                                    <span t-if="salary.reason" t-field="salary.reason"/>
+                                    <span t-else="" class="text-muted"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-6">
+                                    <strong class="col-12">Request Type :</strong>
+                                    <span t-if="salary.request_type" t-field="salary.request_type"/>
+                                    <span t-else="" class="text-muted"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <strong class="col-12">Supporting Document :</strong>
+
+                                    <a t-if="salary.document" class="btn btn-primary "
+                                       t-attf-href="/web/content/salary.letter.request/{{salary.id}}/document?download=1">
+                                        <i class="fas fa-download"></i>
+                                        Download
+                                    </a>
+
+                                    <span t-else="" class="text-muted"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-12">
+                                    <strong class="col-12">Notes :</strong>
+                                    <span t-if="salary.notes" t-field="salary.notes"/>
+                                    <span t-else="" class="text-muted">-</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </t>
+    </template>
+    <!--  view template-->
+    <!--  edit template-->
+    <template id="website_portal.portal_my_salary_request_edit" name="salary: Edit a Businesssalary">
+        <t t-call="portal.portal_layout">
+            <t t-set="additional_title">Edit salary Request</t>
+            <br/>
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Edit salary Request</h3>
+                </div>
+                <form t-att-action="'/my/salary-request/edit/%s' % (salary.id)" method="post"
+                      class="container-fluid mt32"
+                      id="pd_form"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="submit_to">Submit To
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">مقدم الى
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="submit_to" required="required"
+                                           t-att-value="salary.submit_to"
+                                           class="form-control    "/>
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="reason">Reason
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">السبب
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="reason" required="required" class="form-control"
+                                           t-att-value="salary.reason"/>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="request_type">Request Type
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">نوع الطلب
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <select name="request_type" required="required"
+                                            class="form-control" id="salary_request_type">
+                                        <option t-att-selected="salary.request_type == 'define'" value="define">Define -
+                                            تعريف فقط
+                                        </option>
+                                        <option t-att-selected="salary.request_type == 'adddefine'" value="adddefine">Define &amp;
+                                            ِAdd - تعريف وتثبيت
+                                        </option>
+                                        <option t-att-selected="salary.request_type == 'add'" value="add">
+                                            ِAdd -تثبيت فقط
+                                        </option>
+                                    </select>
+
+                                </div>
+                                <input class="form-control" type="hidden"
+                                       t-att-value="user_id.employee_id.related_to_bank" id="salary_related_to_bank"/>
+                                <input type="text" id="salary_related_to_bank_required" class="input-hidden"/>
+                                <div id="salary_related_to_bank_msg" class="alert alert-danger" role="alert"
+                                     style="display:none">
+                                    You Already have Bank Related with your profile!
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-12 col-form-label">Supporting Document
+                                        <span class="label_right">المرفقات
+                                        </span>
+                                    </label>
+                                    <input class="form-control" type="file" t-att-value="salary.document"
+                                           name="document"/>
+                                </div>
+                            </div>
+                               <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="request_verify">Request Verification
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">طلب التصديق
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <select name="request_verify" required="required" class="form-control">
+                                        <option t-att-selected="salary.request_verify == 'verify'" value="verify">Attested/مصدق</option>
+                                        <option t-att-selected="salary.request_verify == 'unverified'" value="unverified" >Not Attested/غير مصدق</option>
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label class="col-md-12 col-form-label">Notes
+                                    <span class="label_right">ملاحظات</span>
+                                </label>
+                                <textarea class="form-control" name="notes" placeholder="Textarea" rows="3">
+                                    <t t-if="salary" t-esc="salary.notes"/>
+                                </textarea>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-paper-plane"></i>
+                            Save
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="history.go(-1)">
+                            <i class="fa fa-arrow-circle-left"></i>Back
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+</odoo>

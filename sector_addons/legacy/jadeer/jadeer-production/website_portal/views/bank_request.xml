@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--  breadcrumbs template-->
+    <template id="portal_my_home_bank_request" name="Portal layout :  menu entries"
+              inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'BankRequest' or page_name == 'NewBankRequest'"
+                t-attf-class="breadcrumb-item #{'active ' if not bank else ''}">
+                <a t-if="bank or page_name == 'NewBankRequest'" t-attf-href="/my/bank-request?{{ keep_query() }}">
+                    bank Request
+                </a>
+                <t t-else="">bank Request</t>
+            </li>
+            <li t-if="page_name == 'NewBankRequest'" class="breadcrumb-item active">
+                <t>Add New</t>
+            </li>
+            <li t-if="bank" class="breadcrumb-item active">
+                <span t-field="bank.display_name"/>
+
+            </li>
+        </xpath>
+    </template>
+    <!--  breadcrumbs template-->
+    <!--  list template-->
+    <template id="portal_my_bank_request" name="My Quotations">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-set="additional_title">bank Request</t>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">bank Request</t>
+            </t>
+            <div class="row mt-2 mb-2">
+                <div class="col-12">
+                    <a href="/my/bank-request/new" class=" btn bg-primary">
+                        <i class="fa fa-plus-circle"></i> New bank Request
+                    </a>
+                </div>
+            </div>
+            <t t-if="not banks">
+                <p>There are currently no bank Request for your account.</p>
+            </t>
+            <t t-if="banks" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>#</th>
+                        <th class="text-left">Bank Name</th>
+                        <th class="text-left">IBAN</th>
+                        <th class="text-left">Submit To</th>
+                        <th class="text-left">Reason</th>
+                        <th class="text-left">State</th>
+                        <th class="text-left">Action</th>
+                    </tr>
+                </thead>
+                <t t-set="count" t-value="1"/>
+                <t t-foreach="banks" t-as="bank">
+                    <tr>
+                        <td class="text-left">
+                            <a t-attf-href="/my/bank-request/#{bank.id}">
+                                <t t-esc="count"/>
+                                <t t-set="count" t-value="count+1"/>
+                            </a>
+                        </td>
+                        <td class="text-left">
+                            <a t-attf-href="/my/bank-request/#{bank.id}">
+                                <span t-field="bank.bank_name"/>
+                            </a>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="bank.iban"/>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="bank.submit_to"/>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="bank.reason"/>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="bank.state"/>
+                        </td>
+                        <td class="text-left">
+                            <a t-attf-href="/my/bank-request/#{bank.id}" class="btn btn-primary btn-sm">
+                                <i class="fa fa-eye"></i>
+                                View
+                            </a>
+                            <a t-attf-href="/my/bank-request/edit/#{bank.id}" class="btn btn-info btn-sm" t-if="bank.state == 'draft'">
+                                <i class="fa fa-edit"></i>
+                                Edit
+                            </a>
+                            <a t-attf-href="/my/bank-request/submit/#{bank.id}" class="btn btn-success btn-sm" t-if="bank.state == 'draft'">
+                                <i class="fa fa-check"></i>
+                                Submit
+                            </a>
+                            <a onclick="return confirm('Are you sure you want to delete this request?');"
+                               t-if="bank.state == 'draft'" t-attf-href="/my/bank-request/delete/#{bank.id}"
+                               class="btn btn-warning btn-sm">
+                                <i class="fa fa-trash"></i>
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <!--  list template-->
+    <!--  form template-->
+    <template id="website_portal.portal_my_bank_request_new" name="bank: Submit a Businessbank">
+        <t t-call="portal.portal_layout">
+            <t t-set="additional_title">New Bank Request</t>
+            <br/>
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">New Bank Request</h3>
+                </div>
+                <form action="/my/bank-request/new" method="post" class="container-fluid mt32" id="pd_form"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="bank_name">Bank Name
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">اسم البنك
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="bank_name" required="required"
+                                           class="form-control    "/>
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="iban">IBAN
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">رقم الحساب
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="iban" required="required"
+                                           class="form-control    "/>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="submit_to">Submit To
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">مقدم الى
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="submit_to" required="required"
+                                           class="form-control    "/>
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="reason">Reason
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">السبب
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="reason" required="required"
+                                           class="form-control    "/>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-12 col-form-label">Supporting Document
+
+                                <span class="label_right">المرفقات
+
+                                </span>
+                            </label>
+                            <input class="form-control" type="file" name="document"/>
+                        </div>
+                        <div class="col-lg">
+                            <label class="col-md-12 col-form-label">Notes
+
+                                <span class="label_right">ملاحظات</span>
+                            </label>
+                            <textarea class="form-control" name="notes" placeholder="Textarea" rows="3"></textarea>
+                        </div>
+
+                    </div>
+
+
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-paper-plane"></i> Save
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="history.go(-1)">
+                            <i class="fa fa-arrow-circle-left"></i>Back
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+    <!--  form template-->
+    <!--  view template-->
+    <template id="portal_my_bank_request_view" name="My  Bank">
+        <t t-call="portal.portal_layout">
+            <br/>
+            <div class="card card-info card-outline">
+
+                <div class="card-body">
+                    <div style="padding: 4px;" class="callout callout-info">
+                        <h5 style="margin: 0;">Bank Details</h5>
+                        <span t-foreach="bank" t-as="tf" class="float-right">
+                            <span class="badge badge-light"
+                                  t-field="tf.state"/>
+                        </span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="border-bottom d-flex justify-content-between py-2 mb-3 align-items-center">
+
+                            </div>
+          <div class="row mb-2">
+
+                                <div class="col-md-6">
+                                    <strong class="col-12">Bank Name	 :</strong>
+                                    <span t-if="bank.bank_name" t-field="bank.bank_name"/>
+                                    <span t-else="" class="text-muted">-</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <strong class="col-12">IBAN :</strong>
+                                    <span t-if="bank.iban" t-field="bank.iban"/>
+                                    <span t-else="" class="text-muted"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+
+                                <div class="col-md-6">
+                                    <strong class="col-12">IBAN :</strong>
+                                    <span t-if="bank.submit_to" t-field="bank.submit_to"/>
+                                    <span t-else="" class="text-muted">-</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <strong class="col-12">Reason :</strong>
+                                    <span t-if="bank.reason" t-field="bank.reason"/>
+                                    <span t-else="" class="text-muted"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+
+                                <div class="col-md-6">
+                                    <strong class="col-12">Supporting Document :</strong>
+
+                                    <a t-if="bank.document" class="btn btn-primary "
+                                       t-attf-href="/web/content/bank.update.request/{{bank.id}}/document?download=1">
+                                        <i class="fas fa-download"></i>
+                                        Download
+                                    </a>
+
+                                    <span t-else="" class="text-muted"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-12">
+                                    <strong class="col-12">Notes :</strong>
+                                    <span t-if="bank.notes" t-field="bank.notes"/>
+                                    <span t-else="" class="text-muted">-</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </t>
+    </template>
+    <!--  view template-->
+    <!--  edit template-->
+    <template id="website_portal.portal_my_bank_request_edit" name="bank: Edit a Businessbank">
+        <t t-call="portal.portal_layout">
+            <t t-set="additional_title">Edit bank Request</t>
+            <br/>
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Edit bank Request</h3>
+                </div>
+                <form t-att-action="'/my/bank-request/edit/%s' % (bank.id)" method="post" class="container-fluid mt32"
+                      id="pd_form"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="card-body">
+                         <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="bank_name">Bank Name
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">اسم البنك
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="bank_name" required="required"   t-att-value="bank.bank_name"
+                                           class="form-control    "/>
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="iban">IBAN
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">رقم الحساب
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="iban" required="required"   t-att-value="bank.iban"
+                                           class="form-control    "/>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="submit_to">Submit To
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">مقدم الى
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="submit_to" required="required"
+                                           t-att-value="bank.submit_to"
+                                           class="form-control    "/>
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="reason">Reason
+                                    <span style="color:red">*</span>
+
+                                    <span class="label_right">السبب
+                                        <span style="color:red">*</span>
+                                    </span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="reason" required="required" class="form-control"
+                                           t-att-value="bank.reason"/>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-12 col-form-label">Supporting Document
+                                <span class="label_right">المرفقات
+                                </span>
+                            </label>
+                            <input class="form-control" type="file" t-att-value="bank.document" name="document"
+                            />
+                        </div>
+                        <div class="col-lg">
+                            <label class="col-md-12 col-form-label">Notes
+                                <span class="label_right">ملاحظات</span>
+                            </label>
+                            <textarea class="form-control" name="notes" placeholder="Textarea" rows="3">
+                                <t t-if="bank" t-esc="bank.notes"/>
+                            </textarea>
+                        </div>
+
+                    </div>
+
+
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-paper-plane"></i>
+                            Save
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="history.go(-1)">
+                            <i class="fa fa-arrow-circle-left"></i>Back
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+</odoo>

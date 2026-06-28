@@ -1,0 +1,5 @@
+<odoo>
+    <record id="group_super_approve_timeoff" model="res.groups">
+        <field name="name">Super Approve Timeoff</field>
+    </record>
+</odoo>

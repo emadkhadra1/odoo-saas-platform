@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="0">
+
+<!-- ================================================================
+     مؤسسة واجهة الخليج للخدمات اللوجستية
+     v4.5.0 — حذف جميع القواعد القديمة ووضع القواعد المتفق عليها فقط
+     ================================================================ -->
+
+<!-- ══════ حذف جميع القواعد القديمة أولاً ══════ -->
+<delete model="delivery.pricing.slab"   search="[(1, '=', 1)]"/>
+<delete model="delivery.incentive.level" search="[(1, '=', 1)]"/>
+<delete model="delivery.pricing.rule"   search="[(1, '=', 1)]"/>
+<delete model="delivery.validity.criteria" search="[(1, '=', 1)]"/>
+<delete model="delivery.experience.score.config" search="[(1, '=', 1)]"/>
+
+<!-- ══════════════════════════════════════════════════════════════
+     1. شركات المنصات (delivery.company)
+══════════════════════════════════════════════════════════════ -->
+
+<record id="company_keeta" model="delivery.company">
+    <field name="name">Keeta</field>
+    <field name="name_ar">كيتا</field>
+    <field name="settlement_cycle">monthly</field>
+    <field name="is_active">True</field>
+    <field name="notes">Keeta Technologies Arabia Limited — CR: 1009019761 — الرياض، حي الربيع 7782</field>
+</record>
+
+<record id="company_hungerstation" model="delivery.company">
+    <field name="name">HungerStation</field>
+    <field name="name_ar">هنقرستيشن</field>
+    <field name="settlement_cycle">monthly</field>
+    <field name="is_active">True</field>
+    <field name="notes">شركة هنقرستيشن المحدودة — CR: 1010443133 — الرياض. الحد الأدنى للأسطول: 103 سائق ذو أداء عالٍ.</field>
+</record>
+
+<record id="company_toyo" model="delivery.company">
+    <field name="name">Toyo</field>
+    <field name="name_ar">تويو</field>
+    <field name="settlement_cycle">monthly</field>
+    <field name="is_active">True</field>
+    <field name="notes">شركة خدمة ممثل التجارية — CR: 1010718084 — تجارة إلكترونية لتوصيل البقالة والسلع الاستهلاكية</field>
+</record>
+
+<record id="company_jahez" model="delivery.company">
+    <field name="name">Jahez</field>
+    <field name="name_ar">جاهز</field>
+    <field name="settlement_cycle">monthly</field>
+    <field name="is_active">True</field>
+    <field name="notes">شركة جاهز الدولية لتقنية نظم المعلومات — CR: 1010895874</field>
+</record>
+
+<record id="company_ninja" model="delivery.company">
+    <field name="name">Ninja Food</field>
+    <field name="name_ar">نينجا فود</field>
+    <field name="settlement_cycle">monthly</field>
+    <field name="is_active">True</field>
+    <field name="notes">شركة تقنية التقدم لتقنية المعلومات — CR: 2052101911</field>
+</record>
+
+<!-- ══════════════════════════════════════════════════════════════
+     2. العقود — مع نمط التسعير الصحيح لكل عقد
+══════════════════════════════════════════════════════════════ -->
+
+<!-- كيتا — نمط: keeta (4 حالات) -->
+<record id="contract_keeta_v1" model="delivery.contract">
+    <field name="company_id" ref="company_keeta"/>
+    <field name="contract_number">SAPS-SE-D8-00084094</field>
+    <field name="version">1</field>
+    <field name="contract_type">parcel</field>
+    <field name="status">active</field>
+    <field name="pricing_mode">keeta</field>
+    <field name="start_date">2025-08-20</field>
+    <field name="settlement_cycle">monthly</field>
+    <field name="payment_terms_days">5</field>
+    <field name="auto_renew">False</field>
+    <!-- إعدادات كيتا — 4 حالات -->
+    <field name="keeta_target_orders">360</field>
+    <field name="keeta_base_salary">1500.00</field>
+    <field name="keeta_extra_threshold">400</field>
+    <field name="keeta_rate_extra_1">8.00</field>
+    <field name="keeta_rate_extra_2">10.00</field>
+    <field name="keeta_company_bonus_pct">37.5</field>
+    <field name="keeta_tier_a_bonus">100.00</field>
+    <field name="keeta_tier_b_penalty">300.00</field>
+    <field name="keeta_tier_c_penalty">500.00</field>
+    <field name="keeta_tier_d_penalty">1000.00</field>
+    <field name="keeta_valid_no_target_rate">4.00</field>
+    <field name="keeta_invalid_target_rate">4.00</field>
+    <field name="keeta_invalid_no_target_rate">2.00</field>
+    <field name="penalty_policy">- التغيب عن المناوبات أكثر من 5%: خصم 0.50 ريال/طلب
+- عدم الالتزام بالزي أو أدوات السلامة: خصم 5 ريال/طلب
+- رفض أكثر من 2 طلبات في 24 ساعة: خصم 50 ريال/طلب إضافي
+- Stacking: خصم 4 ريال على الطلب الثاني
+- انتهاك معايير الأداء العالي: يصل إلى 500 ريال/يوم</field>
+    <field name="deposit_policy">الأسعار لا تشمل ضريبة القيمة المضافة 15% — الدفع خلال 5 أيام عمل من استلام الفاتورة</field>
+    <field name="notes">الطرف الأول: Keeta Technologies Arabia Limited (CR: 1009019761)
+الطرف الثاني: مؤسسة واجهة الخليج (الرقم الوطني: 7028109556) — RQYB4803
+
+تعريف المندوب الصالح: 26 يوم اتصال أو أكثر في الشهر
+الأسبوع الأول: 10 ساعات اتصال يومياً على الأقل
+
+🔵 نمط كيتا — 4 حالات:
+ح1 (صالح + تارجيت ≥360): 1500 أساسي + إضافي (361-400: 8ر/ط، 400+: 10ر/ط) + بونص الشركة 37.5% + تعديل A/B/C/D
+ح2 (صالح + بلا تارجيت): × 4 ريال/طلب
+ح3 (غير صالح + تارجيت): × 4 ريال/طلب
+ح4 (غير صالح + بلا تارجيت): × 2 ريال/طلب</field>
+</record>
+
+<!-- هنقرستيشن — نمط: hungerstation_internal (كفالة) -->
+<record id="contract_hungerstation_v1" model="delivery.contract">
+    <field name="company_id" ref="company_hungerstation"/>
+    <field name="contract_number">28738034-5920-4984-4250</field>
+    <field name="version">1</field>
+    <field name="contract_type">parcel</field>
+    <field name="status">active</field>
+    <field name="pricing_mode">hungerstation_internal</field>
+    <field name="start_date">2025-10-15</field>
+    <field name="end_date">2026-10-14</field>
+    <field name="settlement_cycle">monthly</field>
+    <field name="payment_terms_days">14</field>
+    <field name="auto_renew">False</field>
+    <!-- إعدادات كفالة هنقر -->
+    <field name="hs_target_orders">550</field>
+    <field name="hs_base_salary">1500.00</field>
+    <field name="hs_rate_above_target">8.00</field>
+    <field name="hs_rate_below_target">4.00</field>
+    <field name="penalty_policy">- التغيب أكثر من 5%: خصم 0.50 ريال/طلب
+- عدم الالتزام بالزي أو السلامة: خصم 5 ريال/طلب
+- رفض أكثر من 2 طلبات في 24 ساعة: خصم 50 ريال/طلب إضافي
+- Stacking: خصم 4 ريال على الطلب الثاني
+- انخفاض أسطول ذوي الأداء العالي بأكثر من 5%: إعادة جميع الحوافز</field>
+    <field name="deposit_policy">دفعة مقدمة شهرية متاحة إذا كانت نسبة ذوي الأداء العالي ≥ 96% من السائقين النشطين.</field>
+    <field name="notes">الطرف الأول: شركة هنقرستيشن المحدودة (CR: 1010443133)
+الطرف الثاني: مؤسسة واجهة الخليج (CR: 1010785276)
+الحد الأدنى للأسطول: 103 سائق ذو أداء عالٍ
+شروط ذوي الأداء العالي: 208 ساعة/شهر (8 ساعات × 26 يوم)
+
+🟡 نمط كفالة هنقر:
+≥ 550 طلب → راتب أساسي 1500 + (طلبات إضافية × 8 ريال/طلب)
+أقل من 550 طلب → عدد الطلبات × 4 ريال/طلب</field>
+</record>
+
+<!-- تويو — نمط: standard (شرائح نصف شهرية سيارة + دراجة) -->
+<record id="contract_toyo_v1" model="delivery.contract">
+    <field name="company_id" ref="company_toyo"/>
+    <field name="contract_number">TOYO-WAJHAT-2025</field>
+    <field name="version">1</field>
+    <field name="contract_type">service</field>
+    <field name="status">active</field>
+    <field name="pricing_mode">standard</field>
+    <field name="start_date">2025-12-10</field>
+    <field name="settlement_cycle">semi_monthly</field>
+    <field name="payment_terms_days">1</field>
+    <field name="auto_renew">True</field>
+    <field name="penalty_policy">- رفض فرص التوصيل المسندة: مخالفة عقدية
+- أقل من 120 ساعة عمل كل 15 يوماً: تخفيض الأجر للحد الأدنى (10 ريال دراجة / 11 ريال سيارة)
+- عدم تحويل المبالغ النقدية خلال 24 ساعة: إخلال بالعقد
+- التلاعب بنظام الموقع: إنهاء فوري</field>
+    <field name="deposit_policy">الدفع مرتين شهرياً (1-15 و16-نهاية الشهر). إيداع مباشر في الحساب البنكي. الرسوم لا تشمل ضريبة القيمة المضافة.</field>
+    <field name="notes">الطرف الأول: شركة خدمة ممثل التجارية — CR: 1010718084
+الطرف الثاني: مؤسسة واجهة الخليج (CR: 7028109556)
+التسعير: شرائح نصف شهرية. ≥15 موظف نشط مطلوب.
+ساعات العمل: 120 ساعة/15 يوم (70 ساعة ذروة)
+مكافأة شهرية (حجم): 30 ممثل+12000 طلب=6000 ريال | 50+20000=25000 | 100+40000=60000 | 150+60000=120000</field>
+</record>
+
+<!-- جاهز — نمط: fixed_fee (عمولة محددة من التطبيق مباشرة) -->
+<record id="contract_jahez_v1" model="delivery.contract">
+    <field name="company_id" ref="company_jahez"/>
+    <field name="contract_number">JAHEZ-WAJHAT-2024</field>
+    <field name="version">1</field>
+    <field name="contract_type">parcel</field>
+    <field name="status">active</field>
+    <field name="pricing_mode">fixed_fee</field>
+    <field name="rider_monthly_fee">0.00</field>
+    <field name="start_date">2024-01-01</field>
+    <field name="end_date">2025-01-01</field>
+    <field name="settlement_cycle">monthly</field>
+    <field name="payment_terms_days">1</field>
+    <field name="auto_renew">True</field>
+    <field name="penalty_policy">- رفض أي توجيه من دعم جاهز: مخالفة فورية
+- عدم تحويل المبالغ النقدية خلال الأسبوع: إخلال
+- مسؤولية تلف أو ضياع الطلبات: كاملة
+- عدم تجديد سند لأمر 200,000 ريال: إنهاء العقد</field>
+    <field name="deposit_policy">سند لأمر بقيمة 200,000 ريال — يجدد دورياً بما لا يقل عن 96% من مبيعات الأسبوع.</field>
+    <field name="notes">الطرف الأول: شركة جاهز الدولية (CR: 1010895874)
+الطرف الثاني: مؤسسة واجهة الخليج
+التغطية: جميع مناطق المملكة العربية السعودية
+العمولة: تُحدد تلقائياً من تطبيق جاهز لكل طلب</field>
+</record>
+
+<!-- نينجا فود — نمط: standard (راتب ثابت شهري) -->
+<record id="contract_ninja_v1" model="delivery.contract">
+    <field name="company_id" ref="company_ninja"/>
+    <field name="contract_number">NINJA-WAJHAT-2026</field>
+    <field name="version">1</field>
+    <field name="contract_type">service</field>
+    <field name="status">active</field>
+    <field name="pricing_mode">standard</field>
+    <field name="start_date">2026-02-25</field>
+    <field name="end_date">2026-05-25</field>
+    <field name="settlement_cycle">monthly</field>
+    <field name="payment_terms_days">15</field>
+    <field name="auto_renew">True</field>
+    <field name="penalty_policy">- استخدام صندوق يحمل اسم منافس: 500 ريال
+- عدم الالتزام بزي نينجا: 150 ريال
+- الغياب عن العمل: 100 ريال/يوم
+- الأداء أقل من 70% في اليوم: 30 ريال/يوم
+- التأخر عن موعد العمل: 20 ريال</field>
+    <field name="deposit_policy">كشف شهري من الطرف الأول (أول 5 أيام) — اعتراض خلال يومين — حوالة بنكية خلال 15 يوم.</field>
+    <field name="notes">الطرف الأول: شركة تقنية التقدم (CR: 2052101911) — ابراهيم محمد الجاسم
+الطرف الثاني: مؤسسة واجهة الخليج
+مدة العقد: 90 يوماً (قابل للتجديد التلقائي)
+ساعات العمل: 10 ساعات/يوم × 6 أيام/أسبوع (312 ساعة/شهر)</field>
+</record>
+
+<!-- ══════════════════════════════════════════════════════════════
+     3. قواعد التسعير المتفق عليها — فقط ما يلزم
+     ملاحظة: كيتا وهنقر لا تحتاج قواعد — تُحسب من إعدادات العقد
+══════════════════════════════════════════════════════════════ -->
+
+<!-- ────── تويو — شرائح نصف شهرية — سيارة ────── -->
+<record id="pricing_toyo_tiered_car" model="delivery.pricing.rule">
+    <field name="company_id" ref="company_toyo"/>
+    <field name="contract_id" ref="contract_toyo_v1"/>
+    <field name="name">تويو — شرائح نصف شهرية — سيارة</field>
+    <field name="pricing_type">tiered</field>
+    <field name="vehicle_type">car</field>
+    <field name="base_amount">11.00</field>
+    <field name="effective_from">2025-12-10</field>
+    <field name="is_active">True</field>
+    <field name="notes">السعر يُطبق على جميع طلبات الفترة (15 يوم) حسب الشريحة — يشترط ≥15 موظف نشط و120 ساعة/15 يوم.</field>
+</record>
+<record id="slab_toyo_car_1" model="delivery.pricing.slab">
+    <field name="pricing_rule_id" ref="pricing_toyo_tiered_car"/>
+    <field name="sequence">1</field>
+    <field name="from_orders">0</field>
+    <field name="to_orders">139</field>
+    <field name="price_per_order">11.00</field>
+    <field name="label">0–139 طلب — 11 ريال/طلب</field>
+</record>
+<record id="slab_toyo_car_2" model="delivery.pricing.slab">
+    <field name="pricing_rule_id" ref="pricing_toyo_tiered_car"/>
+    <field name="sequence">2</field>
+    <field name="from_orders">140</field>
+    <field name="to_orders">199</field>
+    <field name="price_per_order">14.00</field>
+    <field name="label">140–199 طلب — 14 ريال/طلب</field>
+</record>
+<record id="slab_toyo_car_3" model="delivery.pricing.slab">
+    <field name="pricing_rule_id" ref="pricing_toyo_tiered_car"/>
+    <field name="sequence">3</field>
+    <field name="from_orders">200</field>
+    <field name="to_orders">259</field>
+    <field name="price_per_order">16.00</field>
+    <field name="label">200–259 طلب — 16 ريال/طلب</field>
+</record>
+<record id="slab_toyo_car_4" model="delivery.pricing.slab">
+    <field name="pricing_rule_id" ref="pricing_toyo_tiered_car"/>
+    <field name="sequence">4</field>
+    <field name="from_orders">260</field>
+    <field name="to_orders">0</field>
+    <field name="price_per_order">18.00</field>
+    <field name="label">260 فأعلى — 18 ريال/طلب</field>
+</record>
+
+<!-- ────── تويو — شرائح نصف شهرية — دراجة نارية ────── -->
+<record id="pricing_toyo_tiered_bike" model="delivery.pricing.rule">
+    <field name="company_id" ref="company_toyo"/>
+    <field name="contract_id" ref="contract_toyo_v1"/>
+    <field name="name">تويو — شرائح نصف شهرية — دراجة نارية</field>
+    <field name="pricing_type">tiered</field>
+    <field name="vehicle_type">motorcycle</field>
+    <field name="base_amount">10.00</field>
+    <field name="effective_from">2025-12-10</field>
+    <field name="is_active">True</field>
+    <field name="notes">السعر يُطبق على جميع طلبات الفترة (15 يوم) حسب الشريحة — يشترط ≥15 موظف نشط و120 ساعة/15 يوم.</field>
+</record>
+<record id="slab_toyo_bike_1" model="delivery.pricing.slab">
+    <field name="pricing_rule_id" ref="pricing_toyo_tiered_bike"/>
+    <field name="sequence">1</field>
+    <field name="from_orders">0</field>
+    <field name="to_orders">139</field>
+    <field name="price_per_order">10.00</field>
+    <field name="label">0–139 طلب — 10 ريال/طلب</field>
+</record>
+<record id="slab_toyo_bike_2" model="delivery.pricing.slab">
+    <field name="pricing_rule_id" ref="pricing_toyo_tiered_bike"/>
+    <field name="sequence">2</field>
+    <field name="from_orders">140</field>
+    <field name="to_orders">199</field>
+    <field name="price_per_order">12.00</field>
+    <field name="label">140–199 طلب — 12 ريال/طلب</field>
+</record>
+<record id="slab_toyo_bike_3" model="delivery.pricing.slab">
+    <field name="pricing_rule_id" ref="pricing_toyo_tiered_bike"/>
+    <field name="sequence">3</field>
+    <field name="from_orders">200</field>
+    <field name="to_orders">259</field>
+    <field name="price_per_order">15.00</field>
+    <field name="label">200–259 طلب — 15 ريال/طلب</field>
+</record>
+<record id="slab_toyo_bike_4" model="delivery.pricing.slab">
+    <field name="pricing_rule_id" ref="pricing_toyo_tiered_bike"/>
+    <field name="sequence">4</field>
+    <field name="from_orders">260</field>
+    <field name="to_orders">0</field>
+    <field name="price_per_order">17.00</field>
+    <field name="label">260 فأعلى — 17 ريال/طلب</field>
+</record>
+
+<!-- ────── تويو — مكافأة الحجم الشهرية ────── -->
+<record id="pricing_toyo_volume_bonus" model="delivery.pricing.rule">
+    <field name="company_id" ref="company_toyo"/>
+    <field name="contract_id" ref="contract_toyo_v1"/>
+    <field name="name">تويو — مكافأة الحجم الشهرية</field>
+    <field name="pricing_type">capacity_incentive</field>
+    <field name="vehicle_type">all</field>
+    <field name="base_amount">0.00</field>
+    <field name="effective_from">2025-12-10</field>
+    <field name="is_active">True</field>
+    <field name="notes">مكافأة شهرية عند تحقيق الحد الأدنى من الممثلين النشطين والطلبات معاً.</field>
+</record>
+<record id="bonus_toyo_vol_a" model="delivery.incentive.level">
+    <field name="pricing_rule_id" ref="pricing_toyo_volume_bonus"/>
+    <field name="sequence">1</field>
+    <field name="level">A</field>
+    <field name="range_from">30</field>
+    <field name="range_to">49</field>
+    <field name="bike_amount">6000.00</field>
+    <field name="car_amount">6000.00</field>
+    <field name="notes">30 ممثل نشط + 12,000 طلب/شهر → 6,000 ريال</field>
+</record>
+<record id="bonus_toyo_vol_b" model="delivery.incentive.level">
+    <field name="pricing_rule_id" ref="pricing_toyo_volume_bonus"/>
+    <field name="sequence">2</field>
+    <field name="level">B</field>
+    <field name="range_from">50</field>
+    <field name="range_to">99</field>
+    <field name="bike_amount">25000.00</field>
+    <field name="car_amount">25000.00</field>
+    <field name="notes">50 ممثل نشط + 20,000 طلب/شهر → 25,000 ريال</field>
+</record>
+<record id="bonus_toyo_vol_c" model="delivery.incentive.level">
+    <field name="pricing_rule_id" ref="pricing_toyo_volume_bonus"/>
+    <field name="sequence">3</field>
+    <field name="level">C</field>
+    <field name="range_from">100</field>
+    <field name="range_to">149</field>
+    <field name="bike_amount">60000.00</field>
+    <field name="car_amount">60000.00</field>
+    <field name="notes">100 ممثل نشط + 40,000 طلب/شهر → 60,000 ريال</field>
+</record>
+<record id="bonus_toyo_vol_d" model="delivery.incentive.level">
+    <field name="pricing_rule_id" ref="pricing_toyo_volume_bonus"/>
+    <field name="sequence">4</field>
+    <field name="level">D</field>
+    <field name="range_from">150</field>
+    <field name="range_to">0</field>
+    <field name="bike_amount">120000.00</field>
+    <field name="car_amount">120000.00</field>
+    <field name="notes">150 ممثل نشط + 60,000 طلب/شهر → 120,000 ريال</field>
+</record>
+
+<!-- ────── جاهز — عمولة لكل طلب (تُحدد من التطبيق) ────── -->
+<record id="pricing_jahez_per_order" model="delivery.pricing.rule">
+    <field name="company_id" ref="company_jahez"/>
+    <field name="contract_id" ref="contract_jahez_v1"/>
+    <field name="name">جاهز — عمولة لكل توصيل ناجح</field>
+    <field name="pricing_type">per_order</field>
+    <field name="vehicle_type">all</field>
+    <field name="base_amount">0.00</field>
+    <field name="effective_from">2024-01-01</field>
+    <field name="is_active">True</field>
+    <field name="notes">العمولة تُحدد تلقائياً من تطبيق جاهز لكل طلب — تغطية جميع مناطق المملكة.</field>
+</record>
+
+<!-- ────── نينجا فود — راتب ثابت شهري + بونص يومي ────── -->
+<record id="pricing_ninja_fixed_salary" model="delivery.pricing.rule">
+    <field name="company_id" ref="company_ninja"/>
+    <field name="contract_id" ref="contract_ninja_v1"/>
+    <field name="name">نينجا فود — راتب ثابت شهري + بونص يومي</field>
+    <field name="pricing_type">fixed_salary</field>
+    <field name="vehicle_type">motorcycle</field>
+    <field name="base_amount">4500.00</field>
+    <field name="daily_rate">173.08</field>
+    <field name="working_days">26</field>
+    <field name="bonus_threshold">30</field>
+    <field name="bonus_per_order">5.00</field>
+    <field name="effective_from">2026-02-25</field>
+    <field name="is_active">True</field>
+    <field name="notes">الراتب: 4,500 ريال/مندوب/شهر (312 ساعة)
+بونص الحضور الكامل: +1,000 ريال (صفر غيابات)
+بونص يومي — 31-35 طلب: +5 ريال/طلب | 36+: +7 ريال/طلب</field>
+</record>
+
+<!-- ══════════════════════════════════════════════════════════════
+     4. شروط الصلاحية (Valid DA) — لكل عقد
+══════════════════════════════════════════════════════════════ -->
+
+<!-- كيتا — شروط الصلاحية -->
+<record id="validity_keeta" model="delivery.validity.criteria">
+    <field name="contract_id" ref="contract_keeta_v1"/>
+    <field name="company_id" ref="company_keeta"/>
+    <field name="name">شروط المندوب الصالح — كيتا</field>
+    <field name="min_daily_online_hours">10.0</field>
+    <field name="min_valid_days">26</field>
+    <field name="min_monthly_orders">0</field>
+    <field name="must_attend_first_days">3</field>
+    <field name="must_attend_last_days">4</field>
+    <field name="must_attend_min_valid">6</field>
+    <field name="is_active">True</field>
+</record>
+
+<!-- هنقرستيشن — شروط الصلاحية (ذو أداء عالٍ = 208 ساعة/شهر) -->
+<record id="validity_hungerstation" model="delivery.validity.criteria">
+    <field name="contract_id" ref="contract_hungerstation_v1"/>
+    <field name="company_id" ref="company_hungerstation"/>
+    <field name="name">شروط ذوي الأداء العالي — هنقرستيشن</field>
+    <field name="min_daily_online_hours">8.0</field>
+    <field name="min_valid_days">26</field>
+    <field name="min_monthly_orders">0</field>
+    <field name="is_active">True</field>
+</record>
+
+<!-- تويو — شروط الصلاحية -->
+<record id="validity_toyo" model="delivery.validity.criteria">
+    <field name="contract_id" ref="contract_toyo_v1"/>
+    <field name="company_id" ref="company_toyo"/>
+    <field name="name">شروط صلاحية المندوب — تويو</field>
+    <field name="min_daily_online_hours">8.0</field>
+    <field name="min_valid_days">0</field>
+    <field name="min_monthly_orders">0</field>
+    <field name="is_active">True</field>
+</record>
+
+<!-- جاهز — شروط الصلاحية -->
+<record id="validity_jahez" model="delivery.validity.criteria">
+    <field name="contract_id" ref="contract_jahez_v1"/>
+    <field name="company_id" ref="company_jahez"/>
+    <field name="name">شروط صلاحية المندوب — جاهز</field>
+    <field name="min_daily_online_hours">0.0</field>
+    <field name="min_valid_days">0</field>
+    <field name="min_monthly_orders">0</field>
+    <field name="is_active">True</field>
+</record>
+
+<!-- نينجا فود — شروط الصلاحية -->
+<record id="validity_ninja" model="delivery.validity.criteria">
+    <field name="contract_id" ref="contract_ninja_v1"/>
+    <field name="company_id" ref="company_ninja"/>
+    <field name="name">شروط صلاحية المندوب — نينجا فود</field>
+    <field name="min_daily_online_hours">10.0</field>
+    <field name="min_valid_days">26</field>
+    <field name="min_monthly_orders">0</field>
+    <field name="is_active">True</field>
+</record>
+
+<!-- ══════════════════════════════════════════════════════════════
+     5. إعداد نقاط الخبرة — للعقود التي تعتمد عليها
+══════════════════════════════════════════════════════════════ -->
+
+<!-- كيتا — إعداد الخبرة (مستوى A/B/C/D يؤثر على التعديل في الحالة 1) -->
+<record id="exp_config_keeta" model="delivery.experience.score.config">
+    <field name="contract_id" ref="contract_keeta_v1"/>
+    <field name="company_id" ref="company_keeta"/>
+    <field name="name">إعداد نقاط الخبرة — كيتا</field>
+    <field name="on_time_delivery_weight">38.0</field>
+    <field name="cancellation_rate_weight">50.0</field>
+    <field name="advance_delivery_weight">12.0</field>
+    <field name="min_orders_for_ranking">100</field>
+    <field name="only_valid_da_eligible">True</field>
+    <field name="is_active">True</field>
+</record>
+
+<!-- نينجا فود — إعداد الخبرة -->
+<record id="exp_config_ninja" model="delivery.experience.score.config">
+    <field name="contract_id" ref="contract_ninja_v1"/>
+    <field name="company_id" ref="company_ninja"/>
+    <field name="name">إعداد نقاط الخبرة — نينجا فود</field>
+    <field name="on_time_delivery_weight">40.0</field>
+    <field name="cancellation_rate_weight">40.0</field>
+    <field name="advance_delivery_weight">20.0</field>
+    <field name="min_orders_for_ranking">50</field>
+    <field name="only_valid_da_eligible">False</field>
+    <field name="is_active">True</field>
+</record>
+
+</data>
+</odoo>

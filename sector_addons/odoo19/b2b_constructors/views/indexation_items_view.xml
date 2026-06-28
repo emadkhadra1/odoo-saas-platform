@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <record id="view_indexation_items_form" model="ir.ui.view">
+      <field name="name">view.b2b.indexation.items.form</field>
+      <field name="model">b2b.indexation.items</field>
+      <field name="arch" type="xml">
+        <form string="Construction BOQ Items">
+          <sheet>
+            <group name="main">
+              <group>
+                <field name="name"/>
+              </group>
+              <group>
+                <field name="parent_id"/>
+              </group>
+            </group>
+            <notebook>
+              <page string="Child">
+                <field name="child_ids">
+                  <list editable="bottom">
+                    <field name="name"/>
+                  </list>
+                </field>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_indexation_items_tree" model="ir.ui.view">
+      <field name="name">view.indexation_items.tree</field>
+      <field name="model">b2b.indexation.items</field>
+      <field name="arch" type="xml">
+        <list string="Construction BOQ Items">
+          <field name="name"/>
+          <field name="parent_id"/>
+        </list>
+      </field>
+    </record>
+
+    <record id="view_indexation_items_search" model="ir.ui.view">
+      <field name="name">view.indexation_items.search</field>
+      <field name="model">b2b.indexation.items</field>
+      <field name="arch" type="xml">
+        <search string="Construction BOQ Items">
+          <field name="name"/>
+          <field name="parent_id"/>
+          <group string="Group By" name="groupby">
+            <filter name="parent_id_groupby" string="Parent" context="{'group_by': 'parent_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="indexation_items_action" model="ir.actions.act_window">
+      <field name="name">Construction BOQ Items</field>
+      <field name="res_model">b2b.indexation.items</field>
+      <field name="view_mode">list,form</field>
+      <field name="domain">[]</field>
+      <field name="context">{}</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to create a new Construction BOQ Items.
+        </p>
+      </field>
+    </record>
+
+  </data>
+</odoo>

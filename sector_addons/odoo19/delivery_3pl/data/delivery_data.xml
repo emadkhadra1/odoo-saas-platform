@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- ===== Rider Types ===== -->
+        <record id="rider_type_internal" model="delivery.rider.type">
+            <field name="name">Internal Rider</field>
+            <field name="name_ar">سائق داخلي</field>
+            <field name="type">internal</field>
+            <field name="has_deposit">True</field>
+            <field name="has_penalties">True</field>
+            <field name="has_wallet">True</field>
+            <field name="description">Internal rider with deposit and full wallet management</field>
+        </record>
+
+        <record id="rider_type_subcontract" model="delivery.rider.type">
+            <field name="name">Subcontract Rider</field>
+            <field name="name_ar">سائق مقاول من الباطن</field>
+            <field name="type">subcontract</field>
+            <field name="has_deposit">False</field>
+            <field name="has_penalties">True</field>
+            <field name="has_wallet">True</field>
+            <field name="description">Subcontract rider managed by a parent rider, no deposit required</field>
+        </record>
+
+        <!-- ===== Saudi Cities ===== -->
+        <record id="city_riyadh" model="delivery.city">
+            <field name="name">Riyadh</field>
+            <field name="name_ar">الرياض</field>
+            <field name="tier">T1</field>
+        </record>
+
+        <record id="city_jeddah" model="delivery.city">
+            <field name="name">Jeddah</field>
+            <field name="name_ar">جدة</field>
+            <field name="tier">T1</field>
+        </record>
+
+        <record id="city_dammam" model="delivery.city">
+            <field name="name">Dammam</field>
+            <field name="name_ar">الدمام</field>
+            <field name="tier">T1</field>
+        </record>
+
+        <record id="city_makkah" model="delivery.city">
+            <field name="name">Makkah</field>
+            <field name="name_ar">مكة المكرمة</field>
+            <field name="tier">T1</field>
+        </record>
+
+        <record id="city_madinah" model="delivery.city">
+            <field name="name">Madinah</field>
+            <field name="name_ar">المدينة المنورة</field>
+            <field name="tier">T1</field>
+        </record>
+
+        <record id="city_khobar" model="delivery.city">
+            <field name="name">Al Khobar</field>
+            <field name="name_ar">الخبر</field>
+            <field name="tier">T2</field>
+        </record>
+
+        <record id="city_tabuk" model="delivery.city">
+            <field name="name">Tabuk</field>
+            <field name="name_ar">تبوك</field>
+            <field name="tier">T2</field>
+        </record>
+
+        <record id="city_abha" model="delivery.city">
+            <field name="name">Abha</field>
+            <field name="name_ar">أبها</field>
+            <field name="tier">T2</field>
+        </record>
+
+        <record id="city_khamis" model="delivery.city">
+            <field name="name">Khamis Mushait</field>
+            <field name="name_ar">خميس مشيط</field>
+            <field name="tier">T2</field>
+        </record>
+
+        <record id="city_hail" model="delivery.city">
+            <field name="name">Hail</field>
+            <field name="name_ar">حائل</field>
+            <field name="tier">T3</field>
+        </record>
+
+        <record id="city_najran" model="delivery.city">
+            <field name="name">Najran</field>
+            <field name="name_ar">نجران</field>
+            <field name="tier">T3</field>
+        </record>
+
+        <record id="city_jazan" model="delivery.city">
+            <field name="name">Jazan</field>
+            <field name="name_ar">جازان</field>
+            <field name="tier">T3</field>
+        </record>
+
+        <!-- ===== Penalty Types ===== -->
+        <record id="penalty_type_late" model="delivery.penalty.type">
+            <field name="name">Late Delivery</field>
+            <field name="name_ar">تأخر في التوصيل</field>
+            <field name="default_amount">10.00</field>
+            <field name="is_percentage">False</field>
+        </record>
+
+        <record id="penalty_type_cancel" model="delivery.penalty.type">
+            <field name="name">Order Cancellation</field>
+            <field name="name_ar">إلغاء الطلب</field>
+            <field name="default_amount">15.00</field>
+            <field name="is_percentage">False</field>
+        </record>
+
+        <record id="penalty_type_damage" model="delivery.penalty.type">
+            <field name="name">Food Damage</field>
+            <field name="name_ar">تلف الطعام</field>
+            <field name="default_amount">25.00</field>
+            <field name="is_percentage">False</field>
+        </record>
+
+        <record id="penalty_type_absence" model="delivery.penalty.type">
+            <field name="name">No-Show / Absence</field>
+            <field name="name_ar">عدم الحضور</field>
+            <field name="default_amount">50.00</field>
+            <field name="is_percentage">False</field>
+        </record>
+
+        <!-- ===== Deposit Types ===== -->
+        <record id="deposit_type_bike" model="delivery.deposit.type">
+            <field name="name">Bike Deposit</field>
+            <field name="name_ar">تأمين الدراجة</field>
+            <field name="default_amount">500.00</field>
+            <field name="is_refundable">True</field>
+        </record>
+
+        <record id="deposit_type_uniform" model="delivery.deposit.type">
+            <field name="name">Uniform Deposit</field>
+            <field name="name_ar">تأمين الزي</field>
+            <field name="default_amount">200.00</field>
+            <field name="is_refundable">True</field>
+        </record>
+
+        <record id="deposit_type_bag" model="delivery.deposit.type">
+            <field name="name">Delivery Bag Deposit</field>
+            <field name="name_ar">تأمين حقيبة التوصيل</field>
+            <field name="default_amount">150.00</field>
+            <field name="is_refundable">True</field>
+        </record>
+
+        <!-- ================================================================
+             DELIVERY COMPANIES (PLATFORMS / العملاء)
+             ================================================================ -->
+
+        <!-- HungerStation / هنقرستيشن -->
+        <record id="company_hungerstation" model="delivery.company">
+            <field name="name">HungerStation</field>
+            <field name="name_ar">هنقرستيشن</field>
+            <field name="color">1</field>
+            <field name="settlement_cycle">monthly</field>
+            <field name="is_active">True</field>
+            <field name="notes">منصة توصيل طعام. معيار السائق النشط (HP): 8 ساعات أونلاين/يوم + 4 ساعات ذروة/يوم + 26 يوم صالح/شهر. الأيام الإلزامية: الخميس والجمعة والسبت. إذا انضم منتصف الشهر يجب تحقيق 85% من الأيام المتبقية.</field>
+        </record>
+
+        <!-- Keeta / كيتا -->
+        <record id="company_keeta" model="delivery.company">
+            <field name="name">Keeta</field>
+            <field name="name_ar">كيتا</field>
+            <field name="color">2</field>
+            <field name="settlement_cycle">monthly</field>
+            <field name="is_active">True</field>
+            <field name="notes">منصة توصيل طعام. تسعير بنظام الشرائح (Slab Mode). طرف العقد: كيتا تكنولوجيز العربية المحدودة.</field>
+        </record>
+
+        <!-- Naqel / ناقل -->
+        <record id="company_naqel" model="delivery.company">
+            <field name="name">Naqel</field>
+            <field name="name_ar">ناقل</field>
+            <field name="color">3</field>
+            <field name="settlement_cycle">monthly</field>
+            <field name="is_active">True</field>
+            <field name="notes">شركة ناقل للشحن والتوصيل (طرود). تسعير لكل شحنة محصّلة. فرع جدة.</field>
+        </record>
+
+        <!-- Ninja Food / نينجا فود -->
+        <record id="company_ninja_food" model="delivery.company">
+            <field name="name">Ninja Food</field>
+            <field name="name_ar">نينجا فود</field>
+            <field name="color">4</field>
+            <field name="settlement_cycle">monthly</field>
+            <field name="is_active">True</field>
+            <field name="notes">منصة توصيل طعام. سائقون بدوام كامل. المركبات يوفرها الطرف الثاني (برق العروبة). برامج حوافز تجربة وسعة.</field>
+        </record>
+
+        <!-- ToYou / تو يو -->
+        <record id="company_toyou" model="delivery.company">
+            <field name="name">ToYou</field>
+            <field name="name_ar">تو يو</field>
+            <field name="color">5</field>
+            <field name="settlement_cycle">monthly</field>
+            <field name="is_active">True</field>
+            <field name="notes">منصة توصيل. تسعير لكل توصيلة. يجب قبول جميع فرص التوصيل. يجب الحفاظ على تقييم المستهلك والمعدلات المحددة. الانتظار الأدنى في موقع التوصيل 10 دقائق.</field>
+        </record>
+
+        <!-- ================================================================
+             BRANCHES (الفروع)
+             ================================================================ -->
+
+        <!-- Keeta Makkah Branch -->
+        <record id="branch_keeta_makkah" model="delivery.company.branch">
+            <field name="company_id" ref="company_keeta"/>
+            <field name="name">Keeta Makkah</field>
+            <field name="name_ar">كيتا مكة المكرمة</field>
+            <field name="city_id" ref="city_makkah"/>
+        </record>
+
+        <!-- Naqel Jeddah Branch -->
+        <record id="branch_naqel_jeddah" model="delivery.company.branch">
+            <field name="company_id" ref="company_naqel"/>
+            <field name="name">Naqel Jeddah</field>
+            <field name="name_ar">ناقل جدة</field>
+            <field name="city_id" ref="city_jeddah"/>
+        </record>
+
+        <!-- ================================================================
+             CONTRACTS (العقود)
+             ================================================================ -->
+
+        <!-- HungerStation Contract -->
+        <record id="contract_hungerstation_main" model="delivery.contract">
+            <field name="company_id" ref="company_hungerstation"/>
+            <field name="contract_number">HS-3PL-INTRO-2025</field>
+            <field name="version">1</field>
+            <field name="contract_type">service</field>
+            <field name="status">active</field>
+            <field name="start_date">2025-01-01</field>
+            <field name="settlement_cycle">monthly</field>
+            <field name="payment_terms_days">30</field>
+            <field name="notes">عقد خدمات توصيل مع هنقرستيشن.
+معيار السائق الأداء العالي (HP):
+- الحد الأدنى للساعات اليومية أونلاين: 8 ساعات
+- الحد الأدنى لساعات الذروة اليومية: 4 ساعات
+- الحد الأدنى لأيام العمل الصالحة شهرياً: 26 يوم
+- الأيام الإلزامية: الخميس والجمعة والسبت
+- السائق الذي ينضم منتصف الشهر: يجب تحقيق 85% من الأيام المتبقية في الشهر
+- السائق النشط الأساسي (AB): معيار مختلف يحدده التقرير الشهري</field>
+        </record>
+
+        <!-- Keeta Makkah Contract — رقم العقد من الوثيقة الرسمية -->
+        <record id="contract_keeta_makkah" model="delivery.contract">
+            <field name="company_id" ref="company_keeta"/>
+            <field name="branch_id" ref="branch_keeta_makkah"/>
+            <field name="contract_number">SAPS-SE-D8-00092105</field>
+            <field name="version">1</field>
+            <field name="contract_type">service</field>
+            <field name="status">active</field>
+            <field name="start_date">2025-01-01</field>
+            <field name="settlement_cycle">monthly</field>
+            <field name="payment_terms_days">30</field>
+            <field name="notes">عقد خدمات توصيل مع كيتا تكنولوجيز العربية المحدودة — فرع مكة المكرمة.
+نظام التسعير: شرائح (Slab Mode).
+الطرف الأول: كيتا تكنولوجيز العربية المحدودة.
+الطرف الثاني: برق العروبة (مقدم الخدمة).
+الموقع: مكة المكرمة.
+تفاصيل شرائح التسعير: راجع قواعد التسعير المرفقة (أدخل الأسعار الفعلية من الملحق رقم 1 من العقد).</field>
+        </record>
+
+        <!-- Naqel Contract — ملحق عقد 2026 -->
+        <record id="contract_naqel_jeddah_2026" model="delivery.contract">
+            <field name="company_id" ref="company_naqel"/>
+            <field name="branch_id" ref="branch_naqel_jeddah"/>
+            <field name="contract_number">NAQEL-JED-2026-AMEND1</field>
+            <field name="version">2</field>
+            <field name="contract_type">parcel</field>
+            <field name="status">active</field>
+            <field name="start_date">2026-02-12</field>
+            <field name="end_date">2026-03-21</field>
+            <field name="settlement_cycle">monthly</field>
+            <field name="payment_terms_days">30</field>
+            <field name="notes">ملحق عقد ناقل — فرع جدة 2026.
+المرحلة الأولى (12/02/2026 - 17/02/2026): 20 ريال لكل شحنة محصّلة.
+المرحلة الثانية (18/02/2026 - 21/03/2026): 14 ريال لكل شحنة محصّلة.
+نوع الخدمة: توصيل طرود (شحنات).
+القياس: لكل شحنة تم تحصيلها فعلياً (delivered).</field>
+        </record>
+
+        <!-- Ninja Food Contract -->
+        <record id="contract_ninja_food_main" model="delivery.contract">
+            <field name="company_id" ref="company_ninja_food"/>
+            <field name="contract_number">NF-3PL-INTRO-2025</field>
+            <field name="version">1</field>
+            <field name="contract_type">service</field>
+            <field name="status">active</field>
+            <field name="start_date">2025-01-01</field>
+            <field name="settlement_cycle">monthly</field>
+            <field name="payment_terms_days">30</field>
+            <field name="notes">عقد خدمات توصيل مع نينجا فود — بدوام كامل.
+المركبات: تُوفَّر من قِبَل الطرف الثاني (برق العروبة) — دراجات نارية أو سيارات.
+نوع السائق: بدوام كامل (Full-Time).
+برامج الحوافز:
+- حافز الخبرة (Experience Incentive) بحسب معدل التقييم والأداء.
+- حافز السعة (Capacity Incentive) بحسب عدد الطلبات المنجزة شهرياً.
+ملاحظة: أدخل تفاصيل الرواتب وحوافز السعة من الملحق الرسمي للعقد.</field>
+        </record>
+
+        <!-- ToYou Contract -->
+        <record id="contract_toyou_main" model="delivery.contract">
+            <field name="company_id" ref="company_toyou"/>
+            <field name="contract_number">TY-3PL-INTRO-2025</field>
+            <field name="version">1</field>
+            <field name="contract_type">service</field>
+            <field name="status">active</field>
+            <field name="start_date">2025-01-01</field>
+            <field name="settlement_cycle">monthly</field>
+            <field name="payment_terms_days">30</field>
+            <field name="notes">عقد خدمات توصيل مع تو يو (شركة خدمات مُمَثِّل التجارية).
+نظام التسعير: لكل توصيلة.
+الشروط:
+- يجب قبول جميع فرص التوصيل المعروضة.
+- يجب الحفاظ على تقييم المستهلك وفق المعدلات المحددة في العقد.
+- الحد الأدنى للانتظار عند موقع التوصيل: 10 دقائق.
+- الالتزام بمعدل إتمام الطلبات المحدد في العقد.
+ملاحظة: أدخل سعر التوصيلة الفعلي من نص العقد.</field>
+        </record>
+
+        <!-- ================================================================
+             VALIDITY CRITERIA — معايير صلاحية المندوب
+             ================================================================ -->
+
+        <!-- HungerStation: High-Performance (HP) Criteria — المستخرجة من العقد الرسمي -->
+        <record id="validity_hs_high_performance" model="delivery.validity.criteria">
+            <field name="contract_id" ref="contract_hungerstation_main"/>
+            <field name="company_id" ref="company_hungerstation"/>
+            <field name="name">HungerStation High-Performance (HP)</field>
+            <field name="is_active">True</field>
+            <!-- 8 ساعات أونلاين كحد أدنى يومياً (نص العقد) -->
+            <field name="min_daily_online_hours">8.0</field>
+            <!-- 4 ساعات ذروة كحد أدنى يومياً (نص العقد) -->
+            <field name="min_daily_peak_hours">4.0</field>
+            <!-- 26 يوم صالح شهرياً (نص العقد) -->
+            <field name="min_valid_days">26</field>
+            <!-- إذا انضم منتصف الشهر يجب تحقيق 85% من الأيام المتبقية (نص العقد) -->
+            <field name="min_calendar_pct_mid_month">85.0</field>
+            <field name="require_self_delivery">True</field>
+            <field name="notes">معيار السائق عالي الأداء (HP) المستخرج من عقد هنقرستيشن الرسمي:
+- الحد الأدنى للساعات اليومية أونلاين: 8 ساعات (ساعات الشيفت المجدولة)
+- الحد الأدنى لساعات الذروة اليومية: 4 ساعات
+- الحد الأدنى لأيام العمل الصالحة شهرياً: 26 يوم
+- السائق الذي ينضم منتصف الشهر: يجب حضور 85% من الأيام المتبقية في الشهر
+- الأيام الإلزامية (يجب العمل فيها): الخميس والجمعة والسبت
+- يُشترط أن يكون السائق ذاتي التوصيل (Self-Delivery) ومتوافقاً</field>
+        </record>
+
+        <!-- HungerStation: Active-Basic (AB) Criteria — معيار السائق النشط الأساسي -->
+        <record id="validity_hs_active_basic" model="delivery.validity.criteria">
+            <field name="contract_id" ref="contract_hungerstation_main"/>
+            <field name="company_id" ref="company_hungerstation"/>
+            <field name="name">HungerStation Active-Basic (AB)</field>
+            <field name="is_active">True</field>
+            <!-- معيار أقل صرامة من HP -->
+            <field name="min_daily_online_hours">4.0</field>
+            <field name="min_daily_peak_hours">0.0</field>
+            <field name="min_valid_days">20</field>
+            <field name="min_calendar_pct_mid_month">85.0</field>
+            <field name="require_self_delivery">True</field>
+            <field name="notes">معيار السائق النشط الأساسي (Active-Basic) في هنقرستيشن.
+هذا المعيار يُحدَّد تفصيلياً في التقرير الشهري من المنصة.
+راجع التقرير الشهري الرسمي من هنقرستيشن لتحديد الأرقام الدقيقة وعدّل هذه القيم وفقاً لذلك.</field>
+        </record>
+
+        <!-- Keeta Makkah: Validity Criteria -->
+        <record id="validity_keeta_makkah" model="delivery.validity.criteria">
+            <field name="contract_id" ref="contract_keeta_makkah"/>
+            <field name="company_id" ref="company_keeta"/>
+            <field name="branch_id" ref="branch_keeta_makkah"/>
+            <field name="name">Keeta Makkah Validity Criteria</field>
+            <field name="is_active">True</field>
+            <field name="min_daily_online_hours">8.0</field>
+            <field name="min_daily_peak_hours">0.0</field>
+            <field name="min_valid_days">26</field>
+            <field name="min_calendar_pct_mid_month">85.0</field>
+            <field name="require_self_delivery">True</field>
+            <field name="notes">معايير صلاحية كيتا مكة المكرمة.
+راجع الملحق الرسمي من عقد كيتا (SAPS-SE-D8-00092105) وعدّل هذه القيم وفقاً لشروط الصلاحية المفصّلة فيه.</field>
+        </record>
+
+        <!-- ================================================================
+             PRICING RULES — قواعد التسعير
+             ================================================================ -->
+
+        <!-- ====== NAQEL PRICING ====== -->
+
+        <!-- ناقل: المرحلة الأولى 20 ريال/شحنة (12/02/2026 - 17/02/2026) — منتهية الصلاحية -->
+        <record id="pricing_naqel_phase1_20sar" model="delivery.pricing.rule">
+            <field name="company_id" ref="company_naqel"/>
+            <field name="branch_id" ref="branch_naqel_jeddah"/>
+            <field name="contract_id" ref="contract_naqel_jeddah_2026"/>
+            <field name="city_id" ref="city_jeddah"/>
+            <field name="name">ناقل جدة — 20 ريال/شحنة (المرحلة الأولى)</field>
+            <field name="pricing_type">per_order</field>
+            <field name="vehicle_type">all</field>
+            <field name="rider_performance_level">all</field>
+            <!-- 20 ريال لكل شحنة محصّلة (من 12/02/2026 حتى 17/02/2026) -->
+            <field name="base_amount">20.00</field>
+            <field name="notes">المرحلة الأولى من ملحق عقد ناقل جدة 2026.
+السعر: 20 ريال لكل شحنة تم تحصيلها فعلياً.
+الفترة: من 12/02/2026 إلى 17/02/2026.
+هذه القاعدة انتهت صلاحيتها — محتفَظ بها للأرشيف والمرجعية فقط.</field>
+        </record>
+
+        <!-- ناقل: المرحلة الثانية 14 ريال/شحنة (18/02/2026 - 21/03/2026) — السارية حالياً -->
+        <record id="pricing_naqel_phase2_14sar" model="delivery.pricing.rule">
+            <field name="company_id" ref="company_naqel"/>
+            <field name="branch_id" ref="branch_naqel_jeddah"/>
+            <field name="contract_id" ref="contract_naqel_jeddah_2026"/>
+            <field name="city_id" ref="city_jeddah"/>
+            <field name="name">ناقل جدة — 14 ريال/شحنة (السارية)</field>
+            <field name="pricing_type">per_order</field>
+            <field name="vehicle_type">all</field>
+            <field name="rider_performance_level">all</field>
+            <!-- 14 ريال لكل شحنة محصّلة (من 18/02/2026) — السعر الساري حالياً -->
+            <field name="base_amount">14.00</field>
+            <field name="notes">المرحلة الثانية من ملحق عقد ناقل جدة 2026 — القاعدة السارية حالياً.
+السعر: 14 ريال لكل شحنة تم تحصيلها فعلياً.
+الفترة: من 18/02/2026 إلى 21/03/2026.
+المبلغ يُحسَب على أساس الشحنات المحصّلة (delivered) فقط، لا المسترجعة أو الملغاة.</field>
+        </record>
+
+        <!-- ====== KEETA MAKKAH PRICING (Slab Mode / شرائح) ====== -->
+        <!-- ملاحظة: أرقام الشرائح مؤقتة — راجع الملحق رقم 1 من العقد SAPS-SE-D8-00092105 وعدّل -->
+
+        <record id="pricing_keeta_makkah_tiered" model="delivery.pricing.rule">
+            <field name="company_id" ref="company_keeta"/>
+            <field name="branch_id" ref="branch_keeta_makkah"/>
+            <field name="contract_id" ref="contract_keeta_makkah"/>
+            <field name="city_id" ref="city_makkah"/>
+            <field name="name">كيتا مكة — تسعير شرائح (Slab Mode)</field>
+            <field name="pricing_type">tiered</field>
+            <field name="vehicle_type">all</field>
+            <field name="rider_performance_level">all</field>
+            <field name="base_amount">0.00</field>
+            <field name="notes">تسعير شرائح كيتا مكة المكرمة (Slab Mode) — عقد SAPS-SE-D8-00092105.
+⚠️ يجب تحديث أرقام الشرائح أدناه من الملحق رقم 1 من العقد الرسمي.
+الشرائح الواردة هنا تقريبية وتحتاج مراجعة.</field>
+        </record>
+
+        <!-- شريحة 1: 1 - 70 طلب/شهر -->
+        <record id="pricing_slab_keeta_makkah_1" model="delivery.pricing.slab">
+            <field name="pricing_rule_id" ref="pricing_keeta_makkah_tiered"/>
+            <field name="sequence">1</field>
+            <field name="from_orders">1</field>
+            <field name="to_orders">70</field>
+            <!-- ⚠️ السعر مؤقت — راجع الملحق رقم 1 من عقد كيتا وعدّل -->
+            <field name="price_per_order">0.00</field>
+            <field name="label">الشريحة الأولى (1 - 70 طلب)</field>
+        </record>
+
+        <!-- شريحة 2: 71 - 130 طلب/شهر -->
+        <record id="pricing_slab_keeta_makkah_2" model="delivery.pricing.slab">
+            <field name="pricing_rule_id" ref="pricing_keeta_makkah_tiered"/>
+            <field name="sequence">2</field>
+            <field name="from_orders">71</field>
+            <field name="to_orders">130</field>
+            <!-- ⚠️ السعر مؤقت — راجع الملحق رقم 1 من عقد كيتا وعدّل -->
+            <field name="price_per_order">0.00</field>
+            <field name="label">الشريحة الثانية (71 - 130 طلب)</field>
+        </record>
+
+        <!-- شريحة 3: 131 - 200 طلب/شهر -->
+        <record id="pricing_slab_keeta_makkah_3" model="delivery.pricing.slab">
+            <field name="pricing_rule_id" ref="pricing_keeta_makkah_tiered"/>
+            <field name="sequence">3</field>
+            <field name="from_orders">131</field>
+            <field name="to_orders">200</field>
+            <!-- ⚠️ السعر مؤقت — راجع الملحق رقم 1 من عقد كيتا وعدّل -->
+            <field name="price_per_order">0.00</field>
+            <field name="label">الشريحة الثالثة (131 - 200 طلب)</field>
+        </record>
+
+        <!-- شريحة 4: 201+ طلب/شهر -->
+        <record id="pricing_slab_keeta_makkah_4" model="delivery.pricing.slab">
+            <field name="pricing_rule_id" ref="pricing_keeta_makkah_tiered"/>
+            <field name="sequence">4</field>
+            <field name="from_orders">201</field>
+            <!-- to_orders فارغة = بلا سقف -->
+            <field name="price_per_order">0.00</field>
+            <field name="label">الشريحة الرابعة (201+ طلب — بلا سقف)</field>
+        </record>
+
+        <!-- ====== HUNGERSTATION PRICING ====== -->
+        <!-- ملاحظة: أسعار هنقرستيشن تتطلب مراجعة التقرير الشهري — القيم هنا تحتاج تحديث -->
+
+        <!-- هنقرستيشن: سائق عالي الأداء (HP) -->
+        <record id="pricing_hs_high_performance" model="delivery.pricing.rule">
+            <field name="company_id" ref="company_hungerstation"/>
+            <field name="contract_id" ref="contract_hungerstation_main"/>
+            <field name="name">هنقرستيشن — سائق عالي الأداء (HP)</field>
+            <field name="pricing_type">per_order</field>
+            <field name="vehicle_type">all</field>
+            <field name="rider_performance_level">high_performance</field>
+            <!-- ⚠️ السعر مؤقت — راجع التقرير الشهري من هنقرستيشن وعدّل -->
+            <field name="base_amount">0.00</field>
+            <field name="notes">سعر التوصيلة للسائق عالي الأداء (HP) في هنقرستيشن.
+⚠️ أدخل السعر الفعلي من التقرير الشهري أو الملحق الرسمي لعقد هنقرستيشن.</field>
+        </record>
+
+        <!-- هنقرستيشن: سائق نشط أساسي (AB) -->
+        <record id="pricing_hs_active_basic" model="delivery.pricing.rule">
+            <field name="company_id" ref="company_hungerstation"/>
+            <field name="contract_id" ref="contract_hungerstation_main"/>
+            <field name="name">هنقرستيشن — سائق نشط أساسي (AB)</field>
+            <field name="pricing_type">per_order</field>
+            <field name="vehicle_type">all</field>
+            <field name="rider_performance_level">active_basic</field>
+            <!-- ⚠️ السعر مؤقت — راجع التقرير الشهري من هنقرستيشن وعدّل -->
+            <field name="base_amount">0.00</field>
+            <field name="notes">سعر التوصيلة للسائق النشط الأساسي (AB) في هنقرستيشن.
+⚠️ أدخل السعر الفعلي من التقرير الشهري أو الملحق الرسمي لعقد هنقرستيشن.</field>
+        </record>
+
+        <!-- ====== NINJA FOOD PRICING ====== -->
+        <!-- بدوام كامل مع حوافز سعة وخبرة -->
+
+        <!-- نينجا فود: راتب ثابت شهري (بدوام كامل) -->
+        <record id="pricing_ninja_food_fixed" model="delivery.pricing.rule">
+            <field name="company_id" ref="company_ninja_food"/>
+            <field name="contract_id" ref="contract_ninja_food_main"/>
+            <field name="name">نينجا فود — راتب ثابت (بدوام كامل)</field>
+            <field name="pricing_type">fixed_salary</field>
+            <field name="vehicle_type">all</field>
+            <field name="rider_performance_level">all</field>
+            <!-- ⚠️ الراتب مؤقت — راجع الملحق الرسمي لعقد نينجا فود وعدّل -->
+            <field name="base_amount">0.00</field>
+            <field name="daily_rate">0.00</field>
+            <field name="working_days">26</field>
+            <field name="notes">راتب ثابت للسائق بدوام كامل في نينجا فود.
+المركبة توفرها برق العروبة (الطرف الثاني).
+⚠️ أدخل الراتب اليومي/الشهري الفعلي من الملحق الرسمي لعقد نينجا فود.</field>
+        </record>
+
+        <!-- نينجا فود: حافز السعة (Capacity Incentive) -->
+        <record id="pricing_ninja_food_capacity" model="delivery.pricing.rule">
+            <field name="company_id" ref="company_ninja_food"/>
+            <field name="contract_id" ref="contract_ninja_food_main"/>
+            <field name="name">نينجا فود — حافز السعة (Capacity Incentive)</field>
+            <field name="pricing_type">capacity_incentive</field>
+            <field name="vehicle_type">all</field>
+            <field name="rider_performance_level">all</field>
+            <field name="base_amount">0.00</field>
+            <field name="notes">حافز السعة الشهري في نينجا فود — يُحسَب بحسب عدد الطلبات المنجزة.
+⚠️ أدخل شرائح الحافز الفعلية من الملحق الرسمي لعقد نينجا فود.</field>
+        </record>
+
+        <!-- نينجا فود: حافز الخبرة (Experience Incentive) -->
+        <record id="pricing_ninja_food_experience" model="delivery.pricing.rule">
+            <field name="company_id" ref="company_ninja_food"/>
+            <field name="contract_id" ref="contract_ninja_food_main"/>
+            <field name="name">نينجا فود — حافز الخبرة (Experience Incentive)</field>
+            <field name="pricing_type">experience_incentive</field>
+            <field name="vehicle_type">all</field>
+            <field name="rider_performance_level">all</field>
+            <field name="base_amount">0.00</field>
+            <field name="notes">حافز الخبرة الشهري في نينجا فود — يُحسَب بحسب التقييم ومعدل الأداء.
+⚠️ أدخل معايير الحافز الفعلية من الملحق الرسمي لعقد نينجا فود.</field>
+        </record>
+
+        <!-- ====== TOYOU PRICING ====== -->
+
+        <record id="pricing_toyou_per_delivery" model="delivery.pricing.rule">
+            <field name="company_id" ref="company_toyou"/>
+            <field name="contract_id" ref="contract_toyou_main"/>
+            <field name="name">تو يو — لكل توصيلة</field>
+            <field name="pricing_type">per_order</field>
+            <field name="vehicle_type">all</field>
+            <field name="rider_performance_level">all</field>
+            <!-- ⚠️ السعر مؤقت — راجع نص العقد الرسمي مع تو يو وعدّل -->
+            <field name="base_amount">0.00</field>
+            <field name="notes">سعر التوصيلة الواحدة مع تو يو (شركة خدمات مُمَثِّل التجارية).
+⚠️ أدخل السعر الفعلي للتوصيلة من نص العقد الرسمي مع تو يو.</field>
+        </record>
+
+    </data>
+</odoo>

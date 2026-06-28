@@ -1,0 +1,283 @@
+<odoo>
+        <template id="portal_my_loans" name="Loan Requests">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-set="additional_title">Loans </t>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Loans  </t>
+            </t>
+                            <div class="row mt-2 mb-2">
+                    <div class="col-12">
+                        <a href="/my/loan/submit" class="create_new btn bg-primary">
+                            <i class=" fa  fa-plus-circle"></i>
+                            New Loan Request
+                        </a>
+
+                    </div>
+                </div>
+
+            <t t-if="not loans">
+                <p>There are currently no loan Request for your account.</p>
+            </t>
+            <t t-if="loans" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>#</th>
+                        <th class="text-left">name</th>
+                        <th class="text-left">Employee</th>
+                        <th class="text-left">Amount</th>
+                        <th class="text-left">Total Paid</th>
+                        <th class="text-left">Balance Amount</th>
+                        <th class="text-left">Date</th>
+                        <th class="text-left">State</th>
+                        <th class="text-left"></th>
+                    </tr>
+                </thead>
+                <t t-set="count" t-value="1"/>
+                <t t-foreach="loans" t-as="payslip">
+                    <tr>
+                        <td class="text-left">
+                            <a t-attf-href="/my/loan/#{payslip.id}">
+                                <t t-esc="count"/>
+                                <t t-set="count" t-value="count+1"/>
+                            </a>
+                        </td>
+                        <td class="text-left">
+                            <a t-attf-href="/my/loan/#{payslip.id}">
+                                <span t-field="payslip.name"/>
+                            </a>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="payslip.employee_id"/>
+                        </td>
+
+                        <td class="text-left">
+                            <span t-field="payslip.loan_amount"/>
+                        </td>
+                                      <td class="text-left">
+                            <span t-field="payslip.total_paid_amount" />
+                        </td>
+                                      <td class="text-left">
+                            <span t-field="payslip.balance_amount" />
+                        </td>
+                                      <td class="text-left">
+                            <span t-field="payslip.date" />
+                        </td>
+                                      <td class="text-left">
+                            <span t-field="payslip.state" />
+                        </td>
+                        <td class="text-left">
+                            <a t-attf-href="/my/loan/#{payslip.id}" class="btn btn-primary btn-sm">
+                                <i class="fa fa-eye"></i>
+                                View
+                            </a>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="loan_request_submit" name="Loan: Submit a Request">
+        <t t-call="portal.portal_layout">
+            <br/>
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">New Loan Request</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form action="/loan/insert" method="post" class="new_loan_form" id="loan_form">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="card-body o_portal_loans_details">
+                        <div class="form-group">
+                            <label>Leave Type</label>
+                            <select class="form-control  loan_status_id time_off_type_select" required="required"
+                                    name="loan_status_id" id="loan_status_id">
+                                <option value="" selected="selected"
+                                        disabled="disabled">Select Loan Type
+                                </option>
+                                <t t-foreach="loan_types" t-as="loan_type">
+                                    <option
+                                            t-att-value="loan_type['id']">
+                                        <t t-esc="loan_type['name']"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+                        <div class="row">
+
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="loan_date_form">Date
+                                    <span style="color:red">*</span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="loan_date_form" required="required" id="loan_date"
+                                           class="form-control"
+                                           placeholder="DD/MM/YYYY"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <span class="fa fa-calendar" role="img" aria-label="Calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="payment_date_form">Payment start date
+                                    <span style="color:red">*</span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="payment_date_form" required="required" id="payment_date"
+                                           class="form-control"
+                                           placeholder="DD/MM/YYYY"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <span class="fa fa-calendar" role="img" aria-label="Calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-3 mt16">
+                                <label class="control-label" for="loan_amount">Loan Amount
+                                    <span style="color:red">*</span>
+                                </label>
+
+                                <input type="number" step="0.01" required="required" min="1" name="loan_amount"
+                                       id="loan_amount_input_id"
+                                       class="form-control"/>
+                            </div>
+                            <div class="form-group col-md-3 mt16">
+                                <label class="control-label" for="loan_amount">Installments
+                                    <span style="color:red">*</span>
+
+                                </label>
+
+                                <input type="number" step="0.01" required="required" min="1" name="installments"
+                                       id="installments_input_id"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.card-body -->
+
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-primary new_loan_confirm">Submit</button>
+                    </div>
+                </form>
+            </div>
+
+
+        </t>
+
+    </template>
+    <template id="portal_my_loans_view" name="My Loan">
+        <t t-call="portal.portal_layout">
+            <br/>
+            <div class="card card-info card-outline">
+
+                <div class="card-body">
+                    <div style="padding: 4px;" class="callout callout-info">
+                        <h5 style="margin: 0;">Loan Details: <span
+                                t-field="loan.name"/></h5>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="border-bottom d-flex justify-content-between py-2 mb-3 align-items-center">
+
+                            </div>
+                            <div class="row text-center">
+<!--                                    <strong class="col-12">Loan Type :</strong>-->
+                                    <strong class="col-12">
+                                    <span t-if="loan.loan_type_id" t-field="loan.loan_type_id"/>
+                                    <span t-else="" class="text-muted"></span>
+                                    </strong>
+                                </div>
+                            <div class="row mb-2">
+
+                                <div class="col-md-4">
+                                    <strong class="col-12">Employee :</strong>
+                                    <span t-if="loan.employee_id" t-field="loan.employee_id"/>
+                                    <span t-else="" class="text-muted">-</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <strong class="col-12">Department :</strong>
+                                    <span t-if="loan.department_id" t-field="loan.department_id"/>
+                                    <span t-else="" class="text-muted">-</span>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <strong class="col-12">Job :</strong>
+                                    <span t-if="loan.job_position" t-field="loan.job_position"/>
+                                    <span t-else="" class="text-muted">-</span>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+
+                                <div class="col-md-4">
+                                    <strong class="col-12">Loan Date :</strong>
+                                    <span t-if="loan.date" t-field="loan.date"/>
+                                    <span t-else="" class="text-muted"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <strong class="col-12">Payment Date :</strong>
+                                    <span t-if="loan.payment_date" t-field="loan.payment_date"/>
+                                    <span t-else="" class="text-muted">-</span>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4">
+                                    <strong class="col-12">Loan Amount :</strong>
+                                    <span t-if="loan.loan_amount" t-field="loan.loan_amount"/>
+                                    <span t-else="" class="text-muted"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <strong class="col-12">Installment :</strong>
+                                    <span t-if="loan.installment" t-field="loan.installment"/>
+                                    <span t-else="" class="text-muted"></span>
+                                </div>
+                            </div>
+                            <table class="table table-sm" t-if="loan.loan_lines">
+                    <thead class="o_black_border">
+                        <tr>
+                            <th>Payment Date</th>
+                            <th>Amount</th>
+                            <th>Paid Amount</th>
+                            <th class="text-right">Paid</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <span t-foreach="loan.loan_lines" t-as="line">
+                            <t t-set="line_style"/>
+                            <t t-set="line_class"/>
+<!--                            <t t-if="line.code == 'NET'">-->
+<!--                                <t t-set="line_style" t-value="'color:#875A7B;'"/>-->
+<!--                                <t t-set="line_class" t-value="'o_total o_border_bottom font-weight-bold'"/>-->
+<!--                            </t>-->
+<!--                            <t t-if="(line.code == 'BASIC') or (line.code == 'GROSS')">-->
+<!--                                <t t-set="line_style" t-value="'color:#00A09D;'"/>-->
+<!--                                <t t-set="line_class" t-value="'o_subtotal o_border_bottom'"/>-->
+<!--                            </t>-->
+                            <tr t-att-class="line_class" t-att-style="line_style">
+                                <td><span t-field="line.date"/></td>
+                                <td><span t-field="line.amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: request.env.user.company_id.currency_id}" t-att-style="'color:#875A7B;' if line.amount &lt; 0 else ''"/></td>
+                                <td><span  t-field="line.paid_amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: request.env.user.company_id.currency_id}" t-att-style="'color:#875A7B;' if line.paid_amount &lt; 0 else ''"/></td>
+                                <td class="text-right"><span t-esc="line.paid"
+                                                             /></td>
+                            </tr>
+                        </span>
+                    </tbody>
+                </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </t>
+    </template>
+
+</odoo>

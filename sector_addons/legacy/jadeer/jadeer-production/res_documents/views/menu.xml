@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- This Menu Item Must have a parent -->
+    <menuitem id="document_categ_menu"
+              name="Documents"
+              parent="hr.menu_human_resources_configuration"
+              sequence="30"/>
+
+    <menuitem id="menu_hr_document_type"
+              action="action_res_document_type"
+              parent="res_documents.document_categ_menu"
+              sequence="5"/>
+
+    <menuitem id="menu_hr_document_root"
+              name="Documents"
+              action="action_res_documents"
+              parent="hr.menu_hr_root"
+              groups="hr.group_hr_user"
+              sequence="99"/>
+
+    <menuitem id="menu_hr_document"
+              name="Documents"
+              action="action_res_documents"
+              parent="menu_hr_document_root"
+              groups="hr.group_hr_user"
+              sequence="1"/>
+
+</odoo>

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ══════════════════════════════════════════════════════════════
+         Settlement Views — التسويات المالية
+    ══════════════════════════════════════════════════════════════ -->
+
+    <record id="view_delivery_settlement_tree" model="ir.ui.view">
+        <field name="name">delivery.settlement.tree</field>
+        <field name="model">delivery.settlement</field>
+        <field name="arch" type="xml">
+            <list string="التسويات / Settlements"
+                  decoration-success="status == 'approved'"
+                  decoration-info="status == 'locked'"
+                  decoration-muted="status == 'draft'">
+                <field name="settlement_number" string="رقم التسوية"/>
+                <field name="company_id" string="الشركة"/>
+                <field name="branch_id" string="الفرع" optional="show"/>
+                <field name="contract_id" string="العقد" optional="hide"/>
+                <field name="period_start" string="بداية الفترة"/>
+                <field name="period_end" string="نهاية الفترة"/>
+                <field name="cycle" string="الدورة" optional="show"/>
+                <field name="valid_rider_count" string="مناديب صالحون" optional="show"/>
+                <field name="total_orders" string="إجمالي الطلبات"/>
+                <field name="gross_amount" string="الإجمالي قبل الخصومات"/>
+                <field name="vehicle_rental_total" string="إيجارات مركبات" optional="show"/>
+                <field name="subcontract_fee_total" string="رسوم شهرية / رسوم إدارة" optional="show"/>
+                <field name="net_amount" string="الصافي"/>
+                <field name="payslip_run_id" string="دفعة رواتب" optional="show"/>
+                <field name="status" widget="badge"
+                       decoration-info="status == 'draft'"
+                       decoration-warning="status == 'pending_approval'"
+                       decoration-success="status == 'approved'"
+                       decoration-muted="status == 'locked'"
+                       string="الحالة"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_delivery_settlement_form" model="ir.ui.view">
+        <field name="name">delivery.settlement.form</field>
+        <field name="model">delivery.settlement</field>
+        <field name="arch" type="xml">
+            <form string="تسوية مالية / Settlement">
+                <header>
+                    <button name="action_compute_settlement" type="object"
+                            string="🔢 احسب التسوية / Compute"
+                            class="oe_highlight"
+                            invisible="status != 'draft'"
+                            confirm="سيتم حساب التسوية من بيانات الأداء الشهري حسب نمط تسعير العقد. متأكد؟"/>
+                    <button name="action_submit_for_approval" type="object"
+                            string="إرسال للاعتماد / Submit"
+                            class="oe_highlight"
+                            invisible="status != 'draft'"/>
+                    <button name="action_approve" type="object"
+                            string="✅ اعتماد / Approve"
+                            class="oe_highlight"
+                            invisible="status != 'pending_approval'"/>
+                    <button name="action_lock" type="object"
+                            string="🔒 قفل نهائي / Lock"
+                            invisible="status != 'approved'"
+                            confirm="القفل نهائي ولا يمكن التراجع عنه. متأكد؟ / Locking is irreversible. Continue?"/>
+                    <button name="action_reset_to_draft" type="object"
+                            string="إعادة للمسودة / Reset"
+                            invisible="status in ('draft', 'locked')"/>
+                    <button name="action_generate_payslips"
+                            type="object"
+                            string="📋 إنشاء كشوف الرواتب / Generate Payslips"
+                            class="btn-primary"
+                            invisible="status not in ('approved', 'locked') or payslip_run_id != False"
+                            confirm="سيتم إنشاء دفعة رواتب لجميع المناديب المرتبطين بموظفين في النظام. هل أنت متأكد؟"/>
+                    <button name="action_view_payslips"
+                            type="object"
+                            string="📋 عرض دفعة الرواتب / View Payslip Batch"
+                            class="btn-secondary"
+                            invisible="payslip_run_id == False"/>
+                    <button name="action_print_settlement"
+                            string="🖨️ طباعة التقرير / Print"
+                            type="object"
+                            class="btn-secondary"/>
+                    <field name="status" widget="statusbar"
+                           statusbar_visible="draft,pending_approval,approved,locked"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="settlement_number" placeholder="رقم التسوية / Settlement Number"/></h1>
+                    </div>
+
+                    <!-- ── البيانات الأساسية ───────────────────────── -->
+                    <group>
+                        <group string="🏢 الشركة والعقد / Company &amp; Contract">
+                            <field name="company_id"/>
+                            <field name="branch_id"/>
+                            <field name="contract_id"/>
+                            <field name="cycle" string="دورة التسوية"/>
+                        </group>
+                        <group string="📅 الفترة / Period">
+                            <field name="period_start" string="بداية الفترة"/>
+                            <field name="period_end" string="نهاية الفترة"/>
+                        </group>
+                    </group>
+
+                    <!-- ── ملخص مالي ───────────────────────────────── -->
+                    <group>
+                        <group string="📊 ملخص المناديب / Rider Summary">
+                            <field name="valid_rider_count" string="مناديب صالحون (Valid DAs)"/>
+                            <field name="invalid_rider_count" string="مناديب غير صالحين"/>
+                            <field name="total_orders" string="إجمالي الطلبات"/>
+                        </group>
+                        <group string="💰 الملخص المالي / Financial Summary">
+                            <field name="gross_amount" string="الإجمالي قبل الخصومات (Gross)"/>
+                            <field name="order_base_total" string="أساس الطلبات / Tier Base"/>
+                            <field name="capacity_incentive_total" string="حوافز السعة"/>
+                            <field name="experience_incentive_total" string="حوافز الخبرة"/>
+                            <field name="subsidy_total" string="الدعم (Subsidy)"/>
+                            <field name="dxg_total" string="DXG"/>
+                            <field name="tips_total" string="البقشيش (Tips)"/>
+                            <field name="penalties" string="الجزاءات / Penalties"/>
+                            <field name="vehicle_rental_total" string="إيجارات مركبات / Vehicle Rentals"/>
+                            <field name="subcontract_fee_total"
+                                   string="رسوم شهرية / رسوم إدارة (Monthly Fees / Mgmt Fees)"/>
+                            <field name="provider_fee_total" string="خصم مزود الخدمة / Service Provider Fees"/>
+                            <field name="monthly_deduction_total" string="استقطاعات شهرية / Monthly Deductions"/>
+                            <field name="advance_deduction_total" string="سلف مستردة / Advance Recoveries"/>
+                            <field name="adjustments" string="تسويات يدوية / Manual Adjustments"/>
+                            <field name="vat_amount" string="ضريبة القيمة المضافة (VAT)"/>
+                            <field name="net_amount" string="الصافي للمناديب (Net Amount)"
+                                   class="oe_subtotal_footer_bold"/>
+                            <field name="currency_id"/>
+                        </group>
+                    </group>
+
+                    <!-- ── الاعتماد والرواتب ───────────────────────── -->
+                    <group invisible="status not in ('approved', 'locked')">
+                        <group string="✅ بيانات الاعتماد / Approval">
+                            <field name="approved_by" readonly="1"/>
+                            <field name="approved_at" readonly="1"/>
+                        </group>
+                        <group string="📋 كشوف الرواتب / Payroll" invisible="payslip_run_id == False">
+                            <field name="payslip_run_id" readonly="1"/>
+                            <field name="payslip_count" readonly="1" string="عدد كشوف الرواتب المُنشأة"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <!-- ── بنود التسوية لكل مندوب ──────────────── -->
+                        <page string="📋 بنود التسوية — تفصيل لكل مندوب / Settlement Items"
+                              name="items">
+                            <field name="item_ids">
+                                <list string="بنود التسوية" editable="bottom"
+                                      decoration-success="is_valid_da == True"
+                                      decoration-muted="is_valid_da == False">
+                                    <field name="rider_id" string="المندوب"/>
+                                    <field name="is_valid_da" string="صالح؟" widget="boolean"/>
+                                    <field name="orders" string="الطلبات"/>
+                                    <field name="order_base_amount" string="أساس الطلبات / الشريحة"/>
+                                    <field name="capacity_incentive" string="حافز السعة" optional="show"/>
+                                    <field name="experience_incentive" string="حافز الخبرة" optional="show"/>
+                                    <field name="subsidy" string="الدعم" optional="show"/>
+                                    <field name="dxg" string="DXG" optional="show"/>
+                                    <field name="other_activities" string="أنشطة أخرى" optional="show"/>
+                                    <field name="tips_excl_vat" string="بقشيش" optional="show"/>
+                                    <field name="food_damage" string="تعويض طعام" optional="show"/>
+                                    <field name="gross_amount" string="الإجمالي"/>
+                                    <field name="penalties" string="جزاءات"/>
+                                    <field name="bonuses" string="مكافآت"/>
+                                    <field name="vehicle_rental_deduction" string="إيجار مركبة" optional="show"/>
+                                    <field name="subcontract_mgmt_fee"
+                                           string="رسوم شهرية / رسوم إدارة" optional="show"/>
+                                    <field name="provider_fee_deduction" string="خصم مزود الخدمة" optional="show"/>
+                                    <field name="monthly_deduction" string="استقطاعات شهرية" optional="show"/>
+                                    <field name="advance_deduction" string="استرداد سلفة" optional="show"/>
+                                    <field name="deposits" string="تأمينات" optional="show"/>
+                                    <field name="adjustments" string="تسويات يدوية" optional="show"/>
+                                    <field name="net_amount" string="الصافي"/>
+                                    <field name="notes" string="ملاحظات" optional="hide"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- ── ملاحظات ──────────────────────────────── -->
+                        <page string="📝 ملاحظات / Notes" name="notes_page">
+                            <field name="notes" placeholder="ملاحظات التسوية..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_delivery_settlement_search" model="ir.ui.view">
+        <field name="name">delivery.settlement.search</field>
+        <field name="model">delivery.settlement</field>
+        <field name="arch" type="xml">
+            <search string="بحث في التسويات / Search Settlements">
+                <field name="settlement_number"/>
+                <field name="company_id"/>
+                <field name="branch_id"/>
+                <field name="contract_id"/>
+                <filter name="draft" string="مسودة" domain="[('status', '=', 'draft')]"/>
+                <filter name="pending" string="قيد الموافقة" domain="[('status', '=', 'pending_approval')]"/>
+                <filter name="approved" string="معتمدة" domain="[('status', '=', 'approved')]"/>
+                <filter name="locked" string="مقفولة" domain="[('status', '=', 'locked')]"/>
+                <separator/>
+                <filter name="has_payslips" string="صدرت رواتبها"
+                        domain="[('payslip_run_id', '!=', False)]"/>
+                <filter name="no_payslips" string="لم تصدر رواتبها بعد"
+                        domain="[('status', 'in', ('approved','locked')), ('payslip_run_id', '=', False)]"/>
+                <group expand="0" string="تجميع بـ / Group By">
+                    <filter name="group_company" string="الشركة" context="{'group_by': 'company_id'}"/>
+                    <filter name="group_branch" string="الفرع" context="{'group_by': 'branch_id'}"/>
+                    <filter name="group_status" string="الحالة" context="{'group_by': 'status'}"/>
+                    <filter name="group_cycle" string="دورة التسوية" context="{'group_by': 'cycle'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_delivery_settlement" model="ir.actions.act_window">
+        <field name="name">التسويات / Settlements</field>
+        <field name="res_model">delivery.settlement</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">أنشئ أول تسوية / Create your first settlement</p>
+            <p>
+                التسويات تحسب مستحقات المناديب شهرياً حسب نمط تسعير العقد:
+                رسوم ثابتة أو شرائح لكل طلب أو النمط المتقدم.
+            </p>
+        </field>
+    </record>
+</odoo>

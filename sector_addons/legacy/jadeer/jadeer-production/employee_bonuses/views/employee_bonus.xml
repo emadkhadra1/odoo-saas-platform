@@ -1,0 +1,105 @@
+<data>
+    <record id="employee_bonus_form" model="ir.ui.view">
+        <field name="name">employee.bonus.form</field>
+        <field name="model">employee.bonus</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_approve" string="Approve"
+                            attrs="{'invisible':[('state','!=','draft')]}"
+                            type="object" class="oe_highlight" />
+                    <button name="action_cancel" string="Cancel" type="object" class="oe_highlight" states="draft"/>
+                    <button name="action_set_draft" string="Set Draft" type="object" class="oe_highlight" states="approve"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approve"/>
+                    <field name="manager_time_off_there" invisible="1"/>
+                    <field name="parent_there" invisible="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="type"
+                                   attrs="{'readonly':[('state','in',('approve','cancel'))]}"/>
+                            <field name="date"
+                                   attrs="{'readonly':[('state','in',('approve','cancel'))]}"/>
+                            <field name="bonus_type"
+                                   attrs="{'readonly':[('state','in',('approve','cancel'))]}"/>
+                            <field name="bonus_value"
+                                   attrs="{'readonly':[('state','in',('approve','cancel'))]}"/>
+                        </group>
+                        <group>
+                            <field name="employee_id"
+                                   attrs="{'readonly':[('state','in',('approve','cancel'))]}"/>
+                            <field name="pin"/>
+                            <field name="contract_id"/>
+                            <field name="bonus_amount"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="reason"
+                               attrs="{'readonly':[('state','in',('approve','cancel'))]}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="employee_bonus_tree" model="ir.ui.view">
+        <field name="name">employee.bonus.tree</field>
+        <field name="model">employee.bonus</field>
+        <!--<field name="field_parent">children_ids if_want_to_add_Childs</field>-->
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="type"/>
+                <field name="employee_id"/>
+                <field name="pin"/>
+                <field name="bonus_type"/>
+                <field name="bonus_value"/>
+                <field name="bonus_amount"/>
+                <field name="deducted"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="employee_bonus_search" model="ir.ui.view">
+        <field name="name">employee.bonus.search</field>
+        <field name="model">employee.bonus</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="date"/>
+                <field name="employee_id"/>
+                <field name="bonus_type"/>
+                <field name="bonus_value"/>
+                <field name="bonus_amount"/>
+                <group expand="0" string="Group By">
+                    <filter string="Date" name="group_date"
+                            context="{'group_by':'date'}"/>
+                    <filter string="Employee" name="group_employee_id"
+                            context="{'group_by':'employee_id'}"/>
+                    <filter string="Bonus Type" name="group_bonus_type"
+                            context="{'group_by':'bonus_type'}"/>
+                    <filter string="Bonus Value" name="group_bonus_value"
+                            context="{'group_by':'bonus_value'}"/>
+                    <filter string="Bonus Amount" name="group_bonus_amount"
+                            context="{'group_by':'bonus_amount'}"/>
+                    <filter string="Deducted" name="group_deducted"
+                            context="{'group_by':'deducted'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="employee_bonus_action" model="ir.actions.act_window">
+        <field name="name">Employee Bonus</field>
+        <field name="res_model">employee.bonus</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="employee_bonus_type_action" model="ir.actions.act_window">
+        <field name="name">Bonus Type</field>
+        <field name="res_model">employee.bonus.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+</data>

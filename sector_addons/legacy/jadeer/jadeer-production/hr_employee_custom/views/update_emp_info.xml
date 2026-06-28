@@ -1,0 +1,80 @@
+<odoo>
+    <record id="accessible_emp_info_form_view" model="ir.ui.view">
+        <field name="name">accessible.emp.info.form.view</field>
+        <field name="model">accessible.emp.info</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="tab_name"/>
+                            <field name="tab_field_ids" widget="many2many_tags"/>
+                            <field name="available_for"/>
+                            <field name="employees_ids" widget="many2many_tags"
+                                   attrs="{'invisible':[('available_for','=','all_employees')]}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="accessible_emp_info_tree_view" model="ir.ui.view">
+        <field name="name">accessible.emp.info.tree.view</field>
+        <field name="model">accessible.emp.info</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="tab_name"/>
+                <field name="available_for"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="accessible_emp_info_view_action" model="ir.actions.act_window">
+        <field name="name">Accessible Emp Info</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">accessible.emp.info</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Assign Access to Employee Info in Portal
+            </p>
+        </field>
+    </record>
+
+    <record id="accessible_emp_tabs_form_view" model="ir.ui.view">
+        <field name="name">accessible.tabs.info.form.view</field>
+        <field name="model">accessible.tabs.info</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="tab_field_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="accessible_tabs_info_view_action" model="ir.actions.act_window">
+        <field name="name">Accessible Tabs Info</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">accessible.tabs.info</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Assign Access to Employee Tabs in Portal
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="emp_portal_categ" name="Portal"
+              parent="hr.menu_human_resources_configuration" sequence="31"/>
+    <menuitem id="accessible_emp_info_menu" name="Accessible Employee Info"
+              parent="emp_portal_categ" action="accessible_emp_info_view_action" sequence="1"/>
+<!--    <menuitem id="accessible_emp_tabs_menu" name="Accessible Tabs Info"-->
+<!--              parent="emp_portal_categ" action="accessible_tabs_info_view_action" sequence="2"/>-->
+</odoo>

@@ -1,0 +1,4 @@
+"id","name","model_id/id","group_id/id","perm_create","perm_unlink","perm_read","perm_write"
+real_estate_project,real_estate_project,model_real_estate_project,,1,1,1,1
+project.image,project.image,model_project_image,,1,1,1,1
+project.image.preview,project.image.preview,model_project_image_preview,,1,1,1,1

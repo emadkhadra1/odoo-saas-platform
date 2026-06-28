@@ -1,0 +1,233 @@
+<openerp>
+    <data>
+
+
+
+        <report
+                id="print_construction_receive_order"
+                model="construction.receive.order"
+                string="Receive Order Report"
+                report_type="qweb-pdf"
+                name="construction_project.construction_receive_order_report"
+                file="construction_project.construction_receive_order_report"
+        />
+
+        <template id="construction_receive_order_report">
+            <!--<xpath expr="//div[@class='page']" position="replace">-->
+
+                       <style>
+                                .table-cbpo1 {
+                                font-family:Droid Arabic Naskh,serif;
+
+                                text-align: center;
+
+                                width: 100%;
+                                }
+
+                                <!--td, th {-->
+                                <!--text-align: center;-->
+                                <!--font-size:14px;-->
+                                <!--}-->
+
+                            </style>
+            <!--<t t-set="o" t-value="o"/>-->
+            <t t-foreach="docs" t-as="o">
+
+
+                <!--start header-->
+                <div class="header">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo"
+                                 style="max-height: 80px;"/>
+                        </div>
+                        <!--<div class="col-xs-9 text-right" style="margin-top:20px;" t-field="o.company_id.rml_header1"/>-->
+                        <div class="col-xs-9 text-right" style="margin-top:20px;">
+                            <strong>Order Date:</strong>
+                            <span t-field="o.date"/>
+                        </div>
+                        <div class="col-xs-9 text-right" style="margin-top:20px;">
+                            <strong>Order Number:</strong>
+                            <span t-field="o.name"/>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <div t-field="o.company_id.partner_id"
+                                 t-field-options='{"widget": "contact", "fields": [ "name"], "no_marker": true}'
+                            />
+                        </div>
+                    </div>
+                    <div class="row zero_min_height">
+                        <div class="col-xs-12">
+                            <div style="border-bottom: 1px solid black;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--end header-->
+
+
+                <!---->
+                <div class="page">
+
+
+
+                    <table class="table table-condensed" style="width:100%;" border="0">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <table class="table table-condensed"  style="width:100%;" border="1" cellspacing="1" cellpadding="0">
+
+                                        <thead>
+                                            <tr>
+                                                <td>
+                                                   <strong><h3>Project:</h3></strong>
+                                                </td>
+                                                <td>
+                                                    <h3>
+                                                        <span t-field="o.project_id.name"/>
+                                                    </h3>
+                                                </td>
+                                            </tr>
+                                        </thead>
+
+
+
+                                    </table>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
+
+
+
+
+
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th> <h3> S.No</h3> </th>
+                                <th> <h3> Product</h3> </th>
+
+                                <th> <h3> Quantity</h3> </th>
+                                <th class="text-right"> <h3> Unit Price</h3> </th>
+                                <th class="text-right"> <h3> Final Price</h3> </th>
+                                <!--<th class="text-right" groups="sale.group_discount_per_so_line">Discount (%)</th>-->
+                                <!--<th class="text-right">Taxes</th>-->
+                                <th class="text-right"> <h3> Amount</h3> </th>
+                            </tr>
+                        </thead>
+                        <t t-set="i" t-value="1"/>
+
+
+                        <!--<tbody class="invoice_tbody">-->
+                            <!--<tr t-foreach="o.order_line" t-as="l">-->
+                                <!--<td>-->
+                                    <!--<span t-esc="i"/>-->
+
+                                  <!--<h3> <t t-set="i" t-value="i+1"/></h3>-->
+                                <!--</td>-->
+                                <!--<td>-->
+                                   <!--<h3><span t-field="l.product_id.display_name"/></h3>-->
+                                <!--</td>-->
+
+
+                                <!--<td>-->
+                                     <!--<h3><span t-field="l.quantity"/>-->
+                                    <!--<span t-field="l.uos_id" groups="product.group_uom"/> </h3>-->
+                                <!--</td>-->
+                                <!--<td class="text-right">-->
+                                   <!--<h3> <del> <span t-field="l.price"  t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/></del></h3>-->
+                                <!--</td>-->
+                                <!--<td class="text-right">-->
+                                    <!--<h3> <span t-field="l.price_unit"  t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/></h3>-->
+                                <!--</td>-->
+                                <!--&lt;!&ndash;<td class="text-right" groups="sale.group_discount_per_so_line">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<span t-field="l.discount"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td class="text-right">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<span t-esc="', '.join(map(lambda x: x.name, l.invoice_line_tax_id))"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                                <!--<td class="text-right">-->
+                                   <!--<h3>  <span t-field="l.amount"-->
+                                          <!--t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'-->
+                                    <!--/></h3>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                        <!--</tbody>-->
+                    </table>
+
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+                <!--</xpath>-->
+                <!--start footer-->
+
+                  <div class="footer">
+
+
+                <div class="text-center" style="border-top: 1px solid black;">
+                    <ul t-if="not o.company_id.custom_footer" class="list-inline">
+                        <li t-if="o.company_id.phone">Phone:
+                            <span t-field="o.company_id.phone"/>
+                        </li>
+
+                        <li t-if="o.company_id.fax and o.company_id.phone">&amp;bull;</li>
+                        <li t-if="o.company_id.fax">Fax:
+                            <span t-field="o.company_id.fax"/>
+                        </li>
+
+                        <li t-if="o.company_id.email">&amp;bull;</li>
+                        <li t-if="o.company_id.email">Email:
+                            <span t-field="o.company_id.email"/>
+                        </li>
+
+                        <li t-if="o.company_id.website">&amp;bull;</li>
+                        <li t-if="o.company_id.website">Website:
+                            <span t-field="o.company_id.website"/>
+                        </li>
+                    </ul>
+
+                    <t t-if="o.company_id.custom_footer">
+                        <span t-raw="o.company_id.rml_footer"/>
+                    </t>
+
+                    <ul class="list-inline">
+                        <li>Page:</li>
+                        <li>
+                            <span class="page"/>
+                        </li>
+                        <li>/</li>
+                        <li>
+                            <span class="topage"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+                <!--end footer-->
+
+            </t>
+            <!--</t>-->
+        </template>
+
+
+    </data>
+</openerp>

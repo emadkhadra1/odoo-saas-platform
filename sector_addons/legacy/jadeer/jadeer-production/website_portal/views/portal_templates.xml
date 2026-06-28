@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <template id="frontend_portal_layout" name="portal Frontend Layout" inherit_id="web.frontend_layout" primary="True">
+
+        <xpath expr="//body" position="replace">
+
+            <style>
+                .col-form-label {
+                    padding-left: 0px;
+                    padding-right: 0px;
+                }
+
+                .label_right {
+                    float: right;
+                    direction: rtl;
+                }
+
+                .bg-primary-gradient {
+                    background-image: linear-gradient(to right, var(--primary-bg-color) 0%, var(--primary05) 100%) !important;
+                }
+
+                .card {
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    min-width: 0;
+                    word-wrap: break-word;
+                    background: #fff !important;
+                    background-clip: border-box;
+                    border-radius: 5px;
+                    border: 0px solid transparent;
+                    margin-bottom: 1.3rem;
+                    box-shadow: 1px 1px 7px rgb(154 154 204 / 10%);
+                }
+
+                .card-body {
+                    background-color: unset !important;
+                }
+
+                .tx-40 {
+                    font-size: 40px;
+                }
+
+                #o_portal_hidden {
+                    display: none;
+                }
+
+                .breadcrumb {
+
+                    background-color: unset;
+
+                }
+
+                html, body, #wrapwrap {
+                    overflow: auto !important;
+
+                    flex: 1 1 100%;
+                }
+
+                nav.navbar.navbar-expand.navbar-light.bg-navbar.topbar.mb-4.static-top {
+                    background-color: #0f7770;
+                }
+
+                h6.m-0.font-weight-bold.text-primary {
+                    padding: 10px 0px 0px 0px;
+                    border-bottom: 1px solid #edf0ee;
+                }
+
+                .hr_attendance_login .oh-card {
+                    padding-bottom: 7px;
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
+                    will-change: transform, box-shadow;
+                    box-shadow: 0 10px 40px 0 rgba(62, 57, 107, 0.07), 0 2px 9px 0 rgba(62, 57, 107, 0.06);
+                }
+
+                .hr_attendance_login .stat-widget-one {
+                    background: none;
+                }
+
+                .hr_attendance_login .stat-widget-one .stat-icon {
+                    text-align: center;
+                    padding-top: 9px;
+                }
+
+                .hr_attendance_login .stat-content {
+                    width: 100%;
+                    color: #fff !important;
+                }
+
+                .hr_attendance_login .stat-widget-one .stat-text {
+                    margin: 0;
+                    text-align: center;
+                    width: 100% !important;
+                    padding: 5px;
+                    color: #0f7770;
+                }
+
+                .hr_attendance_login .stat-widget-one .stat-icon .fa {
+                    font-size: 50px;
+                }
+
+                .hr_attendance_login .stat-widget-one .stat-icon .fa {
+                    font-size: 50px;
+                    margin: 0px;
+                    box-shadow: none;
+                }
+
+                .navbar-light {
+                    background-color: #ffffff;
+                    color: #158765;
+                }
+
+                .breadcrumb-item.active {
+                    color: #158765;
+                }
+            </style>
+            <body id="page-top">
+
+                <div id="wrapper">
+                    <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+                        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+                            <div class="sidebar-brand-icon">
+                                <img src="/website_portal/static/logo.png"/>
+                            </div>
+                        </a>
+                        <hr class="sidebar-divider my-0"/>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/my">
+                                <i class="fa   fa-home"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse"
+                               data-target="#collapseBootstrap"
+                               aria-expanded="true" aria-controls="collapseBootstrap">
+                                <i class="fa fa-fw fa-users"></i>
+                                <span>Human Resource</span>
+                            </a>
+                            <div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap"
+                                 data-parent="#accordionSidebar">
+                                <div class="   py-2 collapse-inner rounded">
+                                    <a class="collapse-item" href="/my/profile">My Profile</a>
+                                    <a class="collapse-item" href="/my/leaves">Leave Requests</a>
+                                    <!--                                    <a class="collapse-item" href="/my/business-trip">Business Trip Request</a>-->
+                                    <!--                                    <a class="collapse-item" href="/my/letter-request">Letter Request</a>-->
+                                    <!--                                    <a class="collapse-item" href="/my/training-request">Training Request</a>-->
+                                    <!--                                    <a class="collapse-item" href="/my/salary-request">Salary Letter Request</a>-->
+                                    <!--                                    <a class="collapse-item" href="/my/bank-request">Bank Info Request</a>-->
+                                    <!--                                    <a class="collapse-item" href="/my/hr-employee-letter-request">Employee Letter-->
+                                    <!--                                        Request-->
+                                    <!--                                    </a>-->
+                                    <!--                                    <a class="collapse-item" href="/my/permit-request">Work From Home Request</a>-->
+                                    <!--                                    <a class="collapse-item" href="/my/permission-request">Permission Request</a>-->
+                                    <a class="collapse-item" href="/my/payslips">Payslips</a>
+                                    <a class="collapse-item" href="/my/attendances">Attendances</a>
+                                    <a class="collapse-item" href="/my/loan">Loan</a>
+                                    <a class="collapse-item" href="/my/allocation">Request Allocation</a>
+                                </div>
+                            </div>
+                        </li>
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#"-->
+<!--                               aria-expanded="true"-->
+<!--                               aria-controls="collapseForm">-->
+<!--                                <i class="fa fa-fw fa-cubes"></i>-->
+<!--                                <span>Purchase</span>-->
+<!--                            </a>-->
+<!--                            <div id="collapseForm" class="collapse" aria-labelledby="headingForm"-->
+<!--                                 data-parent="#accordionSidebar">-->
+<!--                                <div class="  py-2 collapse-inner rounded">-->
+
+<!--                                    <a class="collapse-item" href="/my/purchase_request">Purchase Requisition</a>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </li>-->
+
+
+                    </ul>
+                    <!-- Sidebar -->
+                    <div id="content-wrapper" class="d-flex flex-column">
+                        <div id="content">
+                            <!-- TopBar -->
+                            <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
+                                <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
+                                    <i class="fa fa-bars"></i>
+                                </button>
+                                <ul class="navbar-nav ml-auto">
+
+
+                                    <div class="topbar-divider d-none d-sm-block"></div>
+                                    <li class="nav-item dropdown no-arrow">
+                                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                           data-toggle="dropdown"
+                                           aria-haspopup="true" aria-expanded="false">
+                                            <img class="img-profile rounded-circle"
+                                                 t-att-src="'/web/image?model=hr.employee&amp;id=%s&amp;field=image_128'  % user_id.employee_id.id"
+                                                 style="max-width: 60px"/>
+                                            <span class="ml-2 d-none d-lg-inline text-white small">
+                                                <span t-esc="user_id.employee_id.name[:23] + '...' if user_id.name and user_id.employee_id.name and len(user_id.employee_id.name) &gt; 25 else user_id.employee_id.name"/>
+                                            </span>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                             aria-labelledby="userDropdown">
+                                            <a class="dropdown-item" href="/my/profile">
+                                                <i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                                Profile
+                                            </a>
+                                            <a class="dropdown-item" href="/my/security">
+                                                <i class="fa fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                                Security
+                                            </a>
+
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="/web/session/logout?redirect=/">
+                                                <i class="fa fa-sign-out fa-sm fa-fw mr-2 text-gray-400"></i>
+                                                Logout
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <!-- Topbar -->
+
+                            <div class="container-fluid" id="container-wrapper">
+                                <t t-raw="0"/>
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+                    <!-- Container closed -->
+                </div>
+                <!-- End Page -->
+
+            </body>
+
+        </xpath>
+    </template>
+
+    <template name="My Portal" t-name="website_portal.portal_my_home" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[hasclass('o_portal_my_home')]" position="before">
+            <!-- row -->
+
+            <div class="card custom-card" t-if="user_id">
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-md-4 offset-md-4">
+                            <img width="322px" src="/website_portal/static/logo.png"/>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="row mb-3" t-if="user_id">
+                <t>
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card h-80">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Leave Requests</div>
+                                        <div class="h5 mb-0 font-weight-bold text-green">
+                                            <span t-esc="request.env['hr.leave'].sudo().search_count([('user_id', '=', user_id.id)])"/>
+                                        </div>
+                                        <div class="mt-2 mb-0 text-muted text-xs">
+                                            <a href="/my/leaves" class="text-gold mr-2">
+                                                <i class="fa fa-external-link"></i>
+                                                View Details
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-calendar fa-2x text-gold"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <!--                <div class="col-xl-3 col-md-6 mb-4">-->
+                <!--                    <div class="card h-80">-->
+                <!--                        <div class="card-body">-->
+                <!--                            <div class="row no-gutters align-items-center">-->
+                <!--                                <div class="col mr-2">-->
+                <!--                                    <div class="text-xs font-weight-bold text-uppercase mb-1">Business Trip Request-->
+                <!--                                    </div>-->
+                <!--                                    <div class="h5 mb-0 font-weight-bold text-green">-->
+                <!--&lt;!&ndash;                                        <span t-esc="request.env['business.trip.request'].sudo().search_count([('employee_id', '=', user_id.employee_id.id)])"/>&ndash;&gt;-->
+                <!--                                    </div>-->
+                <!--                                    <div class="mt-2 mb-0 text-muted text-xs">-->
+                <!--                                        <a href="/my/business-trip" class="text-gold mr-2">-->
+                <!--                                            <i class="fa fa-external-link"></i>-->
+                <!--                                            View Details-->
+                <!--                                        </a>-->
+
+                <!--                                    </div>-->
+                <!--                                </div>-->
+                <!--                                <div class="col-auto">-->
+                <!--                                    <i class="fa fa-plane fa-2x text-gold"></i>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <t>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card h-80">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Payslips</div>
+                                        <div class="h5 mb-0 font-weight-bold text-green">
+                                            <span  t-if="user_id.employee_id" t-esc="request.env['hr.payslip'].sudo().search_count([('employee_id', '=', user_id.employee_id.id)])"/>
+                                        </div>
+                                        <div class="mt-2 mb-0 text-muted text-xs">
+                                            <a href="/my/payslips" class="text-gold mr-2">
+                                                <i class="fa fa-external-link"></i>
+                                                View Details
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-list fa-2x text-gold"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </t>
+                <t>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card h-80">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Attendances</div>
+                                        <div class="h5 mb-0 font-weight-bold text-green">
+                                            <span t-esc="request.env['hr.attendance'].sudo().search_count([('employee_id', '=', user_id.employee_id.id)])"/>
+                                        </div>
+                                        <div class="mt-2 mb-0 text-muted text-xs">
+                                            <a href="/my/attendances" class="text-gold mr-2">
+                                                <i class="fa fa-external-link"></i>
+                                                View Details
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-calendar fa-2x text-gold"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+
+            </div>
+            <!-- row closed -->
+        </xpath>
+        <xpath expr="//div[hasclass('o_portal_my_home')]" position="attributes">
+
+            <attribute name="t-attf-id" add="#{'o_portal_hidden'}" separator=" "/>
+        </xpath>
+
+    </template>
+
+
+    <template id="portal.portal_layout" name="Portal Layout">
+        <t t-if="user_id" t-call="website_portal.frontend_portal_layout">
+            <t t-set="is_portal" t-value="True"/>
+            <div t-if="not no_breadcrumbs and not my_details and not breadcrumbs_searchbar"
+                 class="o_portal  ">
+                <div class="row align-items-center bg-white no-gutters border rounded">
+                    <div class="col">
+                        <t t-call="portal.portal_breadcrumbs"></t>
+                    </div>
+                    <div t-if="prev_record or next_record" class="col flex-grow-0">
+                        <t t-call='portal.record_pager'/>
+                    </div>
+                </div>
+            </div>
+            <t t-if="my_details">
+                <div class=" mt-4">
+                    <t t-raw="0"/>
+                    <div id="o_my_sidebar" class="col-12 col-md col-lg-4 col-xl-3 o_my_sidebar">
+                        <div class="o_my_contact" t-if="sales_user">
+                            <t t-call="portal.portal_contact"/>
+                        </div>
+                        <div class="o_portal_my_details" style="display:none">
+                        </div>
+                        <div class="o_my_archives" t-if="archive_groups">
+                            <t t-call="portal.portal_archive_groups"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            <t t-else="">
+                <t t-raw="0"/>
+            </t>
+
+        </t>
+        <t t-else="" t-call="portal.frontend_layout">
+            <t t-set="is_portal" t-value="True"/>
+
+            <div t-if="not no_breadcrumbs and not my_details and not breadcrumbs_searchbar"
+                 class="o_portal container mt-3">
+                <div class="row align-items-center bg-white no-gutters border rounded">
+                    <div class="col-10">
+                        <t t-call="portal.portal_breadcrumbs"></t>
+                    </div>
+                    <div t-if="prev_record or next_record" class="col-2 flex-grow-0 text-center">
+                        <t t-call='portal.record_pager'/>
+                    </div>
+                </div>
+            </div>
+            <div id="wrap" class='o_portal_wrap'>
+                <div class="container mb64">
+                    <t t-if="my_details">
+                        <div class="row justify-content-between mt-4">
+                            <div t-attf-class="col-12 col-md col-lg-6">
+                                <t t-out="0"/>
+                            </div>
+                            <div id="o_my_sidebar" class="pt-3 pt-lg-0 col-12 col-md col-lg-4 col-xl-3 o_my_sidebar">
+                                <div class="o_my_contact" t-if="sales_user">
+                                    <t t-call="portal.portal_contact"/>
+                                </div>
+                                <div class="o_portal_my_details">
+                                    <h4>Details
+                                        <a role="button" href="/my/account" class="btn btn-sm btn-link">
+                                            <i class="fa fa-pencil"/>
+                                            Edit
+                                        </a>
+                                    </h4>
+                                    <hr class="mt-1 mb-0"/>
+                                    <div t-field="user_id.partner_id"
+                                         t-options='{"widget": "contact", "fields": ["email", "phone", "address", "name"]}'/>
+                                </div>
+                                <div class="o_portal_my_security mt-3">
+                                    <h4>Account Security</h4>
+                                    <hr class="mt-1 mb-1"/>
+                                    <a href="/my/security"><i class="fa fa-pencil mx-1"/>Edit Security Settings
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <t t-out="0"/>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+</odoo>

@@ -1,0 +1,101 @@
+<odoo>
+    <data>
+        <report
+                id="machine_order_report"
+                model="construction.project"
+                string="طلبات المعدات"
+                name="construction_project_reports.machine_order_report_view"
+                file="construction_project_reports.machine_order_report"
+                report_type="qweb-pdf"/>
+
+
+        <template id="machine_order_report_view">
+            <t t-call="web.html_container">
+                <t t-set="emp_count" t-value="0"/>
+                <t t-set="total" t-value="0"/>
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page" dir="rtl">
+                            <style type="text/css">
+                                .td-y {
+                                border: 1px solid #000000;
+                                text-align: center;
+                                font-family:Droid Arabic Naskh,serif;
+                                }
+                                .th-x{
+
+                                background-color: #cfc9ca !important;
+                                border: 1px solid #000000;
+                                text-align: center;
+                                }
+                                .strong-x{
+                                border:none;
+                                text-align: center;
+                                }
+                            </style>
+                            <h3 style="text-align:center;font-size:20px;" >
+                                  <span><strong>  طلبات المعدات لمشروع (</strong></span>
+                                  <span t-field="doc.name"/>
+                                  <span><strong>)</strong></span>
+                                </h3>
+                            <table class='table table-bordered ' width="100%">
+                                <thead style="background-color: #cfc9ca !important;">
+                                    <tr>
+
+                                        <th class="th-x">م</th>
+                                        <th class="th-x">التاريخ</th>
+                                        <th class="th-x">رقم الطلب</th>
+                                        <th class="th-x">أسم المعدة</th>
+                                        <th class="th-x">عدد الساعات</th>
+                                        <th class="th-x">الاجمالى</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="sale_tbody">
+                                    <t t-foreach="doc.machine_ids" t-as="l">
+                                        <t t-foreach="l.line_ids" t-as="internal_line">
+                                            <tr>
+                                                <t t-set="emp_count" t-value="emp_count+1"/>
+                                                <t t-set="total" t-value="total+internal_line.cost"/>
+                                                <td class="td-y">
+                                                    <span t-esc="emp_count"/>
+                                                </td>
+                                                <td class="td-y">
+                                                    <span t-field="l.date"/>
+                                                </td>
+                                                <td class="td-y">
+                                                    <span t-field="l.name"/>
+                                                </td>
+                                                <td class="td-y">
+                                                    <span t-field="internal_line.machine_id"/>
+                                                </td>
+                                                <td class="td-y">
+                                                    <span t-field="internal_line.qty"/>
+                                                </td>
+                                                <td class="td-y">
+                                                    <span t-field="internal_line.cost"/>
+                                                </td>
+
+
+                                            </tr>
+                                        </t>
+                                    </t>
+
+
+                                </tbody>
+                                <thead style="background-color: #cfc9ca !important;">
+                                    <tr>
+                                        <th class="th-x" colspan="5">الاجمالى</th>
+                                        <th class="th-x"><span t-esc="total"/></th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>

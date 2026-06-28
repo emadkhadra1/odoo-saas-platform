@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="construction_service_sequence_madina" model="ir.sequence">
+            <field name="name">construction.service.madina</field>
+            <field name="code">construction.service.madina</field>
+            <!--%(year)s%(month)s/-->
+            <field name="active">TRUE</field>
+            <field name="prefix">Service</field>
+            <field name="padding">4</field>
+            <field eval="1" name="company_id"/>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="construction_machine_sequence_madina" model="ir.sequence">
+            <field name="name">construction.machine.madina</field>
+            <field name="code">construction.machine.madina</field>
+            <!--%(year)s%(month)s/-->
+            <field name="active">TRUE</field>
+            <field name="prefix">Machine</field>
+            <field name="padding">4</field>
+            <field eval="1" name="company_id"/>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="construction_tool_sequence_madina" model="ir.sequence">
+            <field name="name">construction.tool.madina</field>
+            <field name="code">construction.tool.madina</field>
+            <!--%(year)s%(month)s/-->
+            <field name="active">TRUE</field>
+            <field name="prefix">Tool</field>
+            <field name="padding">4</field>
+            <field eval="1" name="company_id"/>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="construction_labor_sequence_madina" model="ir.sequence">
+            <field name="name">construction.labor.madina</field>
+            <field name="code">construction.labor.madina</field>
+            <!--%(year)s%(month)s/-->
+            <field name="active">TRUE</field>
+            <field name="prefix">Labor</field>
+            <field name="padding">4</field>
+            <field eval="1" name="company_id"/>
+            <field name="number_increment">1</field>
+        </record>
+        <!--<record id="construction_tool_order_sequence_maka" model="ir.sequence">
+            <field name="name">construction.tool.order.maka</field>
+            <field name="code">construction.tool.order.maka</field>
+            %(year)s%(month)s/
+            <field name="active">TRUE</field>
+            <field name="prefix">Tool-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="2"/>
+            <field name="number_increment">1</field>
+
+        </record>-->
+        <record id="construction_tool_order_sequence_madina" model="ir.sequence">
+            <field name="name">construction.tool.order.madina</field>
+            <field name="code">construction.tool.order.madina</field>
+            <!--%(year)s%(month)s/-->
+            <field name="active">TRUE</field>
+            <field name="prefix">Tool-</field>
+            <field name="padding">4</field>
+            <field eval="1" name="company_id"/>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+    <data>
+        <record id="view_construction_tool_form" model="ir.ui.view">
+            <field name="name">construction.tool.form</field>
+            <field name="model">construction.tool</field>
+            <field name="arch" type="xml">
+                <form string="Service">
+                    <header>
+                        <button class="oe_highlight" groups="construction_project.service_manager_group" invisible="state not in ['new']" name="confirm" string="Confirm" type="object"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <!--                        <div class="oe_title">-->
+                        <!--                            &lt;!&ndash;<label string="Receive Order"  />&ndash;&gt;-->
+                        <!--                            <h1>-->
+                        <!--                                <field name="name" readonly="1"/>-->
+                        <!--                            </h1>-->
+                        <!--                        </div>-->
+                        <group>
+                            <group>
+                                <field name="name" readonly="1"/>
+                                <field name="project_id" readonly="state == 'done'"/>
+                            </group>
+                            <group>
+                                <field name="date" readonly="state == 'done'"/>
+                                <field name="total_cost"/>
+                                <field name="journal_id"/>
+                                <field name="debit_account_id"/>
+                                <field name="credit_account_id"/>
+                                <field invisible="state == 'new'" name="account_move_id"/>
+                            </group>
+                        </group>
+                        <group string="tools"/>
+                        <field name="line_ids" readonly="state == 'done'">
+                            <list editable="bottom">
+                                <field name="tool_id"/>
+                                <field name="product_uom_id"/>
+                                <field invisible="1" name="name"/>
+                                <field name="order_qty" sum="qty"/>
+                                <field name="qty" sum="qty"/>
+                                <field name="unit_cost" sum="unit_cost"/>
+                                <field name="cost" sum="cost"/>
+                            </list></field>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form></field>
+        </record>
+        <record id="view_construction_tool_tree" model="ir.ui.view">
+            <field name="name">construction.tool.tree</field>
+            <field name="model">construction.tool</field>
+            <field name="arch" type="xml">
+                <list string="Service">
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="date"/>
+                    <field name="total_cost"/>
+                    <field name="state"/>
+                </list></field>
+        </record>
+        <record id="view_construction_tool_action" model="ir.actions.act_window">
+            <field name="name">Tools</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.tool</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p></field>
+        </record>
+        <record id="view_construction_tools_form" model="ir.ui.view">
+            <field name="name">construction.tools.form</field>
+            <field name="model">construction.tools</field>
+            <field name="arch" type="xml">
+                <form string="tools">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="product_uom_id"/>
+                            <field name="unit_cost"/>
+                        </group>
+                    </sheet>
+                </form></field>
+        </record>
+        <record id="view_construction_tools_tree" model="ir.ui.view">
+            <field name="name">construction.tools.tree</field>
+            <field name="model">construction.tools</field>
+            <field name="arch" type="xml">
+                <list string="tools">
+                    <field name="name"/>
+                    <field name="product_uom_id"/>
+                    <field name="unit_cost"/>
+                </list></field>
+        </record>
+        <record id="view_tools_action" model="ir.actions.act_window">
+            <field name="name">tools</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.tools</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p></field>
+        </record>
+    </data>
+</odoo>

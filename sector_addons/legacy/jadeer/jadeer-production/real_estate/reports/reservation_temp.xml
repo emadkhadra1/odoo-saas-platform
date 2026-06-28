@@ -1,0 +1,254 @@
+<odoo>
+    <template id="reservation_template_custom">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="real_estate.external_batch_custom" t-lang="ar_001">
+                    <div class="page text-right" style="direction: rtl !important;">
+                        <div class="row">
+                            <div class="col-4 text-right align-right">
+                                <h3>إستمارة حجز</h3>
+                            </div>
+                            <div class="col-4 text-center align-center">
+                                <h3 style="color: #ac0f18"><span t-esc="o.name"/></h3>
+                            </div>
+                            <div class="col-4 text-left align-left">
+                                <span>التاريخ:</span>
+                                <span t-esc="o.date_order"/>
+                            </div>
+                        </div>
+                        <br/>
+                        <h5 class="text-right align-right">بيانات العميل</h5>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span>أسم العميل: </span>
+                                <span t-field="o.partner_id"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <t t-if="o.partner_id.partner_international_id">
+                                    <span>الرقم الدولي: </span>
+                                    <span t-esc="o.partner_id.partner_international_id"/>
+                                </t>
+                                <t t-else="">
+                                    <span>رقم الموبيل: </span>
+                                    <span t-esc="o.partner_id.mobile"/>
+                                </t>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span>العنوان: </span>
+                                <span t-esc="o.partner_id.street"/>
+                                <t t-if="o.partner_id.city">
+                                    <p>,</p>
+                                    <span t-esc="o.partner_id.city"/>
+                                </t>
+                                <t t-if="o.partner_id.country_id">
+                                    <p>,</p>
+                                    <span t-esc="o.partner_id.country_id.name"/>
+                                </t>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span>بطاقة الرقم القومي/رقم جواز السفر: </span>
+                                <span t-esc="o.partner_id.partner_national_id"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span>البريد الالكتروني: </span>
+                                <span t-esc="o.partner_id.email"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span>معرفتك بنا: </span>
+                                <span t-esc="o.source_id.name"/>
+                            </div>
+                        </div>
+                        <hr style="height:1px;border-width:0;color:gray;background-color:gray"/>
+                        <h5 class="text-right align-right">بيانات الوحدة</h5>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span>اسم المشروع: </span>
+                                <span t-esc="o.unit_id.project_id.name"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span>المنطقة: </span>
+                                <span t-esc="o.unit_id.project_id.product_areas.name"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <table class="table border border-dark table-bordered table-sm text-center" width="100%"
+                                   style="table-layout: fixed">
+                                <tr class="border border-dark justify-content-between">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>كود الوحدة</th>
+                                            <th>المساحة</th>
+                                            <th>رقم الدور</th>
+                                            <th>نوع الوحدة</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span t-esc="o.unit_id.name"/></td>
+                                            <td><span t-esc="o.unit_id.total_Area"/></td>
+                                            <td><span t-esc="o.unit_id.floor.name"/></td>
+                                            <td><span t-esc="o.unit_id.unit_type_id.name"/></td>
+                                        </tr>
+                                    </tbody>
+                                </tr>
+                            </table>
+                        </div>
+                        <hr style="height:1px;border-width:0;color:gray;background-color:gray"/>
+
+                        <h5 class="text-right align-right">بيانات المالية</h5>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span>قيمة الوحدة: </span>
+                                <span t-esc="o.total_amount"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span>دفعة الحجز: </span>
+                                <span t-esc="o.hold_amount"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span>تاريخ التعاقد: </span>
+<!--                                <span t-esc="o.contract_date"/>-->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span>طريقة السداد: </span>
+                                <span t-esc="o.payment_plan_id.name"/>
+                            </div>
+                        </div>
+                        <hr style="height:1px;border-width:0;color:gray;background-color:gray"/>
+
+                        <h4 class="text-right align-right">إدارة المبيعات</h4>
+                        <div class="row" style="font-size: 12px">
+                            <div class="col-4">
+                                <span>أسم مسئول البيع 1: </span>
+                                <span t-field="o.user_id"/>
+                            </div>
+                            <div class="col-4">
+                                <span>أسم مسئول البيع 2: </span>
+                                <span t-field="o.sale_person2_id"/>
+                            </div>
+                            <div class="col-4">
+                                <span>أسم مسئول البيع 3: </span>
+                                <span t-field="o.sale_person3_id"/>
+                            </div>
+
+                        </div>
+                        <div class="row" style="font-size: 12px">
+                            <div class="col-4">
+                                <span>المدير المباشر 1: </span>
+                                <span t-esc="o.team_id.user_id.name"/>
+                            </div>
+
+                            <div class="col-4">
+                                <span>المدير المباشر 2: </span>
+                                <span t-esc="o.sale_person2_sale_team.name"/>
+                            </div>
+                            <div class="col-4">
+                                <span>المدير المباشر 3: </span>
+                                <span t-esc="o.sale_person3_sale_team.name"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+<!--                                <span>Local/Overseas</span>-->
+                                <span t-field="o.local_overseas"/>
+                            </div>
+                            <div class="col-6">
+<!--                                <span>Direct/Indirect</span>-->
+                                <span t-field="o.source"/>
+                            </div>
+                        </div>
+                        <hr style="height:1px;border-width:0;color:gray;background-color:gray"/>
+                        <h5 class="text-right align-right">شروط الحجز</h5>
+                        <div class="row">
+                            <p>- سيتم إلفاء الحجز تلقائيا بعد مرور أسبوع من تاريخ هذا الطلب كحد اقصي في حالة عدم استكمال
+                                الدفعة المقدمة
+                                <br/>
+                                - ولا يعتد بااﻹستمارة اﻹيصال مختوم بختم الشركة
+                                <br/>
+                                - دفعه الحجز مستردة بالكامل ولا يحق للعميل التنازل عن إستمارة الحجز للغير
+
+                            </p>
+                        </div>
+                        <hr style="height:1px;border-width:0;color:gray;background-color:gray"/>
+
+                        <div class="row">
+                            <div class="col-6 text-right">
+                                <span>شركة التسويق: </span>
+                                <span t-field="o.broker_id"/>
+                            </div>
+                            <div class="col-6 text-right">
+                                <span>كود الشركة: </span>
+                                <!--                                <span t-field="o.broker_id"/>-->
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 text-right">
+                                <span>أسم سيلز شركة التسويق: </span>
+                                <span t-field="o.broker_sales_id"/>
+                            </div>
+                            <div class="col-6 text-right">
+                                <span>مدير شركة التسويق: </span>
+                                <span t-field="o.broker_manager_id"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <span>توقيع العميل</span>
+                                <br/>
+                                <span>........................</span>
+                            </div>
+
+                            <div class="col-3">
+                                <span>إدارة المبيعات</span>
+                                <br/>
+                                <span>........................</span>
+                            </div>
+                            <div class="col-3">
+                                <span>اﻹدارة المالية</span>
+                                <br/>
+                                <span>........................</span>
+                            </div>
+                            <div class="col-3">
+                                <span>إدارة العمليات</span>
+                                <br/>
+                                <span>........................</span>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <report
+            id="reservation_template_custom_report"
+            string="Reservation Template"
+            model="sale.order"
+            report_type="qweb-pdf"
+            name="real_estate.reservation_template_custom"
+            file="real_estate.reservation_template_custom"
+            print_report_name="'إستمارة حجز'"
+            paperformat="real_estate.batch_payment_template_custom_report_format"
+
+    />
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+<!--        <menuitem id="realestate_project.menu_lead_project"-->
+<!--                          action="realestate_project.realestate_project_window_action"-->
+<!--                          name="Projects"-->
+<!--                          groups="real_estate.group_non_broker"-->
+<!--                          parent="property_menu_catalog"-->
+<!--                          sequence="2"-->
+<!--                />-->
+    </data>
+</odoo>

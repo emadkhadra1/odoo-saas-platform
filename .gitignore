@@ -1,5 +1,10 @@
 __pycache__/
 *.py[cod]
+.idea/
+*.iml
+sector_addons/**/.idea/
+sector_addons/**/static/description/
+sector_addons/**/*.map
 .pytest_cache/
 .coverage
 .venv/

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="contract_type_form" model="ir.ui.view">
+            <field name="name">contract.type</field>
+            <field name="model">contract.type</field>
+            <field name="arch" type="xml">
+                <form string="contract type">
+                    <sheet>
+                        <group>
+                            <field name="contract_type"/>
+                            <field name="value"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="contract_type_tree" model="ir.ui.view">
+            <field name="name">contract.type</field>
+            <field name="model">contract.type</field>
+            <field name="arch" type="xml">
+                <list string="contract type">
+                    <field name="contract_type"/>
+                    <field name="value"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="contract_type_action" model="ir.actions.act_window">
+            <field name="name">contract type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">contract.type</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+<!--        <menuitem id="contract_type_menu" name="Contract Type" parent="construction_project.menu_cp_configuration_categ"-->
+<!--                  action="contract_type_action" sequence="14"/>-->
+    </data>
+</odoo>

@@ -1,0 +1,32 @@
+<odoo>
+    <record id="register_loan_payment_form" model="ir.ui.view">
+        <field name="name">register.loan.payment.form</field>
+        <field name="model">register.loan.payment</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="loan_id" readonly="1"/>
+                        <field name="unpaid_amount" readonly="1"/>
+                        <field name="journal_id" required="1"/>
+                        <field name="amount_to_pay" required="1"/>
+                    </group>
+                    <footer>
+                        <button name="action_pay_loan" string="Proceed" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="register_loan_payment_action" model="ir.actions.act_window">
+        <field name="name">Register Loan Payment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">register.loan.payment</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

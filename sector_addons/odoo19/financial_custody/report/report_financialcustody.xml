@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+       <template id="report_financialcustody">
+           <t t-call="web.html_container">
+<!--               <t t-call="web.internal_layout">-->
+                <t t-call="web.external_layout">
+                   <div class="page">
+                       <h2>Financial Custody</h2>
+                       <br/>
+                       <br/>
+                       <table class="table table-stripped">
+                           <thead>
+                               <tr>
+                                   <th>Custody No.</th>
+                                   <th>Created By</th>
+                                   <th>Created On</th>
+                                   <th>Analytic Account</th>
+                                   <th>Partner</th>
+                                   <th>Due Date</th>
+                                   <th>Amount</th>
+                               </tr>
+                           </thead>
+                           <tbody>
+                               <t t-foreach="custody_records" t-as="cus">
+                                   <tr>
+                                       <td><t t-esc="cus['name']"/></td>
+                                       <td><t t-esc="cus['create_uid'][1]"/></td>
+                                       <td><t t-esc="cus['create_date']"/></td>
+                                       <td><t t-esc="cus['analytic_account_id'][1]"/></td>
+                                       <td><t t-esc="cus['partner_id'][1]"/></td>
+                                       <td><t t-esc="cus['due_date']"/></td>
+                                       <td><t t-esc="cus['custody_amount']"/></td>
+                                   </tr>
+                               </t>
+                               <tr>
+                                   <td></td>
+                                   <td></td>
+                                   <td></td>
+                                   <td></td>
+                                   <td></td>
+                                   <td><strong>Total:</strong></td>
+                                   <td><t t-esc="total_amount"/></td>
+                               </tr>
+                           </tbody>
+                       </table>
+
+                   </div>
+               </t>
+           </t>
+       </template>
+
+
+
+    </data>
+</odoo>

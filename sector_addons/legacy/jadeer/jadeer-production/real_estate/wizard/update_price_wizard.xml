@@ -1,0 +1,63 @@
+<odoo>
+    <record id="update_price_wizard_from" model="ir.ui.view">
+        <field name="name">update.price.wizard.wizard.form</field>
+        <field name="model">update.price.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Update Price">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="unit_update"/>
+                        </group>
+                        <group>
+                            <field name="attach_area_update"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Unit">
+                            <field name="unit_ids" widget="many2many_tags" readonly="0" force_save="1"/>
+                            <!--                            <field name="unit_fields_ids" widget="many2many_tags" readonly="0" force_save="1"/>-->
+                        </group>
+                        <!--                        <group string="Utility">-->
+                        <!--                            <field name="utility_ids" widget="many2many_tags" readonly="0" force_save="1" domain="[('product_id','=',unit_ids)]"/>-->
+                        <!--                            <field name="utility_fields_ids" widget="many2many_tags" readonly="0" force_save="1"/>-->
+                        <!--                        </group>-->
+                        <group string="Attached Area" attrs="{'invisible':[('attach_area_update','=',False)]}">
+                            <field name="attached_area_ids" widget="many2many_tags" readonly="0" force_save="1"
+                                   domain="[('product_id','=',unit_ids)]"
+                                   attrs="{'required':[('attach_area_update','=',True)]}"
+                            />
+                        </group>
+
+                        <group string="Update">
+                            <field name="update_type" readonly="0" force_save="1" required="1"/>
+                            <field name="update_percentage" readonly="0" force_save="1"
+                                   attrs="{'invisible':[('update_type','!=','percentage')],'required':[('update_type','=','percentage')]}"
+                            />
+                            <field name="update_amount" readonly="0" force_save="1"
+                                   attrs="{'invisible':[('update_type','!=','amount')],'required':[('update_type','=','amount')]}"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="confirm" string="Confirm" icon="fa-check"
+                                   class="btn btn-success"
+                                   confirm="Are you sure you want update prices?" type="object" />
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_update_price_wizard" model="ir.actions.act_window">
+        <field name="name">Update Price</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">update.price.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="update_price_wizard_from"/>
+        <field name="target">new</field>
+    </record>
+    <menuitem id="menu_action_update_price" name="Update Price" action="action_update_price_wizard"
+              parent="realestate_project.real_estate_root_menu" sequence="5" groups="real_estate.sales_group_update_price"/>
+</odoo>

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_company_modifications_company_modifications,company_modifications.company_modifications,model_company_modifications_company_modifications,,1,0,0,0

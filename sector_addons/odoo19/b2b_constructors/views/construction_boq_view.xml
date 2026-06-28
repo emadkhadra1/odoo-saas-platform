@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_construction_receive_order_form" model="ir.ui.view">
+            <field name="name">construction.receive.order.form</field>
+            <field name="model">construction.receive.order</field>
+            <field name="inherit_id" ref="construction_project.view_construction_receive_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='notes']" position="after">
+                    <field domain="[('project_id', '=', project_id)]" name="boq_id"/>
+                    <field invisible="1" name="business_statement_ids"/>
+                </xpath>
+                <xpath expr="//field[@name='receive_order_ids']/tree/field[@name='product_id']" position="after">
+                    <field domain="[('id', 'in', parent.business_statement_ids)]" name="business_statement_id"/>
+                </xpath>
+                <xpath expr="//field[@name='receive_order_user_ids']/tree/field[@name='product_id']" position="after">
+                    <field domain="[('id', 'in', parent.business_statement_ids)]" name="business_statement_id"/>
+                </xpath></field>
+        </record>
+        <record id="view_b2b_construction_boq_form" model="ir.ui.view">
+            <field name="name">view.b2b.construction.boq.form</field>
+            <field name="model">b2b.construction.boq</field>
+            <field name="arch" type="xml">
+                <form string="Construction BOQ">
+                    <header>
+                        <button class="oe_highlight" groups="b2b_constructors.group_construction_create" invisible="state not in ['draft']" name="action_submit" string="Submit" type="object"/>
+                        <button class="oe_highlight" groups="b2b_constructors.group_owner_construction_cancel" invisible="state not in ['draft']" name="action_cancel" string="Cancel" type="object"/>
+                        <button class="oe_highlight" groups="b2b_constructors.group_construction_create" invisible="state not in ['cancel']" name="action_set_draft" string="Set Draft" type="object"/>
+                        <button class="oe_highlight" groups="b2b_constructors.group_construction_approve" invisible="state not in ['wait_approve']" name="action_wait_assignment" string="Approve" type="object"/>
+                        <button class="oe_highlight" groups="b2b_constructors.group_construction_approve" invisible="state not in ['wait_approve']" name="action_refused" string="Refuse" type="object"/>
+                        <button class="oe_highlight" groups="b2b_constructors.group_construction_assignment" invisible="state not in ['wait_assignment']" name="action_open_assign_form" string="Add Constructors" type="object"/>
+                        <button class="oe_highlight" groups="b2b_constructors.group_construction_assignment" invisible="state not in ['wait_assignment']" name="action_assigned" string="Done" type="object"/>
+                        <button class="oe_highlight" name="action_print" string="Print" type="object"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" context="{'default_purchase_order_id': active_id}" icon="fa-pencil-square-o" id="qoutation_button" name="open_qoutations" type="object">
+                                <div class="o_form_field o_stat_info">
+                                    <span class="o_stat_text">
+                                        Qoutations
+                                    </span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" icon="fa-pencil-square-o" id="qoutation_button" name="open_invoices" type="object">
+                                <div class="o_form_field o_stat_info">
+                                    <span class="o_stat_text">
+                                        Invoices
+                                    </span>
+                                </div>
+                            </button>
+                        </div>
+                        <group name="main">
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="construction_type_id" required="1"/>
+                                <field name="project_id" required="1"/>
+                            </group>
+                            <group>
+                                <field name="date_order"/>
+                                <field name="total_cost"/>
+                                <field name="total_sell"/>
+                                <field invisible="1" name="business_statement_domain_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Construction BOQ Lines">
+                                <field name="indexation_ids" readonly="state in ['wait_approve', 'wait_assignment', 'assigned', 'refuse']">
+                                    <list editable="bottom">
+                                        <field name="main_item_id"/>
+                                        <field name="sub_item_id"/>
+                                        <field name="sub_business_statement_id"/>
+                                        <field name="business_statement_id"/>
+                                        <field name="uom_id"/>
+                                        <field invisible="1" name="currency_id"/>
+                                        <field name="cost"/>
+                                        <field name="category"/>
+                                        <field name="required_quantity"/>
+                                        <field name="finished_quantity"/>
+                                        <field name="remaining_quantity"/>
+                                        <field name="total"/>
+                                        <field name="total_cost"/>
+                                    </list></field>
+                            </page>
+                            <page string="Constructors Assignment">
+                                <field name="constructor_ids"><list editable="bottom">
+                                        <field name="purchase_order_id"/>
+                                        <field name="indexation_id"/>
+                                        <field name="consructor_id"/>
+                                        <field name="main_item_id"/>
+                                        <field name="sub_item_id"/>
+                                        <field name="sub_business_statement_id"/>
+                                        <field name="business_statement_id"/>
+                                        <field invisible="1" name="type_ids"/>
+                                        <field name="type_id"/>
+                                        <field name="uom_id"/>
+                                        <field name="price"/>
+                                        <field name="required_quantity"/>
+                                        <field name="old_assigned"/>
+                                        <field name="percent"/>
+                                        <field name="total"/>
+                                        <field name="labor_install"/>
+                                    </list></field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form></field>
+        </record>
+        <record id="view_b2b_construction_boq_tree" model="ir.ui.view">
+            <field name="name">view.b2b_construction_boq.tree</field>
+            <field name="model">b2b.construction.boq</field>
+            <field name="arch" type="xml">
+                <list string="Construction BOQ">
+                    <field invisible="1" name="state"/>
+                    <field name="name"/>
+                    <field name="construction_type_id"/>
+                    <field name="project_id"/>
+                    <field name="date_order"/>
+                    <field name="state"/>
+                </list></field>
+        </record>
+        <record id="view_b2b_construction_boq_search" model="ir.ui.view">
+            <field name="name">view.b2b_construction_boq.search</field>
+            <field name="model">b2b.construction.boq</field>
+            <field name="arch" type="xml">
+                <search string="Construction BOQ">
+                    <field name="state"/>
+                    <field name="construction_type_id"/>
+                    <field name="project_id"/>
+                    <field name="date_order" string="Date"/>
+                    <field name="state"/>
+                    <group name="groupby" string="Group By">
+                        <filter context="{'group_by': 'state'}" name="state_groupby" string="State"/>
+                        <filter context="{'group_by': 'construction_type_id'}" name="construction_type_id_groupby" string="Construction Type"/>
+                        <filter context="{'group_by': 'project_id'}" name="project_id_groupby" string="Project"/>
+                    </group>
+                </search></field>
+        </record>
+        <record id="b2b_construction_boq_action" model="ir.actions.act_window">
+            <field name="name">Construction BOQ</field>
+            <field name="res_model">b2b.construction.boq</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="view_b2b_construction_boq_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new Construction BOQ.
+                </p></field>
+        </record>
+        <record id="b2b_indexations_action_view_tree" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="b2b_construction_boq_action"/>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="view_b2b_construction_boq_tree"/>
+            <field eval="0" name="sequence"/>
+        </record>
+        <record id="b2b_indexations_action_view_form" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="b2b_construction_boq_action"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_b2b_construction_boq_form"/>
+            <field eval="1" name="sequence"/>
+        </record>
+    </data>
+</odoo>

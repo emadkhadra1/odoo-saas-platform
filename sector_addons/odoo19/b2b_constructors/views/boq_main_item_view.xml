@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <record id="view_boq_main_item_form" model="ir.ui.view">
+      <field name="name">view.b2b.boq.main.items.form</field>
+      <field name="model">b2b.main.items</field>
+      <field name="arch" type="xml">
+        <form string="BOQ Main Item">
+          <sheet>
+            <group name="main">
+              <group>
+                <field name="name"/>
+                <field name="code"/>
+              </group>
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers"/>
+              <field name="message_ids" widget="mail_thread"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_boq_main_item_tree" model="ir.ui.view">
+      <field name="name">view.boq_main_item.tree</field>
+      <field name="model">b2b.main.items</field>
+      <field name="arch" type="xml">
+        <list string="BOQ Main Item">
+          <field name="name"/>
+          <field name="code"/>
+        </list>
+      </field>
+    </record>
+
+    <record id="view_boq_main_item_search" model="ir.ui.view">
+      <field name="name">view.boq_main_item.search</field>
+      <field name="model">b2b.main.items</field>
+      <field name="arch" type="xml">
+        <search string="BOQ Main Item">
+          <field name="name"/>
+          <field name="code"/>
+        </search>
+      </field>
+    </record>
+
+    <record id="boq_main_item_action" model="ir.actions.act_window">
+      <field name="name">BOQ Main Item</field>
+      <field name="res_model">b2b.main.items</field>
+      <field name="view_mode">list,form</field>
+      <field name="domain">[]</field>
+      <field name="context">{}</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to create a new BOQ Main Item.
+        </p>
+      </field>
+    </record>
+
+  </data>
+</odoo>

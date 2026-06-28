@@ -1,0 +1,23 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="product_real_estate_ineherit" model="ir.ui.view">
+        <field name="name">product.template.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="real_estate.product_real_estate"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@name='options']" position="inside">
+                <div>
+                    <field name="manual_creation_name" attrs="{'invisible':[('is_residential','=',False),('is_composite','=',False)],'readonly':[('is_composite','=',True)]}"  force_save="1"/>
+                    <label for="manual_creation_name" attrs="{'invisible':[('is_residential','=',False),('is_composite','=',False)]}"/>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="attrs">
+                    {'readonly':['&amp;',('manual_creation_name','=',False),'|',('is_land','=',True),('is_residential','=',True)]}
+                </attribute>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

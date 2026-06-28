@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_delivery_import_session_tree" model="ir.ui.view">
+        <field name="name">delivery.import.session.tree</field>
+        <field name="model">delivery.import.session</field>
+        <field name="arch" type="xml">
+            <list string="جلسات الاستيراد"
+                  decoration-danger="status == 'failed'"
+                  decoration-success="status == 'imported'">
+                <field name="file_name" string="اسم الملف"/>
+                <field name="company_id" string="الشركة"/>
+                <field name="branch_id" string="الفرع" optional="show"/>
+                <field name="contract_id" string="العقد" optional="hide"/>
+                <field name="import_date" string="تاريخ الاستيراد"/>
+                <field name="period_start" string="بداية الفترة"/>
+                <field name="period_end" string="نهاية الفترة"/>
+                <field name="total_rows" string="إجمالي الصفوف"/>
+                <field name="valid_rows" string="صفوف صحيحة"/>
+                <field name="error_rows" string="صفوف بها خطأ"/>
+                <field name="total_amount" string="الإجمالي"/>
+                <field name="status" string="الحالة" widget="badge"
+                       decoration-success="status == 'imported'"
+                       decoration-info="status == 'validated'"
+                       decoration-warning="status == 'pending'"
+                       decoration-danger="status == 'failed'"/>
+                <field name="imported_by" string="بواسطة"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_delivery_import_session_form" model="ir.ui.view">
+        <field name="name">delivery.import.session.form</field>
+        <field name="model">delivery.import.session</field>
+        <field name="arch" type="xml">
+            <form string="جلسة استيراد">
+                <header>
+                    <button name="action_detect_columns" type="object"
+                            string="🔍 كشف وإعداد الأعمدة"
+                            invisible="status != 'pending' or not file_data or not contract_id"/>
+                    <button name="action_parse_file" type="object"
+                            string="⬆ معالجة الملف"
+                            class="oe_highlight"
+                            invisible="status != 'pending'"/>
+                    <button name="action_validate" type="object"
+                            string="✔ التحقق من البيانات"
+                            class="oe_highlight"
+                            invisible="status != 'pending'"/>
+                    <button name="action_confirm" type="object"
+                            string="✅ تأكيد الاستيراد"
+                            class="oe_highlight"
+                            invisible="status != 'validated'"/>
+                    <button name="action_mark_failed" type="object"
+                            string="تمييز كـ فاشل"
+                            invisible="status not in ('pending', 'validated')"/>
+                    <button name="action_reset_to_pending" type="object"
+                            string="إعادة للمعالجة"
+                            invisible="status not in ('failed', 'validated')"/>
+                    <button name="action_cancel_and_re_upload" type="object"
+                            string="🗑 إلغاء وإعادة رفع"
+                            class="btn-warning"
+                            invisible="status != 'imported'"
+                            confirm="سيتم حذف بيانات الأداء اليومي المرتبطة بهذه الجلسة وإعادتها لحالة &quot;معلق&quot; لرفع ملف جديد. هل تريد المتابعة؟"/>
+                    <field name="status" widget="statusbar"
+                           statusbar_visible="pending,validated,imported"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-warning mb-0" role="alert"
+                         invisible="status != 'pending' or not file_data or not contract_id">
+                        <strong>💡 خطوة مقترحة:</strong>
+                        قبل "معالجة الملف"، اضغط <strong>"كشف وإعداد الأعمدة"</strong> أولاً
+                        لمطابقة أعمدة الشيت تلقائياً مع حقول النظام (تُحفظ في العقد للمرة القادمة).
+                    </div>
+                    <group>
+                        <group string="تفاصيل الاستيراد">
+                            <field name="company_id" string="الشركة" readonly="status != 'pending'"/>
+                            <field name="branch_id" string="الفرع" readonly="status != 'pending'"/>
+                            <field name="contract_id" string="العقد" readonly="status != 'pending'"/>
+                            <field name="import_type" string="نوع الاستيراد" readonly="status != 'pending'"/>
+                            <field name="file_name" string="اسم الملف" readonly="status != 'pending'"/>
+                            <field name="file_data" filename="file_name" string="الملف" readonly="status != 'pending'"/>
+                            <field name="sheet_name" string="اسم الورقة" readonly="status != 'pending' or import_all_sheets"
+                                   placeholder="اتركه فارغاً للورقة الأولى"/>
+                            <field name="import_all_sheets" string="📋 استيراد كل الأوراق (تويو/هنقر)"
+                                   readonly="status != 'pending'"/>
+                            <field name="auto_create_riders" string="🚴 إنشاء رايدرز تلقائياً"
+                                   readonly="status != 'pending'"
+                                   help="فعّل هذا الخيار عند رفع ملفات كيتا/VDA لأول مرة — إذا لم يُعثر على الرايدر يُنشأ تلقائياً"/>
+                            <field name="import_date" string="تاريخ الاستيراد" readonly="status != 'pending'"/>
+                            <field name="imported_by" string="تم بواسطة"/>
+                        </group>
+                        <group string="الفترة والإحصائيات">
+                            <field name="period_start" string="بداية الفترة"/>
+                            <field name="period_end" string="نهاية الفترة"/>
+                            <field name="total_rows" string="إجمالي الصفوف"/>
+                            <field name="valid_rows" string="صفوف صحيحة"/>
+                            <field name="error_rows" string="صفوف بها خطأ"/>
+                            <field name="total_amount" string="الإجمالي"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="صفوف الاستيراد" name="rows">
+                            <field name="row_count" invisible="1"/>
+                            <div class="alert alert-info" role="alert"
+                                 invisible="row_count > 0">
+                                <strong>لم يتم معالجة الملف بعد.</strong>
+                                ارفع ملف Excel — ستبدأ المعالجة تلقائياً بعد الحفظ.
+                                إذا لم تبدأ تلقائياً، اضغط زر <strong>"⬆ معالجة الملف"</strong> أعلاه.
+                            </div>
+                            <field name="row_ids" readonly="status != 'pending'">
+                                <list string="الصفوف"
+                                      decoration-danger="status == 'error'"
+                                      decoration-success="status == 'valid'"
+                                      decoration-muted="status == 'pending'"
+                                      editable="bottom">
+                                    <field name="row_number" string="#"/>
+                                    <field name="order_id" string="معرف الحساب"/>
+                                    <field name="rider_name" string="اسم الحساب"/>
+                                    <field name="rider_user" string="مستخدم الحساب" optional="show"/>
+                                    <field name="rider_id" string="المندوب المطابق"/>
+                                    <field name="rider_phone" string="هاتف المندوب" optional="show"/>
+                                    <field name="vehicle_type_company" string="مركبة الشركة" optional="show"/>
+                                    <field name="vehicle_type_contract" string="مركبة العقد" optional="show"/>
+                                    <field name="plate_number" string="رقم اللوحة" optional="hide"/>
+                                    <field name="platform_target" string="تارجت المنصة" optional="show"/>
+                                    <field name="company_target_val" string="تارجت الشركة" optional="show"/>
+                                    <field name="accepted_tasks" string="مقبولة" optional="show"/>
+                                    <field name="delivered_tasks" string="مسلّمة" optional="show"/>
+                                    <field name="large_orders_completed" string="طلبات كبيرة" optional="hide"/>
+                                    <field name="cancelled_tasks" string="ملغاة" optional="show"/>
+                                    <field name="rejected_tasks" string="مرفوضة" optional="show"/>
+                                    <field name="driver_rejected" string="رفض السائق" optional="hide"/>
+                                    <field name="auto_rejected" string="رفض تلقائي" optional="hide"/>
+                                    <field name="online_hours" string="ساعات أونلاين" optional="show"/>
+                                    <field name="peak_hours" string="ساعات الذروة" optional="show"/>
+                                    <field name="ontime_rate" string="نسبة الالتزام بالوقت" optional="show"/>
+                                    <field name="large_ontime_rate" string="نسبة الطلبات الكبيرة في الوقت" optional="hide"/>
+                                    <field name="avg_delivery_duration" string="متوسط مدة التوصيل" optional="hide"/>
+                                    <field name="over_55min_rate" string="نسبة فوق 55 دقيقة" optional="hide"/>
+                                    <field name="late_tasks" string="متأخرة" optional="hide"/>
+                                    <field name="very_late_tasks" string="متأخرة جداً" optional="hide"/>
+                                    <field name="on_time_deliveries" string="توصيل في الوقت" optional="hide"/>
+                                    <field name="advance_deliveries" string="توصيل مبكر" optional="hide"/>
+                                    <field name="valid_days" string="أيام صالحة" optional="hide"/>
+                                    <field name="fuel" string="بنزين" optional="show"/>
+                                    <field name="capacity_incentive" string="حافز السعة" optional="hide"/>
+                                    <field name="experience_incentive" string="حافز الخبرة" optional="hide"/>
+                                    <field name="subsidy" string="الدعم" optional="hide"/>
+                                    <field name="dxg" string="DXG" optional="hide"/>
+                                    <field name="tips_excl_vat" string="البقشيش" optional="hide"/>
+                                    <field name="other_activities" string="أنشطة أخرى" optional="hide"/>
+                                    <field name="deductions" string="الخصومات" optional="hide"/>
+                                    <field name="food_damage_compensation" string="تعويض تلف طعام" optional="hide"/>
+                                    <field name="other_adjustment" string="تعديل آخر" optional="hide"/>
+                                    <field name="city_name" string="المدينة (نص)" optional="hide"/>
+                                    <field name="city_id" string="المدينة" optional="hide"/>
+                                    <field name="order_date" string="تاريخ الطلب" optional="hide"/>
+                                    <field name="distance" string="المسافة" optional="hide"/>
+                                    <field name="platform_amount" string="مبلغ المنصة" optional="hide"/>
+                                    <field name="calculated_amount" string="المبلغ المحسوب" optional="hide"/>
+                                    <field name="variance" string="الفرق" optional="hide"/>
+                                    <field name="extra_data" string="بيانات إضافية" optional="hide"/>
+                                    <field name="status" string="الحالة" widget="badge"
+                                           decoration-success="status == 'valid'"
+                                           decoration-danger="status == 'error'"
+                                           decoration-warning="status == 'pending'"/>
+                                    <field name="error_message" string="رسالة الخطأ" optional="show"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="سجل الأخطاء" name="errors">
+                            <field name="error_log" placeholder="سيظهر هنا سجل الأخطاء بعد المعالجة..."/>
+                        </page>
+                        <page string="ملاحظات" name="notes">
+                            <field name="notes" placeholder="ملاحظات الاستيراد..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_delivery_import_session_search" model="ir.ui.view">
+        <field name="name">delivery.import.session.search</field>
+        <field name="model">delivery.import.session</field>
+        <field name="arch" type="xml">
+            <search string="بحث في جلسات الاستيراد">
+                <field name="file_name" string="اسم الملف"/>
+                <field name="company_id" string="الشركة"/>
+                <field name="branch_id" string="الفرع"/>
+                <filter name="pending" string="قيد المعالجة" domain="[('status', '=', 'pending')]"/>
+                <filter name="validated" string="تم التحقق" domain="[('status', '=', 'validated')]"/>
+                <filter name="imported" string="مكتمل" domain="[('status', '=', 'imported')]"/>
+                <filter name="failed" string="فاشل" domain="[('status', '=', 'failed')]"/>
+                <group expand="0" string="تجميع بـ">
+                    <filter name="group_company" string="الشركة" context="{'group_by': 'company_id'}"/>
+                    <filter name="group_branch" string="الفرع" context="{'group_by': 'branch_id'}"/>
+                    <filter name="group_status" string="الحالة" context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_delivery_import_session" model="ir.actions.act_window">
+        <field name="name">جلسات استيراد بيانات الأداء</field>
+        <field name="res_model">delivery.import.session</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">ارفع أول ملف بيانات</p>
+            <p>استيراد ملفات Excel من منصات التوصيل مع التحقق التلقائي من البيانات.</p>
+        </field>
+    </record>
+</odoo>

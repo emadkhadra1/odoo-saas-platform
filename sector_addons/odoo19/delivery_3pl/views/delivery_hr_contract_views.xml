@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_contract_delivery_form" model="ir.ui.view">
+        <field name="name">hr.contract.delivery.form.inherit</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="ربط مندوب التوصيل" name="delivery_rider_section">
+                    <group>
+                        <field name="is_delivery_rider" string="موظف مندوب توصيل؟"/>
+                        <field name="delivery_company_id" string="شركة التوصيل"
+                               invisible="not is_delivery_rider"/>
+                        <field name="delivery_branch_id" string="الفرع"
+                               invisible="not is_delivery_rider"/>
+                    </group>
+                    <group>
+                        <field name="delivery_rider_id" string="سجل المندوب"
+                               invisible="not is_delivery_rider"/>
+                        <button name="action_view_rider" type="object"
+                                string="عرض المندوب"
+                                class="btn-primary"
+                                invisible="not delivery_rider_id"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

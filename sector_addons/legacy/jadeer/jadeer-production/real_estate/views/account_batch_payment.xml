@@ -1,0 +1,131 @@
+<odoo>
+    <record id="account_payment_inherit_batch" model="ir.ui.view">
+        <field name="name">account.batch.payment</field>
+        <field name="model">account.batch.payment</field>
+        <field name="inherit_id" ref="account_batch_payment.view_batch_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="replace">
+                <header>
+                    <field name="id" invisible="1"/>
+                    <field name="file_generation_enabled" invisible="1"/>
+                    <button name="print_batch_payment" string="Print" type="object"
+                            attrs="{'invisible': [('state', '!=', 'sent')]}"/>
+                    <button name="export_batch_payment" string="re-Generate Export File" type="object"
+                            attrs="{'invisible': ['|', ('file_generation_enabled', '=', False), ('state', '!=', 'sent')]}"
+                            groups="real_estate_security.group_manager"
+
+                    />
+
+                    <button name="validate_batch" class="oe_highlight" string="Validate" type="object"
+                            states="post"
+                            groups="real_estate_security.group_manager"
+                    />
+
+                    <button name="action_post_payment" class="oe_highlight" string="Post" states="draft"
+                            type="object" groups="real_estate_security.group_manager"/>
+                    <field name="checks_generted" invisible="1"/>
+                    <button name="action_create_payment_from_so" class="oe_highlight" string="تعديل وربط الاقساط"
+                            attrs="{'invisible':['|',('checks_generted','!=',True),('state','!=','draft')]}"
+                            groups="real_estate_security.group_manager"
+                            type="object"/>
+
+                    <button name="action_generate_from_so" class="oe_highlight" string="Generate Checks"
+                            attrs="{'invisible':['|',('checks_generted','=',True),('state','!=','draft')]}"
+
+                            groups="real_estate_security.group_manager"
+                            type="object"/>
+
+                    <button name="action_create_payment" class="oe_highlight" string="انشاء الاقساط" states="draft"
+                            type="object" invisible="1"
+                            groups="real_estate_security.group_manager"
+                    />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,post,sent,reconciled"/>
+                </header>
+            </xpath>
+
+            <xpath expr="//field[@name='date']" position="after">
+                <field name="period" attrs="{'readonly':[('state','!=','draft')]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='journal_id']" position="attributes">
+                <attribute name="string">Journal</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='payment_method_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+                <attribute name="required">0</attribute>
+
+            </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="counter" store='True' force_save="1"/>
+                <field name="start_from" attrs="{'readonly':[('state','!=','draft')]}"/>
+                <field name="amount" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                <field name="currency_id"/>
+            </xpath>
+            <xpath expr="//field[@name='batch_type']" position="after">
+                <field name="order_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                <field name="unit_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                <field name="partner_id" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='payment_method_id']" position="before">
+                <field name="partner_bank" attrs="{'readonly':[('state','!=','draft')]}"/>
+                <field name="bank_branch" attrs="{'readonly':[('state','!=','draft')]}"/>
+                <field name="collected_amount" invisible="1"
+                       t-options='{"widget": "monetary"' type=""
+                       attrs="{'readonly':[('state','!=','draft')]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='payment_ids']/tree/field[@name='name']" position="replace">
+                <field name="batch_name"/>
+
+            </xpath>
+            <xpath expr="//field[@name='payment_ids']/tree/field[@name='ref']" position="after">
+                <field name="invoice_date_due"/>
+
+            </xpath>
+
+            <!--                <xpath expr="//field[@name='payment_ids']" position="replace">-->
+            <!--                    <field name="payment_ids"-->
+            <!--                           widget="one2many_list"-->
+            <!--                           domain="[('batch_payment_id', '=', False), ('state', 'not in', ['reconciled', 'draft']), ('payment_method_id', '=', payment_method_id), ('journal_id', '=', journal_id), ('payment_type','=',batch_type)]"-->
+            <!--                           context="{'default_payment_type': batch_type, 'default_journal_id': journal_id, 'default_payment_method_id': payment_method_id}">-->
+            <!--                        <tree string="Payments" editable="bottom">-->
+            <!--                            <field name="batch_name"/>-->
+            <!--                            <field name="payment_date"/>-->
+            <!--                            <field name="partner_id"/>-->
+            <!--                            <field name="communication"/>-->
+            <!--                            <field name="due_date"/>-->
+            <!--                            <field name="amount" sum="Total"/>-->
+            <!--                            <field name="currency_id" invisible="1"/>-->
+            <!--                            <field name="company_id" invisible="1"/>-->
+            <!--                        </tree>-->
+            <!--                    </field>-->
+            <!--                </xpath>-->
+            <xpath expr="//page[@name='batch_content']" position="attributes">
+                <attribute name="attrs">{'invisible':[('checks_generted','!=',True)]}</attribute>
+            </xpath>
+            <xpath expr="//page[@name='batch_content']" position="before">
+                <page string="Generated Payment" name="generate">
+                    <field name="genrate_payment_ids"
+                           force_save="1"
+                           widget="many2many"
+                           options="{'no_create': True,'no_edit': True,'no_open': True}"
+                    >
+                        <tree string="Payments" >
+                            <field name="date"/>
+                            <field name="partner_id"/>
+                            <field name="ref"/>
+                            <field name="invoice_date_due" />
+                            <field name="amount"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='batch_type']" position="attributes">
+                <attribute name="required">0</attribute>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

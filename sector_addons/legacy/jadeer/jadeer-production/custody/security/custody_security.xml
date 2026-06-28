@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+
+        <record id="custody_security_category" model="ir.module.category">
+            <field name="name">Custody</field>
+            <field name="sequence" eval="1"/>
+        </record>
+
+        <record id="custody_employee" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="custody.custody_security_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">The user can be read and create only</field>
+        </record>
+
+        <record id="custody_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="custody.custody_security_category"/>
+            <field name="implied_ids" eval="[(4, ref('custody.custody_employee'))]"/>
+        </record>
+    </data>
+</odoo>
+

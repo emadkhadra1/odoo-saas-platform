@@ -1,0 +1,23 @@
+<odoo>
+
+    <record id="loan_type_form_view" model="ir.ui.view">
+        <field name="name">loan.type.fom.view</field>
+        <field name="model">loan.type</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="factor"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="loan_type_action" model="ir.actions.act_window">
+        <field name="name">Loan Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">loan.type</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="loan_type_menu_action" name="Loan Type" parent="ohrms_loan.menu_base_hr_loan_request"
+              action="loan_type_action" />
+</odoo>

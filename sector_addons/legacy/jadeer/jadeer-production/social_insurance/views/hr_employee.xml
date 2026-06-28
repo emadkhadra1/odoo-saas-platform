@@ -1,0 +1,36 @@
+<odoo>
+
+    <record id="view_employee_form_inherit" model="ir.ui.view">
+        <field name="name">view_employee_form_inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//group[@name='managers']" position="before">
+                <group name="insurance_duration" string="Insurance Duration">
+                    <field name="num_insurance_years"/>
+                    <field name="num_insurance_months"/>
+                    <field name="total_insurance_years"/>
+                    <field name="total_insurance_months"/>
+                </group>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Social Insurance" name="insurance">
+                    <group>
+                        <group>
+                            <field name="is_insured"/>
+
+
+                            <field name="social_insurance_number"
+                                   attrs="{'invisible':[('is_insured', '=', False)]}"/>
+
+                            <field name="statue" attrs="{'invisible':[('is_insured', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="insurance_start_date" attrs="{'invisible':[('is_insured', '=', False)]}"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

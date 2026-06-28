@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="invoice_supplier_form_q" model="ir.ui.view">
+            <field name="name">view.b2b.account.move.supplier.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="Quotation lines">
+                        <field name="quotation_ids" readonly="1">
+                            <list decoration-danger="total_work > required_quantity">
+                                <field name="main_item_id"/>
+                                <field name="sub_item_id"/>
+                                <field name="entrepreneurs_id"/>
+                                <field name="uom_id"/>
+                                <field name="required_quantity"/>
+                                <field name="previous_work"/>
+                                <field name="current_work"/>
+                                <field name="total_work"/>
+                                <field name="category"/>
+                                <field name="work_amount"/>
+                                <field name="perc_c"/>
+                                <!--<field name="notes"/>-->
+
+                            </list>
+                        </field>
+                    </page>
+
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="invoice_form_q" model="ir.ui.view">
+            <field name="name">view.b2b.account.invoic.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="Quotation lines">
+                        <field name="quotation_ids" readonly="1">
+                            <list decoration-danger="total_work > required_quantity">
+                                <field name="main_item_id"/>
+                                <field name="sub_item_id"/>
+                                <field name="entrepreneurs_id"/>
+                                <field name="uom_id"/>
+                                <field name="required_quantity"/>
+                                <field name="previous_work"/>
+                                <field name="current_work"/>
+                                <field name="total_work"/>
+                                <field name="category"/>
+                                <field name="work_amount"/>
+                                <field name="perc_c"/>
+                                <!--<field name="notes"/>-->
+
+                            </list>
+                        </field>
+                    </page>
+
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

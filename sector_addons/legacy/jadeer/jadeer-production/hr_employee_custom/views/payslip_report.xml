@@ -1,0 +1,27 @@
+<odoo>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="hr_payslip_line_view_search_register_inherit" model="ir.ui.view">
+        <field name="name">payslip.line.search.inherit</field>
+        <field name="model">hr.payslip.line</field>
+        <field name="inherit_id" ref="hr_payroll.hr_payslip_line_view_search_register"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//group" position="inside">
+                    <filter string="Batch" name="batch_id" context="{'group_by':'batch_id'}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+     <record id="hr_payslip_line_action" model="ir.actions.act_window">
+        <field name="name">Payslip Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.payslip.line</field>
+        <field name="view_mode">pivot,tree,form</field>
+    </record>
+
+    <menuitem id="hr_payslip_line_menu" name="Payslip Lines"
+              parent="hr_payroll.menu_hr_payroll_report"
+              action="hr_payslip_line_action" sequence="99"/>
+</odoo>

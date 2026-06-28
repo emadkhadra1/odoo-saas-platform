@@ -1,0 +1,77 @@
+<odoo>
+    <data>
+        <report
+                id="total_cost_report"
+                model="construction.project"
+                string="أجمالى تكلفة المشروعات"
+                name="construction_project_reports.total_cost_report_view"
+                file="construction_project_reports.total_cost_report"
+                report_type="qweb-pdf"/>
+
+
+        <template id="total_cost_report_view">
+            <t t-call="web.html_container">
+                <t t-set="emp_count" t-value="0"/>
+                <t t-set="total" t-value="0"/>
+
+                <t t-call="web.external_layout">
+                    <div class="page" dir="rtl">
+                        <style type="text/css">
+                            .td-y {
+                            border: 1px solid #000000;
+                            text-align: center;
+                            font-family:Droid Arabic Naskh,serif;
+                            }
+                            .th-x{
+
+                            background-color: #cfc9ca !important;
+                            border: 1px solid #000000;
+                            text-align: center;
+                            }
+                            .strong-x{
+                            border:none;
+                            text-align: center;
+                            }
+                        </style>
+                        <h3 style="text-align:center;font-size:20px;">أجمالى التكلفة</h3>
+                        <table class='table table-bordered ' width="100%">
+                            <thead style="background-color: #cfc9ca !important;">
+                                <tr>
+
+                                    <th class="th-x">المشروع</th>
+                                    <th class="th-x">اجمالى التكلفة</th>
+                                </tr>
+                            </thead>
+                            <tbody class="sale_tbody">
+                                <t t-foreach="docs" t-as="project">
+                                    <tr>
+                                        <t t-set="total" t-value="total+project.total_cost"/>
+                                        <td class="td-y">
+                                            <span t-field="project.name"/>
+                                        </td>
+                                        <td class="td-y">
+                                            <span t-field="project.total_cost"/>
+                                        </td>
+
+                                    </tr>
+                                </t>
+
+
+                            </tbody>
+                            <thead style="background-color: #cfc9ca !important;">
+                                <tr>
+                                    <th class="th-x">الاجمالى</th>
+                                    <th class="th-x">
+                                        <span t-esc="total"/>
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>

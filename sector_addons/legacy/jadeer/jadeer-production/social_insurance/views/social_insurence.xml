@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="social_insurance_form" model="ir.ui.view">
+            <field name="name">Social Insurance</field>
+            <field name="model">social.insurance</field>
+            <field name="arch" type="xml">
+                <form string="Social Insurance">
+                    <sheet>
+                        <h1>
+                            Social Insurance
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="age_above_60"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Employee">
+                                <label for="employee_basic"/>
+                                <div>
+                                    <field name="employee_basic" class="oe_inline"/>
+                                    %
+                                </div>
+                                <label for="employee_max_limit_basic"/>
+                                <div>
+                                    <field name="employee_max_limit_basic" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}" class="oe_inline"/>
+                                    /Month
+                                </div>
+                                <label for="employee_min_limit_basic"/>
+                                <div>
+                                    <field name="employee_min_limit_basic" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}" class="oe_inline"/>
+                                    /Month
+                                </div>
+
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                            <group string="Company">
+                                <label for="company_basic"/>
+                                <div>
+                                    <field name="company_basic" class="oe_inline"/>
+                                    %
+                                </div>
+                                <label for="company_max_limit_basic"/>
+                                <div>
+                                    <field name="company_max_limit_basic" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}" class="oe_inline"/>
+                                    /Month
+                                </div>
+                                <label for="company_min_limit_basic"/>
+                                <div>
+                                    <field name="company_min_limit_basic" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}" class="oe_inline"/>
+                                    /Month
+                                </div>
+                                <field name="company_id" invisible="0"/>
+                            </group>
+
+                        </group>
+
+                        <group>
+                            <group>
+
+                                <label for="employee_variable"/>
+                                <div>
+                                    <field name="employee_variable" class="oe_inline"/>
+                                    %
+                                </div>
+                                <label for="employee_max_limit_variable"/>
+                                <div>
+                                    <field name="employee_max_limit_variable" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}" class="oe_inline"/>
+                                    /Month
+                                </div>
+                                <label for="employee_min_limit_variable"/>
+                                <div>
+                                    <field name="employee_min_limit_variable" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}" class="oe_inline"/>
+                                    /Month
+                                </div>
+                            </group>
+                            <group>
+                                <label for="company_variable"/>
+                                <div>
+                                    <field name="company_variable" class="oe_inline"/>
+                                    %
+                                </div>
+                                <label for="company_max_limit_variable"/>
+                                <div>
+                                    <field name="company_max_limit_variable" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}" class="oe_inline"/>
+                                    /Month
+                                </div>
+                                <label for="company_min_limit_variable"/>
+                                <div>
+                                    <field name="company_min_limit_variable" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}" class="oe_inline"/>
+                                    /Month
+                                </div>
+                            </group>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="social_insurance_tree" model="ir.ui.view">
+            <field name="name">Social Insurance</field>
+            <field name="model">social.insurance</field>
+            <field name="arch" type="xml">
+                <tree string="Social Insurance" create="1" edit="0">
+                    <field name="company_id"/>
+                    <field name="employee_basic" string=""/>
+<!--                    <field name="employee_variable"/>-->
+                    <field name="company_basic"/>
+                    <field name="company_variable"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_social_insurance" model="ir.actions.act_window">
+            <field name="name">Social Insurance</field>
+            <field name="res_model">social.insurance</field>
+            <field name="view_mode">tree,form</field>
+<!--            <field name="model_id">social.insurance</field>-->
+        </record>
+
+        <menuitem
+                id="social_insurance_menu"
+                name="Social Insurance"
+                parent="hr.menu_hr_root"
+                action="action_social_insurance"/>
+    </data>
+</odoo>
+

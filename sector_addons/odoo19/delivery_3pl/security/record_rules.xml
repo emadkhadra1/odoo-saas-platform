@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rule_delivery_company_ops_user" model="ir.rule">
+        <field name="name">Delivery Company: User sees assigned companies only</field>
+        <field name="model_id" ref="model_delivery_company"/>
+        <field name="domain_force">[('operations_manager_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_company_manager" model="ir.rule">
+        <field name="name">Delivery Company: Manager sees assigned companies</field>
+        <field name="model_id" ref="model_delivery_company"/>
+        <field name="domain_force">[('operations_manager_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_manager'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_company_admin" model="ir.rule">
+        <field name="name">Delivery Company: Admin sees all</field>
+        <field name="model_id" ref="model_delivery_company"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_admin'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_branch_user" model="ir.rule">
+        <field name="name">Delivery Branch: User sees own company branches</field>
+        <field name="model_id" ref="model_delivery_company_branch"/>
+        <field name="domain_force">[('company_id.operations_manager_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_branch_admin" model="ir.rule">
+        <field name="name">Delivery Branch: Admin sees all</field>
+        <field name="model_id" ref="model_delivery_company_branch"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_admin'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_rider_user" model="ir.rule">
+        <field name="name">Delivery Rider: User sees own company riders</field>
+        <field name="model_id" ref="model_delivery_rider"/>
+        <field name="domain_force">[('primary_company_id.operations_manager_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_rider_admin" model="ir.rule">
+        <field name="name">Delivery Rider: Admin sees all</field>
+        <field name="model_id" ref="model_delivery_rider"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_admin'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_contract_user" model="ir.rule">
+        <field name="name">Delivery Contract: User sees own company contracts</field>
+        <field name="model_id" ref="model_delivery_contract"/>
+        <field name="domain_force">[('company_id.operations_manager_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_contract_admin" model="ir.rule">
+        <field name="name">Delivery Contract: Admin sees all</field>
+        <field name="model_id" ref="model_delivery_contract"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_admin'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_settlement_user" model="ir.rule">
+        <field name="name">Delivery Settlement: User sees own company settlements</field>
+        <field name="model_id" ref="model_delivery_settlement"/>
+        <field name="domain_force">[('company_id.operations_manager_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_settlement_admin" model="ir.rule">
+        <field name="name">Delivery Settlement: Admin sees all</field>
+        <field name="model_id" ref="model_delivery_settlement"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_admin'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_daily_perf_user" model="ir.rule">
+        <field name="name">Daily Performance: User sees own company</field>
+        <field name="model_id" ref="model_delivery_daily_performance"/>
+        <field name="domain_force">[('company_id.operations_manager_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_daily_perf_admin" model="ir.rule">
+        <field name="name">Daily Performance: Admin sees all</field>
+        <field name="model_id" ref="model_delivery_daily_performance"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_admin'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_monthly_perf_user" model="ir.rule">
+        <field name="name">Monthly Performance: User sees own company</field>
+        <field name="model_id" ref="model_delivery_monthly_performance"/>
+        <field name="domain_force">[('company_id.operations_manager_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_monthly_perf_admin" model="ir.rule">
+        <field name="name">Monthly Performance: Admin sees all</field>
+        <field name="model_id" ref="model_delivery_monthly_performance"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_admin'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_import_user" model="ir.rule">
+        <field name="name">Import Session: User sees own company</field>
+        <field name="model_id" ref="model_delivery_import_session"/>
+        <field name="domain_force">[('company_id.operations_manager_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_import_admin" model="ir.rule">
+        <field name="name">Import Session: Admin sees all</field>
+        <field name="model_id" ref="model_delivery_import_session"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_admin'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_settlement_item_user" model="ir.rule">
+        <field name="name">Settlement Item: User sees own company</field>
+        <field name="model_id" ref="model_delivery_settlement_item"/>
+        <field name="domain_force">[('settlement_id.company_id.operations_manager_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_settlement_item_admin" model="ir.rule">
+        <field name="name">Settlement Item: Admin sees all</field>
+        <field name="model_id" ref="model_delivery_settlement_item"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_admin'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_rider_penalty_user" model="ir.rule">
+        <field name="name">Rider Penalty: User sees own company</field>
+        <field name="model_id" ref="model_delivery_rider_penalty"/>
+        <field name="domain_force">[('rider_id.primary_company_id.operations_manager_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_rider_penalty_admin" model="ir.rule">
+        <field name="name">Rider Penalty: Admin sees all</field>
+        <field name="model_id" ref="model_delivery_rider_penalty"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_admin'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_wallet_tx_user" model="ir.rule">
+        <field name="name">Wallet Transaction: User sees own company</field>
+        <field name="model_id" ref="model_delivery_wallet_transaction"/>
+        <field name="domain_force">[('rider_id.primary_company_id.operations_manager_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_wallet_tx_admin" model="ir.rule">
+        <field name="name">Wallet Transaction: Admin sees all</field>
+        <field name="model_id" ref="model_delivery_wallet_transaction"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_admin'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_pricing_user" model="ir.rule">
+        <field name="name">Pricing Rule: User sees own company</field>
+        <field name="model_id" ref="model_delivery_pricing_rule"/>
+        <field name="domain_force">[('company_id.operations_manager_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_pricing_admin" model="ir.rule">
+        <field name="name">Pricing Rule: Admin sees all</field>
+        <field name="model_id" ref="model_delivery_pricing_rule"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_admin'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_rider_deduction_user" model="ir.rule">
+        <field name="name">Rider Deduction: User sees own company</field>
+        <field name="model_id" ref="model_delivery_rider_deduction"/>
+        <field name="domain_force">[('rider_id.primary_company_id.operations_manager_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_delivery_rider_deduction_admin" model="ir.rule">
+        <field name="name">Rider Deduction: Admin sees all</field>
+        <field name="model_id" ref="model_delivery_rider_deduction"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery_admin'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+</odoo>

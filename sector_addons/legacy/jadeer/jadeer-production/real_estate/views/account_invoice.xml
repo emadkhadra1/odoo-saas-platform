@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="account_invoice_groupby_inherit_sales" model="ir.ui.view">
+            <field name="name">account.invoice</field>
+            <field name="model">account.move</field>
+            <field name="priority">40</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="date_temp" invisible="1"/>
+                    <field name="unit_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_form_inherit" model="ir.ui.view">
+            <field name="name">view.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='product_id']" position="attributes">
+                    <attribute name="domain">[]</attribute>
+                </xpath>
+                <xpath expr="//field[@name='ref']" position="after">
+                    <field name="utility_invoice"/>
+                    <field name="pay_type"/>
+                    <field name="analytic_account_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='date']" position="replace">
+                    <field name="date" string="Accounting Date"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree//field[@name='product_id']" position="after">
+                    <field name="utility_id" attrs="{'column_invisible':[('parent.utility_invoice','=',False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree//field[@name='account_id']" position="after">
+                    <field name="utility_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree//field[@name='date_maturity']" position="replace">
+                    <field name="date_maturity" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_move_tree" model="ir.ui.view">
+            <field name="name">account.invoice</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="invoice_date_due"/>
+
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

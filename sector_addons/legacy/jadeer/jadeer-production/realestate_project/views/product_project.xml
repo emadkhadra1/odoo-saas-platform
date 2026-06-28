@@ -1,0 +1,136 @@
+<odoo>
+    <data>
+        <record id="account_analytic_account_view_form_inherit_project" model="ir.ui.view">
+            <field name="name">account.analytic.account.form.inherit</field>
+            <field name="model">account.analytic.account</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+            <field name="arch" type="xml">
+<!--                <xpath expr="//sheet" position="before">-->
+<!--                    <header>-->
+
+<!--                    </header>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//label[@for='name']" position="attributes">-->
+<!--                    <attribute name="string">Name</attribute>-->
+<!--                </xpath>-->
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="property_account_receivable_id" options="{'no_create':True}" required="1"/>
+<!--                    <field name="penalty_percentage" attrs="{'invisible':[('is_unit_project','=',False)]}"/>-->
+                </xpath>
+
+<!--                <xpath expr="//field[@name='group_id']" position="after">-->
+<!--                    <field string="Is a Unit Project" name="is_unit_project"/>-->
+<!--                    <field name="is_project"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='code']" position="attributes">-->
+<!--                    <attribute name="attrs">{'required':[('is_unit_project','=',True)]}</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//notebook" position="inside">-->
+<!--                    <page string="Accounting" name="accounting"-->
+<!--                          attrs="{'invisible':[('is_unit_project','=',False)]}">-->
+<!--                        <group>-->
+<!--                            <group string="Journal details of receive Unit">-->
+<!--                                <field name="journal_id" domain="[('company_id','=',company_id)]"-->
+<!--                                       attrs="{'required':[('is_unit_project','=',True)]}"/>-->
+<!--                                <field name="credit_account_id" domain="[('company_id','=',company_id)]"-->
+<!--                                       attrs="{'required':[('is_unit_project','=',True)]}"/>-->
+<!--                            </group>-->
+<!--                            <group string="Cost Journal details">-->
+<!--                                <field name="cost_journal_id" domain="[('company_id','=',company_id)]"-->
+<!--                                       attrs="{'required':[('is_unit_project','=',True)]}"/>-->
+<!--                                <field name="cost_credit_account_id" domain="[('company_id','=',company_id)]"-->
+<!--                                       attrs="{'required':[('is_unit_project','=',True)]}"/>-->
+<!--                                <field name="cost_debit_account_id" domain="[('company_id','=',company_id)]"-->
+<!--                                       attrs="{'required':[('is_unit_project','=',True)]}"/>-->
+<!--                                <field name="property_stock_valuation_account_id" domain="[('company_id','=',company_id)]"-->
+<!--                                       attrs="{'required':[('is_unit_project','=',True)]}"/>-->
+
+<!--                            </group>-->
+
+<!--                        </group>-->
+<!--                    </page>-->
+<!--                </xpath>-->
+
+            </field>
+        </record>
+
+        <record id="view_account_analytic_account_search_project" model="ir.ui.view">
+            <field name="name">account.analytic.account.search</field>
+            <field name="model">account.analytic.account</field>
+            <field name="arch" type="xml">
+                <search string="Analytic Account">
+                    <field name="name" filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]"
+                           string="Analytic Account"/>
+                    <field name="partner_id"/>
+<!--                    <field name="is_unit_project"/>-->
+<!--                    <filter string="Unit Project" domain="[('is_unit_project', '=', True)]" name="project"/>-->
+                    <filter string="Archived" domain="[('active', '=', False)]" name="inactive"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Associated Partner" name="associatedpartner" domain="[]"
+                                context="{'group_by':'partner_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+<!--        <record id="action_account_analytic_account_form_nasr" model="ir.actions.act_window">-->
+<!--            <field name="name">Projects</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="res_model">account.analytic.account</field>-->
+<!--            <field name="search_view_id" ref="view_account_analytic_account_search_project"/>-->
+<!--            <field name="context">{-->
+<!--                'search_default_project':1,-->
+<!--                'default_is_project':1,-->
+<!--                'default_is_unit_project':1,-->
+<!--                }-->
+<!--            </field>-->
+<!--            <field name="domain">[-->
+<!--                ('is_project','=',True),-->
+<!--                ('is_unit_project','=',True),-->
+<!--                ]-->
+<!--            </field>-->
+<!--            <field name="view_mode">tree,form,search</field>-->
+<!--        </record>-->
+<!--        <record model="ir.actions.act_window.view" id="action_account_analytic_account_form_nasr_view_tree">-->
+<!--            <field name="view_mode">tree</field>-->
+<!--            <field name="sequence">1</field>-->
+<!--            <field name="view_id" ref="analytic.view_account_analytic_account_list"/>-->
+<!--            <field name="act_window_id" ref="action_account_analytic_account_form_nasr"/>-->
+<!--        </record>-->
+
+<!--        <record model="ir.actions.act_window.view" id="action_account_analytic_account_form_nasr_view_form">-->
+<!--            <field name="view_mode">form</field>-->
+<!--            <field name="sequence">2</field>-->
+<!--            <field name="view_id" ref="realestate_project.account_analytic_account_view_form_inherit_project"/>-->
+<!--            <field name="act_window_id" ref="action_account_analytic_account_form_nasr"/>-->
+<!--        </record>-->
+
+
+        <menuitem id="real_estate_root_menu"
+                  name="Real Estate"
+                  web_icon="realestate_project,static/description/real_estate.png"
+                  groups="real_estate_security.group_user,real_estate_security.group_manager"
+                  sequence="6"/>
+
+        <menuitem id="real_estate_configuration_menu"
+                  name="Configuration"
+                  parent="real_estate_root_menu"
+                  groups="real_estate_security.group_manager"
+
+                  sequence="100"/>
+
+<!--        <menuitem id="dashboard_menu"-->
+<!--                  name="Projects"-->
+<!--                  parent="real_estate_root_menu"-->
+<!--                  action="action_account_analytic_account_form_nasr"-->
+<!--                  sequence="1"/>-->
+
+<!--        <menuitem id="projects_menu"-->
+<!--                  name="Projects"-->
+<!--                  parent="dashboard_menu"-->
+<!--                  action="action_account_analytic_account_form_nasr"-->
+<!--                  sequence="1"/>-->
+
+    </data>
+</odoo>

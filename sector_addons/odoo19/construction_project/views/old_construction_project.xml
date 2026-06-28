@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--<record id="seq_ostensible_marble" model="ir.sequence.type">-->
+        <!--<field name="name">Serial OM</field>-->
+        <!--<field name="code">ostensible.marble</field>-->
+        <!--</record>-->
+        <!--<record id="seq_ostensible_marble_sequence" model="ir.sequence">-->
+        <!--<field name="name">Serial OM</field>-->
+        <!--<field name="code">ostensible.marble</field>-->
+        <!--&lt;!&ndash;%(year)s%(month)s/&ndash;&gt;-->
+        <!--<field name="prefix">OM/%(year)s%(month)s/</field>-->
+        <!--<field name="padding">4</field>-->
+        <!--</record>-->
+    </data>
+    <data>
+        <!--construction.project-->
+        <record id="view_construction_project_form" model="ir.ui.view">
+            <field name="name">construction.project.form</field>
+            <field name="model">construction.project</field>
+            <field name="arch" type="xml">
+                <form string="Construction Project">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="total_cost"/>
+                                <field name="project_description"/>
+                            </group>
+                        </group>
+                        <group string="Units">
+                        </group>
+                        <field name="project_unit_ids"><list editable="bottom">
+                                <field name="name"/>
+                                <field invisible="1" name="project_id"/>
+                                <field name="unit_location"/>
+                                <field name="unit_description"/>
+                                <field name="total_unit_cost"/>
+                            </list></field>
+                        <group string="Items">
+                        </group>
+                        <field name="project_item_ids"><list editable="bottom">
+                                <field domain="[('project_id','=',parent.id)]" name="unit_id"/>
+                                <field name="product_id"/>
+                                <field name="product_uom"/>
+                                <field name="total_item_cost"/>
+                                <field name="item_qty"/>
+                                <field name="item_description"/>
+                                <field name="state"/>
+                            </list></field>
+                        <group string="Components">
+                        </group>
+                        <field name="project_component_ids"><list editable="bottom">
+                                <field domain="[('project_id','=',parent.id)]" name="item_id"/>
+                                <field name="product_id"/>
+                                <field name="product_uom"/>
+                                <field name="component_qty"/>
+                                <field name="component_cost" readonly="1"/>
+                                <field name="component_description"/>
+                                <field name="state"/>
+                            </list></field>
+                    </sheet>
+                </form></field>
+        </record>
+        <record id="view_construction_project_tree" model="ir.ui.view">
+            <field name="name">construction.project.tree</field>
+            <field name="model">construction.project</field>
+            <field name="arch" type="xml">
+                <list string="Construction Project">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="project_description"/>
+                    <field name="total_cost"/>
+                    <field name="project_unit_ids"/>
+                </list></field>
+        </record>
+        <record id="view_construction_project_action" model="ir.actions.act_window">
+            <field name="name">Construction Project</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.project</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p></field>
+        </record>
+        <!-- -->
+        <!--project.unit-->
+        <record id="view_project_unit_form" model="ir.ui.view">
+            <field name="name">project.unit.form</field>
+            <field name="model">project.unit</field>
+            <field name="arch" type="xml">
+                <form string="Project Unit">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="project_id"/>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="unit_location"/>
+                                <field name="unit_description"/>
+                                <field name="total_unit_cost"/>
+                            </group>
+                        </group>
+                        <field name="project_item_ids"/>
+                    </sheet>
+                </form></field>
+        </record>
+        <record id="view_project_unit_tree" model="ir.ui.view">
+            <field name="name">project.unit.tree</field>
+            <field name="model">project.unit</field>
+            <field name="arch" type="xml">
+                <list string="Project Unit">
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="unit_location"/>
+                    <field name="unit_description"/>
+                    <field name="total_unit_cost"/>
+                    <field name="project_item_ids"/>
+                </list></field>
+        </record>
+        <record id="view_project_unit_action" model="ir.actions.act_window">
+            <field name="name">Project Unit</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.unit</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p></field>
+        </record>
+        <!--project.item-->
+        <record id="view_project_item_form" model="ir.ui.view">
+            <field name="name">project.item.form</field>
+            <field name="model">project.item</field>
+            <field name="arch" type="xml">
+                <form string="Project Item">
+                    <header>
+                        <button class="oe_highlight" invisible="state not in ['new']" name="cp_item_confirm" string="Confirm" type="object"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="project_id"/>
+                                <field name="unit_id"/>
+                                <field name="product_id"/>
+                                <field name="product_uom"/>
+                                <field name="item_qty"/>
+                                <field name="item_cost"/>
+                                <field name="item_description"/>
+                            </group>
+                            <group>
+                                <field name="company_id"/>
+                                <field name="warehouse_id"/>
+                                <field name="picking_type_id"/>
+                                <field name="location_id"/>
+                                <field name="location_dest_id"/>
+                                <field name="total_item_cost"/>
+                                <field name="group_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <field name="project_component_ids"><list editable="bottom">
+                                <field name="product_id"/>
+                                <field name="product_uom"/>
+                                <field name="component_qty"/>
+                                <field name="component_cost" readonly="1"/>
+                                <field name="component_description"/>
+                                <!--                                <field name="procurement_id" invisible="1"/>-->
+                                <field invisible="1" name="picking_id"/>
+                                <field invisible="1" name="picking_state"/>
+                            </list></field>
+                    </sheet>
+                </form></field>
+        </record>
+        <record id="view_project_item_tree" model="ir.ui.view">
+            <field name="name">project.item.tree</field>
+            <field name="model">project.item</field>
+            <field name="arch" type="xml">
+                <list string="Project Item">
+                    <field name="project_id"/>
+                    <field name="unit_id"/>
+                    <field name="name"/>
+                    <field name="product_id"/>
+                    <field name="product_uom"/>
+                    <field name="total_item_cost"/>
+                    <field name="item_qty"/>
+                    <field name="item_description"/>
+                    <field name="state"/>
+                    <field name="project_component_ids"/>
+                </list></field>
+        </record>
+        <record id="view_project_item_action" model="ir.actions.act_window">
+            <field name="name">Project Item</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.item</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p></field>
+        </record>
+        <!--project.component-->
+        <record id="view_project_component_form" model="ir.ui.view">
+            <field name="name">project.component.form</field>
+            <field name="model">project.component</field>
+            <field name="arch" type="xml">
+                <form string="Project Component">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="project_id"/>
+                                <field name="unit_id"/>
+                                <field name="item_id" readonly="state != 'new'"/>
+                                <field name="product_id" readonly="state != 'new'"/>
+                                <field name="product_uom"/>
+                                <field name="component_qty" readonly="state != 'new'"/>
+                            </group>
+                            <group>
+                                <!--invisible="1" readonly="1" -->
+                                <field name="name"/>
+                                <field name="component_cost" readonly="1"/>
+                                <field name="component_description" readonly="state != 'new'"/>
+                                <!--                                <field name="procurement_id" readonly="1"/>-->
+                                <field name="picking_id" readonly="1"/>
+                                <field name="picking_state" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form></field>
+        </record>
+        <record id="view_project_component_tree" model="ir.ui.view">
+            <field name="name">project.component.tree</field>
+            <field name="model">project.component</field>
+            <field name="arch" type="xml">
+                <list string="Project Component">
+                    <field name="project_id"/>
+                    <field name="unit_id"/>
+                    <field name="name"/>
+                    <field name="item_id"/>
+                    <field name="product_id"/>
+                    <field name="product_uom"/>
+                    <field name="component_qty"/>
+                    <field name="component_cost" readonly="1"/>
+                    <field name="component_description"/>
+                    <field name="state"/>
+                </list></field>
+        </record>
+        <record id="view_project_component_action" model="ir.actions.act_window">
+            <field name="name">Project Component</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.component</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p></field>
+        </record>
+        <!--menuitems-->
+        <!--web_icon="account,static/description/icon.png"-->
+        <menuitem id="cp_root" name="Construction Project" sequence="1"/>
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="menu_cp_categ" name="Construction Project" parent="cp_root" sequence="1"/>
+        <menuitem action="view_construction_project_action" id="menu_construction_project" name="Construction Project" parent="menu_cp_categ" sequence="1"/>
+        <menuitem action="view_project_unit_action" id="menu_project_unit" name="Construction Unit" parent="menu_cp_categ" sequence="2"/>
+        <menuitem action="view_project_item_action" id="menu_project_item" name="Construction Item" parent="menu_cp_categ" sequence="3"/>
+        <menuitem action="view_project_component_action" id="menu_project_component" name="Construction Component" parent="menu_cp_categ" sequence="4"/>
+    </data>
+</odoo>

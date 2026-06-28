@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="sequence_hold_request" model="ir.sequence">
+            <field name="name">Hold Requests</field>
+            <field name="code">product.request</field>
+            <field name="prefix">HR/</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="product_category_all" model="product.category">
+            <field name="name">All</field>
+        </record>
+
+        <record id="product_category_1" model="product.category">
+            <field name="parent_id" ref="product_category_all"/>
+            <field name="name">Service</field>
+        </record>
+
+        <record id="product_category_5" model="product.category">
+            <field name="parent_id" ref="product_category_1"/>
+            <field name="name">Physical</field>
+        </record>
+
+        <record id="product_uom_categ_unit" model="uom.category">
+            <field name="name">Unit</field>
+        </record>
+
+        <record id="product_uom_unit" model="uom.uom">
+            <field name="category_id" ref="product_uom_categ_unit"/>
+            <field name="name">Unit(s)</field>
+            <field name="factor" eval="1.0"/>
+            <field name="rounding" eval="0.001"/>
+        </record>
+
+        <record id="product_product_19_bom" model="product.product">
+            <field name="name">Interest</field>
+            <field name="categ_id" ref="real_estate.product_category_5"/>
+            <field name="standard_price">0</field>
+            <field name="list_price">0</field>
+            <field name="is_interest">1</field>
+            <field name="type">service</field>
+            <field name="uom_id" ref="real_estate.product_uom_unit"/>
+            <field name="uom_po_id" ref="real_estate.product_uom_unit"/>
+            <field name="description">Default Product</field>
+            <field name="default_code">Interest-123</field>
+        </record>
+
+<!--        <record id="account_payment_method_manual_in_CUstom" model="account.payment.method">-->
+<!--            <field name="name">Manual</field>-->
+<!--            <field name="code">manual</field>-->
+<!--            <field name="payment_type">inbound</field>-->
+<!--        </record>-->
+
+    </data>
+
+</odoo>

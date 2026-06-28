@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+        <record id="attendance_deduction_rules_view_form" model="ir.ui.view">
+            <field name="name">attendance.deduction.rules.form</field>
+            <field name="model">attendance.deduction.rules</field>
+            <field name="arch" type="xml">
+                <form string="Deduction Rules">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name='name' placeholder='Deduction Rule Name'/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <!--<field name="code"/>-->
+                                <field name="duration_type"/>
+                                <field name="remaining"
+                                       attrs="{'invisible': [('duration_type','in',['absent','no_check'])]}"/>
+                                <label for='from_time' string="Duration"
+                                       attrs="{'invisible': ['|',('remaining','=',True),('duration_type','in',['absent','no_check'])]}"/>
+                                <div class="o_row"
+                                     attrs="{'invisible': ['|',('remaining','=',True),('duration_type','in',['absent','no_check'])]}">
+                                    <span class="oe_form_field"> from </span>
+                                    <field name="from_time" widget="float_time"/>
+                                    <span class="oe_form_field"> to </span>
+                                    <field name="to_time" widget="float_time"/>
+                                </div>
+                                <field name="penalty_base" attrs="{'invisible':[('remaining','=',True)]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Repetition Rules">
+                                <field name="line_ids" attrs="{'invisible':[('remaining','=',True)]}">
+                                    <tree editable="bottom">
+                                        <field name="repetition"/>
+                                        <field name="apply_hours" widget="float_time"
+                                               attrs="{'column_invisible':[('parent.penalty_base','=','day')]}"/>
+                                        <field name="apply_days"
+                                               attrs="{'column_invisible':[('parent.penalty_base','=','hour')]}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="attendance_deduction_rules_view_tree" model="ir.ui.view">
+            <field name="name">attendance.deduction.rules.tree</field>
+            <field name="model">attendance.deduction.rules</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="duration_type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="attendance_deduction_rules_action" model="ir.actions.act_window">
+            <field name="name">Deduction Rules</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">attendance.deduction.rules</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="attendance_structure_view_form" model="ir.ui.view">
+            <field name="name">attendance.structure.form</field>
+            <field name="model">attendance.structure</field>
+            <field name="arch" type="xml">
+                <form string="Attendance Structure">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name='name' placeholder='Structure Name'/>
+                            </h1>
+                            <group>
+                                <group>
+                                    <field name='flixable_hours' widget="float_time" placeholder='Flixable Hours'/>
+                                </group>
+                            </group>
+                        </div>
+                        <notebook>
+                            <page string="Deduction Rules">
+                                <field name='structure_ids' nolabel="1"/>
+                            </page>
+                            <page string="Permissions">
+                                <group>
+                                    <group>
+                                        <field name="permision_type"/>
+                                        <field name='permission' widget="float_time"/>
+                                    </group>
+                                </group>
+
+                            </page>
+                            <page string="Over Time">
+                                <group>
+                                    <group>
+                                        <field name="use_day_night_overtime"/>
+                                        <field name="work_day_rate"/>
+                                        <field name="work_night_rate" attrs="{'invisible':[('use_day_night_overtime','=',False)]}"/>
+                                        <field name='public_leave_rate'/>
+                                        <field name='weekly_leave_rate'/>
+                                        <field name='overtime_start_limit'/>
+                                        <field name='overtime_start_night_limit' attrs="{'invisible':[('use_day_night_overtime','=',False)]}"/>
+                                    </group>
+                                </group>
+
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="attendance_structure_view_tree" model="ir.ui.view">
+            <field name="name">attendance.structure.tree</field>
+            <field name="model">attendance.structure</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="attendance_structure_action" model="ir.actions.act_window">
+            <field name="name">Attendance Structure</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">attendance.structure</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="attendance_rules_menu" parent="hr_attendance.menu_hr_attendance_root" sequence="51"
+                  name="Attendance Rules"/>
+
+        <menuitem id="attendance_deduction_menu"
+                  name="Deduction Rules"
+                  parent="attendance_rules_menu"
+                  action="attendance_deduction_rules_action"/>
+
+        <menuitem id="attendance_structure_menu"
+                  name="Attendance Structure"
+                  parent="attendance_rules_menu"
+                  action="attendance_structure_action"/>
+
+
+    </data>
+</odoo>

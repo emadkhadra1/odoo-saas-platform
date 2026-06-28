@@ -1,0 +1,6 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_attendance_deduction_rules,access.attendance.deduction.rules,model_attendance_deduction_rules,base.group_user,1,1,1,1
+access_attendance_deduction_rules_line,access.attendance.deduction.rules.line,model_attendance_deduction_rules_line,base.group_user,1,1,1,1
+access_attendance_structure,access.attendance.structure,model_attendance_structure,base.group_user,1,1,1,1
+
+

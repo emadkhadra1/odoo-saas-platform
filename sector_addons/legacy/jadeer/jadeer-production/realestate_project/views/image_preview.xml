@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="real_image_preview_form">
+            <field name="name">Project Images</field>
+            <field name="model">project.image.preview</field>
+            <field name="arch" type="xml">
+                <form string="Project Image">
+                    <group>
+                        <div class="text-right">
+                            <button name="action_image_preview" aria-label="Next"
+                                    class="fa fa-chevron-right btn btn-secondary o_pager_next"
+                                    accesskey="n" tabindex="-1" title="Next" type="object">
+                            </button>
+                        </div>
+                    </group>
+                    <group>
+                        <div class="text-center">
+                            <field name="image_preview" widget="image"/>
+                        </div>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="real_image_preview_tree">
+            <field name="name">Project Images</field>
+            <field name="model">project.image.preview</field>
+            <field name="arch" type="xml">
+                <tree string="Project Image">
+                    <field name="image_preview"
+                           nolabel="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="real_image_preview_tree_view_all" model="ir.actions.act_window">
+            <field name="name">Project Images</field>
+            <field name="res_model">project.image.preview</field>
+            <field name="view_mode">tree,form</field>
+            <field eval="False" name="view_id"/>
+
+        </record>
+
+
+        <record id="real_image_preview_tree_view" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="real_image_preview_tree"/>
+            <field name="act_window_id" ref="real_image_preview_tree_view_all"/>
+        </record>
+
+
+        <record id="real_image_preview_form_view" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="real_image_preview_form"/>
+            <field name="act_window_id" ref="real_image_preview_tree_view_all"/>
+        </record>
+
+<!--        <menuitem name="Image Preview"-->
+<!--                  groups="base.group_no_one"-->
+<!--                  id="menu_real_image_preview_tree_view_all"-->
+<!--                  parent="sale.menu_sale_config"-->
+<!--                  action="real_image_preview_tree_view_all"/>-->
+
+    </data>
+</odoo>

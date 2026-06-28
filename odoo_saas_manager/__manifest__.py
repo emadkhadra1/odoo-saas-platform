@@ -1,7 +1,7 @@
 {
     "name": "Odoo SaaS Manager",
     "summary": "Manage SaaS tenants, plans, subscriptions, and payments for multi-database Odoo hosting.",
-    "version": "19.0.1.3.2",
+    "version": "19.0.1.4.0",
     "category": "Administration",
     "author": "Emad Khadra",
     "license": "LGPL-3",
@@ -11,6 +11,7 @@
         "security/ir.model.access.csv",
         "data/saas_sequence.xml",
         "data/saas_cron.xml",
+        "data/saas_plan_data.xml",
         "views/saas_dashboard_views.xml",
         "views/saas_plan_views.xml",
         "views/saas_tenant_views.xml",

@@ -1,0 +1,24 @@
+<odoo>
+    <record id="return_cheque_date_form_view" model="ir.ui.view">
+        <field name="name">return.cheque.date.form</field>
+        <field name="model">return.cheque.date</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="payment_id" invisible="1"/>
+                            <field name="date"/>
+<!--                            <field name="check_ty"/>-->
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirm" name="action_check_returned" class="btn-primary"
+                            type="object"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

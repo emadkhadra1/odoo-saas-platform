@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="group_contract_officer" model="res.groups">
+            <field name="name">Officer</field>
+            <field name="category_id" ref="base.module_category_human_resources_contracts"/>
+        </record>
+
+        <record id="hr_contract.group_hr_contract_manager" model="res.groups">
+            <field name="name">Administrator</field>
+            <field name="category_id" ref="base.module_category_human_resources_contracts"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user')), (4, ref('hr.group_hr_user')),(4, ref('contract_work_hour.group_contract_officer'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,41 @@
+<data>
+    <record id="inherit_hr_contract_form" model="ir.ui.view">
+        <field name="name">inherit.hr.contract.form</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='information']" position="attributes">
+                <attribute name="groups">hr_contract.group_hr_contract_manager</attribute>
+            </xpath>
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="start_training"/>
+                <field name="end_training"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+
+                <page name="day_and_hour_value" string="Day And Hour Value" groups="hr_contract.group_hr_contract_manager">
+                    <group>
+                        <group>
+                            <field name="hour_value"/>
+                            <field name="workday_hours"/>
+                        </group>
+                        <group>
+                            <field name="day_value"/>
+                            <field name="no_month_days"/>
+                        </group>
+                    </group>
+
+                </page>
+
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_contract_reports.menu_report_contract_employee_all" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4, ref('contract_work_hour.group_contract_officer'))]"/>
+    </record>
+    <record id="hr_work_entry_contract_enterprise.hr_menu_contract" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4, ref('contract_work_hour.group_contract_officer'))]"/>
+    </record>
+
+</data>

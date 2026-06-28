@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_assign_constructor_wizard_form" model="ir.ui.view">
+            <field name="name">view.assign.constructors.wizard.form</field>
+            <field name="model">b2b.entrepreneurs.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Assign Constructors Wizard">
+                  <sheet>
+                    <group name="main">
+                      <group>
+                        <field name="purchase_order_id"/>
+<!--                          <field name="business_statement_id" widget="selection"-->
+<!--                                 attrs="{'invisible': [('consructor_id', '=', False)]}"/>-->
+<!--                          <field name="sub_business_statement_id" widget="selection" attrs="{'invisible': [('consructor_id', '=', False)]}"/>-->
+<!--                          <field name="sub_item_id" widget="selection" attrs="{'invisible': [('consructor_id', '=', False)]}"/>-->
+<!--                          <field name="main_item_id" widget="selection" attrs="{'invisible': [('consructor_id', '=', False)]}"/>-->
+                      </group>
+                      <group>
+                        <field name="consructor_id"/>
+<!--                      <field name="main_item_ids" widget="many2many_tags"/>-->
+<!--                          <field name="sub_item_ids" widget="many2many_tags"/>-->
+<!--                          <field name="sub_business_statement_ids" widget="many2many_tags"/>-->
+<!--                          <field name="business_items_ids" widget="many2many_tags"/>-->
+<!--                          <field name="percent" invisible="1"/>-->
+                      </group>
+                    </group>
+                    <notebook>
+                      <page string="Assignment Items">
+                        <field name="item_ids">
+                          <list editable="bottom">
+                            <field name="purchase_order_id" invisible="1"/>
+                            <field name="consructor_id" invisible="1"/>
+                            <field name="indexation_id" invisible="0"/>
+                            <field name="main_item_id" readonly="0"/>
+                              <field name="sub_item_id" readonly="0"/>
+                              <field name="sub_business_statement_id" readonly="0"/>
+                              <field name="business_statement_domain_ids" widget="many2many_tags" invisible="1"/>
+                              <field name="business_statement_id" readonly="0" domain="[('id', 'in', business_statement_domain_ids)]" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                            <field name="uom_id" />
+                            <field name="price"/>
+                            <field name="required_quantity"/>
+                            <field name="old_assigned"/>
+                            <field name="percent"/>
+                            <field name="total"/>
+                          </list>
+                        </field>
+                      </page>
+                    </notebook>
+                  </sheet>
+                    <footer>
+                        <button name="action_assign" type="object" string="Assign" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

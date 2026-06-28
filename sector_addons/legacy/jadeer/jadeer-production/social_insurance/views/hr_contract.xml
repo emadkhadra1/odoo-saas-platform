@@ -1,0 +1,141 @@
+<odoo>
+    <data>
+        <record id="view_contract_insurance_form" model="ir.ui.view">
+            <field name="name">hr.contract.inherit.insurance</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='salary']" position="inside">
+                    <label for="payment_method"/>
+                    <div class="o_row" name="payment_method">
+                        <field name="payment_method" nolabel="1"/>
+                    </div>
+                </xpath>
+                <xpath expr="//group[@name='yearly_advantages']" position="after">
+                    <group>
+                        <label for="basic_salary"/>
+                        <div class="o_row" name="basic_salary">
+                            <field name="basic_salary"/>
+                            <span>/ month</span>
+                        </div>
+                        <label for="medical_insurance_salary"/>
+                        <div class="o_row" name="medical_insurance_salary">
+                            <field name="medical_insurance_salary"/>
+                            <span>/ month</span>
+                        </div>
+                        <label for="car_allowance"/>
+                        <div class="o_row" name="car_allowance">
+                            <field name="car_allowance"/>
+                            <span>/ month</span>
+                        </div>
+                        <label for="mobile_allowance"/>
+                        <div class="o_row" name="mobile_allowance">
+                            <field name="mobile_allowance"/>
+                            <span>/ month</span>
+                        </div>
+                        <label for="transport_allowance"/>
+                        <div class="o_row" name="transport_allowance">
+                            <field name="transport_allowance"/>
+                            <span>/ month</span>
+                        </div>
+                        <label for="bonus_allowance"/>
+                        <div class="o_row" name="bonus_allowance">
+                            <field name="bonus_allowance"/>
+                            <span>/ month</span>
+                        </div>
+                    </group>
+                </xpath>
+
+                <xpath expr="//page[@name='information']" position="after">
+                    <page string="Social Insurance" name="insurance">
+                        <group>
+                            <group>
+                                <field name="is_insured"/>
+
+
+                                <field name="social_insurance_number"
+                                       attrs="{'invisible':[('is_insured', '=', False)]}"/>
+
+                                <field name="statue" attrs="{'invisible':[('is_insured', '=', False)]}"/>
+                            </group>
+                            <group>
+                                <field name="insurance_start_date" attrs="{'invisible':[('is_insured', '=', False)]}"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='information']" position="inside">
+                    <group string="Social Insurance">
+                        <group>
+                            <field name="is_insured"/>
+                            <field name="age_above_60"/>
+                            <label for="basic_insurance_salary"/>
+                            <div class="o_row" name="basic_insurance_salary">
+                                <field name="basic_insurance_salary"/>
+                                <span>/ month</span>
+                            </div>
+                            <label for="company_share_basic"/>
+                            <div class="o_row" name="company_share_basic">
+                                <field name="company_share_basic"/>
+                                <span>/ month</span>
+                            </div>
+                            <label for="employee_share_basic"/>
+                            <div class="o_row" name="employee_share_basic">
+                                <field name="employee_share_basic"/>
+                                <span>/ month</span>
+                            </div>
+                        </group>
+<!--                        <group>-->
+<!--                            <label for="retirement_salary"/>-->
+<!--                            <div class="o_row" name="retirement_salary">-->
+<!--                                <field name="retirement_salary"/>-->
+<!--                            </div>-->
+<!--                            <label for="retirement_percentage_id"/>-->
+<!--                            <div class="o_row" name="retirement_percentage_id">-->
+<!--                                <field name="retirement_percentage_id"/>-->
+<!--                            </div>-->
+<!--                            <label for="employee_share"/>-->
+<!--                            <div class="o_row" name="employee_share">-->
+<!--                                <field name="employee_share"/>-->
+<!--                            </div>-->
+<!--                            <label for="school_percentage"/>-->
+<!--                            <div class="o_row" name="school_percentage">-->
+<!--                                <field name="school_percentage"/>-->
+<!--                            </div>-->
+<!--                            <label for="school_share"/>-->
+<!--                            <div class="o_row" name="school_share">-->
+<!--                                <field name="school_share"/>-->
+<!--                            </div>-->
+<!--                        </group>-->
+                        <group>
+                            <label for="basic_salary"/>
+                            <div class="o_row" name="basic_salary">
+                                <field name="basic_salary"/>
+                                <span>/ month</span>
+                            </div>
+<!--                            <label for="housing_allowance"/>-->
+<!--                            <div class="o_row" name="housing_allowance">-->
+<!--                                <field name="housing_allowance"/>-->
+<!--                                <span>/ month</span>-->
+<!--                            </div>-->
+<!--                            <label for="transfer_allowance"/>-->
+<!--                            <div class="o_row" name="transfer_allowance">-->
+<!--                                <field name="transfer_allowance"/>-->
+<!--                                <span>/ month</span>-->
+<!--                            </div>-->
+<!--                            <label for="other_allowance"/>-->
+<!--                            <div class="o_row" name="other_allowance">-->
+<!--                                <field name="other_allowance"/>-->
+<!--                                <span>/ month</span>-->
+<!--                            </div>-->
+                        </group>
+                    </group>
+                    <label for="social_insurance" invisible="1"/>
+                    <div class="o_row" name="social_insurance" invisible="1">
+                        <field name="social_insurance"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

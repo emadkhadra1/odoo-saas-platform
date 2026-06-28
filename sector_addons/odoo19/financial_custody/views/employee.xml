@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="financial_custody.view_employee_form_inherit" model="ir.ui.view">
+            <field name="name">financial_custody.view.employee.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button class="oe_highlight" invisible="partner_id != False" name="create_employee_partner" string="Create Partner" type="object"/>
+                </xpath>
+                <xpath expr="//field[@name='work_email']" position="after">
+                    <field name="partner_id"/>
+                </xpath></field>
+        </record>
+        <record id="financial_custody.employee_partner_action_server" model="ir.actions.server">
+            <field name="name">Create Partner</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="binding_model_id" ref="hr.model_hr_employee"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.create_employee_partner()</field>
+        </record>
+    </data>
+</odoo>

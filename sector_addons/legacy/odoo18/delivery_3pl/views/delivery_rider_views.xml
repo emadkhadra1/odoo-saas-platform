@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ══════════════════════════════════════════════
+         أنواع المناديب
+    ══════════════════════════════════════════════ -->
+    <record id="view_delivery_rider_type_tree" model="ir.ui.view">
+        <field name="name">delivery.rider.type.tree</field>
+        <field name="model">delivery.rider.type</field>
+        <field name="arch" type="xml">
+            <list string="أنواع المناديب">
+                <field name="name" string="الاسم بالإنجليزية"/>
+                <field name="name_ar" string="الاسم بالعربية"/>
+                <field name="type" string="التصنيف" widget="badge"/>
+                <field name="has_deposit" string="تأمين؟"/>
+                <field name="has_penalties" string="جزاءات؟"/>
+                <field name="has_wallet" string="محفظة؟"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_delivery_rider_type_form" model="ir.ui.view">
+        <field name="name">delivery.rider.type.form</field>
+        <field name="model">delivery.rider.type</field>
+        <field name="arch" type="xml">
+            <form string="نوع المندوب">
+                <sheet>
+                    <group>
+                        <group string="الاسم والتصنيف">
+                            <field name="name" string="الاسم بالإنجليزية"/>
+                            <field name="name_ar" string="الاسم بالعربية"/>
+                            <field name="type" string="التصنيف"/>
+                        </group>
+                        <group string="المزايا">
+                            <field name="has_deposit" string="يملك تأمين؟"/>
+                            <field name="has_penalties" string="تطبق عليه الجزاءات؟"/>
+                            <field name="has_wallet" string="يملك محفظة؟"/>
+                        </group>
+                    </group>
+                    <field name="description" placeholder="وصف نوع المندوب..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_delivery_rider_type" model="ir.actions.act_window">
+        <field name="name">أنواع المناديب</field>
+        <field name="res_model">delivery.rider.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">أضف أول نوع مندوب</p>
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════
+         المناديب — القائمة
+    ══════════════════════════════════════════════ -->
+    <record id="view_delivery_rider_tree" model="ir.ui.view">
+        <field name="name">delivery.rider.tree</field>
+        <field name="model">delivery.rider</field>
+        <field name="arch" type="xml">
+            <list string="المناديب"
+                  decoration-muted="status == 'inactive'"
+                  decoration-danger="status == 'suspended'"
+                  decoration-success="is_valid_da == True">
+                <field name="name" string="الاسم"/>
+                <field name="name_ar" string="الاسم بالعربية" optional="show"/>
+                <field name="phone" string="الهاتف"/>
+                <field name="platform_account_id" string="حساب المنصة" optional="show"/>
+                <field name="rider_type_id" string="نوع المندوب"/>
+                <field name="is_kafala" string="كفالة" widget="boolean_toggle" optional="show"/>
+                <field name="id_recipient_id" string="مستلم الـ ID" optional="show"/>
+                <field name="service_provider_id" string="الشركة المزودة" optional="show"/>
+                <field name="id_receipt_date" string="تاريخ استلام الـ ID" optional="hide"/>
+                <field name="vehicle_type" string="نوع المركبة" widget="badge" optional="show"/>
+                <field name="vehicle_ownership" string="ملكية المركبة" widget="badge" optional="show"
+                       decoration-warning="vehicle_ownership == 'rented_from_company'"
+                       decoration-info="vehicle_ownership == 'company_owned'"
+                       decoration-muted="vehicle_ownership == 'rider_owned'"/>
+                <field name="fleet_vehicle_id" string="المركبة (أصول)" optional="show"/>
+                <field name="vehicle_rental_amount" string="إيجار المركبة" optional="show"/>
+                <field name="primary_company_id" string="الشركة الرئيسية"/>
+                <field name="branch_id" string="الفرع" optional="show"/>
+                <field name="city_id" string="المدينة"/>
+                <field name="status" string="الحالة" widget="badge"
+                       decoration-success="status == 'active'"
+                       decoration-warning="status == 'inactive'"
+                       decoration-danger="status == 'suspended'"/>
+                <field name="is_valid_da" string="صالح؟"/>
+                <field name="advance_paid" string="سلفة؟" widget="boolean" optional="show"/>
+                <field name="performance_level" string="مستوى الأداء" widget="badge" optional="show"/>
+                <field name="valid_days_count" string="أيام صالحة" optional="show"/>
+                <field name="wallet_balance" string="رصيد المحفظة" optional="show"/>
+                <field name="employee_id" string="ملف الموظف" optional="hide"/>
+                <field name="active" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════
+         المناديب — النموذج التفصيلي
+    ══════════════════════════════════════════════ -->
+    <record id="view_delivery_rider_form" model="ir.ui.view">
+        <field name="name">delivery.rider.form</field>
+        <field name="model">delivery.rider</field>
+        <field name="arch" type="xml">
+            <form string="مندوب">
+                <header>
+                    <button name="action_sync_platforms_from_branches"
+                            type="object"
+                            string="🔄 مزامنة المنصات من الفروع"
+                            class="btn-secondary"
+                            help="تحديث قائمة المنصات النشطة بناءً على الفروع المضافة في تبويب الفروع والعقود"/>
+                    <button name="action_archive_rider"
+                            type="object"
+                            string="🗃️ أرشفة المندوب"
+                            class="btn-warning"
+                            invisible="active == False"
+                            confirm="هل تريد أرشفة هذا المندوب؟ سيُخفى من القوائم ويمكن استعادته لاحقاً."/>
+                    <button name="action_unarchive_rider"
+                            type="object"
+                            string="♻️ استعادة المندوب"
+                            class="btn-success"
+                            invisible="active == True"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-warning" role="alert" invisible="active == True">
+                        <strong>⚠️ هذا المندوب مؤرشف.</strong>
+                        اضغط "استعادة المندوب" لإعادة تفعيله.
+                    </div>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_daily_performance" type="object"
+                                class="oe_stat_button" icon="fa-calendar">
+                            <field name="daily_perf_count" widget="statinfo" string="أداء يومي"/>
+                        </button>
+                        <button name="action_view_monthly_performance" type="object"
+                                class="oe_stat_button" icon="fa-bar-chart">
+                            <field name="monthly_perf_count" widget="statinfo" string="أداء شهري"/>
+                        </button>
+                        <button name="action_view_wallet" type="object"
+                                class="oe_stat_button" icon="fa-wallet">
+                            <field name="transaction_count" widget="statinfo" string="المحفظة"/>
+                        </button>
+                        <button name="action_view_penalties" type="object"
+                                class="oe_stat_button" icon="fa-exclamation-triangle">
+                            <field name="penalty_count" widget="statinfo" string="الجزاءات"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="الاسم الكامل"/></h1>
+                    </div>
+                    <group>
+                        <group string="البيانات الشخصية">
+                            <field name="name_ar" string="الاسم بالعربية"/>
+                            <field name="phone" string="رقم الهاتف"/>
+                            <field name="national_id" string="رقم الهوية / الإقامة"/>
+                            <field name="platform_account_id" string="معرف حساب المنصة"/>
+                            <field name="join_date" string="تاريخ الانضمام"/>
+                        </group>
+                        <group string="بيانات العمل">
+                            <field name="rider_type_id" string="نوع المندوب"/>
+                            <field name="primary_company_id" string="الشركة الرئيسية"/>
+                            <field name="branch_id" string="الفرع الرئيسي"/>
+                            <field name="city_id" string="المدينة"/>
+                            <field name="status" string="الحالة"/>
+                            <field name="employee_id" string="ملف الموظف في الرواتب"
+                                   help="ربط بملف الموظف في الموارد البشرية لإنشاء كشوف الرواتب من التسويات."/>
+                            <field name="parent_rider_id" string="المندوب الرئيسي (البيرنت)"
+                                   invisible="rider_type != 'subcontract'"
+                                   domain="[('active', '=', True), ('primary_company_id', '=', primary_company_id)]"/>
+                            <field name="is_kafala" string="كفالة"/>
+                            <field name="id_recipient_id" string="مستلم الـ ID"
+                                   invisible="not is_kafala"
+                                   domain="[('active', '=', True), ('id', '!=', id)]"/>
+                        </group>
+                    </group>
+
+                    <!-- الشركة المزودة والسلفة -->
+                    <group string="🏢 الشركة المزودة والسلفة المقدمة">
+                        <group string="الشركة المزودة للخدمة">
+                            <field name="service_provider_id" string="الشركة المزودة"/>
+                            <field name="id_receipt_date" string="تاريخ استلام الـ ID"
+                                   invisible="not service_provider_id and not is_kafala"/>
+                            <div class="text-muted" style="font-size: 11px;"
+                                 invisible="not service_provider_id">
+                                💡 هذا المندوب يعمل كفرى لانسر تحت هذه الشركة المزودة.
+                                يُخصم المبلغ الشهري للمزود من الفاتورة المحتسبة والباقي يُصرف للمندوب.
+                                إذا استلم الـ ID خلال الشهر يُحتسب الخصم تناسبياً بالأيام.
+                            </div>
+                        </group>
+                        <group string="السلفة المقدمة">
+                            <field name="advance_paid" string="دُفع مبلغ مقدماً؟"/>
+                            <field name="advance_amount" string="مبلغ السلفة (ريال)"
+                                   invisible="advance_paid == False"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="🚗 بيانات المركبة">
+                            <field name="vehicle_type" string="نوع المركبة"/>
+                            <field name="vehicle_ownership" string="ملكية المركبة"/>
+                            <field name="license_plate" string="رقم اللوحة"/>
+                            <field name="vehicle_model" string="موديل المركبة"
+                                   placeholder="مثال: تويوتا يارس"/>
+                            <field name="vehicle_year" string="سنة الصنع"/>
+                            <field name="fleet_vehicle_id" string="سجل المركبة في الأصول"
+                                   invisible="vehicle_ownership == 'rider_owned'"
+                                   help="ربط بسجل المركبة في نظام الأسطول لتتبع الأصول."/>
+                            <field name="vehicle_rental_amount" string="قيمة إيجار المركبة الشهرية"
+                                   invisible="vehicle_ownership != 'rented_from_company'"
+                                   help="يُخصم تلقائياً من صافي التسوية الشهرية."/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="الصلاحية والأداء">
+                            <field name="is_self_delivery" string="توصيل شخصي؟"/>
+                            <field name="is_valid_da" string="مندوب صالح (Valid DA)؟"/>
+                            <field name="validity_reason" string="سبب عدم الصلاحية"/>
+                            <field name="valid_days_count" string="عدد الأيام الصالحة الشهرية"/>
+                            <field name="experience_score" string="نقاط الخبرة"/>
+                            <field name="performance_level" string="مستوى الأداء"/>
+                            <field name="facial_verification_pass" string="التحقق بالوجه؟"/>
+                        </group>
+                        <group string="الفترة المالية">
+                            <field name="work_start_date" string="تاريخ بدء العمل"/>
+                            <field name="work_end_date" string="تاريخ نهاية العمل"/>
+                            <field name="wallet_balance" string="رصيد المحفظة" readonly="1"/>
+                            <field name="deposit_amount" string="مبلغ التأمين"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <!-- الفروع والعقود -->
+                        <page string="الفروع والعقود النشطة" name="multi_branch">
+                            <div class="alert alert-info" role="alert"
+                                 invisible="rider_type == 'subcontract'">
+                                <strong>كيفية العمل على أكثر من عقد:</strong>
+                                المندوب الداخلي يمكنه العمل في عدة فروع بنفس الوقت.
+                                أضف هنا كل الفروع التي يعمل بها المندوب.
+                                سجلات الأداء والتسوية تُنشأ تلقائياً لكل فرع على حدة عند الاستيراد.
+                                الفرع الرئيسي (في بيانات العمل) هو الفرع الذي تُحسب عليه الخصومات والمحفظة.
+                            </div>
+                            <group>
+                                <group string="الفرع الرئيسي">
+                                    <field name="primary_company_id" string="الشركة الرئيسية" readonly="1"/>
+                                    <field name="branch_id" string="الفرع الرئيسي" readonly="1"/>
+                                    <field name="active_branch_count" string="عدد الفروع النشطة"/>
+                                </group>
+                            </group>
+                            <field name="active_branch_ids" nolabel="1" widget="many2many">
+                                <list string="الفروع النشطة" editable="bottom">
+                                    <field name="company_id" string="الشركة"/>
+                                    <field name="name" string="اسم الفرع"/>
+                                    <field name="name_ar" string="الاسم بالعربية"/>
+                                    <field name="city_id" string="المدينة"/>
+                                </list>
+                            </field>
+                            <div class="text-muted mt-2" style="font-size: 11px; color: #666;">
+                                💡 عند استيراد تقرير لأي فرع من هذه الفروع، سيُطابَق المندوب تلقائياً بالهاتف أو رقم اللوحة أو الاسم.
+                            </div>
+                        </page>
+
+                        <!-- المنصات والمناديب الفرعيون -->
+                        <page string="المنصات والمناديب الفرعيون" name="platforms">
+                            <div class="alert alert-warning" role="alert">
+                                <strong>ملاحظة:</strong>
+                                حقل "المنصات النشطة" يُحدَّث تلقائياً من تبويب
+                                <strong>الفروع والعقود النشطة</strong>.
+                                أضف الفروع هناك وستظهر الشركات هنا تلقائياً.
+                            </div>
+                            <group>
+                                <group string="المنصات النشطة (تلقائي من الفروع)">
+                                    <field name="active_company_ids" widget="many2many_tags" readonly="1"
+                                           string="المنصات النشطة"/>
+                                    <field name="active_platform_count" string="عدد المنصات"/>
+                                    <field name="all_platforms_covered" string="يغطي جميع المنصات؟"/>
+                                    <field name="available_platform_names" string="المنصات المتاحة" readonly="1"/>
+                                    <field name="missing_platform_names" string="المنصات الناقصة" readonly="1"/>
+                                </group>
+                            </group>
+                            <group string="المناديب الفرعيون (تحت هذا المندوب)"
+                                   invisible="rider_type != 'internal'">
+                                <field name="sub_rider_ids" nolabel="1">
+                                    <list string="المناديب الفرعيون">
+                                        <field name="name" string="الاسم"/>
+                                        <field name="name_ar" string="الاسم بالعربية"/>
+                                        <field name="phone" string="الهاتف"/>
+                                        <field name="platform_account_id" string="حساب المنصة"/>
+                                        <field name="primary_company_id" string="الشركة"/>
+                                        <field name="status" string="الحالة" widget="badge"
+                                               decoration-success="status == 'active'"
+                                               decoration-danger="status == 'suspended'"/>
+                                    </list>
+                                </field>
+                            </group>
+                        </page>
+
+                        <!-- بنود التسويات -->
+                        <page string="بنود التسويات" name="settlements">
+                            <field name="settlement_item_ids">
+                                <list string="بنود التسويات">
+                                    <field name="settlement_id" string="التسوية"/>
+                                    <field name="orders" string="الطلبات"/>
+                                    <field name="order_base_amount" string="أساس الطلبات"/>
+                                    <field name="capacity_incentive" string="حافز السعة"/>
+                                    <field name="experience_incentive" string="حافز الخبرة"/>
+                                    <field name="gross_amount" string="الإجمالي"/>
+                                    <field name="penalties" string="الجزاءات"/>
+                                    <field name="bonuses" string="المكافآت"/>
+                                    <field name="vehicle_rental_deduction" string="إيجار المركبة" optional="show"/>
+                                    <field name="subcontract_mgmt_fee" string="رسوم إدارة" optional="show"/>
+                                    <field name="net_amount" string="الصافي"/>
+                                    <field name="is_valid_da" string="صالح؟"/>
+                                    <field name="validity_reason" string="الحالة التفصيلية" optional="show"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- الخصومات -->
+                        <page string="الخصومات الشهرية" name="deductions">
+                            <field name="deduction_ids">
+                                <list string="الخصومات الشهرية">
+                                    <field name="period_display" string="الفترة"/>
+                                    <field name="fuel_deduction" string="وقود"/>
+                                    <field name="car_rent" string="إيجار سيارة"/>
+                                    <field name="housing" string="سكن"/>
+                                    <field name="car_installment" string="قسط سيارة"/>
+                                    <field name="advance_salary" string="سلفة"/>
+                                    <field name="food_allowance" string="وجبات"/>
+                                    <field name="total_deduction" string="الإجمالي"/>
+                                    <field name="collection_amount" string="التحصيل"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- الجزاءات -->
+                        <page string="الجزاءات" name="penalties">
+                            <field name="penalty_ids">
+                                <list string="الجزاءات">
+                                    <field name="date" string="التاريخ"/>
+                                    <field name="penalty_type_id" string="نوع الجزاء"/>
+                                    <field name="amount" string="المبلغ"/>
+                                    <field name="reason" string="السبب"/>
+                                    <field name="status" string="الحالة" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- معاملات المحفظة -->
+                        <page string="معاملات المحفظة" name="wallet">
+                            <field name="wallet_transaction_ids">
+                                <list string="معاملات المحفظة">
+                                    <field name="create_date" string="التاريخ"/>
+                                    <field name="type" string="نوع المعاملة"/>
+                                    <field name="amount" string="المبلغ"/>
+                                    <field name="balance_before" string="الرصيد قبل"/>
+                                    <field name="balance_after" string="الرصيد بعد"/>
+                                    <field name="reference" string="المرجع"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- ملاحظات -->
+                        <page string="ملاحظات" name="notes">
+                            <field name="notes" placeholder="ملاحظات عامة عن المندوب..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════
+         بحث المناديب
+    ══════════════════════════════════════════════ -->
+    <record id="view_delivery_rider_search" model="ir.ui.view">
+        <field name="name">delivery.rider.search</field>
+        <field name="model">delivery.rider</field>
+        <field name="arch" type="xml">
+            <search string="بحث في المناديب">
+                <field name="name" string="الاسم"/>
+                <field name="name_ar" string="الاسم بالعربية"/>
+                <field name="phone" string="الهاتف"/>
+                <field name="national_id" string="رقم الهوية"/>
+                <field name="platform_account_id" string="حساب المنصة"/>
+                <field name="fleet_vehicle_id" string="المركبة"/>
+                <field name="service_provider_id" string="الشركة المزودة"/>
+                <filter name="active_riders" string="نشطون" domain="[('status', '=', 'active')]"/>
+                <filter name="suspended_riders" string="موقوفون" domain="[('status', '=', 'suspended')]"/>
+                <filter name="archived_riders" string="مؤرشفون" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter name="valid_da" string="مناديب صالحون" domain="[('is_valid_da', '=', True)]"/>
+                <filter name="invalid_da" string="مناديب غير صالحين" domain="[('is_valid_da', '=', False)]"/>
+                <separator/>
+                <filter name="internal" string="داخليون" domain="[('rider_type', '=', 'internal')]"/>
+                <filter name="subcontract" string="مقاولو الباطن" domain="[('rider_type', '=', 'subcontract')]"/>
+                <separator/>
+                <filter name="bike" string="دراجة" domain="[('vehicle_type', '=', 'motorcycle')]"/>
+                <filter name="car" string="سيارة" domain="[('vehicle_type', '=', 'car')]"/>
+                <separator/>
+                <filter name="rented_vehicle" string="مركبة مستأجرة"
+                        domain="[('vehicle_ownership', '=', 'rented_from_company')]"/>
+                <filter name="has_fleet" string="مرتبط بالأسطول"
+                        domain="[('fleet_vehicle_id', '!=', False)]"/>
+                <filter name="payslip_enabled" string="جاهز لكشف الرواتب"
+                        domain="[('employee_id', '!=', False)]"/>
+                <filter name="has_service_provider" string="فرى لانسر (لديه شركة مزودة)"
+                        domain="[('service_provider_id', '!=', False)]"/>
+                <filter name="advance_paid" string="سلفة مدفوعة"
+                        domain="[('advance_paid', '=', True)]"/>
+                <group expand="0" string="تجميع بـ">
+                    <filter name="group_company" string="الشركة" context="{'group_by': 'primary_company_id'}"/>
+                    <filter name="group_branch" string="الفرع" context="{'group_by': 'branch_id'}"/>
+                    <filter name="group_city" string="المدينة" context="{'group_by': 'city_id'}"/>
+                    <filter name="group_type" string="نوع المندوب" context="{'group_by': 'rider_type'}"/>
+                    <filter name="group_status" string="الحالة" context="{'group_by': 'status'}"/>
+                    <filter name="group_valid" string="صالح / غير صالح" context="{'group_by': 'is_valid_da'}"/>
+                    <filter name="group_vehicle" string="نوع المركبة" context="{'group_by': 'vehicle_type'}"/>
+                    <filter name="group_ownership" string="ملكية المركبة" context="{'group_by': 'vehicle_ownership'}"/>
+                    <filter name="group_level" string="مستوى الأداء" context="{'group_by': 'performance_level'}"/>
+                    <filter name="group_provider" string="الشركة المزودة" context="{'group_by': 'service_provider_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_delivery_rider" model="ir.actions.act_window">
+        <field name="name">المناديب</field>
+        <field name="res_model">delivery.rider</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active_riders': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">سجّل أول مندوب</p>
+            <p>المناديب يعملون بصفة مستقلة ويتقاضون مستحقاتهم عبر التسويات الشهرية.</p>
+        </field>
+    </record>
+
+    <!-- إجراء جماعي: مزامنة المنصات -->
+    <record id="action_sync_rider_platforms" model="ir.actions.server">
+        <field name="name">🔄 مزامنة المنصات من الفروع</field>
+        <field name="model_id" ref="model_delivery_rider"/>
+        <field name="binding_model_id" ref="model_delivery_rider"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">records.action_sync_platforms_from_branches()</field>
+    </record>
+
+    <!-- إجراء جماعي: أرشفة المناديب -->
+    <record id="action_archive_riders" model="ir.actions.server">
+        <field name="name">🗃️ أرشفة المناديب المحددين</field>
+        <field name="model_id" ref="model_delivery_rider"/>
+        <field name="binding_model_id" ref="model_delivery_rider"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">records.action_archive_rider()</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════
+         إتاحة المناديب للمنصات
+    ══════════════════════════════════════════════ -->
+    <record id="view_delivery_rider_platform_tree" model="ir.ui.view">
+        <field name="name">delivery.rider.platform.tree</field>
+        <field name="model">delivery.rider</field>
+        <field name="arch" type="xml">
+            <list string="إتاحة المناديب للمنصات"
+                  decoration-success="all_platforms_covered == True"
+                  decoration-warning="all_platforms_covered == False and active_platform_count > 0"
+                  decoration-danger="active_platform_count == 0">
+                <field name="name" string="الاسم"/>
+                <field name="name_ar" string="الاسم بالعربية" optional="show"/>
+                <field name="phone" string="الهاتف"/>
+                <field name="rider_type_id" string="نوع المندوب"/>
+                <field name="primary_company_id" string="الشركة الرئيسية"/>
+                <field name="status" string="الحالة" widget="badge"
+                       decoration-success="status == 'active'"
+                       decoration-danger="status == 'suspended'"/>
+                <field name="active_company_ids" string="المنصات النشطة" widget="many2many_tags"/>
+                <field name="active_platform_count" string="عدد المنصات"/>
+                <field name="all_platforms_covered" string="يغطي الكل؟"/>
+                <field name="available_platform_names" string="المتاحة" optional="hide"/>
+                <field name="missing_platform_names" string="الناقصة"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_delivery_rider_platform_search" model="ir.ui.view">
+        <field name="name">delivery.rider.platform.search</field>
+        <field name="model">delivery.rider</field>
+        <field name="arch" type="xml">
+            <search string="بحث — إتاحة المناديب للمنصات">
+                <field name="name" string="الاسم"/>
+                <field name="name_ar" string="الاسم بالعربية"/>
+                <field name="phone" string="الهاتف"/>
+                <filter name="internal_only" string="داخليون فقط" domain="[('rider_type', '=', 'internal')]"/>
+                <filter name="active_only" string="نشطون فقط" domain="[('status', '=', 'active')]"/>
+                <separator/>
+                <filter name="not_all_platforms" string="ناقصون منصات"
+                        domain="[('all_platforms_covered', '=', False)]"/>
+                <filter name="no_platforms" string="بدون منصات"
+                        domain="[('active_platform_count', '=', 0)]"/>
+                <filter name="all_platforms" string="يغطون جميع المنصات"
+                        domain="[('all_platforms_covered', '=', True)]"/>
+                <group expand="0" string="تجميع بـ">
+                    <filter name="group_company" string="الشركة" context="{'group_by': 'primary_company_id'}"/>
+                    <filter name="group_branch" string="الفرع" context="{'group_by': 'branch_id'}"/>
+                    <filter name="group_coverage" string="التغطية" context="{'group_by': 'all_platforms_covered'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_delivery_rider_platform_availability" model="ir.actions.act_window">
+        <field name="name">إتاحة المناديب للمنصات</field>
+        <field name="res_model">delivery.rider</field>
+        <field name="view_mode">list</field>
+        <field name="views">[(ref('view_delivery_rider_platform_tree'), 'list')]</field>
+        <field name="search_view_id" ref="view_delivery_rider_platform_search"/>
+        <field name="context">{'search_default_internal_only': 1, 'search_default_active_only': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">لا توجد بيانات إتاحة بعد</p>
+            <p>هذه الشاشة تُظهر المناديب الذين لا يغطون جميع منصات التوصيل المطلوبة.</p>
+        </field>
+    </record>
+</odoo>

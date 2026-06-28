@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_account_reg_payment_form_inh">
+            <field name="name">view.account.reg.payment.form.inh</field>
+            <field name="model">account.payment.register</field>
+            <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='journal_id']" position="after">
+                        <field name="payment_type_check"/>
+                        <field name="check_no" attrs="{'invisible': [('payment_type_check','=','payment')]}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</odoo>

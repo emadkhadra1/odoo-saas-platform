@@ -1,0 +1,77 @@
+<data>
+    <record id="inherit_hr_leave_form" model="ir.ui.view">
+        <field name="name">inherit.hr.leave.form</field>
+        <field name="model">hr.leave</field>
+        <!--<field name="groups_id" eval="[(4, ref(''))]"/>-->
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_refuse']" position="before">
+                <button name="action_first_approve" string="Approve"
+                        attrs="{'invisible':['|','|',('direct_manager','=',False),('extra_approve','=',False),('state','!=','confirm')]}"
+                        type="object" class="oe_highlight"/>
+                <button name="action_first_refuse" string="Refuse"
+                        attrs="{'invisible':['|','|',('direct_manager','=',False),('extra_approve','=',False),('state','!=','confirm')]}"
+                        type="object"/>
+                <field name="manager_time_off_there" invisible="1"/>
+                <field name="extra_approve" invisible="1"/>
+                <field name="direct_manager" invisible="1"/>
+            </xpath>
+            <xpath expr="//button[@name='action_draft']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('can_reset', '=', False), ('state', 'not in', ['confirm',
+                    'validate2', 'refuse'])]}
+                </attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_approve']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|','|',('extra_approve','=',True),('direct_manager','=',True),
+                                              ('state','not in',['confirm','first_refuse'])]}
+                </attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_approve']" position="after">
+                <button string="Approve" name="action_approve" type="object" id="extra_approve"
+                        attrs="{'invisible': ['|','|',('extra_approve','=',False),('manager_time_off_there','=',False),
+                                              ('state','not in',('validate2','first_refuse'))]}"/>
+            </xpath>
+            <xpath expr="//button[@name='action_refuse']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|','|',('extra_approve','=',True),('direct_manager','=',True),
+                                              ('state','not in',['confirm','first_refuse','validate','validate1'])]}
+                </attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_refuse']" position="after">
+                <button string="Refuse" name="action_refuse" type="object" id="refuse_extra_approve"
+                        attrs="{'invisible': ['|','|',('extra_approve','=',False),('manager_time_off_there','=',False),
+                                              ('state','not in',('validate2','validate1','first_refuse'))]}"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!--    <record id="inherit_hr_leave_form_manager" model="ir.ui.view">-->
+    <!--        <field name="name">inherit.hr.leave.form</field>-->
+    <!--        <field name="model">hr.leave</field>-->
+    <!--        &lt;!&ndash;<field name="groups_id" eval="[(4, ref(''))]"/>&ndash;&gt;-->
+    <!--        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form_manager"/>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <xpath expr="//button[@name='action_refuse']" position="before">-->
+    <!--                <button name="action_extra_approve" string="Approve"-->
+    <!--                attrs="{'invisible':['|',('manager_time_off_there','=',False),('state','!=','validate2')]}"-->
+    <!--                         type="object" class="oe_highlight"/>-->
+    <!--            </xpath>-->
+    <!--            <xpath expr="//button[@name='action_draft']" position="attributes">-->
+    <!--                <attribute name="attrs">{'invisible': ['|', ('can_reset', '=', False), ('state', 'not in', ['confirm', 'validate2', 'refuse'])]}</attribute>-->
+    <!--            </xpath>-->
+    <!--            <xpath expr="//button[@name='action_refuse']" position="attributes">-->
+    <!--                <attribute name="attrs">{'invisible': ['|', ('can_approve', '=', False), ('state', 'not in', ('confirm','validate','validate1','validate2'))]}</attribute>-->
+    <!--            </xpath>-->
+    <!--&lt;!&ndash;            <xpath expr="//button[@name='action_approve']" position="attributes">&ndash;&gt;-->
+    <!--&lt;!&ndash;                <attribute name="attrs">{'invisible': ['&amp;',('extra_approve','=',True),('direct_manager','=',False)&ndash;&gt;-->
+    <!--&lt;!&ndash;                    '|',('state', 'not in', ('confirm','validate','validate1','validate2'))]}</attribute>&ndash;&gt;-->
+    <!--&lt;!&ndash;            </xpath>&ndash;&gt;-->
+    <!--            <xpath expr="//field[@name='employee_id']" position="after">-->
+    <!--                <field name="manager_time_off" invisible="0"/>-->
+    <!--                <field name="manager_time_off_there" invisible="0"/>-->
+    <!--                 <field name="extra_approve" invisible="0"/>-->
+    <!--                <field name="direct_manager" invisible="0"/>-->
+    <!--            </xpath>-->
+    <!--        </field>-->
+    <!--    </record>-->
+</data>

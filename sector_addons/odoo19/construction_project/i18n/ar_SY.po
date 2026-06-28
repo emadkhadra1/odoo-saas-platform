@@ -1,0 +1,535 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* construction_project
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-22 18:11+0200\n"
+"PO-Revision-Date: 2017-03-22 18:30+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Last-Translator: \n"
+"Language: ar_SY\n"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_total_cost
+msgid "Actual Cost"
+msgstr "السعر الفعلى"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_company_id
+#: model:ir.model.fields,field_description:construction_project.field_project_item_company_id
+msgid "Company"
+msgstr "الشركة"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_component_component_cost
+msgid "Component Cost"
+msgstr "تكلفة المكونات"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_component_component_description
+msgid "Component Description"
+msgstr "وصف المكونات"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_component_name
+msgid "Component Name"
+msgstr "اسم المكونات"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_component_product_id
+msgid "Component Product"
+msgstr "منتج المكونات"
+
+#. module: construction_project
+#: model:ir.ui.view,arch_db:construction_project.view_construction_project_form
+msgid "Components"
+msgstr "المكونات"
+
+#. module: construction_project
+#: model:ir.ui.view,arch_db:construction_project.view_project_item_form
+#: selection:project.component,state:0 selection:project.item,state:0
+msgid "Confirm"
+msgstr "تأكيد"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_product_template_constration_product
+msgid "Constration Product"
+msgstr "منتج المشروعات"
+
+#. module: construction_project
+#: model:ir.ui.menu,name:construction_project.menu_project_component
+msgid "Construction Component"
+msgstr "مكونات المشروعات"
+
+#. module: construction_project
+#: model:ir.ui.menu,name:construction_project.menu_cp_configuration_categ
+msgid "Construction Configuration"
+msgstr "اعدادات المشروعات"
+
+#. module: construction_project
+#: model:ir.ui.menu,name:construction_project.menu_project_item
+msgid "Construction Item"
+msgstr "بنود المشروعات"
+
+#. module: construction_project
+#: model:ir.ui.menu,name:construction_project.menu_project_process
+msgid "Construction Process"
+msgstr "اعمال المشروعات"
+
+#. module: construction_project
+#: model:ir.actions.act_window,name:construction_project.view_construction_project_action
+#: model:ir.ui.menu,name:construction_project.cp_root
+#: model:ir.ui.menu,name:construction_project.menu_construction_project
+#: model:ir.ui.menu,name:construction_project.menu_cp_categ
+#: model:ir.ui.view,arch_db:construction_project.view_construction_project_form
+#: model:ir.ui.view,arch_db:construction_project.view_construction_project_tree
+msgid "Construction Project"
+msgstr "مشروعات المقاولة"
+
+#. module: construction_project
+#: model:ir.ui.menu,name:construction_project.menu_project_unit
+msgid "Construction Unit"
+msgstr "وحدات المشروعات"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_process_create_uid
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_create_uid
+#: model:ir.model.fields,field_description:construction_project.field_project_component_create_uid
+#: model:ir.model.fields,field_description:construction_project.field_project_item_create_uid
+#: model:ir.model.fields,field_description:construction_project.field_project_unit_create_uid
+msgid "Created by"
+msgstr "انشأ بواسطة"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_process_create_date
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_create_date
+#: model:ir.model.fields,field_description:construction_project.field_project_component_create_date
+#: model:ir.model.fields,field_description:construction_project.field_project_item_create_date
+#: model:ir.model.fields,field_description:construction_project.field_project_unit_create_date
+msgid "Created on"
+msgstr "تاريخ الانشاء"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_item_date
+msgid "Date"
+msgstr "التاريخ"
+
+#. module: construction_project
+#: model:ir.model.fields,help:construction_project.field_project_item_product_uom
+msgid "Default Unit of Measure used for all stock operation."
+msgstr "وحدة القياس الافتراضية المستخدمة لجميع عمليات المخزون."
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_location_dest_id
+#: model:ir.model.fields,field_description:construction_project.field_project_item_location_dest_id
+msgid "Destination Location"
+msgstr "موقع الاستلام"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_process_display_name
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_display_name
+#: model:ir.model.fields,field_description:construction_project.field_project_component_display_name
+#: model:ir.model.fields,field_description:construction_project.field_project_item_display_name
+#: model:ir.model.fields,field_description:construction_project.field_project_unit_display_name
+msgid "Display Name"
+msgstr "الاسم"
+
+#. module: construction_project
+#: selection:project.component,state:0 selection:project.item,state:0
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: construction_project
+#: code:addons/construction_project/models/construction_item.py:146
+#, python-format
+msgid ""
+"Error ! Cannot Confirm The Component () : QTY Not Available  . Only "
+"Available  In Location "
+msgstr "خطأ ! لا يمكنك التأكيد كميات المنتج غير متاحة على ذلك المخزن"
+
+#. module: construction_project
+#: code:addons/construction_project/models/construction_item.py:75
+#, python-format
+msgid "Error ! Cannot Confirm The Item : Itme QTY Must Be > 0 "
+msgstr "خطأ ! لايمكنك التأكيد لايوجد كميات للمنتجات"
+
+#. module: construction_project
+#: code:addons/construction_project/models/construction_item.py:79
+#, python-format
+msgid ""
+"Error ! Cannot Confirm The Item : Make Sure The Item Have At Least One "
+"Component."
+msgstr "خطأ ! لايمكنك التأكيد تأكد من وجود مكون واحد على الاقل"
+
+#. module: construction_project
+#: code:addons/construction_project/models/construction_item.py:143
+#, python-format
+msgid "Error ! Not Available QTY    In Location "
+msgstr "خطأ! كميات المنتجات غير متاحة على ذلك المخزن"
+
+#. module: construction_project
+#: code:addons/construction_project/models/old_construction_project.py:157
+#, python-format
+msgid "Error !Cannot Confirm The Item : Itme QTY Must Be > 0 "
+msgstr "خطأ ! لايمكنك التاكيد الكميات غير متاحة"
+
+#. module: construction_project
+#: code:addons/construction_project/models/old_construction_project.py:161
+#, python-format
+msgid ""
+"Error !Cannot Confirm The Item : Make Sure The Item Have At Least One "
+"Component."
+msgstr "خطأ ! لايمكنك التاكيد يرجى التاكد من وجود مكون واحد على الاقل"
+
+#. module: construction_project
+#: code:addons/construction_project/models/construction_component.py:60
+#: code:addons/construction_project/models/old_construction_project.py:429
+#, python-format
+msgid ""
+"Error !Cannot Confirm The Item : Make Sure The Line Have Peoduct And QTY > 0 "
+msgstr "خطأ ! لايمكنك التاكيد  تاكد من وجود كميات للمنتجات"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_estimated_costs
+msgid "Estimated Costs"
+msgstr "التكلفة التقديرية"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_estimated_net_profit
+msgid "Estimated Net Profit"
+msgstr "صافي الأرباح المقدرة"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_estimated_profit_margin_ratio
+msgid "Estimated Profit Margin Ratio"
+msgstr "نسبة هامش الربح المقدرة ٪"
+
+#. module: construction_project
+#: selection:construction.project,purpose_of_the_project:0
+msgid "For sale"
+msgstr "للبيع"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_process_id
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_id
+#: model:ir.model.fields,field_description:construction_project.field_project_component_id
+#: model:ir.model.fields,field_description:construction_project.field_project_item_id
+#: model:ir.model.fields,field_description:construction_project.field_project_unit_id
+msgid "ID"
+msgstr "الرمز التعريفي"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_component_item_id
+msgid "Item"
+msgstr "البند"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_item_item_cost
+msgid "Item Cost"
+msgstr "تكلفة البند"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_item_item_description
+msgid "Item Description"
+msgstr "وصف البند"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_item_product_id
+msgid "Item Product"
+msgstr "منتج البند"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_item_item_qty
+msgid "Item QTY"
+msgstr "كمية البند"
+
+#. module: construction_project
+#: model:ir.ui.view,arch_db:construction_project.view_construction_project_form
+msgid "Items"
+msgstr "البنود"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_process___last_update
+#: model:ir.model.fields,field_description:construction_project.field_construction_project___last_update
+#: model:ir.model.fields,field_description:construction_project.field_project_component___last_update
+#: model:ir.model.fields,field_description:construction_project.field_project_item___last_update
+#: model:ir.model.fields,field_description:construction_project.field_project_unit___last_update
+msgid "Last Modified on"
+msgstr "اخر تعديل"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_process_write_uid
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_write_uid
+#: model:ir.model.fields,field_description:construction_project.field_project_component_write_uid
+#: model:ir.model.fields,field_description:construction_project.field_project_item_write_uid
+#: model:ir.model.fields,field_description:construction_project.field_project_unit_write_uid
+msgid "Last Updated by"
+msgstr "اخر تعديل"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_process_write_date
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_write_date
+#: model:ir.model.fields,field_description:construction_project.field_project_component_write_date
+#: model:ir.model.fields,field_description:construction_project.field_project_item_write_date
+#: model:ir.model.fields,field_description:construction_project.field_project_unit_write_date
+msgid "Last Updated on"
+msgstr "اخر تعديل"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_net_profit
+msgid "Net Profit"
+msgstr "صافى الربح"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_net_profit_ratio
+msgid "Net Profit Ratio"
+msgstr "نسبة صافى الربح ٪"
+
+#. module: construction_project
+#: selection:construction.project,purpose_of_the_project:0
+msgid "Ownership"
+msgstr "امتلاك"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_component_picking_id
+msgid "Picking"
+msgstr "عمليات المخزن"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_component_picking_state
+msgid "Picking State"
+msgstr "حالة عملية المخزن"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_picking_type_id
+#: model:ir.model.fields,field_description:construction_project.field_project_item_picking_type_id
+msgid "Picking Type"
+msgstr "نوع عملية المخزن"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_item_process_id
+msgid "Process"
+msgstr "الاعمال"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_component_procurement_id
+#: model:ir.model.fields,field_description:construction_project.field_project_item_group_id
+#: model:ir.model.fields,field_description:construction_project.field_project_item_procurement_id
+msgid "Procurement"
+msgstr "الاحتياجات"
+
+#. module: construction_project
+#: model:ir.model,name:construction_project.model_product_template
+msgid "Product Template"
+msgstr "قالب المنتج"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_component_project_id
+#: model:ir.model.fields,field_description:construction_project.field_project_item_project_id
+#: model:ir.model.fields,field_description:construction_project.field_project_unit_project_id
+msgid "Project"
+msgstr "المشروع"
+
+#. module: construction_project
+#: model:ir.actions.act_window,name:construction_project.view_project_component_action
+#: model:ir.ui.view,arch_db:construction_project.view_project_component_form
+#: model:ir.ui.view,arch_db:construction_project.view_project_component_tree
+msgid "Project Component"
+msgstr "مكونات المشروع"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_project_component_ids
+#: model:ir.model.fields,field_description:construction_project.field_project_item_project_component_ids
+msgid "Project Component Lines"
+msgstr "سطور مكونات المشروع"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_project_description
+msgid "Project Description"
+msgstr "وصف المشروع"
+
+#. module: construction_project
+#: model:ir.actions.act_window,name:construction_project.view_project_item_action
+#: model:ir.ui.view,arch_db:construction_project.view_project_item_form
+#: model:ir.ui.view,arch_db:construction_project.view_project_item_tree
+msgid "Project Item"
+msgstr "بنود المشروع"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_project_item_ids
+#: model:ir.model.fields,field_description:construction_project.field_project_unit_project_item_ids
+msgid "Project Item Lines"
+msgstr "سطور بنود المشروع"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_name
+msgid "Project Name"
+msgstr "اسم المشروع"
+
+#. module: construction_project
+#: model:ir.actions.act_window,name:construction_project.view_project_unit_action
+#: model:ir.ui.view,arch_db:construction_project.view_project_unit_form
+#: model:ir.ui.view,arch_db:construction_project.view_project_unit_tree
+msgid "Project Unit"
+msgstr "وحدة المشروع"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_project_unit_ids
+msgid "Project Unit Lines"
+msgstr "سطور وحدة المشروع"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_purpose_of_the_project
+msgid "Purpose of the project"
+msgstr "الغرض من المشروع"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_component_component_qty
+msgid "QTY"
+msgstr "الكيمة"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_selling_price
+msgid "Selling Price"
+msgstr "سعر البيع"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_location_id
+#: model:ir.model.fields,field_description:construction_project.field_project_item_location_id
+msgid "Source Location"
+msgstr "مصدر المخزن"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_component_state
+#: model:ir.model.fields,field_description:construction_project.field_project_item_state
+msgid "State"
+msgstr "الحالة"
+
+#. module: construction_project
+#: code:addons/construction_project/models/construction_component.py:29
+#: code:addons/construction_project/models/old_construction_project.py:398
+#, python-format
+msgid ""
+"The operation cannot be completed:\n"
+"You are trying to delete Component Confirmed."
+msgstr ""
+"لايمكن اكمال العملية\n"
+"انت تحاول حذف مكون تم التاكيد عليه"
+
+#. module: construction_project
+#: code:addons/construction_project/models/construction_item.py:30
+#: code:addons/construction_project/models/old_construction_project.py:112
+#, python-format
+msgid ""
+"The operation cannot be completed:\n"
+"You are trying to delete Item Confirmed."
+msgstr ""
+"للايمكن اكمال العملية\n"
+"انت تحاول حذف بند تم التاكيد عليه"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_item_total_item_cost
+msgid "Total Item Cost"
+msgstr "اجمالى تكلفة البنود"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_unit_total_unit_cost
+msgid "Total Unit Cost"
+msgstr ""
+"لايمكن اكمال العملية\n"
+"انت تحاول حذف مكون تم التاكيد عليه"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_component_unit_id
+#: model:ir.model.fields,field_description:construction_project.field_project_item_unit_id
+msgid "Unit"
+msgstr "الوحدة"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_unit_unit_description
+msgid "Unit Description"
+msgstr "وصف الوحدة"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_unit_unit_location
+msgid "Unit Location"
+msgstr "مكان الوحدة"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_item_name
+#: model:ir.model.fields,field_description:construction_project.field_project_unit_name
+msgid "Unit Name"
+msgstr "اسم الوحدة"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_project_component_product_uom
+#: model:ir.model.fields,field_description:construction_project.field_project_item_product_uom
+msgid "Unit of Measure"
+msgstr "وحدة القياس"
+
+#. module: construction_project
+#: model:ir.ui.view,arch_db:construction_project.view_construction_project_form
+msgid "Units"
+msgstr "الوحدات"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_warehouse_id
+#: model:ir.model.fields,field_description:construction_project.field_project_item_warehouse_id
+msgid "Warehouse"
+msgstr "المخزن"
+
+#. module: construction_project
+#: model:ir.actions.act_window,name:construction_project.view_construction_process_action
+#: model:ir.ui.view,arch_db:construction_project.view_construction_process_form
+#: model:ir.ui.view,arch_db:construction_project.view_construction_process_tree
+msgid "construction Process"
+msgstr "اعمال المشروعات"
+
+#. module: construction_project
+#: model:ir.model,name:construction_project.model_construction_process
+msgid "construction process"
+msgstr "اعمال المشروعات"
+
+#. module: construction_project
+#: model:ir.model,name:construction_project.model_construction_project
+msgid "construction.project"
+msgstr "مشروع المقاولات"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_location_create
+msgid "location_create"
+msgstr "location_create"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_project_partner_id
+msgid "partner"
+msgstr "العميل"
+
+#. module: construction_project
+#: model:ir.model.fields,field_description:construction_project.field_construction_process_name
+msgid "process"
+msgstr "الاعمال"
+
+#. module: construction_project
+#: model:ir.model,name:construction_project.model_project_component
+msgid "project.component"
+msgstr "مكونات المشروعات"
+
+#. module: construction_project
+#: model:ir.model,name:construction_project.model_project_item
+msgid "project.item"
+msgstr "بنود المشروعات"
+
+#. module: construction_project
+#: model:ir.model,name:construction_project.model_project_unit
+msgid "project.unit"
+msgstr "وحدات المشروعات"

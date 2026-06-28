@@ -1,0 +1,80 @@
+<odoo>
+
+    <record id="loan_reschedule_request_tree" model="ir.ui.view">
+        <field name="name">loan.reschedule.request.view</field>
+        <field name="model">loan.reschedule.request</field>
+        <field name="arch" type="xml">
+            <tree string="loan reschedule request">
+
+                <field name="loan_id"/>
+                <field name="update_type"/>
+                <field name="amount" attrs="{'invisible':[('update_type','!=','amount')]}"/>
+                <field name="old_amount" invisible="0"/>
+                <field name="loan_line_id" invisible="0"/>
+                <field name="is_last_installment" invisible="0"/>
+                <field name="new_date" attrs="{'invisible':[('update_type','!=','date')]}"/>
+
+            </tree>
+        </field>
+    </record>
+    <record id="loan_reschedule_request_form" model="ir.ui.view">
+        <field name="name">loan.reschedule.request.view</field>
+        <field name="model">loan.reschedule.request</field>
+        <field name="arch" type="xml">
+            <form string="loan reschedule request">
+                <header>
+                    <button name="action_submit" type="object" string="Submit" states="draft" class="oe_highlight"/>
+                    <button name="hr_manager_approve_request" class="btin btn-success" string="Approve"
+                            type="object"
+                            attrs="{'invisible':['|',('same_user','!=',True),('state','!=','waiting_hr_approval')]}"
+                    />
+                    <button name="cfo_manager_approve_request" class="btin btn-success" string="Approve"
+                            type="object"
+                            attrs="{'invisible':['|',('same_user','!=',True),('state','!=','waiting_approval_cfo')]}"
+
+                    />
+                    <button name="ceo_manager_approve_request" class="btin btn-success" string="Approve"
+                            type="object"
+                            attrs="{'invisible':['|',('same_user','!=',True),('state','!=','waiting_approval_ceo')]}"
+                    />
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,waiting_hr_approval,waiting_approval_cfo,waiting_approval_ceo,approve"/>
+
+                </header>
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="loan_id" domain="[('state','=','approve')]"/>
+                            <field name="update_type"/>
+                            <field name="amount" attrs="{'invisible':[('update_type','!=','amount')]}"/>
+                            <field name="old_amount" invisible="1" force_save="1"/>
+                            <field name="loan_line_id" invisible="0"
+                                   domain="[('loan_id','=',loan_id),('paid','=',False)]"/>
+                            <field name="is_last_installment" invisible="0"/>
+                            <field name="new_date" attrs="{'invisible':[('update_type','!=','date')]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="same_user" invisible="1"/>
+                        <field name="current_user" invisible="1" widget="many2one_avatar_user"/>
+                        <field name="hr_manager_id" widget="many2one_avatar_user" force_save="1"/>
+                        <field name="cfo_manager_id" widget="many2one_avatar_user" force_save="1"/>
+                        <field name="ceo_manager_id" widget="many2one_avatar_user" force_save="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="loan_reschedule_request_action" model="ir.actions.act_window">
+        <field name="name">loan.reschedule.request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">loan.reschedule.request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="loan_reschedule_request_menu_action" name="Loan reschedule request"
+              parent="ohrms_loan.menu_base_hr_loan_request"
+              action="loan_reschedule_request_action"/>
+</odoo>

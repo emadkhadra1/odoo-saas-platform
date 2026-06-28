@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+       <!-- QWeb Reports -->
+       <!-- NAME & FILE_NAME should be the same -->
+               <report
+                   id="financial_custody_report"
+                   model="financial.custody.report.wizard"
+                   report_type="qweb-pdf"
+                   string="Financial-Custody"
+                   menu="True"
+                   name="financial_custody.report_financialcustody"
+                   file="financial_custody.report_financialcustody"
+               />
+
+    </data>
+</odoo>

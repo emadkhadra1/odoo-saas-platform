@@ -1,0 +1,32 @@
+<odoo>
+    <record id="not_attached_documents_view_tree" model="ir.ui.view">
+        <field name="name">not_attached.doc.tree</field>
+        <field name="model">res.documents</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0">
+                <field name="employee_id"/>
+                <field name="type_id"/>
+                <field name="attach_status"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_not_attached_documents">
+        <field name="name">NotAttached Document</field>
+        <field name="res_model">res.documents</field>
+        <field name="view_mode">search,tree</field>
+        <field name="domain">[('attach_status','=','not_attached')]</field>
+        <field name="context">{'search_default_group_employee_id': 1}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Click to define a new Document.</p>
+        </field>
+    </record>
+
+    <menuitem id="not_attached_docs"
+              name="NotAttached Documents"
+              parent="menu_hr_document_root"
+              action="action_not_attached_documents"
+              sequence="2"
+    />
+</odoo>

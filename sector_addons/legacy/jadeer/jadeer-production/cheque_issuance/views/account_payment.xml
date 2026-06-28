@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_account_payment_form" model="ir.ui.view">
+            <field name="name">account.payment</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="cheque_base.view_account_payment_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='payment_type_check']" position="after">
+                    <field name="is_notes_pay" invisible="1"/>
+                    <field name="issue_bank_account_id" domain="[('user_type_id.type','=','liquidity')]"
+                           attrs="{'required':[('is_notes_pay','=',True),('payment_type_check','=','check')],
+                           'invisible':['|',('is_notes_pay','=',False),('payment_type_check','!=','check')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='ref']" position="after">
+                    <field name="check_remain_amount"
+                           attrs="{'invisible':['|',('is_notes_pay','=',False),('payment_type_check','!=','check')]}"/>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <button name="action_check_withdraw"
+                            type="object"
+                            string="Pay"
+                            class="btn-success"
+                            attrs="{
+                            'invisible':['|',('state','!=','posted'),'|',('payment_type_check', '!=', 'check'),'|',('payment_type', '=', 'inbound'),('payment_status', '=', 'withdraw')]}"/>
+                    <button name="action_issued_check_return"
+                            type="object"
+                            string="Return"
+                            class="btn-success"
+                            attrs="{
+                            'invisible':['|',('state','!=','posted'),'|',('payment_type_check', '!=', 'check'),('payment_status', 'in', ['returned','withdraw','returned_to_customer'])]}"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

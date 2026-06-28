@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_journal_form_inherit_deposit" model="ir.ui.view">
+            <field name="name">account.journal.form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="is_notes_rec" attrs="{'invisible':[('type', '!=', 'bank')]}"/>
+                    <field name="type_of_check"/>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='advanced_settings']/group" position="inside">
+                    <group string="Cheques Accounts" attrs="{'invisible':[('is_notes_rec', '=', False)]}">
+                        <field name="credit_check_account_id"
+                               attrs="{'invisible':[('is_notes_rec', '=', False)],'required':[('is_notes_rec', '=', True)]}"/>
+                        <field name="debit_check_account_id"
+                               attrs="{'invisible':[('is_notes_rec', '=', False)],'required':[('is_notes_rec', '=', True)]}"/>
+                    </group>
+                    <group string="Returned Accounts"
+                           attrs="{'invisible':[('is_notes_rec', '=', False)]}">
+
+                        <field name="return_credit_check_account_id"
+                               attrs="{'invisible':[('is_notes_rec', '=', False)],'required':[('is_notes_rec', '=', True)]}"/>
+                        <field name="return_debit_check_account_id"
+                               attrs="{'invisible':[('is_notes_rec', '=', False)],'required':[('is_notes_rec', '=', True)]}"/>
+
+                    </group>
+                    <group string="Write Off" attrs="{'invisible':[('is_notes_rec', '=', False)]}">
+                        <field name="bad_debit_account_id"
+                               attrs="{'invisible':[('is_notes_rec', '=', False)],'required':[('is_notes_rec', '=', True)]}"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,60 @@
+<odoo>
+    <record id="attached_area_tree" model="ir.ui.view">
+        <field name="name">attached.area.line.tree.view</field>
+        <field name="model">attached.area.line</field>
+        <field name="arch" type="xml">
+            <tree string="attached area line">
+                <field name="product_id"/>
+                <field name="attached_area_id"/>
+<!--                <field name="discount"/>-->
+<!--                <field name="fixed_discount"/>-->
+                <field name="area"/>
+                <field name="price"/>
+                <field name="total"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="attached_area_line_action" model="ir.actions.act_window">
+        <field name="name">Attached Area</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">attached.area.line</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="attached_area_line_menu"
+              name="Attached Areas lines"
+              action="attached_area_line_action"
+              parent="realestate_project.real_estate_configuration_menu"
+              sequence="4"
+    />
+
+    <record id="product_utility_tree" model="ir.ui.view">
+        <field name="name">product.utility.tree.view</field>
+        <field name="model">product.utility</field>
+        <field name="arch" type="xml">
+            <tree string="product utility">
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="payment_plan_id"/>
+                <field name="included_price"/>
+                <field name="price"/>
+                <field name="percent"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_utility_tree_action" model="ir.actions.act_window">
+        <field name="name">product utility</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.utility</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="product_utility_tree_action_menu"
+              name="product utility"
+              action="product_utility_tree_action"
+              parent="realestate_project.real_estate_configuration_menu"
+              sequence="4"
+    />
+</odoo>

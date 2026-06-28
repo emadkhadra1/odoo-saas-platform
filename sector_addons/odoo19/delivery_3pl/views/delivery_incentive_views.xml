@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ══════════════════════════════════════════════════════════════
+         Validity Criteria Views — شروط صلاحية المندوب
+    ══════════════════════════════════════════════════════════════ -->
+
+    <record id="view_delivery_validity_criteria_tree" model="ir.ui.view">
+        <field name="name">delivery.validity.criteria.tree</field>
+        <field name="model">delivery.validity.criteria</field>
+        <field name="arch" type="xml">
+            <list string="شروط صلاحية المندوب / Validity Criteria"
+                  decoration-success="is_active == True"
+                  decoration-muted="is_active == False">
+                <field name="name" string="اسم الشرط"/>
+                <field name="contract_id" string="العقد" optional="show"/>
+                <field name="branch_id" string="الفرع" optional="show"/>
+                <field name="min_daily_online_hours" string="الحد الأدنى ساعات يومية"/>
+                <field name="min_valid_days" string="الحد الأدنى أيام صالحة/شهر"/>
+                <field name="min_monthly_orders" string="الحد الأدنى طلبات/شهر"/>
+                <field name="must_attend_first_days" string="أول N يوم" optional="show"/>
+                <field name="must_attend_last_days" string="آخر N يوم" optional="show"/>
+                <field name="is_active" string="نشط؟" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_delivery_validity_criteria_form" model="ir.ui.view">
+        <field name="name">delivery.validity.criteria.form</field>
+        <field name="model">delivery.validity.criteria</field>
+        <field name="arch" type="xml">
+            <form string="شرط الصلاحية / Validity Criteria">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="اسم الشرط / Criteria Name"/></h1>
+                    </div>
+
+                    <!-- ── الربط والتفعيل ──────────────────────────── -->
+                    <group>
+                        <group string="🔗 الربط / Link">
+                            <field name="contract_id"/>
+                            <field name="branch_id"/>
+                            <field name="company_id"/>
+                        </group>
+                        <group string="⚙ التفعيل / Activation">
+                            <field name="is_active" widget="boolean_toggle"
+                                   string="نشط (يُطبَّق على المناديب)"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <!-- ── الشروط الأساسية ────────────────────── -->
+                        <page string="📋 الشروط الأساسية / Core Requirements" name="core">
+                            <div class="alert alert-info" role="alert">
+                                <strong>كيف يعمل شرط الصلاحية؟</strong><br/>
+                                اليوم الصالح = يُحقق الحد الأدنى للساعات والطلبات.<br/>
+                                المندوب الصالح للشهر = يُحقق الحد الأدنى للأيام الصالحة والطلبات الشهرية.
+                            </div>
+                            <group>
+                                <group string="🕐 شروط اليوم الواحد / Daily Requirements">
+                                    <field name="min_daily_online_hours"
+                                           string="الحد الأدنى لساعات الإتاحة اليومية"/>
+                                    <field name="min_daily_peak_hours"
+                                           string="الحد الأدنى لساعات الذروة اليومية (0 = لا يُشترط)"/>
+                                </group>
+                                <group string="📅 شروط الشهر / Monthly Requirements">
+                                    <field name="min_valid_days"
+                                           string="الحد الأدنى للأيام الصالحة شهرياً"/>
+                                    <field name="min_monthly_orders"
+                                           string="الحد الأدنى للطلبات الشهرية"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <!-- ── شروط الحضور الإلزامي ────────────────── -->
+                        <page string="📆 الحضور الإلزامي / Mandatory Attendance" name="attendance">
+                            <div class="alert alert-warning" role="alert">
+                                <strong>الحضور الإلزامي:</strong>
+                                بداية ونهاية الشهر — إذا أُدخل رقم > 0، يجب أن يعمل المندوب خلال هذه الأيام.
+                                اترك 0 لإلغاء الشرط.
+                            </div>
+                            <group>
+                                <group string="بداية الشهر / Month Start">
+                                    <field name="must_attend_first_days"
+                                           string="أول N يوم (0 = غير مطلوب)"/>
+                                </group>
+                                <group string="نهاية الشهر / Month End">
+                                    <field name="must_attend_last_days"
+                                           string="آخر N يوم (0 = غير مطلوب)"/>
+                                    <field name="must_attend_min_valid"
+                                           string="الحد الأدنى للأيام الصالحة في فترة الإلزامية"/>
+                                    <field name="min_orders_must_attend_day"
+                                           string="الحد الأدنى للطلبات في يوم الحضور الإلزامي"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <!-- ── شروط متقدمة ─────────────────────────── -->
+                        <page string="⚙ شروط متقدمة / Advanced" name="advanced">
+                            <group>
+                                <group string="نسب الامتثال / Compliance">
+                                    <field name="min_calendar_pct_mid_month"
+                                           string="نسبة % من أيام الشهر المتبقية (بعد تاريخ الانضمام)"/>
+                                    <field name="validity_pct_threshold"
+                                           string="نسبة % للصلاحية بدلاً من الحد الثابت"/>
+                                    <field name="require_self_delivery"
+                                           string="يشترط التوصيل الشخصي (Self-Delivery)"/>
+                                </group>
+                                <group string="التحقق / Verification">
+                                    <field name="facial_verification_min_pct"
+                                           string="الحد الأدنى لنسبة التحقق بالوجه (%)"/>
+                                    <field name="max_cheating_rider_pct"
+                                           string="الحد الأقصى لنسبة المناديب المشتبه بهم (%)"/>
+                                    <field name="duplicate_iqama_policy"
+                                           string="سياسة الإقامة المكررة"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <!-- ── ملاحظات ──────────────────────────────── -->
+                        <page string="📝 ملاحظات / Notes" name="notes_page">
+                            <field name="notes" placeholder="أي ملاحظات إضافية حول هذه المعايير..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_delivery_validity_criteria" model="ir.actions.act_window">
+        <field name="name">شروط الصلاحية / Validity Criteria</field>
+        <field name="res_model">delivery.validity.criteria</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">أنشئ أول شرط صلاحية / Create your first validity criteria</p>
+            <p>شروط الصلاحية تُحدد متى يُعدّ المندوب "Valid DA" المستحق للحوافز.</p>
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         Experience Score Config Views — إعداد نقاط الخبرة
+    ══════════════════════════════════════════════════════════════ -->
+
+    <record id="view_delivery_experience_config_tree" model="ir.ui.view">
+        <field name="name">delivery.experience.score.config.tree</field>
+        <field name="model">delivery.experience.score.config</field>
+        <field name="arch" type="xml">
+            <list string="إعداد نقاط الخبرة / Experience Score Config">
+                <field name="name" string="الاسم"/>
+                <field name="contract_id" string="العقد" optional="show"/>
+                <field name="on_time_delivery_weight" string="وزن الالتزام بالوقت"/>
+                <field name="cancellation_rate_weight" string="وزن نسبة الإلغاء"/>
+                <field name="advance_delivery_weight" string="وزن التوصيل المبكر"/>
+                <field name="min_orders_for_ranking" string="الحد الأدنى للطلبات"/>
+                <field name="only_valid_da_eligible" string="للصالحين فقط" widget="boolean"/>
+                <field name="is_active" string="نشط؟" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_delivery_experience_config_form" model="ir.ui.view">
+        <field name="name">delivery.experience.score.config.form</field>
+        <field name="model">delivery.experience.score.config</field>
+        <field name="arch" type="xml">
+            <form string="إعداد نقاط الخبرة / Experience Score Config">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="اسم الإعداد / Config Name"/></h1>
+                    </div>
+                    <group>
+                        <group string="🔗 الربط / Link">
+                            <field name="contract_id"/>
+                            <field name="branch_id"/>
+                            <field name="company_id"/>
+                            <field name="is_active" widget="boolean_toggle" string="نشط"/>
+                        </group>
+                        <group string="⚖️ أوزان النقاط / Score Weights">
+                            <field name="on_time_delivery_weight"
+                                   string="وزن الالتزام بالوقت (On-Time %)"/>
+                            <field name="cancellation_rate_weight"
+                                   string="وزن نسبة الإلغاء (Cancel Rate)"/>
+                            <field name="advance_delivery_weight"
+                                   string="وزن التوصيل المبكر (Advance %)"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="🎯 شروط الأهلية / Eligibility">
+                            <field name="min_orders_for_ranking"
+                                   string="الحد الأدنى للطلبات للحصول على تصنيف"/>
+                            <field name="only_valid_da_eligible"
+                                   string="يشترط أن يكون المندوب صالحاً (Valid DA Only)"/>
+                        </group>
+                    </group>
+                    <field name="notes" placeholder="ملاحظات..."/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_delivery_experience_config" model="ir.actions.act_window">
+        <field name="name">إعداد نقاط الخبرة / Experience Score Config</field>
+        <field name="res_model">delivery.experience.score.config</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         Incentive Level Views — شرائح الحوافز (للقواعد المتقدمة)
+    ══════════════════════════════════════════════════════════════ -->
+
+    <record id="view_delivery_incentive_level_tree" model="ir.ui.view">
+        <field name="name">delivery.incentive.level.tree</field>
+        <field name="model">delivery.incentive.level</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" string="شرائح الحوافز / Incentive Levels">
+                <field name="sequence" widget="handle"/>
+                <field name="level" string="المستوى"/>
+                <field name="range_from" string="من (طلبات)"/>
+                <field name="range_to" string="إلى (طلبات)"/>
+                <field name="bike_amount" string="مبلغ الدراجة (ريال)"/>
+                <field name="car_amount" string="مبلغ السيارة (ريال)"/>
+                <field name="notes" string="ملاحظات" optional="show"/>
+            </list>
+        </field>
+    </record>
+</odoo>

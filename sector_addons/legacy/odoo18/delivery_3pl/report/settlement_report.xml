@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============================================================
+         Report Action — تقرير التسوية
+         ============================================================ -->
+    <record id="action_report_settlement" model="ir.actions.report">
+        <field name="name">Settlement Report (تقرير التسوية)</field>
+        <field name="model">delivery.settlement</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">delivery_3pl.report_settlement_document</field>
+        <field name="report_file">delivery_3pl.report_settlement_document</field>
+        <field name="print_report_name">'Settlement-%s-%s' % (object.settlement_number, object.period_start)</field>
+        <field name="binding_model_id" ref="model_delivery_settlement"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+    </record>
+
+    <!-- ============================================================
+         QWeb Template
+         ============================================================ -->
+    <template id="report_settlement_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" dir="rtl" style="font-family: 'Noto Naskh Arabic', Tahoma, Arial, sans-serif; font-size: 11pt; color: #1a1a1a;">
+
+                        <!-- ===== HEADER ===== -->
+                        <div style="border-bottom: 3px solid #1a4b8c; padding-bottom: 12px; margin-bottom: 18px;">
+                            <table width="100%" style="border: none; border-collapse: collapse;">
+                                <tr>
+                                    <td style="width:50%; vertical-align: middle;">
+                                        <div style="font-size: 22pt; font-weight: bold; color: #1a4b8c;">
+                                            تقرير التسوية الشهرية
+                                        </div>
+                                        <div style="font-size: 13pt; color: #555; margin-top: 4px;">
+                                            Monthly Settlement Report
+                                        </div>
+                                    </td>
+                                    <td style="width:50%; text-align: left; vertical-align: middle;">
+                                        <div style="font-size: 16pt; font-weight: bold; color: #1a4b8c;">
+                                            <t t-esc="o.settlement_number"/>
+                                        </div>
+                                        <div style="color: #888; font-size: 10pt; margin-top: 4px;">
+                                            رقم التسوية / Settlement No.
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- ===== INFO BOXES ===== -->
+                        <table width="100%" style="border: none; border-collapse: collapse; margin-bottom: 18px;">
+                            <tr>
+                                <td style="width:50%; vertical-align: top; padding-left: 10px;">
+                                    <table style="width:100%; border: 1px solid #d0d9e8; border-collapse: collapse; border-radius: 6px; overflow: hidden;">
+                                        <tr style="background: #1a4b8c;">
+                                            <td colspan="2" style="padding: 6px 10px; color: white; font-weight: bold; font-size: 10pt;">
+                                                معلومات العقد / Contract Info
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 5px 10px; font-weight: bold; background: #f4f7fc; width:40%;">الشركة:</td>
+                                            <td style="padding: 5px 10px;"><t t-esc="o.company_id.name_ar or o.company_id.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 5px 10px; font-weight: bold; background: #f4f7fc;">الفرع:</td>
+                                            <td style="padding: 5px 10px;"><t t-esc="o.branch_id.name_ar or o.branch_id.name or '—'"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 5px 10px; font-weight: bold; background: #f4f7fc;">العقد:</td>
+                                            <td style="padding: 5px 10px;"><t t-esc="o.contract_id.contract_number or '—'"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 5px 10px; font-weight: bold; background: #f4f7fc;">دورة السداد:</td>
+                                            <td style="padding: 5px 10px;"><t t-esc="dict(o.fields_get(['cycle'])['cycle']['selection'])[o.cycle]"/></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="width:50%; vertical-align: top;">
+                                    <table style="width:100%; border: 1px solid #d0d9e8; border-collapse: collapse;">
+                                        <tr style="background: #1a4b8c;">
+                                            <td colspan="2" style="padding: 6px 10px; color: white; font-weight: bold; font-size: 10pt;">
+                                                الفترة الزمنية / Period
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 5px 10px; font-weight: bold; background: #f4f7fc; width:40%;">من:</td>
+                                            <td style="padding: 5px 10px;"><t t-esc="o.period_start.strftime('%d/%m/%Y') if o.period_start else '—'"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 5px 10px; font-weight: bold; background: #f4f7fc;">إلى:</td>
+                                            <td style="padding: 5px 10px;"><t t-esc="o.period_end.strftime('%d/%m/%Y') if o.period_end else '—'"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 5px 10px; font-weight: bold; background: #f4f7fc;">الحالة:</td>
+                                            <td style="padding: 5px 10px;"><t t-esc="dict(o.fields_get(['status'])['status']['selection'])[o.status]"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 5px 10px; font-weight: bold; background: #f4f7fc;">اعتمد بواسطة:</td>
+                                            <td style="padding: 5px 10px;"><t t-esc="o.approved_by.name if o.approved_by else '—'"/></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- ===== FINANCIAL SUMMARY ===== -->
+                        <div style="margin-bottom: 18px;">
+                            <div style="font-size: 12pt; font-weight: bold; color: #1a4b8c; border-right: 4px solid #1a4b8c; padding-right: 8px; margin-bottom: 8px;">
+                                الملخص المالي / Financial Summary
+                            </div>
+                            <table width="100%" style="border-collapse: collapse; border: 1px solid #cdd7e8;">
+                                <tr style="background: #e8eef8; font-weight: bold; text-align: center;">
+                                    <td style="padding: 7px; border: 1px solid #cdd7e8;">إجمالي الطلبات</td>
+                                    <td style="padding: 7px; border: 1px solid #cdd7e8;">التسعير الأساسي</td>
+                                    <td style="padding: 7px; border: 1px solid #cdd7e8;">حافز السعة</td>
+                                    <td style="padding: 7px; border: 1px solid #cdd7e8;">حافز الخبرة</td>
+                                    <td style="padding: 7px; border: 1px solid #cdd7e8;">الإعانة</td>
+                                    <td style="padding: 7px; border: 1px solid #cdd7e8;">DXG</td>
+                                    <td style="padding: 7px; border: 1px solid #cdd7e8;">البقشيش</td>
+                                    <td style="padding: 7px; border: 1px solid #cdd7e8;">الخصومات</td>
+                                    <td style="padding: 7px; border: 1px solid #cdd7e8; background: #1a4b8c; color: white;">الإجمالي</td>
+                                </tr>
+                                <tr style="text-align: center; font-size: 11pt;">
+                                    <td style="padding: 8px; border: 1px solid #cdd7e8;"><t t-esc="'{:,}'.format(o.total_orders)"/></td>
+                                    <td style="padding: 8px; border: 1px solid #cdd7e8;"><t t-esc="'{:,.2f}'.format(o.order_base_total)"/> ر.س</td>
+                                    <td style="padding: 8px; border: 1px solid #cdd7e8;"><t t-esc="'{:,.2f}'.format(o.capacity_incentive_total)"/> ر.س</td>
+                                    <td style="padding: 8px; border: 1px solid #cdd7e8;"><t t-esc="'{:,.2f}'.format(o.experience_incentive_total)"/> ر.س</td>
+                                    <td style="padding: 8px; border: 1px solid #cdd7e8;"><t t-esc="'{:,.2f}'.format(o.subsidy_total)"/> ر.س</td>
+                                    <td style="padding: 8px; border: 1px solid #cdd7e8;"><t t-esc="'{:,.2f}'.format(o.dxg_total)"/> ر.س</td>
+                                    <td style="padding: 8px; border: 1px solid #cdd7e8;"><t t-esc="'{:,.2f}'.format(o.tips_total)"/> ر.س</td>
+                                    <td style="padding: 8px; border: 1px solid #cdd7e8; color: #c0392b;"><t t-esc="'{:,.2f}'.format(o.penalties)"/> ر.س</td>
+                                    <td style="padding: 8px; border: 1px solid #cdd7e8; font-weight: bold; background: #eaf1fb;"><t t-esc="'{:,.2f}'.format(o.gross_amount)"/> ر.س</td>
+                                </tr>
+                            </table>
+
+                            <!-- Net / VAT / Riders row -->
+                            <table width="100%" style="border-collapse: collapse; margin-top: 6px;">
+                                <tr>
+                                    <td style="width:25%; padding: 8px 12px; background: #f4f7fc; border: 1px solid #cdd7e8; text-align: center;">
+                                        <div style="font-size: 9pt; color: #666;">المكافآت / Bonuses</div>
+                                        <div style="font-size: 12pt; font-weight: bold; color: #27ae60;"><t t-esc="'{:,.2f}'.format(o.bonuses)"/> ر.س</div>
+                                    </td>
+                                    <td style="width:25%; padding: 8px 12px; background: #f4f7fc; border: 1px solid #cdd7e8; text-align: center;">
+                                        <div style="font-size: 9pt; color: #666;">الضريبة (15%) / VAT</div>
+                                        <div style="font-size: 12pt; font-weight: bold; color: #c0392b;"><t t-esc="'{:,.2f}'.format(o.vat_amount)"/> ر.س</div>
+                                    </td>
+                                    <td style="width:25%; padding: 8px 12px; background: #e8f5e9; border: 1px solid #cdd7e8; text-align: center;">
+                                        <div style="font-size: 9pt; color: #666;">المندوبون الصالحون / Valid DAs</div>
+                                        <div style="font-size: 14pt; font-weight: bold; color: #1a4b8c;">
+                                            <t t-esc="o.valid_rider_count"/> / <t t-esc="o.valid_rider_count + o.invalid_rider_count"/>
+                                        </div>
+                                    </td>
+                                    <td style="width:25%; padding: 8px 12px; background: #1a4b8c; border: 1px solid #1a4b8c; text-align: center;">
+                                        <div style="font-size: 9pt; color: #a8c4e0;">صافي المستحق / Net Amount</div>
+                                        <div style="font-size: 16pt; font-weight: bold; color: white;"><t t-esc="'{:,.2f}'.format(o.net_amount)"/> ر.س</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- ===== PER-RIDER DETAIL TABLE ===== -->
+                        <div style="margin-bottom: 18px; page-break-inside: avoid;">
+                            <div style="font-size: 12pt; font-weight: bold; color: #1a4b8c; border-right: 4px solid #1a4b8c; padding-right: 8px; margin-bottom: 8px;">
+                                تفاصيل المندوبين / Rider Breakdown
+                                <span style="font-size: 9pt; font-weight: normal; color: #888; margin-right: 8px;">
+                                    (المبالغ بالريال السعودي / Amounts in SAR)
+                                </span>
+                            </div>
+                            <table width="100%" style="border-collapse: collapse; border: 1px solid #cdd7e8; font-size: 9pt;">
+                                <thead>
+                                    <tr style="background: #1a4b8c; color: white; text-align: center;">
+                                        <th style="padding: 6px 4px; border: 1px solid #2a5da0;">#</th>
+                                        <th style="padding: 6px 4px; border: 1px solid #2a5da0;">المندوب</th>
+                                        <th style="padding: 6px 4px; border: 1px solid #2a5da0;">صالح</th>
+                                        <th style="padding: 6px 4px; border: 1px solid #2a5da0;">الطلبات</th>
+                                        <th style="padding: 6px 4px; border: 1px solid #2a5da0;">التسعير الأساسي</th>
+                                        <th style="padding: 6px 4px; border: 1px solid #2a5da0;">حافز السعة</th>
+                                        <th style="padding: 6px 4px; border: 1px solid #2a5da0;">حافز الخبرة</th>
+                                        <th style="padding: 6px 4px; border: 1px solid #2a5da0;">إعانة</th>
+                                        <th style="padding: 6px 4px; border: 1px solid #2a5da0;">DXG</th>
+                                        <th style="padding: 6px 4px; border: 1px solid #2a5da0;">بقشيش</th>
+                                        <th style="padding: 6px 4px; border: 1px solid #2a5da0;">خصومات</th>
+                                        <th style="padding: 6px 4px; border: 1px solid #2a5da0; background: #0f3366;">إجمالي</th>
+                                        <th style="padding: 6px 4px; border: 1px solid #0f3366; background: #0f3366;">صافي</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.item_ids.sorted(key=lambda r: r.rider_id.name or '')" t-as="item">
+                                        <tr t-attf-style="background: {{ '#eafaf0' if item.is_valid_da else '#fef9f9' }}; text-align: center;">
+                                            <td style="padding: 5px 3px; border: 1px solid #dce6f4; color: #888;"><t t-esc="item_index + 1"/></td>
+                                            <td style="padding: 5px 6px; border: 1px solid #dce6f4; text-align: right; font-weight: bold;">
+                                                <t t-esc="item.rider_id.name"/>
+                                                <t t-if="not item.is_valid_da and item.validity_reason">
+                                                    <br/><span style="font-size: 8pt; color: #c0392b; font-weight: normal;"><t t-esc="item.validity_reason"/></span>
+                                                </t>
+                                            </td>
+                                            <td style="padding: 5px 3px; border: 1px solid #dce6f4;">
+                                                <span t-if="item.is_valid_da" style="color: #27ae60; font-weight: bold;">✓</span>
+                                                <span t-else="" style="color: #c0392b;">✗</span>
+                                            </td>
+                                            <td style="padding: 5px 3px; border: 1px solid #dce6f4;"><t t-esc="'{:,}'.format(item.orders)"/></td>
+                                            <td style="padding: 5px 3px; border: 1px solid #dce6f4;"><t t-esc="'{:,.2f}'.format(item.order_base_amount)"/></td>
+                                            <td style="padding: 5px 3px; border: 1px solid #dce6f4;"><t t-esc="'{:,.2f}'.format(item.capacity_incentive)"/></td>
+                                            <td style="padding: 5px 3px; border: 1px solid #dce6f4;"><t t-esc="'{:,.2f}'.format(item.experience_incentive)"/></td>
+                                            <td style="padding: 5px 3px; border: 1px solid #dce6f4;"><t t-esc="'{:,.2f}'.format(item.subsidy)"/></td>
+                                            <td style="padding: 5px 3px; border: 1px solid #dce6f4;"><t t-esc="'{:,.2f}'.format(item.dxg)"/></td>
+                                            <td style="padding: 5px 3px; border: 1px solid #dce6f4;"><t t-esc="'{:,.2f}'.format(item.tips_excl_vat)"/></td>
+                                            <td style="padding: 5px 3px; border: 1px solid #dce6f4; color: #c0392b;">
+                                                <t t-if="item.penalties">(‎<t t-esc="'{:,.2f}'.format(item.penalties)"/>)</t>
+                                                <t t-else="">—</t>
+                                            </td>
+                                            <td style="padding: 5px 3px; border: 1px solid #dce6f4; font-weight: bold; background: #eaf1fb;"><t t-esc="'{:,.2f}'.format(item.gross_amount)"/></td>
+                                            <td style="padding: 5px 3px; border: 1px solid #dce6f4; font-weight: bold; background: #e8f5e9; color: #1a6b3a;"><t t-esc="'{:,.2f}'.format(item.net_amount)"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="background: #1a4b8c; color: white; font-weight: bold; text-align: center;">
+                                        <td colspan="3" style="padding: 7px; border: 1px solid #2a5da0; text-align: right; padding-right: 10px;">
+                                            الإجمالي / Total
+                                        </td>
+                                        <td style="padding: 7px; border: 1px solid #2a5da0;"><t t-esc="'{:,}'.format(o.total_orders)"/></td>
+                                        <td style="padding: 7px; border: 1px solid #2a5da0;"><t t-esc="'{:,.2f}'.format(o.order_base_total)"/></td>
+                                        <td style="padding: 7px; border: 1px solid #2a5da0;"><t t-esc="'{:,.2f}'.format(o.capacity_incentive_total)"/></td>
+                                        <td style="padding: 7px; border: 1px solid #2a5da0;"><t t-esc="'{:,.2f}'.format(o.experience_incentive_total)"/></td>
+                                        <td style="padding: 7px; border: 1px solid #2a5da0;"><t t-esc="'{:,.2f}'.format(o.subsidy_total)"/></td>
+                                        <td style="padding: 7px; border: 1px solid #2a5da0;"><t t-esc="'{:,.2f}'.format(o.dxg_total)"/></td>
+                                        <td style="padding: 7px; border: 1px solid #2a5da0;"><t t-esc="'{:,.2f}'.format(o.tips_total)"/></td>
+                                        <td style="padding: 7px; border: 1px solid #2a5da0; color: #ffb3b3;"><t t-esc="'{:,.2f}'.format(o.penalties)"/></td>
+                                        <td style="padding: 7px; border: 1px solid #2a5da0;"><t t-esc="'{:,.2f}'.format(o.gross_amount)"/></td>
+                                        <td style="padding: 7px; border: 1px solid #0f3366; background: #e8f5e9; color: #1a1a1a;"><t t-esc="'{:,.2f}'.format(o.net_amount)"/></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        <!-- ===== NOTES ===== -->
+                        <t t-if="o.notes">
+                            <div style="margin-bottom: 18px; padding: 10px; background: #fffbf0; border-right: 4px solid #f39c12; border: 1px solid #f5e0a0;">
+                                <div style="font-weight: bold; margin-bottom: 4px; color: #7d6608;">ملاحظات / Notes:</div>
+                                <div style="color: #555;"><t t-esc="o.notes"/></div>
+                            </div>
+                        </t>
+
+                        <!-- ===== SIGNATURE SECTION ===== -->
+                        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #dce6f4;">
+                            <table width="100%" style="border-collapse: collapse;">
+                                <tr>
+                                    <td style="width:33%; text-align: center; padding: 10px;">
+                                        <div style="border-top: 2px solid #1a4b8c; margin-top: 40px; padding-top: 6px;">
+                                            <div style="font-weight: bold;">مدير العمليات</div>
+                                            <div style="font-size: 9pt; color: #888;">Operations Manager</div>
+                                        </div>
+                                    </td>
+                                    <td style="width:33%; text-align: center; padding: 10px;">
+                                        <div style="border-top: 2px solid #1a4b8c; margin-top: 40px; padding-top: 6px;">
+                                            <div style="font-weight: bold;">المراجع / Finance</div>
+                                            <div style="font-size: 9pt; color: #888;">Finance Review</div>
+                                        </div>
+                                    </td>
+                                    <td style="width:33%; text-align: center; padding: 10px;">
+                                        <div style="border-top: 2px solid #1a4b8c; margin-top: 40px; padding-top: 6px;">
+                                            <div style="font-weight: bold;">المدير العام</div>
+                                            <div style="font-size: 9pt; color: #888;">General Manager</div>
+                                            <t t-if="o.approved_by">
+                                                <div style="font-size: 9pt; color: #27ae60; margin-top: 4px;">
+                                                    <t t-esc="o.approved_by.name"/>
+                                                </div>
+                                                <div style="font-size: 8pt; color: #888;">
+                                                    <t t-esc="o.approved_at.strftime('%d/%m/%Y %H:%M') if o.approved_at else ''"/>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- ===== FOOTER ===== -->
+                        <div style="margin-top: 16px; padding-top: 10px; border-top: 1px solid #eee; font-size: 8pt; color: #999; text-align: center;">
+                            برق العروبة — إدارة عمليات التوصيل | 3PL Delivery Operations — Barq alUrooba
+                            <span style="margin: 0 10px;">|</span>
+                            تم إنشاؤه في: <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y %H:%M')"/>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

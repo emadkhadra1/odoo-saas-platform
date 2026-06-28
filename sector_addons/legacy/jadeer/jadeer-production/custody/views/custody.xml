@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--Custody Form View-->
+        <record id="custody_form_view" model="ir.ui.view">
+            <field name="name">Custody Form View</field>
+            <field name="model">custody.custody</field>
+            <field name="arch" type="xml">
+                <form string="Custody">
+                    <header>
+                        <button name="action_progress"
+                                string="Progress"
+                                type="object"
+                                groups="custody.custody_employee"
+                                states="new"
+                                class="btn-primary"/>
+                        <button name="action_delivery"
+                                string="Delivery"
+                                type="object"
+                                groups="custody.custody_manager"
+                                states="progress"
+                                class="btn-primary"/>
+                        <button name="action_cancel"
+                                states="new,progress"
+                                groups="custody.custody_manager"
+                                string="Canceled"
+                                class="btn-primary"
+                                type="object"/>
+                        <button name="action_close"
+                                states="delivery"
+                                groups="custody.custody_manager"
+                                string="Closed"
+                                class="btn-primary"
+                                type="object"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="new,progress,delivery"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee"/>
+                                <field name="department"/>
+                            </group>
+                            <group>
+                                <field name="equipment_id"/>
+                                <field name="date"/>
+                                <field name="deliv_date" states="delivery,close"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!--Custody Graph View-->
+        <record model="ir.ui.view" id="custody_graph_view">
+            <field name="name">Custody Graph View</field>
+            <field name="model">custody.custody</field>
+            <field name="arch" type="xml">
+                <graph string="Custody" type="bar">
+                    <field name="employee"/>
+                    <field name="equipment_id" operator="+"/>
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="custody_pivot_view">
+            <field name="name">Custody Pivot View</field>
+            <field name="model">custody.custody</field>
+            <field name="arch" type="xml">
+                <pivot string="Custody">
+                    <field name="employee" type="row"/>
+                    <field name="equipment_id" type="col"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!--Custody Search View-->
+        <record id="custody_search_view" model="ir.ui.view">
+            <field name="name">custody search view</field>
+            <field name="model">custody.custody</field>
+            <field name="arch" type="xml">
+                <search string="Custody">
+                    <field name="employee"/>
+                    <field name="equipment_id"/>
+                    <field name="department"/>
+                    <group expand="0" string="Group By">
+                        <filter name="groupby_employee" context="{'group_by':'employee'}" string="Employee"/>
+                        <filter name="equipment_id" context="{'group_by': 'equipment_id'}" string="Equipment"/>
+                        <filter name="state" context="{'group_by': 'state'}" string="Status"/>
+                        <filter name="groupby_month" context="{'group_by': 'date:month'}" string="Month"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!--action of module-->
+        <record id="custody_custody_action" model="ir.actions.act_window">
+            <field name="name">Custody</field>
+            <field name="res_model">custody.custody</field>
+            <field name="view_mode">tree,pivot,form,graph</field>
+        </record>
+
+
+        <record id="custody_tree_view" model="ir.ui.view">
+            <field name="name">Custody Tree View</field>
+            <field name="model">custody.custody</field>
+            <field name="arch" type="xml">
+                <tree string="Custody">
+                    <field name="date"/>
+                    <field name="employee"/>
+                    <field name="equipment_id"/>
+                    <field name="department"/>
+                    <field name="deliv_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

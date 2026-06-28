@@ -28,6 +28,12 @@ Public presentation URL:
 
 The website includes sector features, Saudi Riyal prices, and an interactive SaaS backend preview.
 
+Sector demo database setup:
+
+```text
+docs/sector_demo_databases.md
+```
+
 ## Standalone Previews
 
 - `outputs/marketing_site/`
@@ -35,7 +41,7 @@ The website includes sector features, Saudi Riyal prices, and an interactive Saa
 
 ## Version Notes
 
-- SaaS Manager and Website bridge currently target Odoo 18.
+- SaaS Manager and Website bridge target Odoo 19.
 - 3PL source targets Odoo 18.
 - Construction source targets Odoo 19.
 - Legacy Real Estate and Saudi HR sources require compatibility review before production deployment.

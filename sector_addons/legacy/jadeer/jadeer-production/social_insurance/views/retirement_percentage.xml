@@ -1,0 +1,23 @@
+<odoo>
+    <record id="retirement_percentage_tree_view" model="ir.ui.view">
+        <field name="name">retirement.percentage.tree.view</field>
+        <field name="model">retirement.percentage</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="employee_percentage" width="50%"/>
+                <field name="school_percentage" width="50%"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="retirement_percentage_action" model="ir.actions.act_window">
+        <field name="name">Retirement Percentage</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">retirement.percentage</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+<!--    <menuitem id="retirement_percentage_menu" name="Retirement Percentage"-->
+<!--              parent="hr_work_entry_contract_enterprise.menu_hr_payroll_configuration"-->
+<!--              action="retirement_percentage_action" sequence="14"/>-->
+</odoo>

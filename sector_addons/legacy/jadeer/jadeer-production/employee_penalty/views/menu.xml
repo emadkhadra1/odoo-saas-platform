@@ -1,0 +1,16 @@
+<data>
+    <menuitem id="employee_penalty_root_menu"
+              name="Employee Penalty"
+              parent="hr_work_entry_contract_enterprise.menu_hr_payroll_root"
+              sequence="66"/>
+    <menuitem id="employee_penalty_menu"
+              name="Employee Penalty"
+              action="employee_penalty_action"
+              parent="employee_penalty_root_menu"
+              />
+    <menuitem id="employee_penalty_type_menu"
+              name="Penalty Types"
+              action="employee_penalty_type_action"
+              parent="employee_penalty_root_menu"
+              />
+</data>

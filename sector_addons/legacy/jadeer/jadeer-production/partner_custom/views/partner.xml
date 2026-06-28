@@ -1,0 +1,36 @@
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">view.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="national_no"/>
+                <field name="lead_type"/>
+                <field name="date_of_birth"/>
+                <field name="age"/>
+            </xpath>
+            <xpath expr="//field[@name='user_ids']" position="before">
+                <field name="mobile2"/>
+            </xpath>
+            <xpath expr="//group[@name='sale']" position="inside">
+                <field name="lead_customer"/>
+            </xpath>
+
+        </field>
+    </record>
+
+<!--    <record id="view_res_partner_filter_inherit" model="ir.ui.view">-->
+<!--        <field name="name">res.partner.filter</field>-->
+<!--        <field name="model">res.partner</field>-->
+<!--        <field name="inherit_id" ref="base.view_res_partner_filter"/>-->
+<!--        <field name="arch" type="xml">-->
+
+<!--            <xpath expr="//field[@name='phone']" position="replace">-->
+<!--                <field name="phone" filter_domain="['|','|',('phone', 'ilike', self), ('mobile', 'ilike', self),('mobile2', 'ilike', self)]"/>-->
+<!--            </xpath>-->
+
+<!--        </field>-->
+<!--    </record>-->
+
+</odoo>

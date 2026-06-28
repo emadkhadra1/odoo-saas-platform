@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+       <record id="security_categ_financial_custody" model="ir.module.category">
+           <field name="name">Financial Custody</field>
+           <field name="sequence" eval="1"/>
+       </record>
+
+        <record id="group_financial_custody_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="security_categ_financial_custody"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_financial_custody_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="security_categ_financial_custody"/>
+            <field name="implied_ids" eval="[(4, ref('financial_custody.group_financial_custody_user'))]"/>
+        </record>
+        <record id="group_financial_custody_accountant" model="res.groups">
+            <field name="name">Accountant</field>
+            <field name="category_id" ref="security_categ_financial_custody"/>
+            <field name="implied_ids" eval="[(4, ref('financial_custody.group_financial_custody_user'))]"/>
+        </record>
+
+        <record id="rule_financial_custody_own_user" model="ir.rule">
+            <field name="name">Financial Custody: Own Custody</field>
+            <field ref="model_financial_custody" name="model_id"/>
+            <field name="domain_force">[('create_uid', '=', user.id)]</field>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <!-- You can attach this rule to a specific group, Or make it Global -->
+            <field name="groups" eval="[(4, ref('financial_custody.group_financial_custody_user'))]"/>
+            <!--<field name="global" eval="1"/> -->
+        </record>
+
+        <record id="rule_financial_custody_all_manager" model="ir.rule">
+            <field name="name">Financial Custody: all Custody</field>
+            <field ref="model_financial_custody" name="model_id"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <!-- You can attach this rule to a specific group, Or make it Global -->
+            <field name="groups" eval="[(4, ref('financial_custody.group_financial_custody_manager'))]"/>
+            <!--<field name="global" eval="1"/> -->
+        </record>
+
+    </data>
+</odoo>

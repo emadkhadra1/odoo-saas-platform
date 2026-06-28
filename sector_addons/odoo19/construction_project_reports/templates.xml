@@ -1,0 +1,26 @@
+﻿<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="inherit_construction_project_form" model="ir.ui.view">
+            <field name="name">Construction Project</field>
+            <field name="model">construction.project</field>
+            <field name="inherit_id" ref="construction_project.view_construction_project_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='project_description']" position="after">
+                    <field name="contract_type"/>
+                    <field name="total_component"/>
+                    <field name="total_component"/>
+                    <field name="total_receive_order"/>
+                    <field name="total_labor"/>
+                    <field name="total_machine"/>
+                    <field name="total_tool"/>
+                    <field name="total_detialed_cost"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

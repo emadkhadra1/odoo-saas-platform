@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_delivery_3pl_root"
+              name="توصيل 3PL"
+              web_icon="delivery_3pl,static/description/icon.png"
+              sequence="10"/>
+
+    <menuitem id="menu_delivery_dashboard"
+              name="لوحة التحكم"
+              parent="menu_delivery_3pl_root"
+              action="action_delivery_dashboard"
+              sequence="1"/>
+
+    <!-- العمليات -->
+    <menuitem id="menu_delivery_operations"
+              name="العمليات"
+              parent="menu_delivery_3pl_root"
+              sequence="10"/>
+
+    <menuitem id="menu_delivery_companies"
+              name="الشركات"
+              parent="menu_delivery_operations"
+              action="action_delivery_company"
+              sequence="10"/>
+
+    <menuitem id="menu_delivery_branches"
+              name="الفروع"
+              parent="menu_delivery_operations"
+              action="action_delivery_branch"
+              sequence="15"/>
+
+    <menuitem id="menu_delivery_contracts"
+              name="العقود"
+              parent="menu_delivery_operations"
+              action="action_delivery_contract"
+              sequence="20"/>
+
+    <menuitem id="menu_delivery_riders"
+              name="المناديب"
+              parent="menu_delivery_operations"
+              action="action_delivery_rider"
+              sequence="30"/>
+
+    <menuitem id="menu_delivery_service_providers"
+              name="الشركات المزودة للخدمة"
+              parent="menu_delivery_operations"
+              action="action_delivery_service_provider"
+              sequence="35"/>
+
+    <menuitem id="menu_delivery_rider_platforms"
+              name="إتاحة المناديب للمنصات"
+              parent="menu_delivery_operations"
+              action="action_delivery_rider_platform_availability"
+              sequence="40"/>
+
+    <menuitem id="menu_delivery_rider_bulk_import"
+              name="استيراد جماعي للمناديب"
+              parent="menu_delivery_operations"
+              action="action_delivery_rider_bulk_import"
+              sequence="45"/>
+
+    <menuitem id="menu_delivery_imports"
+              name="استيراد بيانات الأداء"
+              parent="menu_delivery_operations"
+              action="action_delivery_import_session"
+              sequence="50"/>
+
+    <!-- الأداء -->
+    <menuitem id="menu_delivery_performance_parent"
+              name="الأداء"
+              parent="menu_delivery_3pl_root"
+              sequence="15"/>
+
+    <menuitem id="menu_delivery_daily_performance"
+              name="الأداء اليومي"
+              parent="menu_delivery_performance_parent"
+              action="action_delivery_daily_performance"
+              sequence="10"/>
+
+    <menuitem id="menu_delivery_monthly_performance"
+              name="الأداء الشهري"
+              parent="menu_delivery_performance_parent"
+              action="action_delivery_monthly_performance"
+              sequence="20"/>
+
+    <menuitem id="menu_delivery_company_targets"
+              name="تارجيت الشركة"
+              parent="menu_delivery_performance_parent"
+              action="action_delivery_company_target"
+              sequence="30"/>
+
+    <!-- التسويات -->
+    <menuitem id="menu_delivery_settlements_parent"
+              name="التسويات"
+              parent="menu_delivery_3pl_root"
+              sequence="20"/>
+
+    <menuitem id="menu_delivery_settlements"
+              name="التسويات الشهرية"
+              parent="menu_delivery_settlements_parent"
+              action="action_delivery_settlement"
+              sequence="10"/>
+
+    <menuitem id="menu_delivery_settlement_batch"
+              name="⚙️ احتساب دفعي للتسويات"
+              parent="menu_delivery_settlements_parent"
+              action="action_delivery_settlement_batch_wizard"
+              sequence="12"/>
+
+    <menuitem id="menu_delivery_pricing"
+              name="قواعد التسعير"
+              parent="menu_delivery_settlements_parent"
+              action="action_delivery_pricing_rule"
+              sequence="20"/>
+
+    <menuitem id="menu_delivery_rider_deductions"
+              name="خصومات المناديب"
+              parent="menu_delivery_settlements_parent"
+              action="action_delivery_rider_deduction"
+              sequence="25"/>
+
+    <menuitem id="menu_delivery_penalties"
+              name="جزاءات المناديب"
+              parent="menu_delivery_settlements_parent"
+              action="action_delivery_rider_penalty"
+              sequence="30"/>
+
+    <menuitem id="menu_delivery_wallet"
+              name="معاملات المحفظة"
+              parent="menu_delivery_settlements_parent"
+              action="action_delivery_wallet_transaction"
+              sequence="40"/>
+
+    <!-- الإعدادات -->
+    <menuitem id="menu_delivery_config"
+              name="الإعدادات"
+              parent="menu_delivery_3pl_root"
+              sequence="90"/>
+
+    <menuitem id="menu_delivery_cities"
+              name="المدن"
+              parent="menu_delivery_config"
+              action="action_delivery_city"
+              sequence="10"/>
+
+    <menuitem id="menu_delivery_rider_types"
+              name="أنواع المناديب"
+              parent="menu_delivery_config"
+              action="action_delivery_rider_type"
+              sequence="20"/>
+
+    <menuitem id="menu_delivery_penalty_types"
+              name="أنواع الجزاءات"
+              parent="menu_delivery_config"
+              action="action_delivery_penalty_type"
+              sequence="30"/>
+
+    <menuitem id="menu_delivery_deposit_types"
+              name="أنواع التأمينات"
+              parent="menu_delivery_config"
+              action="action_delivery_deposit_type"
+              sequence="40"/>
+
+    <menuitem id="menu_delivery_validity_criteria"
+              name="شروط الصلاحية"
+              parent="menu_delivery_config"
+              action="action_delivery_validity_criteria"
+              sequence="50"/>
+
+    <menuitem id="menu_delivery_experience_config"
+              name="إعداد نقاط الخبرة"
+              parent="menu_delivery_config"
+              action="action_delivery_experience_config"
+              sequence="60"/>
+</odoo>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+<!--        <record id="view_hr_payroll_tax_configuration" model="ir.ui.view">-->
+<!--            <field name="name">res.config.settings</field>-->
+<!--            <field name="model">res.config.settings</field>-->
+<!--            <field name="inherit_id" ref="hr_payroll.res_config_settings_view_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//div[hasclass('mt16')]" position="after">-->
+<!--                    <div class="row mt16 o_settings_container">-->
+<!--                    <div class="col-lg-6 col-12 o_setting_box">-->
+<!--                        <div class="o_setting_right_pane">-->
+<!--                            <span class="o_form_label">Tax Type</span>-->
+<!--                            <div>-->
+<!--                                <field name="payslip_tax_type" style="width:30%"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    </div>-->
+<!--                </xpath>-->
+
+<!--            </field>-->
+<!--        </record>-->
+                <record id="view_hr_payroll_tax_configuration" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.taxes</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="hr_payroll.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@data-key='hr_payroll']" position="inside">
+                    <h2>Payroll Taxes</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-lg-6 col-12 o_setting_box">
+
+                            <div class="o_setting_right_pane">
+                                <label for="payslip_tax_type"/>
+                                <div class="text-muted">
+                                    Select Tax Type For Employee On Payslip
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="payslip_tax_type" class="o_light_label"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-6 col-12 o_setting_box">
+
+                            <div class="o_setting_right_pane">
+                                <label for="payslip_tax_minimum_salary"/>
+                                <div class="text-muted">
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="payslip_tax_minimum_salary" class="o_light_label"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-lg-6 col-12 o_setting_box">
+<!--                            <div class="o_setting_left_pane">-->
+<!--                                <field name="payslip_discount_total"/>-->
+<!--                            </div>-->
+<!--                            <div class="o_setting_right_pane">-->
+<!--                                <label for="payslip_discount_total" string="Payroll Entries"/>-->
+<!--                                <div class="text-muted">-->
+<!--                                    Payslip Tax Computation With Discount Total-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+
+                        <div class="col-lg-6 col-12 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="payslip_tax_minimum_salary_force"/>
+                                <div class="text-muted">
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="payslip_tax_minimum_salary_force" class="o_light_label"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

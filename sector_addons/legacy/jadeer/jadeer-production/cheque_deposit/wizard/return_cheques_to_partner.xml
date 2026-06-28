@@ -1,0 +1,44 @@
+<odoo>
+    <record id="return_cheque_partner_date_form_view" model="ir.ui.view">
+        <field name="name">return.cheque.partner.date.form</field>
+        <field name="model">return.cheque.partner.date</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="payment_id" invisible="1"/>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirm" name="action_check_returned_to_partner" class="btn-primary"
+                            type="object"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="return_cheque_pay_date_form_view" model="ir.ui.view">
+        <field name="name">return.cheque.pay.date.form</field>
+        <field name="model">return.cheque.pay.date</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="payment_id" invisible="1"/>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirm" name="action_check_returned_to_partner" class="btn-primary"
+                            type="object"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

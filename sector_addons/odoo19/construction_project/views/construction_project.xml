@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--<record id="seq_ostensible_marble" model="ir.sequence.type">-->
+        <!--<field name="name">Serial OM</field>-->
+        <!--<field name="code">ostensible.marble</field>-->
+        <!--</record>-->
+
+<!--        <record id="seq_ostensible_marble_sequence" model="ir.sequence">-->
+<!--            <field name="name">Serial OM</field>-->
+<!--            <field name="code">ostensible.marble</field>-->
+<!--            &lt;!&ndash;%(year)s%(month)s/&ndash;&gt;-->
+<!--            <field name="prefix">OM/%(year)s%(month)s/</field>-->
+<!--            <field name="padding">4</field>-->
+<!--        </record>-->
+
+    </data>
+
+    <data>
+
+        <!--construction.project-->
+
+        <record id="view_construction_project_form" model="ir.ui.view">
+            <field name="name">construction.project.form</field>
+            <field name="model">construction.project</field>
+            <field name="arch" type="xml">
+                <form string="Construction Project">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="partner_id" context="{'default_customer_rank': 1}"/>
+                                <field name="location_dest_id" invisible="0"/>
+                                <field name="location_create" invisible="1"/>
+
+                                <field name="purpose_of_the_project"/>
+                                <field name="project_description"/>
+                                <field name="analytic_account_id" readonly="1"/>
+
+                            </group>
+
+                            <group>
+                                <field name="company_id" invisible="0"/>
+                                <field name="warehouse_id" invisible="0" readonly="0"/>
+                                <field name="location_id" invisible="0"/>
+                                <field name="picking_type_id" invisible="0"/>
+                                <field name="total_cost"/>
+                                <field name="selling_price"/>
+                                <field name="estimated_costs"/>
+                                <field name="estimated_net_profit"/>
+                                <field name="estimated_profit_margin_ratio"/>
+                                <field name="net_profit"/>
+                                <field name="net_profit_ratio"/>
+                                <field name="primary_insurance"/>
+
+                            </group>
+                        </group>
+                        <group string="Units"></group>
+                        <field name="project_unit_ids">
+                            <list editable="bottom">
+
+                                <field name="name"/>
+                                <field name="project_id" invisible="1"/>
+                                <field name="unit_location"/>
+                                <field name="unit_description"/>
+                                <field name="total_unit_cost"/>
+
+                            </list>
+
+                        </field>
+                        <group string="Items"></group>
+                        <field name="project_item_ids" readonly="1">
+                            <list editable="bottom">
+
+
+                                <field name="unit_id" domain="[('project_id','=',parent.id)]"/>
+
+                                <field name="product_id"/>
+                                <field name="product_uom"/>
+                                <field name="total_item_cost"/>
+                                <field name="item_qty"/>
+                                <field name="item_description"/>
+
+
+                                <field name="state"/>
+                            </list>
+                        </field>
+
+                        <group string="Components"></group>
+                        <field name="project_component_ids" readonly="1">
+                            <list editable="bottom">
+
+
+                                <field name="item_id" domain="[('project_id','=',parent.id)]"/>
+
+
+                                <field name="product_id"/>
+                                <field name="product_uom"/>
+                                <field name="component_qty"/>
+                                <field name="component_cost" readonly="1"/>
+                                <field name="component_description"/>
+                                <field name="state"/>
+                            </list>
+                        </field>
+
+
+                        <group string="Reciver Orders"></group>
+                        <field name="receive_order_ids" nolable="1">
+                            <!--editable="bottom"-->
+                            <list>
+
+                                <field name="name"/>
+                                <field name="date"/>
+
+                                <field name="total_cost" sum="cost"/>
+                                <field name="total_amount" sum="amount"/>
+
+                                <field name="state"/>
+                            </list>
+                        </field>
+
+                        <group string="Labors"></group>
+                        <field name="labor_ids" nolable="1">
+                            <!--editable="bottom"-->
+                            <list>
+
+                                <field name="name"/>
+                                <field name="date"/>
+
+                                <field name="total_cost" sum="cost"/>
+
+                                <field name="state"/>
+                            </list>
+                        </field>
+
+                        <group string="Machines"></group>
+                        <field name="machine_ids" nolable="1">
+                            <!--editable="bottom"-->
+                            <list>
+
+                                <field name="name"/>
+                                <field name="date"/>
+
+                                <field name="total_cost" sum="cost"/>
+
+                                <field name="state"/>
+                            </list>
+                        </field>
+                        <group string="Tools"></group>
+                        <field name="tool_ids" nolable="1">
+                            <!--editable="bottom"-->
+                            <list>
+
+                                <field name="name"/>
+                                <field name="date"/>
+
+                                <field name="total_cost" sum="cost"/>
+
+                                <field name="state"/>
+                            </list>
+                        </field>
+
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+<!--        <record id="view_construction_project_form_inherit" model="ir.ui.view">-->
+<!--            <field name="name">construction.project.inherit</field>-->
+<!--            <field name="model">construction.project</field>-->
+<!--            <field name="inherit_id" ref="construction_project.view_construction_project_form"/>-->
+<!--            <field name="arch" type="xml">-->
+
+<!--                <xpath expr="//field[@name='component_description']" position="after">-->
+<!--                    &lt;!&ndash; Add your fields or attributes here &ndash;&gt;-->
+<!--                    <field name="contract_type"/>-->
+<!--                </xpath>-->
+
+<!--            </field>-->
+<!--        </record>-->
+
+        <record id="view_construction_project_tree" model="ir.ui.view">
+            <field name="name">construction.project.tree</field>
+            <field name="model">construction.project</field>
+            <field name="arch" type="xml">
+                <list string="Construction Project">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="selling_price"/>
+                    <field name="estimated_costs"/>
+                    <field name="estimated_net_profit"/>
+
+                    <field name="total_cost"/>
+                    <field name="net_profit"/>
+                    <field name="project_description"/>
+                    <!--<field name="project_unit_ids"/>-->
+                </list>
+            </field>
+        </record>
+
+        <record id="view_construction_project_action" model="ir.actions.act_window">
+            <field name="name">Construction Project</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.project</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,44 @@
+<odoo>
+    <record id="attached_area_form_view" model="ir.ui.view">
+        <field name="name">attached.area.form.view</field>
+        <field name="model">attached.area</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="unit_type_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="attached_area_tree" model="ir.ui.view">
+        <field name="name">attached.area.tree.view</field>
+        <field name="model">attached.area</field>
+        <field name="arch" type="xml">
+            <tree string="Unit Categories">
+                <field name="name"/>
+                <field name="unit_type_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="attached_area_action" model="ir.actions.act_window">
+        <field name="name">Attached Area</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">attached.area</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem id="attached_area_menu"
+              name="Attached Areas"
+              action="attached_area_action"
+              parent="realestate_project.real_estate_configuration_menu"
+              sequence="4"
+    />
+</odoo>

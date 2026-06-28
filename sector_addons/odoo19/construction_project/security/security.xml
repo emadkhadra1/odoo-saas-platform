@@ -1,0 +1,163 @@
+<odoo>
+
+        <record id="construction_project_category" model="ir.module.category">
+            <field name="name">Construction Project</field>
+            <field name="sequence" eval="0"/>
+        </record>
+        <!--construction_project.construction_project_group-->
+        <record id="construction_project_group" model="res.groups">
+            <field name="name">`Construction Accsses`</field>
+            <field name="category_id" ref="construction_project_category"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('sales_team.group_sale_manager')), (4, ref('stock.group_stock_manager'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+
+            <!--<field name="implied_ids" eval="[(4, ref('sales_team.group_sale_manager'))]"/>-->
+        </record>
+
+
+        <record id="show_receive_order_category" model="ir.module.category">
+            <field name="name">Show Receive Order</field>
+            <field name="sequence" eval="1"/>
+        </record>
+
+        <record id="user_own_receive_order_group" model="res.groups">
+            <field name="name">User: Own Receive Order Only</field>
+            <field name="category_id" ref="show_receive_order_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+                    <field name="users" eval="[(4, ref('base.user_root'))]"/>
+
+        </record>
+
+        <record id="manager_receive_order_group" model="res.groups">
+            <field name="name">Manager: All Receive Order</field>
+            <field name="category_id" ref="show_receive_order_category"/>
+            <field name="implied_ids" eval="[(4, ref('user_own_receive_order_group'))]"/>
+                    <field name="users" eval="[(4, ref('base.user_root'))]"/>
+
+        </record>
+
+        <record id="user_own_receive_order_rule" model="ir.rule">
+            <field name="name">Personal Receive Orders</field>
+            <field ref="model_construction_receive_order" name="model_id"/>
+            <field name="domain_force">['|',('user_id','=',user.id),('user_id','=',False)]</field>
+            <field name="groups" eval="[(4, ref('construction_project.user_own_receive_order_group'))]"/>
+        </record>
+
+        <record id="manager_receive_order_rule" model="ir.rule">
+            <field name="name">All Receive Orders</field>
+            <field ref="model_construction_receive_order" name="model_id"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('construction_project.manager_receive_order_group'))]"/>
+        </record>
+
+        <record id="receive_order_category" model="ir.module.category">
+            <field name="name">Receive Order</field>
+            <field name="sequence" eval="1"/>
+        </record>
+        <!--construction_project.receive_order_user_group-->
+        <record id="receive_order_user_group" model="res.groups">
+            <field name="name">Receive Order User</field>
+            <field name="category_id" ref="receive_order_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+                    <field name="users" eval="[(4, ref('base.user_root'))]"/>
+
+        </record>
+        <!--construction_project.receive_order_manager_group-->
+        <record id="receive_order_manager_group" model="res.groups">
+            <field name="name">Receive Order Manager</field>
+            <field name="category_id" ref="receive_order_category"/>
+                        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+
+            <!--<field name="implied_ids" eval="[(4, ref('construction_project.receive_order_user_group'))]"/>-->
+        </record>
+
+        <record id="receive_order_user_group_show_only" model="ir.rule">
+            <field name="name">Show Only Receive Order</field>
+            <field ref="model_construction_receive_order" name="model_id"/>
+            <field name="domain_force">[('user_id', '=',user.id )]</field>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <!-- You can attach this rule to a specific group, Or make it Global -->
+            <field name="groups" eval="[(4, ref('construction_project.receive_order_user_group'))]"/>
+            <!--<field name="global" eval="1"/> -->
+        </record>
+        <record id="receive_order_user_group_show_only_lines" model="ir.rule">
+            <field name="name">Show Only Receive Order Lines</field>
+            <field ref="model_construction_receive_order_line" name="model_id"/>
+<!--            <field name="domain_force">[('user_id', '=',user.id)]</field>-->
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <!-- You can attach this rule to a specific group, Or make it Global -->
+            <field name="groups" eval="[(4, ref('construction_project.receive_order_user_group'))]"/>
+            <!--<field name="global" eval="1"/> -->
+        </record>
+        <record id="receive_order_manager_group_show_all" model="ir.rule">
+            <field name="name">Show All Receive Order</field>
+            <field ref="model_construction_receive_order" name="model_id"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <!-- You can attach this rule to a specific group, Or make it Global -->
+            <field name="groups" eval="[(4, ref('construction_project.receive_order_manager_group'))]"/>
+            <!--<field name="global" eval="1"/> -->
+        </record>
+
+        <record id="receive_order_manager_group_show_all_lines" model="ir.rule">
+            <field name="name">Show All Receive Order Lines</field>
+            <field ref="model_construction_receive_order_line" name="model_id"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <!-- You can attach this rule to a specific group, Or make it Global -->
+            <field name="groups" eval="[(4, ref('construction_project.receive_order_manager_group'))]"/>
+            <!--<field name="global" eval="1"/> -->
+        </record>
+
+
+        <record id="service_category" model="ir.module.category">
+            <field name="name">Service Labors/Machines/Tools</field>
+            <field name="sequence" eval="1"/>
+        </record>
+
+
+        <!--  construction_project.service_labor_user_group       -->
+        <record id="service_user_group" model="res.groups">
+            <field name="name">Service User</field>
+            <field name="category_id" ref="service_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+                    <field name="users" eval="[(4, ref('base.user_root'))]"/>
+
+        </record>
+        <record id="service_manager_group" model="res.groups">
+            <field name="name">Service Manager</field>
+            <field name="category_id" ref="service_category"/>
+            <field name="implied_ids" eval="[(4, ref('construction_project.service_user_group'))]"/>
+                    <field name="users" eval="[(4, ref('base.user_root'))]"/>
+
+        </record>
+
+
+        <!--View Menus-->
+
+
+        <!--Actions-->
+
+    <data noupdate="0">
+        <!-- Multi - Company Rules -->
+        <record model="ir.rule" id="construction_project_comp_rule">
+            <field name="name">Construction Project  multi-company</field>
+            <field name="model_id" ref="model_construction_project"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+    </data>
+</odoo>

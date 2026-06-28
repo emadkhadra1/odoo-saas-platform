@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="portal_my_home_menu_leave" name="Portal layout : Leave menu entry"
+                  inherit_id="portal.portal_breadcrumbs" priority="25">
+            <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+                <li t-if="page_name == 'leave' or page_name == 'new_leave' or leave"
+                    t-attf-class="breadcrumb-item #{'active ' if not leave or not pd else ''}">
+                    <a t-attf-href="/my/leaves?{{ keep_query() }}">
+                        Leaves
+                    </a>
+                    <t t-if="page_name == 'new_leave' ">
+                        / New Leave Request
+                    </t>
+                </li>
+
+                <li t-if="page_name == 'pr_request' or page_name == 'pr_request_new' or  pd"
+                    t-attf-class="breadcrumb-item #{'active ' if page_name == 'pr_request_new' or  pd else ''}">
+                    <a t-attf-href="/my/purchase_request?{{ keep_query() }}">
+                        Purchase Requisition
+                    </a>
+
+                </li>
+                <li t-if="page_name == 'pr_request_new'"
+                    t-attf-class="breadcrumb-item">
+
+                    New Purchase Requisition
+
+                </li>
+
+
+                <li t-if="leave or pd" class="breadcrumb-item">
+                    <span t-if="leave" t-field="leave.name"/>
+
+                    <span t-if="pd" t-field="pd.name"/>
+                </li>
+            </xpath>
+        </template>
+
+        <template id="portal_pr" name="Purchase Request">
+            <t t-call="portal.portal_layout">
+                <t t-set="breadcrumbs_searchbar" t-value="True"/>
+                <t t-set="additional_title">Purchase Request</t>
+                <t t-call="portal.portal_searchbar">
+                    <t t-set="title">Purchase Request</t>
+                </t>
+                <div class="row mt-2 mb-2">
+                    <div class="col-12">
+                        <a href="/my/purchase_request/submit" class=" btn bg-primary">
+                            <i class="fa fa-plus-circle"></i>
+                            New Purchase Request
+                        </a>
+                    </div>
+                </div>
+                <t t-if="not pds">
+                    <p>There are currently no Purchase Request for your account.</p>
+                </t>
+                <t t-if="pds" t-call="portal.portal_table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+
+                            <th>Name
+
+                            </th>
+
+                            <th>Department
+
+                            </th>
+                            <th>Analytic Account
+
+                            </th>
+                            <th>GL Account
+
+                            </th>
+                            <th>Type
+
+                            </th>
+                            <th>Classification
+
+                            </th>
+                            <th>Status
+
+                            </th>
+
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <t t-set="i" t-value="1"/>
+                    <t t-foreach="pds" t-as="pd">
+                        <tr>
+                            <td>
+                                <span t-esc="i"/>
+                                <t t-set="i" t-value="i+1"/>
+                            </td>
+                            <td>
+                                <span t-field="pd.name"/>
+                            </td>
+                            <td>
+                                <span t-field="pd.budget_id"></span>
+                            </td>
+                            <td>
+                                <span t-field="pd.analytic_account_id"/>
+                            </td>
+                            <td>
+                                <span t-field="pd.account_id"/>
+                            </td>
+                            <td>
+                                <span t-field="pd.pr_type"/>
+                            </td>
+                            <td>
+                                <span t-field="pd.classification"/>
+                            </td>
+
+                            <td class="text-center">
+                                <span class="badge badge-pill badge-info" t-field="pd.state"/>
+                            </td>
+                            <td class="text-center py-0 align-middle">
+                                <div class="btn-group btn-group-sm">
+                                    <a t-attf-href="/my/purchase_request/#{pd.id}" class="btn btn-info">
+                                        <i class="fa fa-eye"></i>View
+                                    </a>
+                                    <!--<a t-if="pd.state == 'new'" t-attf-href="/my/pd/edit/#{pd.id}" class="btn btn-primary">
+                                    <i class="fas fa-edit"></i>Edit</a>-->
+                                    <a t-if="pd.state == 'draft'" t-attf-href="/my/purchase_request/delete/#{pd.id}"
+                                       class="btn btn-danger">
+                                        <i class="fa fa-trash"></i>Delete
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+            </t>
+        </template>
+        <template id="portal_my_pr" name="My  Purchase Requisition">
+            <t t-call="portal.portal_layout">
+                <br/>
+                <div class="card card-info card-outline">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-6">
+                                <h3 class="card-title">
+                                    <small class="text-muted">Purchase Request -</small>
+                                    <span t-field="pr.display_name"/>
+                                </h3>
+                            </div>
+                            <div class="col-4 text-center align-self-center">
+                                <b>
+                                    <div t-foreach="pr" t-as="tf" class="float-left">
+                                        Status :
+                                        <span t-field="tf.state"/>
+                                    </div>
+                                </b>
+
+                            </div>
+                            <div class="col-2 text-center align-self-center">
+                                <a t-if="order_points and pr.state == 'processing'" t-attf-href="/my/purchase_request/#{pr.id}/receive"
+                                   class="btn btn-primary">Receive
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div style="padding: 4px;" class="callout callout-info">
+                            <h5 style="margin: 0;">Purchase Request Details</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="border-bottom d-flex justify-content-between py-2 mb-3 align-items-center">
+                                    <h5 class="mb-0">
+                                        <span class="text-nowrap" t-esc="pr.display_name"/>
+                                    </h5>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <strong class="col-12">Name :</strong>
+                                        <span t-if="pr.name" t-field="pr.name"/>
+                                        <span t-else="" class="text-muted">-</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong class="col-12">Department :</strong>
+                                        <span t-if="pr.budget_id" t-field="pr.budget_id"/>
+                                        <span t-else="" class="text-muted">-</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <strong class="col-12">Analytic Account :</strong>
+                                        <span t-if="pr.analytic_account_id" t-field="pr.analytic_account_id"/>
+                                        <span t-else="" class="text-muted">-</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong class="col-12">GL Account :</strong>
+                                        <span t-if="pr.account_id"
+                                              t-field="pr.account_id"/>
+                                        <span t-else="" class="text-muted">-</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <strong class="col-12">Type :</strong>
+                                        <span t-if="pr.pr_type" t-field="pr.pr_type"/>
+                                        <span t-else="" class="text-muted">-</span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div style="padding: 4px;" class="callout callout-info">
+                            <h5 style="margin: 0;">Requisitions Lines</h5>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-scroll mt-3">
+                                <thead>
+                                    <tr>
+                                        <td>Product
+
+                                        </td>
+                                        <td>Description
+                                        </td>
+                                        <td>Quantity
+
+                                        </td>
+                                        <td>Price
+
+                                        </td>
+
+                                        <td>Total</td>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="pr.sudo().line_ids" t-as="line">
+                                        <tr>
+                                            <td>
+                                                <span t-field="line.product_id"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.product_qty"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.product_price"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.unit_subtotal"/>
+                                            </td>
+
+
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </t>
+        </template>
+
+        <template id="receive_pr_products" name="Receive Products">
+            <t t-call="portal.portal_layout">
+                <br/>
+                <div class="accordion" id="accordionAddNew">
+                    <div class="card">
+                        <div class="card-body" id="headingOne">
+                            <h2 class="mb-0">
+                                <button class="btn btn-primary text-left" type="button" data-toggle="collapse" data-target="#collapseAddNew"
+                                        aria-expanded="true" aria-controls="collapseAddNew">
+                                    Add New Receiving
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapseAddNew" class="collapse hide" aria-labelledby="collapseAddNew" data-parent="#accordionAddNew">
+                            <form action="/pr/point/receive_insert" method="post"
+                                  class="container-fluid mt32 receiving_collapse" id="receiving_collapse"
+                                  enctype="multipart/form-data">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <input type="hidden" name="pr_id" t-att-value="pr.id"/>
+
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-6" style="">
+                                            <div class="form-group" style="position: static;">
+                                                <label for="select-1">Purchase Order
+                                                    <span style="color:red">*</span>
+                                                </label>
+                                                <select class="form-control po_select" id="po_select" name="po_select" required="required">
+                                                    <option value="">Select Purchase Order</option>
+                                                    <t t-foreach="orders" t-as="order">
+                                                        <option t-att-value="order.id">
+                                                            <t t-esc="order.name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                            <div class="form-group" style="position: static;">
+                                                <label for="select-1">Point Of Purchase Order
+                                                    <span style="color:red">*</span>
+                                                </label>
+                                                <select class="form-control point_select" id="point_select" name="point_select"
+                                                        required="required">
+                                                    <option value="">Select Purchase Order Point</option>
+                                                    <t t-if="order_points" t-foreach="order_points" t-as="point">
+                                                        <option t-att-value="point.id">
+                                                            [<t t-esc="point.order_id.name"/>]
+                                                            <t t-esc="point.order_line_id.name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" style="">
+                                            <div class="form-group" style="position: static;">
+                                                <label for="input-text-1">Received Quantity
+                                                    <span style="color:red">*</span>
+                                                </label>
+                                                <input type="number" class="form-control" required="required" id="receive_qty" name="receive_qty"
+                                                       placeholder="Enter Quantity"/>
+                                            </div>
+                                            <div class="form-group" style="position: static;">
+                                                <b for="input-text-1">Remaining Quantity :
+                                                    <span id="remin_qty"></span>
+                                                </b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="justify-content-end row">
+                                        <input type="submit" value='Receive' class="mx-4 btn btn-primary text-white"
+                                               name="receive_pr_products_btn" id="receive_pr_products_btn"/>
+                                        <input type="submit" value='Receive &amp; Close' class="mx-4 btn btn-info text-white"
+                                               name="receive_pr_products_btn" id="receive_pr_products_btn"/>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Purchase Request Receives</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table  table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Purchase Request</th>
+                                        <th>Point</th>
+                                        <th>Point Quantity</th>
+                                        <th>Received Qty</th>
+                                        <th>Received Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="received_point_ids" t-as="rece">
+                                        <tr>
+                                            <td>
+                                                <span t-esc="rece['po_id']"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="rece['po_point_id']"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="rece['point_qty']"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="rece['received_qty']"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="rece['create_date']"  t-options='{"widget": "date"}'/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="rece['state']"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <!--  form view-->
+        <template id="website_portal.pr_submit" name="Purchase Requisition: Submit a Purchase Requisition">
+            <t t-call="portal.portal_layout">
+
+                <t t-set="additional_title">Purchase Request</t>
+                <br/>
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h4 class="card-title">New Purchase Request</h4>
+                    </div>
+                    <form action="/purchase_request/pr_insert" method="post" class="container-fluid mt32 pd_form" id="pd_form"
+                          enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="card-body">
+
+
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>GL Account
+                                        <span style="color:red">*</span>
+                                    </label>
+                                    <select class="form-control oe_search_account_account"
+                                            required="required" id="account_id"
+                                            name="account_id">
+                                        <option value="" selected="selected"
+                                                disabled="disabled">Select GL Account
+                                        </option>
+                                        <t t-foreach="account_ids" t-as="account_id">
+                                            <option
+                                                    t-att-value="account_id.id">
+                                                <t t-esc="account_id.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Fields
+                                        <span style="color:red">*</span>
+                                    </label>
+                                    <select class="form-control "
+                                            required="required" id="field_id"
+                                            name="field_id">
+                                        <option value="" selected="selected"
+                                                disabled="disabled">Select Fields
+                                        </option>
+                                        <t t-foreach="field_ids" t-as="field_id">
+                                            <option
+                                                    t-att-value="field_id.id">
+                                                <t t-esc="field_id.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Type</label>
+                                    <select class="form-control "
+                                            required="required"
+                                            name="pr_type">
+                                        <option value="general" selected="selected">General</option>
+                                        <option value="special">Special</option>
+
+                                    </select>
+                                </div>
+
+                            </div>
+
+
+                            <label>Product Lines</label>
+
+                            <div class="invoice-box table-responsive">
+                                <table cellpadding="0" cellspacing="0">
+
+
+                                    <tr class="heading">
+                                        <td></td>
+                                        <td>Product
+                                            <span style="color:red">*</span>
+                                        </td>
+                                        <td>Description
+                                            <span style="color:red">*</span>
+                                        </td>
+                                        <td>Quantity
+                                            <span style="color:red">*</span>
+                                        </td>
+                                        <td>Price
+                                            <span style="color:red">*</span>
+                                        </td>
+                                        <td>Total</td>
+
+                                    </tr>
+                                    <tr class="item">
+                                        <td>
+                                            <button class="btn btn-danger remove_pr">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <select class="form-control pr_product_id" name="product_id"
+                                                    required="required">
+                                                <option value="" selected="selected" disabled="disabled">Select
+                                                </option>
+                                                <t t-foreach="products" t-as="product">
+                                                    <option t-att-value="product.id">
+                                                        <t t-esc="product.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" name="name"
+                                                   required="required" class="form-control"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="product_qty" class="form-control"
+                                                   required="required"/>
+                                        </td>
+
+                                        <td>
+                                            <input type="number" name="product_price" class="form-control"
+                                                   required="required"/>
+                                        </td>
+                                        <!--                                        <td>-->
+                                        <!--                                            <select class="form-control pr_uom_id" name="uom_id"-->
+                                        <!--                                                    required="required">-->
+                                        <!--                                                <option value="" selected="selected" disabled="disabled">Select-->
+                                        <!--                                                </option>-->
+                                        <!--                                            </select>-->
+                                        <!--                                        </td>-->
+                                        <td>
+                                            0.00
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <button type="button" class="btn btn-add-row btn-info btn-block">
+                                                <i class="fa fa-plus"></i>
+                                                Add New line
+                                            </button>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr class="total">
+                                        <td colspan="5"></td>
+
+                                        <td>
+                                            Total 0.00
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+
+                            <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-paper-plane"></i>
+                                Save
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="history.go(-1)">
+                                <i class="fa fa-arrow-circle-left"></i>
+                                Back
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

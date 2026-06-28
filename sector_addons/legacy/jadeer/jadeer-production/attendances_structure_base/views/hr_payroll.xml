@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_hr_payslip_form_inherit_002" model="ir.ui.view">
+            <field name="name">hr.payslip.form.inherit</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook//page[2]" position="after">
+                    <page string="Attendance Summary" groups="hr_payroll.group_hr_payroll_manager">
+                        <group>
+                            <group>
+                                <field name="deduction_amount" readonly="1"/>
+                                <field name="work_day_over_time"/>
+                                <field name="work_night_over_time"/>
+                                <field name="public_leave_over_time"/>
+                                <field name="weekly_leave_over_time"/>
+                            </group>
+                            <group>
+                                <field name="absent_amount"/>
+                                <field name="no_checkout_amount"/>
+                                <field name="not_in_contract_amount"/>
+                            </group>
+                        </group>
+                        <field name="attend_rule_ids" colspan="4" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="employee_id" readonly="0"/>
+                                <field name="name" readonly="0"/>
+                                <field name="date" readonly="0"/>
+                                <field name="hours" readonly="0" string="Hours" widget="float_time"/>
+                                <field name="apply_hours" widget="float_time"/>
+                                <field name="rule_id" invisible="0"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Actual Attendance" groups="hr_payroll.group_hr_payroll_manager">
+                        <field name="hr_attendance_ids"/>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

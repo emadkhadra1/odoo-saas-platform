@@ -430,6 +430,15 @@ h3 {
   font-weight: 800;
 }
 
+.solution-link + .solution-link {
+  margin-inline-start: 8px;
+}
+
+.demo-link {
+  color: var(--white);
+  background: var(--navy);
+}
+
 .price-card ul {
   display: grid;
   gap: 10px;

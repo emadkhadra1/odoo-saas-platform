@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+
+        <record id="hr_employee_code_view_form_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.view.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='identification_group']" position="inside">
+                    <field name="attendance_code"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

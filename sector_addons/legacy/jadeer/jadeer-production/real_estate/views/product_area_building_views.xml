@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+
+
+        <record model="ir.ui.view" id="real_product_area_form">
+            <field name="name">product.area.form</field>
+            <field name="model">product.area</field>
+            <field name="arch" type="xml">
+                <form string="Area">
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="real_product_area_tree">
+            <field name="name">product.area.tree</field>
+            <field name="model">product.area</field>
+            <field name="arch" type="xml">
+                <tree string="Area">
+                    <field name="name"/>
+                    <field name="code"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_product_area_all" model="ir.actions.act_window">
+            <field name="name">Areas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.area</field>
+            <field name="view_mode">tree,form</field>
+
+            <field name="view_id" ref="real_product_area_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new project
+                </p>
+                <p>
+                    You must define a project for everything you purchase,
+                    whether it's a physical product, a consumable or services.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="real_product_building_form">
+            <field name="name">product.building.form</field>
+            <field name="model">product.building</field>
+            <field name="arch" type="xml">
+                <form string="Building">
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="real_product_building_tree">
+            <field name="name">product.building.tree</field>
+            <field name="model">product.building</field>
+            <field name="arch" type="xml">
+                <tree string="Buildings">
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_product_building_all" model="ir.actions.act_window">
+            <field name="name">Buildings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.building</field>
+            <field name="view_mode">tree,form</field>
+
+            <field name="view_id" ref="real_product_building_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new project
+                </p>
+                <p>
+                    You must define a project for everything you purchase,
+                    whether it's a physical product, a consumable or services.
+                </p>
+            </field>
+        </record>
+
+
+
+        <menuitem id="menu_product_area_all"
+                  action="action_product_area_all"
+                  name="Areas"
+                  parent="sale.product_menu_catalog"
+                  sequence="2"
+        />
+<!--        <menuitem id="menu_product_area_all"-->
+<!--                  action="action_product_area_all"-->
+<!--                  name="Areas"-->
+<!--                  groups="real_estate.group_non_broker"-->
+<!--                  parent="sale.product_menu_catalog"-->
+<!--                  sequence="2"-->
+<!--        />-->
+
+    </data>
+</odoo>

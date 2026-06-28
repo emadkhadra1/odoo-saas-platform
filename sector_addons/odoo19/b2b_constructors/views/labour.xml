@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_construction_labor_form" model="ir.ui.view">
+            <field name="name">construction.labor.form</field>
+            <field name="model">construction.labor</field>
+            <field name="inherit_id" ref="construction_project.view_construction_labor_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='cost']" position="after">
+                    <field name="labor_install"/>
+                </xpath>
+                <xpath expr="//field[@name='employment']" position="after">
+                    <field name="boq_id" readonly="state == 'done'"/>
+                    <field invisible="1" name="business_item_ids"/>
+                    <field name="business_item_id" readonly="state == 'done'"/>
+                </xpath></field>
+        </record>
+    </data>
+</odoo>

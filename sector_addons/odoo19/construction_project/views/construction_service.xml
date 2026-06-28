@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="construction_service_sequence_madina" model="ir.sequence">
+            <field name="name">construction.service.madina</field>
+            <field name="code">construction.service.madina</field>
+            <!--%(year)s%(month)s/-->
+            <field name="active">TRUE</field>
+            <field name="prefix">Service</field>
+            <field name="padding">4</field>
+            <field eval="1" name="company_id"/>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="construction_machine_sequence_madina" model="ir.sequence">
+            <field name="name">construction.machine.madina</field>
+            <field name="code">construction.machine.madina</field>
+            <!--%(year)s%(month)s/-->
+            <field name="active">TRUE</field>
+            <field name="prefix">Machine</field>
+            <field name="padding">4</field>
+            <field eval="1" name="company_id"/>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="construction_tool_sequence_madina" model="ir.sequence">
+            <field name="name">construction.tool.madina</field>
+            <field name="code">construction.tool.madina</field>
+            <!--%(year)s%(month)s/-->
+            <field name="active">TRUE</field>
+            <field name="prefix">Tool</field>
+            <field name="padding">4</field>
+            <field eval="1" name="company_id"/>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="construction_labor_sequence_madina" model="ir.sequence">
+            <field name="name">construction.labor.madina</field>
+            <field name="code">construction.labor.madina</field>
+            <!--%(year)s%(month)s/-->
+            <field name="active">TRUE</field>
+            <field name="prefix">Labor</field>
+            <field name="padding">4</field>
+            <field eval="1" name="company_id"/>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="view_construction_service_form" model="ir.ui.view">
+            <field name="name">construction.service.form</field>
+            <field name="model">construction.service</field>
+            <field name="arch" type="xml">
+                <form string="Service">
+                    <header>
+                        <button class="oe_highlight" invisible="state not in ['new']" name="confirm" string="Confirm" type="object"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" readonly="state == 'done'"/>
+                                <field name="project_id" readonly="state == 'done'"/>
+                            </group>
+                            <group>
+                                <field name="date" readonly="state == 'done'"/>
+                                <field name="total_cost"/>
+                            </group>
+                        </group>
+                        <group string="Labors"/>
+                        <field name="service_labor_ids" readonly="state == 'done'">
+                            <list editable="bottom">
+                                <field name="labor_id"/>
+                                <field invisible="1" name="name"/>
+                                <field name="qty" sum="qty"/>
+                                <field name="unit_cost" sum="unit_cost"/>
+                                <field name="cost" sum="cost"/>
+                            </list></field>
+                        <group string="Machines"/>
+                        <field name="service_machine_ids" readonly="state == 'done'">
+                            <list editable="bottom">
+                                <field name="machine_id"/>
+                                <field invisible="1" name="name"/>
+                                <field name="qty" sum="qty"/>
+                                <field name="unit_cost" sum="unit_cost"/>
+                                <field name="cost" sum="cost"/>
+                            </list></field>
+                    </sheet>
+                </form></field>
+        </record>
+        <record id="view_construction_service_tree" model="ir.ui.view">
+            <field name="name">construction.service.tree</field>
+            <field name="model">construction.service</field>
+            <field name="arch" type="xml">
+                <list string="Service">
+                    <field name="name"/>
+                </list></field>
+        </record>
+        <record id="view_construction_service_action" model="ir.actions.act_window">
+            <field name="name">Service</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.service</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p></field>
+        </record>
+        <record id="view_construction_labor_form" model="ir.ui.view">
+            <field name="name">construction.labor.form</field>
+            <field name="model">construction.labor</field>
+            <field name="arch" type="xml">
+                <form string="Labors">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="unit_cost"/>
+                        </group>
+                    </sheet>
+                </form></field>
+        </record>
+        <record id="view_construction_labor_tree" model="ir.ui.view">
+            <field name="name">construction.labor.tree</field>
+            <field name="model">construction.labor</field>
+            <field name="arch" type="xml">
+                <list string="Labors">
+                    <field name="name"/>
+                    <field name="unit_cost"/>
+                </list></field>
+        </record>
+        <record id="view_labors_action" model="ir.actions.act_window">
+            <field name="name">Labors</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.labor</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p></field>
+        </record>
+        <record id="view_construction_machine_form" model="ir.ui.view">
+            <field name="name">construction.machine.form</field>
+            <field name="model">construction.machine</field>
+            <field name="arch" type="xml">
+                <form string="Machines">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="unit_cost"/>
+                        </group>
+                    </sheet>
+                </form></field>
+        </record>
+        <record id="view_construction_machine_tree" model="ir.ui.view">
+            <field name="name">construction.machine.tree</field>
+            <field name="model">construction.machine</field>
+            <field name="arch" type="xml">
+                <list string="Machines">
+                    <field name="name"/>
+                    <field name="unit_cost"/>
+                </list></field>
+        </record>
+        <record id="view_machines_action" model="ir.actions.act_window">
+            <field name="name">Machines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.machine</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p></field>
+        </record>
+    </data>
+</odoo>

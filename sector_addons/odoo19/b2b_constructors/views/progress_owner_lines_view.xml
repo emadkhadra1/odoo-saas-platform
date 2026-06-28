@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <record id="view_b2b_progress_owner_lines_form" model="ir.ui.view">
+      <field name="name">view.b2b.progress.owner.lines.form</field>
+      <field name="model">b2b.progress.owner.lines</field>
+      <field name="arch" type="xml">
+        <form string="Owner Quotation Lines">
+          <sheet>
+            <group name="main">
+              <group>
+                <field name="progress_bill_id" widget="selection"/>
+                <field name="purchase_order_id" invisible="0" widget="selection"/>
+                <field name="uom_id" widget="selection"/>
+                <field name="category"/>
+                <field name="main_item_id" widget="selection"/>
+                <field name="sub_item_id" widget="selection"/>
+                <field name="business_statement_id" widget="selection"/>
+                <field name="indexation_id" invisible="1" widget="selection"/>
+                <field name="entrepreneurs_id" invisible="1" widget="selection"/>
+              </group>
+              <group>
+                <field name="required_quantity" invisible="1"/>
+                <field name="previous_work"/>
+                <field name="current_work"/>
+                <field name="total_work"/>
+                <field name="work_amount"/>
+                <field name="notes" groups="b2b_constructors.group_construction_notes"/>
+
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_b2b_progress_owner_lines_tree" model="ir.ui.view">
+      <field name="name">view.b2b_progress_owner_lines.tree</field>
+      <field name="model">b2b.progress.owner.lines</field>
+      <field name="arch" type="xml">
+        <list string="Owner Quotation Lines" decoration-danger="total_work > required_quantity">
+          <field name="progress_bill_id" widget="selection" invisible="0"/>
+          <field name="main_item_id" widget="selection"/>
+          <field name="sub_item_id" widget="selection"/>
+          <!-- <field name="business_statement_id" /> -->
+          <field name="progress_bill_id" invisible="0" widget="selection"/>
+          <!--<field name="purchase_order_id" invisible="0" widget="selection"/>-->
+          <field name="entrepreneurs_id" invisible="0" widget="selection"/>
+          <field name="indexation_id" invisible="0" widget="selection"/>
+          <field name="uom_id" widget="selection"/>
+          <field name="category"/>
+          <field name="required_quantity" invisible="1"/>
+          <field name="previous_work"/>
+          <field name="current_work"/>
+          <field name="total_work"/>
+          <field name="work_amount"/>
+        </list>
+      </field>
+    </record>
+
+    <record id="view_b2b_progress_owner_lines_search" model="ir.ui.view">
+      <field name="name">view.b2b_progress_owner_lines.search</field>
+      <field name="model">b2b.progress.owner.lines</field>
+      <field name="arch" type="xml">
+        <search string="Owner Quotation Lines">
+          <field name="progress_bill_id"/>
+          <field name="uom_id"/>
+          <field name="category"/>
+          <field name="business_statement_id"/>
+            <field name="main_item_id" widget="selection"/>
+          <field name="sub_item_id" widget="selection"/>
+          <field name="required_quantity" invisible="1"/>
+          <field name="previous_work"/>
+          <field name="current_work"/>
+          <field name="total_work"/>
+          <field name="work_amount"/>
+          <group string="Group By" name="groupby">
+            <filter name="progress_bill_id_groupby" string="Progress Bill" context="{'group_by': 'progress_bill_id'}"/>
+            <filter name="uom_id_groupby" string="Unit" context="{'group_by': 'uom_id'}"/>
+            <filter name="business_statement_id_groupby" string="Business Statement" context="{'group_by': 'business_statement_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+<record id='b2b_progress_owner_Lines_pivot' model='ir.ui.view'>
+            <field name="name">b2b.progress.owner.Lines.pivot</field>
+            <field name="model">b2b.progress.owner.lines</field>
+            <field name="arch" type="xml">
+                <pivot string="owner Quotation">
+                    <field name="project_id" type="row"/>
+                    <field name="consructor_id" type="col"/>
+                    <!--<field name="date" interval="year" type="col"/>-->
+                    <field name="total_work" type="measure"/>
+                                        <field name="work_amount" type="measure"/>
+
+                </pivot>
+            </field>
+        </record>
+
+          <record id='b2b_progress_owner_graph' model='ir.ui.view'>
+            <field name="name">b2b.progress.owner.Lines.graph</field>
+            <field name="model">b2b.progress.owner.lines</field>
+            <field name="arch" type="xml">
+                <graph string="Owner Quotation">
+                    <field name="project_id" type="row"/>
+                    <field name="total_work" type="measure"/>
+                                        <field name="work_amount" type="measure"/>
+
+                </graph>
+            </field>
+        </record>
+    <record id="b2b_progress_owner_lines_action" model="ir.actions.act_window">
+      <field name="name">Owner Quotation Lines</field>
+      <field name="res_model">b2b.progress.owner.lines</field>
+            <field name="view_mode">list,form,pivot,graph</field>
+      <field name="domain">[]</field>
+      <field name="context">{}</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to create a new Owner Quotation Lines.
+        </p>
+      </field>
+    </record>
+
+    <!--<report-->
+    <!--id="b2b_report_sum_quotation"-->
+    <!--model="b2b.quotation.report.wizard"-->
+    <!--string="Quotation Report"-->
+    <!--report_type="qweb-pdf"-->
+    <!--file="b2b_constructors.b2b_qoutation_sum_report"-->
+    <!--name="b2b_constructors.b2b_qoutation_sum_report"-->
+    <!--attachment_use="False"-->
+    <!--menu="False"-->
+<!--/>-->
+
+  </data>
+</odoo>

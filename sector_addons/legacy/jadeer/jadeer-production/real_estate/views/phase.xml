@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+<!--        <record id="project_phase_form" model="ir.ui.view">-->
+<!--            <field name="name">Phase Form</field>-->
+<!--            <field name="model">project.phase</field>-->
+<!--            <field name="inherit_id" ref="project_phase_building_floor.project_phase_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <field name="delivery_date" position="after">-->
+<!--                    <field name="payment_plan_ids" widget="many2many_tags" required="1"/>-->
+<!--                </field>-->
+<!--            </field>-->
+
+<!--        </record>-->
+
+    </data>
+</odoo>

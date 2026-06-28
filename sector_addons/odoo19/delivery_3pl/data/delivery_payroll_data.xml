@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- ================================================================
+             3PL DELIVERY PAYROLL INTEGRATION — Salary Structure & Input Types
+             ================================================================
+
+             This data creates the salary structure and input types used when
+             converting approved settlements into payslip batches.
+
+             Workflow:
+               Settlement (approved) → "Generate Payslips" button
+               → hr.payslip.run (batch) + hr.payslip (per rider with employee_id)
+               → Payroll team reviews, computes & pays via Odoo Payroll.
+
+             Salary Rules (in the 3PL Delivery Settlement structure):
+               DELIVERY_EARN      → Gross order earnings (positive)
+               DELIVERY_BONUS     → Bonuses & incentives (positive)
+               DELIVERY_PENALTY   → Penalties (negative deduction)
+               VEHICLE_RENT       → Vehicle rental deduction (negative)
+               SUBCONTRACT_FEE    → Subcontract management fee (negative)
+             ================================================================ -->
+
+        <!-- ── Salary Structure Type ──────────────────────────────────────── -->
+        <record id="salary_structure_type_3pl" model="hr.payroll.structure.type">
+            <field name="name">3PL Delivery Rider (مندوب توصيل)</field>
+            <field name="wage_type">monthly</field>
+        </record>
+
+        <!-- ── Salary Structure ───────────────────────────────────────────── -->
+        <record id="salary_structure_3pl_delivery" model="hr.payroll.structure">
+            <field name="name">3PL Delivery Settlement (تسوية توصيل)</field>
+            <field name="type_id" ref="salary_structure_type_3pl"/>
+            <field name="note">Auto-generated from delivery_3pl settlement.
+All amounts are sourced from settlement item lines and injected as payslip inputs.
+Review inputs and compute the payslip in the Payroll module before payment.</field>
+        </record>
+
+        <!-- ── Payslip Input Types ────────────────────────────────────────── -->
+
+        <!-- Gross Earnings (positive) -->
+        <record id="input_type_delivery_earn" model="hr.payslip.input.type">
+            <field name="name">3PL Order Earnings (أرباح الطلبات)</field>
+            <field name="code">DELIVERY_EARN</field>
+            <field name="struct_ids" eval="[(4, ref('salary_structure_3pl_delivery'))]"/>
+        </record>
+
+        <!-- Bonuses (positive) -->
+        <record id="input_type_delivery_bonus" model="hr.payslip.input.type">
+            <field name="name">3PL Bonuses &amp; Incentives (المكافآت والحوافز)</field>
+            <field name="code">DELIVERY_BONUS</field>
+            <field name="struct_ids" eval="[(4, ref('salary_structure_3pl_delivery'))]"/>
+        </record>
+
+        <!-- Penalties (deduction — amount stored as positive, applied as negative in rule) -->
+        <record id="input_type_delivery_penalty" model="hr.payslip.input.type">
+            <field name="name">3PL Penalties (الغرامات والاقتطاعات)</field>
+            <field name="code">DELIVERY_PENALTY</field>
+            <field name="struct_ids" eval="[(4, ref('salary_structure_3pl_delivery'))]"/>
+        </record>
+
+        <!-- Vehicle Rental Deduction -->
+        <record id="input_type_vehicle_rent" model="hr.payslip.input.type">
+            <field name="name">3PL Vehicle Rental Deduction (اقتطاع إيجار المركبة)</field>
+            <field name="code">VEHICLE_RENT</field>
+            <field name="struct_ids" eval="[(4, ref('salary_structure_3pl_delivery'))]"/>
+        </record>
+
+        <!-- Subcontract Management Fee -->
+        <record id="input_type_subcontract_fee" model="hr.payslip.input.type">
+            <field name="name">3PL Subcontract Management Fee (رسوم إدارة المقاول من الباطن)</field>
+            <field name="code">SUBCONTRACT_FEE</field>
+            <field name="struct_ids" eval="[(4, ref('salary_structure_3pl_delivery'))]"/>
+        </record>
+
+    </data>
+</odoo>

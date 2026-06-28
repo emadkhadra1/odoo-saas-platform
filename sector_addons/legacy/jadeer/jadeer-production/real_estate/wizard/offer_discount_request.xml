@@ -1,0 +1,88 @@
+<odoo>
+    <record id="discount_request_wizard_view" model="ir.ui.view">
+        <field name="name">discount.request.wizard.view</field>
+        <field name="model">discount.request.wizard</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="offer_id" readonly="1" force_save="1"/>
+                            <field name="unit_id" readonly="1" force_save="1"/>
+                            <field name="unit_price"/>
+                        </group>
+                        <group>
+                            <field name="discount_type"/>
+                            <field name="discount_percentage" attrs="{'invisible':[('discount_type','!=','percent')]}"/>
+                            <field name="discount_amount" attrs="{'invisible':[('discount_type','!=','amount')]}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="confirm" string="Confirm" class="oe_highlight" type="object"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="offer_discount_request_view" model="ir.ui.view">
+        <field name="name">offer.discount.request.view</field>
+        <field name="model">discount.request</field>
+        <field name="arch" type="xml">
+            <form string="" create="0" edit="0">
+                <header>
+                    <button name="action_first_approve" string="First Approve" type="object" class="oe_highlight"
+                            states="draft" groups="real_estate.discount_first_approve"/>
+                    <button name="action_second_approval" string="Second Approve" type="object" class="oe_highlight"
+                            states="first_approval" groups="real_estate.discount_second_approve"/>
+                    <button name="action_approved" string="Approve" type="object" class="oe_highlight"
+                            states="second_approval" groups="real_estate.discount_final_approve"/>
+                    <button name="action_reject" string="Reject" type="object"
+                            states="draft,first_approval,second_approval"
+                    groups="real_estate.discount_first_approve,real_estate.discount_second_approve,real_estate.discount_final_approve"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,first_approval,second_approval,approved"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="offer_id" readonly="1" force_save="1"/>
+                            <field name="unit_id" readonly="1" force_save="1"/>
+                            <field name="unit_price"/>
+                        </group>
+                        <group>
+                            <field name="discount_type"/>
+                            <field name="discount_percentage" attrs="{'invisible':[('discount_type','!=','percent')]}"/>
+                            <field name="discount_amount" attrs="{'invisible':[('discount_type','!=','amount')]}"/>
+                            <field name="price_after_disc"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="offer_discount_request_tree" model="ir.ui.view">
+        <field name="name">offer.discount.request.tree</field>
+        <field name="model">discount.request</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="offer_id"/>
+                <field name="unit_id"/>
+                <field name="unit_price"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="offer_discount_request_action" model="ir.actions.act_window">
+        <field name="name">Discount Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">discount.request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="discount_request_menu" name="Discount Requests"
+              parent="real_estate.contracts_menu_categ"
+              action="offer_discount_request_action"/>
+</odoo>

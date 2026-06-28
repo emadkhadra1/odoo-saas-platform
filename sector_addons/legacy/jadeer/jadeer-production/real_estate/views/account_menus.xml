@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem action="account_batch_payment.action_batch_payment_out"
+                  id="account_batch_payment.menu_batch_payment_purchases"
+                  sequence="21" active="False"
+        />
+
+        <menuitem name="Invoicing"
+                  id="menu_finance"
+                  groups="real_estate.group_invoicing_menu"
+                  web_icon="account,static/description/icon.png"
+                  sequence="40"/>
+
+        <menuitem name="Accounting"
+                  groups="real_estate.group_accounting_menu"
+                  web_icon="account_accountant,static/description/icon.png"
+                  id="menu_finance"
+                  sequence="40"/>
+    </data>
+</odoo>

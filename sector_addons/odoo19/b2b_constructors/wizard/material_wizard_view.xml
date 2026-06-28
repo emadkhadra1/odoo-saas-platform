@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_material_report_wizard_form" model="ir.ui.view">
+            <field name="name">view.material.report.wizard.form</field>
+            <field name="model">b2b.material.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Material Report Wizard">
+                    <sheet>
+                        <group name="main">
+                            <group>
+                                <field name="project_id"/>
+                                <field name="from_date"/>
+                                <field name="main_item_id" options="{'no_create': True}"/>
+
+                            </group>
+                            <group>
+                                <field name="type"/>
+                                <field name="to_date"/>
+                                <field name="sub_item_id" options="{'no_create': True}"/>
+
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="action_print" type="object" string="Print" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="b2b_material_report_action" model="ir.actions.act_window">
+            <field name="name">Total Material Items Wizard</field>
+            <field name="res_model">b2b.material.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <report
+                id="b2b_report_sum_material"
+                model="b2b.material.report.wizard"
+                string="material Report1"
+                report_type="qweb-pdf"
+                file="b2b_constructors.report_b2b_material_sum_document"
+                name="b2b_constructors.report_b2b_material_sum_document"
+                attachment_use="False"
+                menu="False"
+        />
+    </data>
+</odoo>

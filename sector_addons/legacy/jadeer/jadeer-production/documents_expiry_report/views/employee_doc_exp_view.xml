@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model='ir.ui.view' id='employee_document_report_tree_view'>
+            <field name="name">res.documents.tree</field>
+            <field name="model">res.documents</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="type_id"/>
+                    <field name="expiry_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="employee_document_report_search_view" model="ir.ui.view">
+            <field name="name">res.documents.search</field>
+            <field name="model">res.documents</field>
+            <field name="arch" type="xml">
+                <search string="Documents Expiry Search">
+                    <field name="employee_id"/>
+                    <field name="type_id"/>
+                    <field name="expiry_date"/>
+                    <newline/>
+                    <group expand="1" string="Group By">
+                        <filter string="Employee" name="employee_id" context="{'group_by':'employee_id'}"/>
+                        <!--                        <filter string="Expired Docs" name="expired_docs"-->
+                        <!--                                domain="[('expiry_date','&gt;=',context_today().strftime('%Y-%m-%d 23:59:59'))]"/>-->
+
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="document_expiry_view_action_window" model="ir.actions.server">
+            <field name="name">Employees Documents Expiry</field>
+            <field name="model_id" ref="res_documents.model_res_documents"/>
+            <field name="binding_model_id" ref="res_documents.model_res_documents"/>
+            <field name="binding_view_types">tree</field>
+            <field name="state">code</field>
+            <field name="code">action = env['res.documents'].open_expiry_documents()</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="document_expiry_view_action_menu" name="Documents Expiry"
+                  parent="res_documents.menu_hr_document_root"
+                  action="document_expiry_view_action_window" sequence="2"/>
+    </data>
+</odoo>

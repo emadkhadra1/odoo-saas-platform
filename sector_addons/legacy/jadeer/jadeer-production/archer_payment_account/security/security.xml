@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+
+        <record id="group_approve_payment" model="res.groups">
+            <field name="name">Approve Payments</field>
+        </record>
+    </data>
+
+</odoo>

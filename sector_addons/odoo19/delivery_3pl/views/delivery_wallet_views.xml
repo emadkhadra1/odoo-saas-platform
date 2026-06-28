@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_delivery_wallet_transaction_tree" model="ir.ui.view">
+        <field name="name">delivery.wallet.transaction.tree</field>
+        <field name="model">delivery.wallet.transaction</field>
+        <field name="arch" type="xml">
+            <list string="معاملات المحفظة">
+                <field name="create_date" string="التاريخ"/>
+                <field name="rider_id" string="المندوب"/>
+                <field name="type" string="نوع المعاملة" widget="badge"/>
+                <field name="amount" string="المبلغ (ريال)"/>
+                <field name="balance_before" string="الرصيد قبل"/>
+                <field name="balance_after" string="الرصيد بعد"/>
+                <field name="reference" string="المرجع"/>
+                <field name="settlement_id" string="التسوية"/>
+                <field name="description" string="الوصف"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_delivery_wallet_transaction_form" model="ir.ui.view">
+        <field name="name">delivery.wallet.transaction.form</field>
+        <field name="model">delivery.wallet.transaction</field>
+        <field name="arch" type="xml">
+            <form string="معاملة محفظة">
+                <sheet>
+                    <group>
+                        <group string="بيانات المعاملة">
+                            <field name="rider_id" string="المندوب"/>
+                            <field name="type" string="نوع المعاملة"/>
+                            <field name="amount" string="المبلغ (ريال)"/>
+                            <field name="currency_id" string="العملة"/>
+                        </group>
+                        <group string="الرصيد والمرجع">
+                            <field name="balance_before" string="الرصيد قبل المعاملة"/>
+                            <field name="balance_after" string="الرصيد بعد المعاملة"/>
+                            <field name="reference" string="رقم المرجع"/>
+                            <field name="settlement_id" string="التسوية المرتبطة"/>
+                        </group>
+                    </group>
+                    <field name="description" placeholder="وصف المعاملة..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_delivery_wallet_transaction_search" model="ir.ui.view">
+        <field name="name">delivery.wallet.transaction.search</field>
+        <field name="model">delivery.wallet.transaction</field>
+        <field name="arch" type="xml">
+            <search string="بحث في معاملات المحفظة">
+                <field name="rider_id" string="المندوب"/>
+                <field name="reference" string="المرجع"/>
+                <filter name="credits" string="إيداعات" domain="[('type', '=', 'credit')]"/>
+                <filter name="debits" string="سحوبات" domain="[('type', '=', 'debit')]"/>
+                <filter name="penalties" string="جزاءات" domain="[('type', '=', 'penalty')]"/>
+                <group expand="0" string="تجميع بـ">
+                    <filter name="group_rider" string="المندوب" context="{'group_by': 'rider_id'}"/>
+                    <filter name="group_type" string="نوع المعاملة" context="{'group_by': 'type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_delivery_wallet_transaction" model="ir.actions.act_window">
+        <field name="name">معاملات المحفظة</field>
+        <field name="res_model">delivery.wallet.transaction</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">لا توجد معاملات بعد</p>
+            <p>معاملات المحفظة تتتبع كل إيداع وسحب وجزاء لكل مندوب.</p>
+        </field>
+    </record>
+</odoo>

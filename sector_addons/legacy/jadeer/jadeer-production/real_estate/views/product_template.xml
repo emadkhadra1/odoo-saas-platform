@@ -1,0 +1,871 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="real_estate.reset_payment_plan_id" model="ir.actions.server">
+            <field name="name">Reset Payment Plans</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="product.model_product_template"/>
+            <field name="binding_model_id" ref="product.model_product_template"/>
+            <field name="code">
+                records.reset_payment_plan_id()
+            </field>
+        </record>
+        <record id="product_template_tree_view_inherit" model="ir.ui.view">
+            <field name="name">product.template.product.tree</field>
+            <field name="model">product.template</field>
+            <field name="priority">30</field>
+            <field name="arch" type="xml">
+                <tree string="الوحدات">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name" string="Code"/>
+                    <field name="unit_type_id"/>
+                    <field name="project_id"/>
+                    <field name="customer_id"/>
+                    <field name="total_Area"/>
+                    <field name="meter_price"/>
+                    <field name="floor"/>
+                    <field name="attached_area_frist"/>
+                    <field name="attached_area_frist_price"/>
+                    <field name="state"/>
+                    <field name="price_before_discount" string="Before Discount" optional="hide"/>
+                    <field name="list_price" string="Price" sum="Total" width="300px"/>
+<!--                    <field name="remain_amount"/>-->
+                    <field name="product_areas" string="Location" optional="hide"/>
+                    <field name="delivery_date" optional="hide"/>
+                    <field name="finishing_type_id" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sale_product_cede_form" model="ir.ui.view">
+            <field name="name">product.cede.form</field>
+            <field name="model">product.cede</field>
+            <field name="arch" type="xml">
+                <form string="Hold Request">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="customer_id"/>
+                            </group>
+                            <group>
+                                <field name="attachment_id" widget="many2many_binary"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <group>
+                            <span>
+                                <button string="Confirm" type="object" class="oe_highlight" name="action_cede_button"/>
+                                <button string="Cancel" class="oe_link" special="cancel"/>
+                                <!--<button name="%(account.action_view_account_move_reversal)d" states="posted" string="Reverse Entry" type="action" groups="account.group_account_invoice"/>-->
+
+                            </span>
+                        </group>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="product_real_estate_filter">
+            <field name="name">product.template.inherited.filter</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='filter_to_sell']" position="after">
+                    <filter string="Is Unit" name="is_residential"
+                            domain="[('is_residential','=',1)]"/>
+                    <filter string="Is Land" name="is_land"
+                            domain="[('is_land','=',1)]"/>
+                    <filter string="Is Composite" name="is_land"
+                            domain="[('is_composite','=',1)]"/>
+
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="product_template_form_view_real_estate">
+            <field name="name">product.template</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="account.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='accounting']" position="after">
+                    <group>
+                        <!--                        <field name="unit_costing"/>-->
+                        <field name="analytic_account_id" string="Analytic Account"/>
+
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="product_real_estate">
+            <field name="name">product.template.inherited.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_open_label_layout']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <div class="oe_button_box" name="button_box" position="inside">
+                    <button name="action_view_hold_units"
+                            attrs="{'invisible':['&amp;',('is_land','=',False),('is_residential','=',False)]}"
+                            type="object" class="oe_stat_button" string="Hold Requests"
+                            icon="fa-pencil-square-o" invisible="1">
+                    </button>
+                    <button name="action_view_entry"
+                            attrs="{'invisible':[('unit_deleivery','=',False)]}" icon="fa-pencil-square-o"
+                            type="object" class="oe_stat_button" string="View Entries">
+                    </button>
+
+                </div>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="attrs">{'readonly': ['|', ('is_land', '=', True), ('is_residential', '=', True)]}
+                    </attribute>
+                    <attribute name="force_save">True</attribute>
+                </xpath>
+                <xpath expr="//div[@name='options']" position="replace">
+                    <div name="options" groups="base.group_user">
+                        <div>
+                            <field name="sale_ok"/>
+                            <label for="sale_ok"/>
+                        </div>
+                        <div>
+                            <field name="purchase_ok"/>
+                            <label for="purchase_ok"/>
+                        </div>
+                        <!--                        <div>-->
+                        <!--                            <field name="type"/>-->
+                        <!--                            <label for="type"/>-->
+                        <!--                        </div>-->
+                        <!--                        <div>-->
+                        <!--                            <field name="detailed_type"/>-->
+                        <!--                            <label for="detailed_type"/>-->
+                        <!--                        </div>-->
+                        <div>
+                            <field name="is_residential"
+                                   attrs="{'invisible':[('purchase_ok','!=',False)],'readonly':[('is_composite','=',True)]}"
+                                   force_save="1"/>
+                            <label for="is_residential" attrs="{'invisible':[('purchase_ok','!=',False)]}"/>
+                        </div>
+                        <div invisible="1">
+                            <field name="is_land"/>
+                            <label for="is_land"/>
+                        </div>
+                        <div>
+                            <field name="is_composite"/>
+                            <label for="is_composite"/>
+                        </div>
+                        <div>
+                            <field name="is_interest" attrs="{'invisible':[('is_residential','!=',False)]}"/>
+                            <label for="is_interest" attrs="{'invisible':[('is_residential','!=',False)]}"/>
+                        </div>
+                        <div>
+                            <field name="is_penalty" attrs="{'invisible':[('is_residential','!=',False)]}"/>
+                            <label for="is_penalty" attrs="{'invisible':[('is_residential','!=',False)]}"/>
+                        </div>
+                    </div>
+
+                </xpath>
+                <xpath expr="//field[@name='purchase_ok']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('is_land', '=', True), ('is_residential', '=', True)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//label[@for='purchase_ok']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('is_land', '=', True), ('is_residential', '=', True)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//button[@name='open_pricelist_rules']" position="replace">
+
+                </xpath>
+<!--                <xpath expr="//button[@name='action_view_sales']" position="replace">-->
+
+<!--                </xpath>-->
+                <xpath expr="//sheet" position="before">
+                    <header attrs="{'invisible':['&amp;',('is_land','=',False),('is_residential','=',False)]}">
+                        <button name="action_hold_request" class="btn-primary"
+                                groups="real_estate.group_unit_hold_request"
+                                states="sale"
+                                string="Hold Request" type="object"/>
+                        <button name="action_create_sale_order_inherited"
+                                class="btn-primary"
+                                string="Create Offer" groups="real_estate_security.group_manager"
+                                attrs="{'invisible':[('state','not in',['hold','sale'])]}"
+                                type="object"/>
+                        <!--                        <button name="action_create_sale_order_inherited" groups="real_estate.group_create_offer"-->
+                        <!--                                class="btn-primary"-->
+                        <!--                                string="Create Offer"-->
+                        <!--                                attrs="{'invisible':[('state','not in',['hold','sale'])]}"-->
+                        <!--                                type="object"/>-->
+
+                        <button name="action_back_to_sale_product" groups="real_estate_security.group_manager"
+                                class="btn-danger" states="hold,booked,blocked,contract,deal,under_review"
+                                string="Back To Sale" type="object"/>
+                        <button name="action_sold_product" class="btn-success"
+                                groups="real_estate_security.group_manager"
+                                states="sale" string="Sold"
+                                type="object"/>
+<!--                        <button name="repeat_installments_creation" groups="real_estate_security.group_manager"-->
+<!--                                class="btn-success" string="اعاده جدوله الاقساط"-->
+<!--                                type="object"/>-->
+                        <button name="action_block_product" class="btn-success"
+                                attrs="{'invisible':[('state','=','blocked')]}"
+                                 string="Blocked" groups="real_estate_security.group_manager,real_estate.group_unit_blocked_request"
+                                type="object"/>
+                        <button name="action_replace_product" class="btn-warning" states="sold" string="Replace"
+                                groups="real_estate_security.group_manager"
+                                type="object"/>
+                        <button name="action_recovery_product" groups="real_estate_security.group_manager"
+                                class="btn-warning" states="sold" string="Return"
+                                type="object"/>
+
+                        <!--                        <button name="button_product_cede_form"  type="object" groups="real_estate_security.group_manager"-->
+                        <!--                                class="btn-warning" states="sold"-->
+                        <!--                                string="Cede"/>-->
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="sale,hold,booked,sold,blocked"/>
+                    </header>
+                </xpath>
+                <xpath expr="//page[@name='general_information']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('is_land', '=', True), ('is_residential', '=', True)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//label[@for='name']" position="attributes">
+                    <attribute name="string">Property Name</attribute>
+                    <attribute name="attrs">{
+                        'invisible': ['&amp;', ('is_land', '=', False), ('is_residential', '=', False)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//label[@for='name']" position="after">
+                    <label for="name" string="Product Name"
+                           attrs="{'invisible':['|',('is_land','=',True),('is_residential','=',True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="placeholder">Name</attribute>
+                </xpath>
+                <xpath expr="//page[@name='general_information']" position="after">
+                    <page string="Details"
+                          attrs="{'invisible':[('is_composite','=',False)]}"
+                          name="composite_information">
+                        <group>
+                            <group name="comp_project" string="Project">
+
+                                <field name="project_id" string="Project"
+                                       attrs="{'required':['|',('is_composite','=',True),'|',('is_land','=',True),('is_residential','=',True)]}"/>
+                                <field name="composite_unit_ids"
+                                       domain="[('is_composite','=',False),('project_id','=',project_id)]"
+                                       widget="many2many_tags" options="{'no_create':1}"
+                                       attrs="{'required':[('is_composite','=',True)]}"/>
+                            </group>
+                            <group name="group_general_prop" string="Other">
+                                <field name="list_price" string="Sales Price" widget='monetary'
+                                       options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                                <label for="standard_price" groups="base.group_user" invisible="1"/>
+                                <div name="standard_price_uom" groups="base.group_user"
+                                     invisible="1">
+                                    <field name="standard_price" widget='monetary' invisible="1"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                </div>
+                                <field name="min_deposit_amount" string="Min Deposit Amount" widget='monetary'
+                                       options="{'currency_field': 'currency_id'}"
+                                       attrs="{'invisible':['&amp;',('is_land','=',False),('is_residential','=',False)]}"/>
+                                <field name="remain_amount" string="Remaining Amount" invisible="1"/>
+                                <field name="remain_amount_with_interest" string="Remaining Amount With Interest "
+                                       invisible="1"/>
+                                <field name="type" invisible="1"/>
+                                <field name="categ_id" string="Product Category"
+                                       attrs="{'invisible':[('is_residential','=',True)]}"/>
+                                <field name="payment_plan_id"
+                                       options="{'no_create_edit': True}" widget="many2many_tags"
+                                       attrs="{'invisible':['&amp;',('is_land','=',False),('is_residential','=',False)]}"/>
+                                <field name="payment_plan_ids" invisible="1" widget="many2many_tags"/>
+                                <field name="floor_num" invisible="1"/>
+                                <field name="floor_number" invisible="1"/>
+                                <field name="confirm_date"/>
+                                <field name="building_license_no"/>
+                                <field name="delivery_date"/>
+                                <label for="total_Area" string="Unit Area"/>
+                                <div class="o_row">
+                                    <field readonly="1" force_save="1" name="total_Area" style="width:30%%"
+                                           attrs="{'invisible':['&amp;',('is_land','=',False),('is_residential','=',False)],
+                                                   'required':[('is_residential','=',True)]}"
+                                    />
+                                </div>
+                                <field name="car_spot"/>
+                                <field name="car_spot_price" readonly="1" force_save="1" attrs="{'invisible':[('car_spot','=',False)],
+                                                                    'required':[('car_spot','=',True)]}"/>
+                                <field name="parking_code" attrs="{'invisible':[('car_spot','=',False)],
+                                                                   'required':[('car_spot','=',True)]}"/>
+                            </group>
+                            <group name="price">
+
+
+                                <label for="extra_land" string="Extra Land" invisible="1"/>
+                                <div class="o_row" invisible="1">
+                                    <field name="extra_land" style="width:30%%"/>
+                                    <span>Price/Meter(Extra Land)</span>
+                                    <field name="extra_land_price" class="oe_inline"/>
+                                </div>
+                            </group>
+
+                            <group name="group_standard_price">
+                                <field name="project_unit_cost" widget='monetary' readonly="1"
+                                       attrs="{'invisible':[('unit_deleivery','=',False)]}"/>
+                                <field name="move_ids" widget="many2many_tags" invisible="1"/>
+                                <field name="company_id" groups="base.group_multi_company"
+                                       options="{'no_create': True}"/>
+                                <field name="uom_id" invisible="1" groups="uom.group_uom"
+                                       options="{'no_create': True}"/>
+                                <field name="uom_po_id" invisible="1" groups="uom.group_uom"
+                                       options="{'no_create': True}"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="product_variant_id" invisible="1"/>
+                                <field name="min_deposit_amount_temp" invisible="1"/>
+                            </group>
+                            <group name="property_owner" string="Property Owner">
+                                <field name="customer_id" readonly="1" string="Property Customer"/>
+                                <field name="vendor_id" string="Property Owner" invisible="1"/>
+                            </group>
+                        </group>
+
+                        <group string="Finishing Description">
+                            <field name="description" nolabel="1"
+                                   placeholder="This note is only for internal purposes."/>
+                        </group>
+                        <group string="Discount Info" attrs="{'invisible':[('is_composite','=',True)]}">
+                            <field name="discount_type" widget="radio" options="{'horizontal': true}"/>
+                            <field name="discount_amount" attrs="{'invisible': [('discount_type','!=','amount')]}"/>
+                            <field name="discount_percentage"
+                                   attrs="{'invisible': [('discount_type','!=','percentage')]}"/>
+                        </group>
+                    </page>
+                    <page string="Details"
+                          attrs="{'invisible':['|',('is_composite','=',True),('is_residential','=',False),]}"
+                          name="properity_information">
+                        <group>
+                            <group name="coding" string="Coding">
+                                <field name="unit_type_ids" invisible="1"/>
+                                <field name="unit_type_id"
+                                       options="{'no_create':True}" domain="[('id','in',unit_type_ids)]"
+                                       attrs="{'required':[('is_composite','=',False),('is_residential','=',True)]}"/>
+
+                                <field name="project_id" string="Project"
+                                       attrs="{'required':[('is_composite','=',False),('is_residential','=',True)]}"/>
+                                <field name="phase_no" domain="[('project_id','=',project_id)]"
+                                       attrs="{'required':[('is_composite','=',False),('is_residential','=',True)]}"/>
+                                <field name="building_code" string="Building"
+                                       attrs="{'required':[('is_composite','=',False),('is_residential','=',True)]}"
+                                       domain="[('project_id','=',project_id)]"/>
+                                <field name="floor" domain="[('building_id','=',building_code)]"
+                                       attrs="{'invisible':['&amp;',('is_land','=',False),('is_residential','=',False)]}"/>
+                                <field name="unit_classification"/>
+                                <field name="unit_code"
+                                       attrs="{'required':[('is_composite','=',False),('is_residential','!=',False)],
+                                       'readonly':[('state','=','hold')]}"/>
+                                <field name="default_code"
+                                       attrs="{'readonly':[('state','=','hold')]}"/>
+                                <field name="product_areas" string="Area" invisible="1"/>
+                                <field name="product_project" string="Project" invisible="1"/>
+
+                                <field name="requset_id" invisible="1"/>
+                                <field name="total_amout" invisible="1"/>
+                                <field name="booked_date" invisible="1"/>
+                                <field name="hold_date" invisible="1"/>
+<!--                                <field name="unit_type" invisible="1"/>-->
+
+                                <field name="project_utility_ids" widget="many2many_tags" invisible="1"/>
+                                <field name="filter_privilege_id" widget="many2many_tags" invisible="1"/>
+                            </group>
+                            <group string="Price" name="price">
+
+                                <label for="total_Area" string="Unit Area"/>
+                                <div class="o_row">
+                                    <field name="total_Area" style="width:30%%"
+                                           attrs="{'invisible':['&amp;',('is_land','=',False),('is_residential','=',False)],
+                                                   'required':[('is_residential','=',True)]}"
+                                    />
+                                    <span>Price/Meter(Area)</span>
+                                    <field name="meter_price" class="oe_inline"
+                                           attrs="{'required':[('is_residential','=',True)]}"/>
+                                </div>
+                                <field name="total_attached_area"/>
+                                <field name="total_utilities" invisible="1"/>
+                                <field name="car_spot"/>
+                                <field name="car_spot_price" attrs="{'invisible':[('car_spot','=',False)],
+                                                                    'required':[('car_spot','=',True)]}"/>
+                                <field name="parking_code" attrs="{'invisible':[('car_spot','=',False)],
+                                                                   'required':[('car_spot','=',True)]}"/>
+                                <label for="extra_land" string="Extra Land" invisible="1"/>
+                                <div class="o_row" invisible="1">
+                                    <field name="extra_land" style="width:30%%"/>
+                                    <span>Price/Meter(Extra Land)</span>
+                                    <field name="extra_land_price" class="oe_inline"/>
+                                </div>
+                            </group>
+                            <group string="Design" name="design">
+                                <field name="room"
+                                       attrs="{'invisible':['&amp;',('is_land','=',False),('is_residential','=',False)]}"/>
+                                <field name="unit_design_ref"/>
+                                <field name="finishing_type_id"/>
+
+                            </group>
+
+                            <group name="group_general_prop" string="Other">
+                                <field name="price_before_discount"
+                                       attrs="{'invisible': [('apply_discount','=',False)]}" force_save="1" readonly="1"
+                                       string="Sales Price Before Discount" widget='monetary'
+                                       options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                                <field name="list_price" string="Sales Price" widget='monetary'
+                                       options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+
+                                <label for="standard_price" groups="base.group_user" invisible="1"/>
+                                <div name="standard_price_uom" groups="base.group_user"
+                                     invisible="1">
+                                    <field name="standard_price" widget='monetary' invisible="1"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                </div>
+                                <field name="min_deposit_amount" string="Min Deposit Amount" widget='monetary'
+                                       options="{'currency_field': 'currency_id'}"
+                                       attrs="{'invisible':['&amp;',('is_land','=',False),('is_residential','=',False)]}"/>
+                                <field name="remain_amount" string="Remaining Amount" invisible="1"/>
+                                <field name="remain_amount_with_interest" string="Remaining Amount With Interest "
+                                       invisible="1"/>
+                                <field name="type" invisible="1"/>
+                                <field name="categ_id" string="Product Category"
+                                       attrs="{'invisible':[('is_residential','=',True)]}"/>
+                                <field name="payment_plan_id"
+                                       options="{'no_create_edit': True}" widget="many2many_tags"
+                                       attrs="{'invisible':['&amp;',('is_land','=',False),('is_residential','=',False)]}"/>
+                                <field name="payment_plan_ids" invisible="1" widget="many2many_tags"/>
+                                <field name="reserve_days_no" readonly="0"/>
+                                <field name="floor_num" invisible="1"/>
+                                <field name="floor_number" invisible="1"/>
+                                <field name="confirm_date"/>
+                                <field name="building_license_no"/>
+                                <field name="delivery_date"/>
+                                <field name="actual_delivery_date"/>
+                                <field name="delivery_type"/>
+                            </group>
+
+
+                            <group name="group_standard_price">
+                                <field name="project_unit_cost" widget='monetary' readonly="1"
+                                       attrs="{'invisible':[('unit_deleivery','=',False)]}"/>
+                                <field name="move_ids" widget="many2many_tags" invisible="1"/>
+                                <field name="company_id" groups="base.group_multi_company"
+                                       options="{'no_create': True}"/>
+                                <field name="uom_id" invisible="1" groups="uom.group_uom"
+                                       options="{'no_create': True}"/>
+                                <field name="uom_po_id" invisible="1" groups="uom.group_uom"
+                                       options="{'no_create': True}"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="product_variant_id" invisible="1"/>
+                                <field name="min_deposit_amount_temp" invisible="1"/>
+                            </group>
+                            <group name="property_owner" string="Property Owner">
+                                <field name="customer_id" readonly="1" string="Property Customer"/>
+                                <field name="vendor_id" string="Property Owner" invisible="1"/>
+                            </group>
+                            <group string="Discount Info" groups="sales_team.group_sale_manager">
+
+                                <field name="apply_discount"/>
+                                <field name="discount_type" widget="radio" options="{'horizontal': true}"
+                                       attrs="{'invisible': [('apply_discount','=',False)]}"/>
+                                <field name="discount_amount"
+                                       attrs="{'invisible': ['|',('discount_type','!=','amount'),('apply_discount','=',False)]}"/>
+                                <field name="discount_percentage"
+                                       attrs="{'invisible': ['|',('discount_type','!=','percentage'),('apply_discount','=',False)]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Advantages">
+                                <field name="privilege_ids" string="Advantages">
+                                    <tree editable="bottom">
+                                        <field name="privilege_id" string="Advantage"
+                                               domain="[('id','in',parent.filter_privilege_id)]"/>
+                                        <field name="description" required="0" invisible="1"/>
+                                        <field name="percent" string="Price"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="total_percent"/>
+                                    <field name="meter_cash_percent" invisible="1"/>
+                                </group>
+                                <div class="oe_clear"/>
+
+                            </page>
+                        </notebook>
+                        <group string="Finishing Description">
+                            <field name="description" nolabel="1"
+                                   placeholder="This note is only for internal purposes."/>
+                        </group>
+                    </page>
+
+                </xpath>
+                <xpath expr="//page[@name='sales']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('is_land', '=', True), ('is_residential', '=', True)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//page[@name='variants']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('is_land', '=', True), ('is_residential', '=', True)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//page[@name='properity_information']" position="after">
+                    <page name="utility_info"
+                          attrs="{'invisible':['&amp;',('is_land','=',False),('is_residential','=',False)]}"
+                          string="Utilities">
+                        <field name="product_utility_ids">
+                            <tree editable="bottom">
+                                <field name="name" domain="[('id','in',parent.project_utility_ids)]"/>
+                                <field name="percent"/>
+                                <field name="price"/>
+                                <field name="included_price"/>
+                                <field name="payment_plan_id" domain="[('id','in',parent.payment_plan_id)]" attrs="{'readonly':[('included_price','=',True)],
+                                'required':[('included_price','!=',True)]}"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="rooms_info"
+                          attrs="{'invisible':['&amp;',('is_land','=',False),('is_residential','=',False)]}"
+                          string="Rooms">
+                        <field name="product_room_ids">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="length"/>
+                                <field name="width"/>
+                                <field name="area"/>
+                                <field name="notes"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Images"
+                          attrs="{'invisible':['&amp;',('is_land','=',False),('is_residential','=',False)]}">
+                        <button name="action_image_preview" class="btn-success" string="Preview"
+                                type="object"/>
+                        <field name="image_ids" nolabel="1">
+                            <kanban options="{'no_open':True}" data-reload-on-close="true">
+                                <field name="id"/>
+                                <field name="image"/>
+                                <field name="name"/>
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div style="width: 210px;">
+                                            <center>
+                                                <a type="open">
+                                                    <img t-att-src="kanban_image('product.image', 'image', record.id.raw_value)"
+                                                         class="zoom" data-reload-on-close="true" width="210px"
+                                                         height="200px"
+                                                         alt="Product Image"/>
+                                                </a>
+                                            </center>
+                                        </div>
+
+                                    </t>
+                                </templates>
+                            </kanban>
+                            <tree string="Product Images">
+                                <field name="name"/>
+                                <field name="image" required="True"/>
+                            </tree>
+                            <form string="Product Image">
+                                <group>
+                                    <group>
+                                        <field name="name"/>
+                                    </group>
+                                    <group>
+                                        <field name="image"/>
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                    <page string="Other Materials" name="other_materials">
+                        <group>
+                            <group>
+                                <field name="docs_ids" widget="many2many_binary"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Location" name="other_materials">
+                        <group>
+                            <group>
+                                <field name="map_url" widget="url"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page name="history_info"
+                          attrs="{'invisible':['&amp;',('is_land','=',False),('is_residential','=',False)]}"
+                          string="Unit Status ">
+                        <group>
+                            <group>
+                                <field name="maintenance_deposit"/>
+                                <field name="unit_deleivery" readonly="1"/>
+                                <field name="building_deleivery"/>
+                            </group>
+                            <group>
+                                <field name="key_deleivery"/>
+                                <field name="electricity_deleivery"/>
+                                <field name="planet"/>
+                                <field name="planet_date"
+                                       attrs="{'invisible':[('planet','=',False)],'required':[('planet','=',True)]}"/>
+                            </group>
+                        </group>
+
+                    </page>
+                    <page name="history_info"
+                          attrs="{'invisible':['&amp;',('is_land','=',False),('is_residential','=',False)]}"
+                          string="Activity Log ">
+                        <field name="product_history_ids">
+                            <tree editable="bottom" create="0" delete="0">
+                                <field name="state"/>
+                                <field name="confirm_date"/>
+                                <field name="hist_date"/>
+                                <field name="sales_person_id"/>
+                                <field name="attachment_id" widget="many2many_binary"/>
+                            </tree>
+                        </field>
+                        <group>
+                            <field name="product_last_state_date"/>
+                        </group>
+                    </page>
+                    <page name="attached_areas"
+                          attrs="{'invisible':['&amp;',('is_land','=',False),('is_residential','=',False)]}"
+                          string="Attached Areas">
+                        <field name="attached_area_ids">
+                            <tree editable="bottom" create="1" delete="1">
+                                <field name="attached_area_id" domain="[('unit_type_id','=',parent.unit_type_id)]"
+                                       required="1"/>
+                                <field name="area" required="1"/>
+                                <field name="price" required="1"/>
+                                <field name="total" force_save="1" readonly="1" required="1" sum="Total"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product.product_template_action" model="ir.actions.act_window">
+            <field name="name">Property</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="product.product_template_kanban_view"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to define a new product.
+                </p>
+                <p>
+                    You must define a product for everything you sell, whether it's a physical product, a consumable or
+                    a service you offer to customers.
+                </p>
+                <p>
+                    The product form contains information to simplify the sale process: price, notes in the quotation,
+                    accounting data, procurement methods, etc.
+                </p>
+            </field>
+        </record>
+
+        <record id="sale_hold_request_form" model="ir.ui.view">
+            <field name="name">product.request.form</field>
+            <field name="model">product.request</field>
+            <field name="arch" type="xml">
+                <form string="Hold Request">
+                    <header>
+                        <button name="action_approve_request" class="btn-primary" states="request"
+                                groups="real_estate_security.group_manager"
+                                string="Approve" type="object"/>
+                        <button name="action_reject_request" class="btn-primary" states="request" string="Reject"
+                                groups="real_estate_security.group_manager"
+                                type="object"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="request,approve,reject"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="real_estate_security.group_manager"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                       options='{"terminology": "archive"}'/>
+                            </button>
+                            <!--                            <button name="toggle_active" groups="real_estate.group_normal_user" type="object"-->
+                            <!--                                    class="oe_stat_button" icon="fa-archive">-->
+                            <!--                                <field name="active" widget="boolean_button"-->
+                            <!--                                       options='{"terminology": "archive"}'/>-->
+                            <!--                            </button>-->
+                        </div>
+                        <div class="oe_title">
+                            <field name="hold_type" attrs="{'readonly':[('state','in',('approve','reject'))]}"
+                                   style="color:teal;" options="{'horizontal': true}"
+                                   class="oe_edit_only" widget="radio"/>
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+
+                        </div>
+                        <group>
+                            <group>
+                                <field name="product_id" attrs="{'readonly':[('state','in',('approve','reject'))]}"/>
+                                <field name="customer_id" attrs="{'readonly':[('state','in',('approve','reject'))]}"/>
+                            </group>
+                            <group>
+                                <field name="sales_person_id"
+                                       attrs="{'readonly':[('state','in',('approve','reject'))]}"/>
+                                <label for="hold_days" attrs="{'invisible':[('hold_type','=','manual')]}"/>
+
+                                <div class="o_row" attrs="{'readonly':[('state','in',('approve','reject'))],'required':[('hold_type','!=','manual')],
+                                'invisible':[('hold_type','=','manual')]}">
+                                    <field name="hold_days" string="Hold Days"/>
+                                    <font color="teal">Days</font>
+                                </div>
+
+                                <field name="header_inv" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Hold Reason">
+                                <field name="hold_reason" attrs="{'readonly':[('state','in',('approve','reject'))]}"/>
+
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="sale_hold_request_wizard" model="ir.ui.view">
+            <field name="name">product.request.wizard</field>
+            <field name="model">product.request</field>
+            <field name="arch" type="xml">
+                <form string="Hold Request">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="product_id"/>
+                                <field name="customer_id"/>
+                            </group>
+                            <group>
+                                <field name="sales_person_id"/>
+                                <field name="hold_reason"/>
+
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Create" name="close_dialog" type="object" class="btn-primary"/>
+                        <button string="Discard" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sale_hold_request_tree">
+            <field name="name">product.request.tree</field>
+            <field name="model">product.request</field>
+            <field name="arch" type="xml">
+                <tree string="Hold Request">
+                    <field name="name"/>
+                    <field name="product_id"/>
+                    <field name="customer_id"/>
+                    <field name="sales_person_id"/>
+                    <field name="hold_reason"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_hold_request_all" model="ir.actions.act_window">
+            <field name="name">Hold Requests</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'create': 0}</field>
+            <field name="view_id" ref="sale_hold_request_tree"/>
+        </record>
+        <record id="action_hold_request_approved" model="ir.actions.act_window">
+            <field name="name">Hold Requests</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state', '=', 'approve')]</field>
+            <field name="context">{'create': 0}</field>
+            <field name="view_id" ref="sale_hold_request_tree"/>
+        </record>
+        <record id="product_template_kanban_view_inherit" model="ir.ui.view">
+            <field name="name">product.template.kanban.view.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_kanban_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@name='product_lst_price']" position="before">
+
+                    <ul>
+                        <li>Project: <field name="project_id"/></li>
+                    </ul>
+                    <ul>
+                        <li>Area: <field name="total_Area"/></li>
+                    </ul>
+                    <ul>
+                        <li>Status: <field name="state"/></li>
+                    </ul>
+
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="unit_template_action" model="ir.actions.act_window">
+            <field name="name">Units</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form,kanban,activity</field>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('product.product_template_kanban_view')}),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('real_estate.product_template_tree_view_inherit')})]"/>
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="context">{'default_is_residential': True, 'search_default_is_residential': 1,
+                                   'search_default_is_land': 1}</field>
+            <!--            <field name="domain">['|',('is_land','=',True),('is_residential','=',True)]</field>-->
+        </record>
+        <menuitem id="property_menu_catalog"
+                  name="Properties"
+                  action="unit_template_action"
+                  parent="realestate_project.real_estate_root_menu"
+                  sequence="-99"
+                  groups="sales_team.group_sale_salesman"/>
+        <menuitem id="sale.prod_config_main"
+                  name="Properties"
+                  parent="sale.menu_sale_config"
+                  sequence="5"/>
+        <menuitem action="unit_template_action"
+                  name="Units"
+                  id="sale.menu_product_template_action"
+                  parent="property_menu_catalog"
+                  sequence="1"
+        />
+
+
+        <menuitem id="menu_hold_request"
+                  name="Hold Requests"
+                  parent="crm.crm_menu_root"
+                  sequence="7"
+                  active="False"
+        />
+        <menuitem id="menu_all_hold_request"
+                  name="All requests"
+                  parent="menu_hold_request"
+                  action="action_hold_request_all"
+                  sequence="1"/>
+        <menuitem id="menu_approved_hold_request"
+                  action="action_hold_request_approved"
+                  name="Approved requests"
+                  parent="menu_hold_request"
+                  sequence="2"/>
+
+
+    </data>
+</odoo>

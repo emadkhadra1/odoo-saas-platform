@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+
+        <!--MENUITEM-->
+
+        <menuitem name="Custody" id="custody_man_menu"
+                  web_icon="custody,static/description/icon.png"/>
+        <menuitem name="Custody" id="custody_custody_menu" parent="custody_man_menu"/>
+
+        <menuitem name="Custody" id="custody_custody" parent="custody_custody_menu"
+                  action="custody_custody_action"/>
+
+        <menuitem name="Configuration" id="configuration_manu" parent="custody_man_menu"/>
+        <menuitem name="Equipment" id="equipment_configuration" parent="configuration_manu"
+                  action="custody_equipment_action"/>
+
+        <menuitem name="Equipment Category" id="equipment_category_configuration"
+                  parent="configuration_manu" action="equipment_category_action"/>
+
+        <menuitem name="Item" id="equipment_item_configuration" parent="configuration_manu"
+                  action="equipment_item_action"/>
+
+    </data>
+</odoo>

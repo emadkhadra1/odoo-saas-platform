@@ -1,0 +1,35 @@
+# -*- coding: utf-8 -*-
+
+{
+    'name': 'Attendances Structure Base',
+    'version': '1.0',
+    'summary': """Manages Employee Attendances With late hours and Deduction.""",
+    'description': """Manages Employee Attendances With late hours and deduction""",
+    'category': 'Attendances',
+    'author': 'Archer Solutions',
+    'company': 'Archer Solutions',
+    'website': "http://www.archersolutions.com",
+    'depends': [
+        'base',
+        'hr_attendance',
+        'hr_contract',
+        'resource',
+        'hr_payroll','hr_holidays',
+        'attendance_rules','salary_structure_demo',
+    ],
+    'data': [
+        'datas/hr_data.xml',
+        'security/ir.model.access.csv',
+        'views/hr_attendances.xml',
+        'views/hr_payroll.xml',
+        'views/hr_payslip_attendance.xml',
+        'views/hr_config.xml',
+        'views/resource_calender.xml',
+        'wizard/payslip_attendance.xml',
+    ],
+    'demo': [''],
+    'license': 'AGPL-3',
+    'installable': True,
+    'auto_install': False,
+    'application': False,
+}

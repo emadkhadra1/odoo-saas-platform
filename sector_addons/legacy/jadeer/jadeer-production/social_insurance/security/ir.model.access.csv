@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_social_insurance,social.insurance,social_insurance.model_social_insurance,base.group_user,1,1,1,1
+access_retirement_percentage,access.retirement.percentage,model_retirement_percentage,base.group_user,1,1,1,1

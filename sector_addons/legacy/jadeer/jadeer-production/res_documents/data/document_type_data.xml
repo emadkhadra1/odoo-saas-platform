@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="national_id" model="res.document.type">
+            <field name="code">NID</field>
+            <field name="name">National ID</field>
+        </record>
+        <record id="birth_date" model="res.document.type">
+            <field name="code">BD</field>
+            <field name="name">Birthdate Certificate</field>
+        </record>
+        <record id="military_status" model="res.document.type">
+            <field name="code">MS</field>
+            <field name="name">Military Status</field>
+        </record>
+        <record id="egy_work_permit" model="res.document.type">
+            <field name="code">EWP</field>
+            <field name="name">Egy Work Permit</field>
+        </record>
+        <record id="social_insurance" model="res.document.type">
+            <field name="code">SSI</field>
+            <field name="name">Social Security for Social Insurance</field>
+        </record>
+        <record id="form6" model="res.document.type">
+            <field name="code">F6</field>
+            <field name="name">Form 6 for resigning</field>
+        </record>
+        <record id="passport" model="res.document.type">
+            <field name="code">PN</field>
+            <field name="name">Passport</field>
+        </record>
+        <record id="visa" model="res.document.type">
+            <field name="code">VS</field>
+            <field name="name">Visa</field>
+        </record>
+        <record id="work_permit" model="res.document.type">
+            <field name="code">WP</field>
+            <field name="name">Work Permit</field>
+        </record>
+        <record id="spouse_passport" model="res.document.type">
+            <field name="code">SP</field>
+            <field name="name">Spouse Passport</field>
+        </record>
+        <record id="kids_passport" model="res.document.type">
+            <field name="code">KP</field>
+            <field name="name">Kids Passport</field>
+        </record>
+        <record id="qualification" model="res.document.type">
+            <field name="code">QC</field>
+            <field name="name">Qualification Certificate</field>
+        </record>
+        <record id="teaching" model="res.document.type">
+            <field name="code">TC</field>
+            <field name="name">Teaching Certificate</field>
+        </record>
+        <record id="letter_of_experience" model="res.document.type">
+            <field name="code">LOE</field>
+            <field name="name">Letter of Experience</field>
+        </record>
+
+    </data>
+</odoo>

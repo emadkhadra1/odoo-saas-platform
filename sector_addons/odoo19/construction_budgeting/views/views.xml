@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="mrp_construction_project_bom_form_action" model="ir.actions.act_window">
+            <field name="name">Bills of Materials</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.bom</field>
+            <field name="domain">[('construction_project_id', '=', active_id), ('bom_type', '=', 'budgeting')]</field>
+            <field name="view_mode">list,kanban,form</field>
+            <field name="search_view_id" ref="mrp.view_mrp_bom_filter"/>
+        </record>
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_inherit_construction_project_form" model="ir.ui.view">
+            <field name="name">view.inherit.construction.project.form</field>
+            <field name="model">construction.project</field>
+            <field name="inherit_id" ref="construction_project.view_construction_project_form"/>
+            <field name="arch" type="xml">
+                <!-- position: after|before|replace|attributes|inside -->
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="code"/>
+                </xpath>
+                <xpath expr="//field[@name='tool_ids']" position="after">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='project_unit_ids']" position="after">
+                    <field name="boq_line_ids"><list editable="bottom">
+                            <field name="boq_name"/>
+                            <field name="boq_type"/>
+                            <field name="boq_date"/>
+                            <field name="boq_total_cost"/>
+                            <field name="boq_total_sell"/>
+                            <field invisible="1" name="construction_project_id"/>
+                            <button class="oe_highlight" name="action_show_bom" string="Show BOM" type="object"/>
+                        </list></field>
+                </xpath>
+                <!-- position values: after|before|replace|attributes|inside -->
+                <xpath expr="//group" position="before">
+                    <div class="oe_button_box" name="">
+                        <button class="oe_stat_button" icon="fa-archive" name="%(mrp_construction_project_bom_form_action)d" type="action">
+                            <field name="bom_count" string="Bill of Materials" widget="statinfo"/>
+                        </button>
+                    </div>
+                </xpath></field>
+        </record>
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_inherit_product_template_form" model="ir.ui.view">
+            <field name="name">view.inherit.product.template.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="b2b_constructors.view_template_property_form"/>
+            <field name="arch" type="xml">
+                <!-- position values: after|before|replace|attributes|inside -->
+                <xpath expr="//header" position="inside">
+                    <button class="oe_highlight" invisible="constration_product != True" name="click_constration_product" string="Create BOQ Business Item" type="object"/>
+                </xpath>
+                <!-- position: after|before|replace|attributes|inside -->
+                <xpath expr="//field[@name='sub_item_id']" position="after">
+                    <field name="second_sub_item_id"/>
+                </xpath></field>
+        </record>
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_inherit_mrp_bom_form" model="ir.ui.view">
+            <field name="name">view.inherit.mrp.bom.form</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+                <!-- position: after|before|replace|attributes|inside -->
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="bom_type" widget="radio"/>
+                    <field invisible="1" name="currency_id"/>
+                    <field name="estimated_cost"/>
+                </xpath>
+                <!-- position: after|before|replace|attributes|inside -->
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="construction_project_id"/>
+                </xpath>
+                <!-- position values: after|before|replace|attributes|inside -->
+                <xpath expr="//field[@name='bom_line_ids']//field[@name='product_id']" position="after">
+                    <field invisible="1" name="currency_id"/>
+                    <field name="product_cost"/>
+                    <field name="supplier_discount"/>
+                    <field name="cost_after_discount"/>
+                    <field name="sales_tax"/>
+                    <field name="customs"/>
+                    <field name="clearance"/>
+                    <field name="product_price"/>
+                    <field name="hockup"/>
+                    <field name="labor_install"/>
+                    <field name="transportation"/>
+                    <field name="other_cost"/>
+                    <field name="cost"/>
+                </xpath>
+                <!-- position values: after|before|replace|attributes|inside -->
+                <xpath expr="//field[@name='bom_line_ids']//tree" position="inside">
+                    <field invisible="1" name="bom_type"/>
+                    <button class="oe_link" invisible="bom_type == 'costing'" name="create_pr" string="Create PR" type="object"/>
+                    <button class="oe_link" invisible="bom_type == 'costing'" name="create_mo" string="Create MO" type="object"/>
+                </xpath></field>
+        </record>
+        <record id="view_mrp_bom_inherit_tree" model="ir.ui.view">
+            <field name="name">view.mrp.bom.inherit.tree</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_tree_view"/>
+            <field name="arch" type="xml">
+                <!-- position: after|before|replace|attributes|inside -->
+                <xpath expr="//field[@name='product_tmpl_id']" position="after">
+                    <field name="bom_type"/>
+                </xpath></field>
+        </record>
+    </data>
+</odoo>

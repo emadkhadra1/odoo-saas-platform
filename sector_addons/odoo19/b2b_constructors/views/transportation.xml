@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <data noupdate="1">
+            <!--            <record id="construction_transport_order_sequences_maka" model="ir.sequence">-->
+            <!--                <field name="name">construction.transport.order.maka</field>-->
+            <!--                <field name="code">construction.transport.order.maka</field>-->
+            <!--&lt;!&ndash;                %(year)s%(month)s/&ndash;&gt;-->
+            <!--                <field name="active">TRUE</field>-->
+            <!--                <field name="prefix">transport-</field>-->
+            <!--                <field name="padding">4</field>-->
+            <!--                <field name="company_id" eval="2"/>-->
+            <!--                <field name="number_increment">1</field>-->
+            <!--            </record>-->
+            <record id="construction_transport_order_sequences_madina" model="ir.sequence">
+                <field name="name">construction.transport.madina</field>
+                <field name="code">construction.transport.madina</field>
+                <!--%(year)s%(month)s/-->
+                <field name="active">TRUE</field>
+                <field name="prefix">Transport-</field>
+                <field name="padding">4</field>
+                <field eval="1" name="company_id"/>
+                <field name="number_increment">1</field>
+            </record>
+        </data>
+        <record id="view_construction_transport_form" model="ir.ui.view">
+            <field name="name">construction.transport.form</field>
+            <field name="model">construction.transport</field>
+            <field name="arch" type="xml">
+                <form string="Service">
+                    <header>
+                        <button class="oe_highlight" groups="construction_project.service_manager_group" invisible="state not in ['new']" name="confirm" string="Confirm" type="object"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <!--                        <div class="oe_title">-->
+                        <!--                            &lt;!&ndash;<label string="Receive Order"  />&ndash;&gt;-->
+                        <!--                            <h1>-->
+                        <!--                                <field name="name" readonly="1"/>-->
+                        <!--                            </h1>-->
+                        <!--                        </div>-->
+                        <group>
+                            <group>
+                                <field name="name" readonly="1"/>
+                                <field name="project_id" readonly="state == 'done'"/>
+                                <field name="employment" readonly="state == 'done'"/>
+                                <field name="boq_id" readonly="state == 'done'"/>
+                                <field invisible="1" name="business_item_ids"/>
+                                <field name="business_item_id" readonly="state == 'done'"/>
+                            </group>
+                            <group>
+                                <field name="date" readonly="state == 'done'"/>
+                                <field name="total_cost"/>
+                                <field name="journal_id"/>
+                                <field name="debit_account_id"/>
+                                <field name="credit_account_id"/>
+                                <field invisible="state == 'new'" name="account_move_id"/>
+                            </group>
+                        </group>
+                        <group string="transports"/>
+                        <field name="line_ids" readonly="state == 'done'">
+                            <list editable="bottom">
+                                <field name="transport_id"/>
+                                <field name="product_uom_id"/>
+                                <field invisible="1" name="name"/>
+                                <field name="order_qty" sum="qty"/>
+                                <field name="qty" sum="qty"/>
+                                <field name="unit_cost" sum="unit_cost"/>
+                                <field name="cost" sum="cost"/>
+                                <field name="transportation"/>
+                            </list></field>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form></field>
+        </record>
+        <record id="view_construction_transport_tree" model="ir.ui.view">
+            <field name="name">construction.transport.tree</field>
+            <field name="model">construction.transport</field>
+            <field name="arch" type="xml">
+                <list string="Service">
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="date"/>
+                    <field name="total_cost"/>
+                    <field name="state"/>
+                </list></field>
+        </record>
+        <record id="view_construction_transport_action" model="ir.actions.act_window">
+            <field name="name">transport</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.transport</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p></field>
+        </record>
+        <record id="view_construction_transports_form" model="ir.ui.view">
+            <field name="name">construction.transports.form</field>
+            <field name="model">construction.transports</field>
+            <field name="arch" type="xml">
+                <form string="transports">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="product_uom_id"/>
+                            <field name="unit_cost"/>
+                        </group>
+                    </sheet>
+                </form></field>
+        </record>
+        <record id="view_construction_transports_tree" model="ir.ui.view">
+            <field name="name">construction.transports.tree</field>
+            <field name="model">construction.transports</field>
+            <field name="arch" type="xml">
+                <list string="transports">
+                    <field name="name"/>
+                    <field name="product_uom_id"/>
+                    <field name="unit_cost"/>
+                </list></field>
+        </record>
+        <record id="view_transports_action" model="ir.actions.act_window">
+            <field name="name">transports</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.transports</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p></field>
+        </record>
+        <menuitem action="view_construction_transport_action" groups="construction_project.service_user_group" id="menu_construction_transport_order" name="Order Transports" parent="construction_project.menu_cp_categ" sequence="41"/>
+    </data>
+</odoo>

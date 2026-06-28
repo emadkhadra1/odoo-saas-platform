@@ -1,0 +1,298 @@
+<odoo>
+
+    <template id="portal_my_home_allocations" name="Portal layout :  menu entries"
+              inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'Allocation' or page_name == 'allocation'"
+                t-attf-class="breadcrumb-item #{'active ' if not allocations else ''}">
+                <a t-if="allocations or page_name == 'Allocation'" t-attf-href="/my/allocation?{{ keep_query() }}">
+                    Allocations
+                </a>
+                <t t-else="">Allocations</t>
+            </li>
+            <li t-if="allocations" class="breadcrumb-item active">
+                <span t-field="employee.name"/>
+
+            </li>
+        </xpath>
+    </template>
+    <template id="portal_my_allocations" name="Allocations Requests">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-set="additional_title">Allocations </t>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Allocations </t>
+            </t>
+            <div class="row mt-2 mb-2">
+                <div class="col-12">
+                    <a href="/my/allocation/submit" class="create_new btn bg-primary">
+                        <i class=" fa  fa-plus-circle"></i>
+                        New Allocation Request
+                    </a>
+
+                </div>
+            </div>
+
+            <t t-if="not allocations">
+                <p>There are currently no Allocation Request for your account.</p>
+            </t>
+            <t t-if="allocations" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>#</th>
+                        <th class="text-left">Description</th>
+                        <th class="text-left">Employee</th>
+                        <th class="text-left">Time Off Type </th>
+                        <th class="text-left">Duration</th>
+                        <th class="text-left">Allocation Type</th>
+                        <th class="text-left">Date from</th>
+                        <th class="text-left">Date to</th>
+                        <th class="text-left">State</th>
+                        <th class="text-left"></th>
+                    </tr>
+                </thead>
+                <t t-set="count" t-value="1"/>
+                <t t-foreach="allocations" t-as="allocation">
+                    <tr>
+                        <td class="text-left">
+                            <a t-attf-href="/my/allocation/#{allocation.id}">
+                                <t t-esc="count"/>
+                                <t t-set="count" t-value="count+1"/>
+                            </a>
+                        </td>
+                        <td class="text-left">
+                            <a t-attf-href="/my/allocation/#{allocation.id}">
+                                <span t-field="allocation.name"/>
+                            </a>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="allocation.employee_id"/>
+                        </td>
+
+                        <td class="text-left">
+                            <span t-field="allocation.holiday_status_id"/>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="allocation.duration_display"/>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="allocation.allocation_type"/>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="allocation.date_from"/>
+                        </td>
+                        <td class="text-left">
+                            <span t-if="allocation.date_to" t-field="allocation.date_to"/>
+                            <span t-else="">No limit</span>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="allocation.state"/>
+                        </td>
+                        <td class="text-left">
+                            <a t-attf-href="/my/allocation/#{allocation.id}" class="btn btn-primary btn-sm">
+                                <i class="fa fa-eye"></i>
+                                View
+                            </a>
+                            <a t-if="allocation.state == 'draft'" t-attf-href="/my/allocation/confirm/#{allocation.id}"
+                               class="btn btn-success  btn-sm">
+                                <i class="fas fa-check"></i>Confirm
+                            </a>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="portal_my_allocations_view" name="My allocation">
+        <t t-call="portal.portal_layout">
+            <br/>
+            <div class="card card-info card-outline">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div style="padding: 4px;" class="callout callout-info col-6 ">
+                            <h5 style="margin: 0;">allocation Details: <span
+                                    t-field="allocation.name"/></h5>
+                        </div>
+                        <div class="text-center right"
+                             style="background-color: #0f7770; width:120px;color: white;
+                               border: 2px #dcdde1;border-radius: 5px;text-align: center;margin-left: auto;margin-right: 50px">
+
+                            <div style="padding: 12px"><span class="text-center" t-field="allocation.state"/>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="border-bottom d-flex justify-content-between py-2 mb-3 align-items-center">
+
+                            </div>
+                            <div class="row text-center">
+                                <!--                                    <strong class="col-12">allocation Type :</strong>-->
+                                <strong class="col-12">
+                                    <span t-if="allocation.holiday_status_id" t-field="allocation.holiday_status_id"/>
+                                    <span t-else="" class="text-muted"></span>
+                                </strong>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4">
+                                    <strong class="col-12">Employee :</strong>
+                                    <span t-if="allocation.employee_id" t-field="allocation.employee_id"/>
+                                    <span t-else="" class="text-muted">-</span>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4">
+                                    <strong class="col-12">Allocation Type :</strong>
+                                    <span t-if="allocation.allocation_type" t-field="allocation.allocation_type"/>
+                                    <span t-else="" class="text-muted">-</span>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <strong class="col-12">Duration :</strong>
+                                    <span t-if="allocation.duration_display" t-field="allocation.duration_display"/>
+                                    <span t-else="" class="text-muted">-</span>
+                                </div>
+
+
+                            </div>
+                            <div class="row mb-2">
+
+                                <div class="col-md-4">
+                                    <strong class="col-12">Validity From :</strong>
+                                    <span t-if="allocation.date_from" t-field="allocation.date_from"/>
+                                    <span t-else="" class="text-muted"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <strong class="col-12">Validity To :</strong>
+                                    <span t-if="allocation.date_to" t-field="allocation.date_to"/>
+                                    <span t-else="" class="text-muted">No limit</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </t>
+    </template>
+
+
+    <template id="allocation_request_submit" name="allocation: Submit a Request">
+        <t t-call="portal.portal_layout">
+            <br/>
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">New allocation Request</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form action="/allocation/insert" method="post" class="new_allocation_form" id="allocation_form">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="card-body o_portal_allocations_details">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="description">Description
+                                    <span style="color:red">*</span>
+                                </label>
+                                <div class="input-group text">
+                                    <input type="text" name="description" required="required"
+                                           id="description"
+                                           class="form-control"
+                                           placeholder="Description"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <span class="fa fa-file-text" role="img" aria-label="Description"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group  col-md-6">
+                                <label>Leave Type</label>
+                                <select class="form-control  allocation_status_id time_off_type_select"
+                                        required="required"
+                                        name="allocation_status_id" id="allocation_status_id">
+                                    <option value="" selected="selected"
+                                            disabled="disabled">Select Leave Type
+                                    </option>
+                                    <t t-foreach="holiday_types" t-as="leave_type">
+                                        <option
+                                                t-att-value="leave_type['id']">
+                                            <t t-esc="leave_type['name']"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="allocation_date_form">Date from
+                                    <span style="color:red">*</span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="allocation_date_form" required="required"
+                                           id="allocation_date"
+                                           class="form-control"
+                                           placeholder="DD/MM/YYYY"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <span class="fa fa-calendar" role="img" aria-label="Calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="col-md-12 col-form-label" for="allocation_date_to">Date TO
+                                    <span style="color:red">*</span>
+                                </label>
+                                <div class="input-group date">
+                                    <input type="text" name="allocation_date_to" required="required"
+                                           id="allocation_date_to"
+                                           class="form-control"
+                                           placeholder="DD/MM/YYYY"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <span class="fa fa-calendar" role="img" aria-label="Calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-6" style="">
+                                <div class="form-group" style="position: static;">
+                                    <label for="input-text-1">Duration
+                                        <span style="color:red">*</span>
+                                    </label>
+                                    <input type="number" name="duration" required="required" min="1"
+                                           id="duration"
+                                           class="form-control"
+                                           placeholder="Duration"/>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!-- /.card-body -->
+
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-primary new_allocation_confirm">Submit</button>
+                    </div>
+                </form>
+            </div>
+
+
+        </t>
+
+    </template>
+
+
+</odoo>

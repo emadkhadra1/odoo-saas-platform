@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ══════════════════════════════════════════════════════════════
+         Batch Settlement Wizard — احتساب تسويات دفعية
+    ══════════════════════════════════════════════════════════════ -->
+
+    <record id="view_delivery_settlement_batch_wizard_form" model="ir.ui.view">
+        <field name="name">delivery.settlement.batch.wizard.form</field>
+        <field name="model">delivery.settlement.batch.wizard</field>
+        <field name="arch" type="xml">
+            <form string="احتساب تسويات دفعية / Batch Settlement Computation">
+
+                <!-- ── الخطوة الأولى: تحديد المعطيات ── -->
+                <group invisible="state != 'draft'">
+                    <group string="📅 الفترة والفرع / Period &amp; Branch">
+                        <field name="company_id" options="{'no_create': True}"/>
+                        <field name="branch_id" options="{'no_create': True}"/>
+                        <field name="period_start"/>
+                        <field name="period_end"/>
+                        <field name="cycle"/>
+                    </group>
+
+                    <group string="📋 العقود النشطة / Active Contracts">
+                        <p class="text-muted" colspan="2"
+                           invisible="contract_ids != []">
+                            اختر الشركة والفرع أولاً — ستظهر العقود النشطة تلقائياً.
+                        </p>
+                        <field name="contract_ids"
+                               widget="many2many_tags"
+                               options="{'no_create': True}"
+                               colspan="2"
+                               invisible="contract_ids == []"/>
+                    </group>
+                </group>
+
+                <!-- ── الخطوة الثانية: النتائج ── -->
+                <group invisible="state != 'done'">
+                    <group string="📊 نتائج الاحتساب / Computation Results">
+                        <field name="computation_log"
+                               readonly="1"
+                               widget="text"
+                               colspan="2"
+                               nolabel="1"/>
+                    </group>
+
+                    <group string="✅ التسويات المُنشأة / Created Settlements"
+                           invisible="created_settlement_ids == []">
+                        <field name="created_settlement_ids"
+                               widget="many2many_tags"
+                               readonly="1"
+                               colspan="2"
+                               nolabel="1"/>
+                    </group>
+                </group>
+
+                <field name="state" invisible="1"/>
+
+                <!-- ── أزرار الإجراءات ── -->
+                <footer>
+                    <!-- أزرار الخطوة الأولى -->
+                    <button name="action_compute_batch"
+                            string="⚙️  احتساب التسويات"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"
+                            data-hotkey="q"/>
+                    <button name="action_load_contracts"
+                            string="🔄 تحديث العقود"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="state != 'draft'"/>
+                    <button string="إلغاء"
+                            class="btn-secondary"
+                            special="cancel"
+                            invisible="state != 'draft'"/>
+
+                    <!-- أزرار الخطوة الثانية -->
+                    <button name="action_view_settlements"
+                            string="📋 فتح التسويات المُنشأة"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'done' or created_settlement_ids == []"/>
+                    <button string="إغلاق"
+                            class="btn-secondary"
+                            special="cancel"
+                            invisible="state != 'done'"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- ── Action ── -->
+    <record id="action_delivery_settlement_batch_wizard" model="ir.actions.act_window">
+        <field name="name">احتساب دفعي للتسويات / Batch Settlement</field>
+        <field name="res_model">delivery.settlement.batch.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_delivery_settlement_batch_wizard_form"/>
+    </record>
+
+</odoo>

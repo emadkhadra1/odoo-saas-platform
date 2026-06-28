@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="payment_receipt_format" model="report.paperformat">
+            <field name="name">A4 Payment Receipt</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">220</field>
+            <field name="page_width">150</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">23</field>
+            <field name="margin_bottom">13</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <template id="external_layout_standard_custom">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="row">
+<!--                    <style>-->
+<!--                        @font-face {-->
+<!--                            font-family: FontAljazeeraColor;-->
+<!--                            src: url('/payment_reports/static/src/fonts/FontAljazeeraColor-lzzD.ttf') format('opentype');-->
+<!--                        }-->
+<!--                    </style>-->
+                    <div class="col-3 mb4">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 90px;"
+                             alt="Logo"/>
+                    </div>
+                    <div class="col-9 text-right" name="company_address"
+                         style="font-size:19px !important;direction:rtl !important; ">
+                        <strong><span t-if="company.name" t-field="company.name"></span>
+                            <br/>
+                            <span t-if="company.Company_Type" t-field="company.Company_Type"></span>
+                            <br/>
+                            <span t-if="o.journal_id.journal_address" t-field="o.journal_id.journal_address"></span>
+                            <br/>
+                            <span t-if="company.phone" t-field="company.phone"></span>
+                            <br/>
+                            <span t-if="company.email" t-field="company.email"></span>
+                        </strong>
+                    </div>
+                </div>
+                <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                    <div class="col-12">
+                        <div style="border-bottom: 1px solid black;"/>
+                    </div>
+                </div>
+            </div>
+            <div t-attf-class="footer o_clean_footer o_company_#{company.id}_layout">
+                <div class="row">
+                    <p>
+                        <span t-esc="company.street" t-if="company.street">,</span>
+                        <span t-esc="company.street2" t-if="company.street2">,</span>
+                        <span t-esc="company.city" t-if="company.city">,</span>
+                        <span t-esc="company.state_id.name" t-if="company.state_id">,</span>
+                        <span t-esc="company.country_id.name" t-if="company.country_id"/>
+                    </p>
+
+                </div>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}"
+                 t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="ar_001">
+                <div class="pt-5">
+                    <!-- This div ensures that the address is not cropped by the header. -->
+                    <t t-call="web.address_layout"/>
+                </div>
+                <t t-out="0"/>
+            </div>
+
+        </template>
+
+
+        <template id="external_layout_custom">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+            <t t-if="not company">
+                <!-- Multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <t t-call="payment_reports.external_layout_standard_custom">
+                <t t-out="0"/>
+            </t>
+        </template>
+
+    </data>
+</odoo>

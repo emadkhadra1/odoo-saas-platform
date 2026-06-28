@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_delivery_city_tree" model="ir.ui.view">
+        <field name="name">delivery.city.list</field>
+        <field name="model">delivery.city</field>
+        <field name="arch" type="xml">
+            <list string="المدن">
+                <field name="name" string="الاسم بالإنجليزية"/>
+                <field name="name_ar" string="الاسم بالعربية"/>
+                <field name="tier" string="التصنيف" widget="badge"/>
+                <field name="is_active" string="نشطة؟"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_delivery_city_form" model="ir.ui.view">
+        <field name="name">delivery.city.form</field>
+        <field name="model">delivery.city</field>
+        <field name="arch" type="xml">
+            <form string="مدينة">
+                <sheet>
+                    <group>
+                        <group string="الاسم">
+                            <field name="name" string="الاسم بالإنجليزية"/>
+                            <field name="name_ar" string="الاسم بالعربية"/>
+                        </group>
+                        <group string="التصنيف">
+                            <field name="tier" string="تصنيف المدينة"/>
+                            <field name="is_active" string="نشطة؟"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_delivery_city_search" model="ir.ui.view">
+        <field name="name">delivery.city.search</field>
+        <field name="model">delivery.city</field>
+        <field name="arch" type="xml">
+            <search string="بحث في المدن">
+                <field name="name"/>
+                <field name="name_ar"/>
+                <filter name="t1" string="رئيسية (T1)" domain="[('tier', '=', 'T1')]"/>
+                <filter name="t2" string="متوسطة (T2)" domain="[('tier', '=', 'T2')]"/>
+                <filter name="t3" string="صغيرة (T3)" domain="[('tier', '=', 'T3')]"/>
+                <group expand="0" string="تجميع بـ">
+                    <filter name="group_tier" string="التصنيف" context="{'group_by': 'tier'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_delivery_city" model="ir.actions.act_window">
+        <field name="name">المدن</field>
+        <field name="res_model">delivery.city</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">أضف أول مدينة</p>
+            <p>المدن تُستخدم لتصنيف الفروع والمناديب جغرافياً.</p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_b2b_material_sum_document">
+        <t t-call="web.html_container">
+            <!--<t t-foreach="docs" t-as="o">-->
+            <t t-call="web.external_layout">
+                <div class="page" style="margin-top:0px;font-size:15px">
+                    <h2>Material And Subcontractor report</h2>
+
+
+                    <style type="text/css">
+                        body,
+                        div,
+                        p,
+                        table,
+                        tbody,
+                        td,
+                        tfoot,
+                        th,
+                        thead,
+                        tr {
+                        font-family: "KacstOne";
+                        font-size: large;
+                        }
+                        a.comment-indicator:hover + comment {
+                        background: #ffd;
+                        position: absolute;
+                        display: block;
+                        border: 1px solid black;
+                        padding: 0.5em;
+                        }
+                        a.comment-indicator {
+                        background: red;
+                        display: inline-block;
+                        border: 1px solid black;
+                        width: 0.5em;
+                        height: 0.5em;
+                        }
+                        comment {
+                        display: none;
+                        }
+
+                    </style>
+
+                    <table cellspacing="0" border="0" width="100%">
+                        <colgroup width="172"></colgroup>
+                        <colgroup width="247"></colgroup>
+                        <colgroup width="223"></colgroup>
+                        <colgroup width="142"></colgroup>
+                        <tr align="left">
+                            <td colspan="2" height="17" align="left" valign="middle">
+                                <t t-esc="project"/>
+                            </td>
+
+                        </tr>
+
+                        <tr align="center">
+                            <td height="17" align="left" valign="middle">
+                                <br/>
+                            </td>
+                            <td align="left" valign="middle">
+                                <br/>
+                            </td>
+                            <td align="left" valign="middle">
+                                <br/>
+                            </td>
+                            <td align="left" valign="middle">
+                                <br/>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td colspan="3" height="17" align="right" valign="middle">
+                                From
+                                <t t-esc="from_date"/>
+                                To
+                                <t t-esc="to_date"/>
+                            </td>
+                            <!--<td align="right" valign="middle">-->
+                            <!--<b>-->
+                            <!--to                                            </b>-->
+                            <!--</td>-->
+                        </tr>
+                        <tr>
+                            <td height="17" align="left" valign="middle">
+                                <br/>
+                            </td>
+                            <td align="left" valign="middle">
+                                <br/>
+                            </td>
+                            <td align="left" valign="middle">
+                                <br/>
+                            </td>
+                            <td align="left" valign="middle">
+                                <br/>
+                            </td>
+                        </tr>
+                    </table>
+                    <t t-if="type == 'material' or type == 'both'">
+                        <t t-foreach="docs" t-as="o">
+                            <t t-foreach="get_material(o)" t-as="item">
+
+
+                                <table cellspacing="0" border="0" width="100%">
+
+                                    <tr align="left">
+
+                                        <td colspan="2" align="left" valign="left">
+                                            <b>
+                                                Material
+                                            </b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            align="center" valign="middle" bgcolor="#CCCCCC">
+                                            <b>Seq</b>
+                                        </td>
+
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            colspan="2" align="center" valign="middle" bgcolor="#CCCCCC">
+                                            <b>Item</b>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="17" align="center" valign="middle" bgcolor="#CCCCCC">
+                                            <b>uom</b>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="17" align="center" valign="middle" bgcolor="#CCCCCC">
+                                            <b>Qty</b>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="17" align="center" valign="middle" bgcolor="#CCCCCC">
+                                            <b>Category</b>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="17" align="center" valign="middle" bgcolor="#CCCCCC">
+                                            <b>Total Amount</b>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="17" align="center" valign="middle" bgcolor="#CCCCCC">
+                                            <b>All Total</b>
+                                        </td>
+                                    </tr>
+
+                                    <t t-set="sequence" t-value="1"/>
+                                    <t t-set="total" t-value="0"/>
+
+                                    <t t-foreach="item['bi_ids']" t-as="bi">
+                                        <tr>
+                                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                                align="middle" valign="middle" bgcolor="#CCCCCC">
+                                                <span t-esc="sequence"/>
+                                                <t t-set="sequence" t-value="sequence + 1"/>
+                                            </td>
+
+                                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                                colspan="2" align="left" valign="middle">
+                                                <t t-esc="bi['product']"/>
+                                            </td>
+                                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                                height="17" align="center" valign="middle">
+                                                <t t-esc="bi['uom']"/>
+                                            </td>
+                                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                                height="17" align="center" valign="middle">
+                                                <t t-esc="bi['qty']"/>
+                                            </td>
+                                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                                height="17" align="center" valign="middle">
+                                                <t t-esc="bi['category']"/>
+                                            </td>
+                                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                                height="17" align="center" valign="middle">
+                                                <t t-esc="bi['amount']"/>
+                                            </td>
+                                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                                align="middle" valign="middle" bgcolor="#CCCCCC">
+                                                <t t-set="total" t-value="total + bi['amount']"/>
+
+                                                <span t-esc="total"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+
+                                </table>
+
+                            </t>
+                        </t>
+
+                    </t>
+                    <br/>
+                    <br></br>
+                    <br></br>
+                    <t t-if="type == 'working' or type == 'both'">
+                        <t t-foreach="docs" t-as="o">
+                            <t t-foreach="get_informations(o)" t-as="item">
+
+
+                                <table cellspacing="0" border="0" width="100%">
+                                    <tr align="left">
+
+                                        <td colspan="2" align="left" valign="left">
+                                            <b>
+                                                Subcontractor
+                                            </b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            align="center" valign="middle" bgcolor="#CCCCCC">
+                                            <b>Seq</b>
+                                        </td>
+
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            colspan="2" align="center" valign="middle" bgcolor="#CCCCCC">
+                                            <b>Item</b>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="17" align="center" valign="middle" bgcolor="#CCCCCC">
+                                            <b>uom</b>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="17" align="center" valign="middle" bgcolor="#CCCCCC">
+                                            <b>Total Work</b>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="17" align="center" valign="middle" bgcolor="#CCCCCC">
+                                            <b>Category</b>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="17" align="center" valign="middle" bgcolor="#CCCCCC">
+                                            <b>Total Amount</b>
+                                        </td>
+                                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                            height="17" align="center" valign="middle" bgcolor="#CCCCCC">
+                                            <b>All Total</b>
+                                        </td>
+                                    </tr>
+
+                                    <t t-set="sequence" t-value="1"/>
+                                    <t t-set="total" t-value="0"/>
+
+                                    <t t-foreach="item['bi_ids']" t-as="bi">
+                                        <tr>
+                                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                                align="middle" valign="middle" bgcolor="#CCCCCC">
+                                                <span t-esc="sequence"/>
+                                                <t t-set="sequence" t-value="sequence + 1"/>
+                                            </td>
+
+                                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                                colspan="2" align="left" valign="middle">
+                                                <t t-esc="bi.business_statement_id.name"/>
+                                            </td>
+                                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                                height="17" align="center" valign="middle">
+                                                <t t-esc="bi.uom_id.name "/>
+                                            </td>
+                                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                                height="17" align="center" valign="middle">
+                                                <t t-esc="bi.total_work "/>
+                                            </td>
+                                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                                height="17" align="center" valign="middle">
+                                                <t t-esc="bi.category"/>
+                                            </td>
+                                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                                height="17" align="center" valign="middle">
+                                                <t t-esc="bi.work_amount"/>
+                                            </td>
+                                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                                align="middle" valign="middle" bgcolor="#CCCCCC">
+                                                <t t-set="total" t-value="total + bi.work_amount"/>
+
+                                                <span t-esc="total"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+
+                                </table>
+
+                            </t>
+                        </t>
+
+                    </t>
+                </div>
+            </t>
+            <!--</t>-->
+        </t>
+    </template>
+
+    <template id="b2b_material_sum_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="b2b_constructors.report_b2b_material_sum_document"/>
+            </t>
+        </t>
+    </template>
+
+</odoo>

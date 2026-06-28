@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <record id="view_boq_sub_item_form" model="ir.ui.view">
+      <field name="name">view.b2b.boq.sub.items.form</field>
+      <field name="model">b2b.sub.items</field>
+      <field name="arch" type="xml">
+        <form string="BOQ Sub Item">
+          <sheet>
+            <group name="main">
+              <group>
+                <field name="name"/>
+                <field name="code"/>
+              </group>
+              <group>
+                <field name="main_item_id"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_boq_sub_item_tree" model="ir.ui.view">
+      <field name="name">view.boq_sub_item.tree</field>
+      <field name="model">b2b.sub.items</field>
+      <field name="arch" type="xml">
+        <list string="BOQ Sub Item">
+          <field name="name"/>
+          <field name="code"/>
+          <field name="main_item_id"/>
+        </list>
+      </field>
+    </record>
+
+    <record id="view_boq_sub_item_search" model="ir.ui.view">
+      <field name="name">view.boq_sub_item.search</field>
+      <field name="model">b2b.sub.items</field>
+      <field name="arch" type="xml">
+        <search string="BOQ Sub Item">
+          <field name="name"/>
+          <field name="code"/>
+          <field name="main_item_id"/>
+          <group string="Group By" name="groupby">
+            <filter name="main_item_id_groupby" string="BOQ Main Item" context="{'group_by': 'main_item_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="boq_sub_item_action" model="ir.actions.act_window">
+      <field name="name">BOQ Sub Item</field>
+      <field name="res_model">b2b.sub.items</field>
+      <field name="view_mode">list,form</field>
+      <field name="domain">[]</field>
+      <field name="context">{}</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to create a new BOQ Sub Item.
+        </p>
+      </field>
+    </record>
+
+  </data>
+</odoo>

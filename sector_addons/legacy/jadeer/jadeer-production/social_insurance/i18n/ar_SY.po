@@ -1,0 +1,207 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* social_insurance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-08-18 12:12+0000\n"
+"PO-Revision-Date: 2020-08-18 12:12+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__4
+msgid "April"
+msgstr "أبريل"
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__8
+msgid "August"
+msgstr "أغسطس"
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.insurance_wizard_report_form
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report__company_id
+msgid "Company"
+msgstr "الشركة"
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.print_report_template
+msgid "Company Share Insurance"
+msgstr "حصة الشركه"
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report__create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report__create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__12
+msgid "December"
+msgstr "ديسمبر"
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report__display_name
+#: model:ir.model.fields,field_description:social_insurance.field_report_social_insurance_print_report_template__display_name
+msgid "Display Name"
+msgstr "الاسم المعروض"
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.print_report_template
+msgid "Employee"
+msgstr "الموظف"
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.print_report_template
+msgid "Employee Share Insurance"
+msgstr "حصة الموظف"
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report__employee_ids
+msgid "Employee/s"
+msgstr "الموظف"
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__2
+msgid "February"
+msgstr "فبراير"
+
+#. module: social_insurance
+#: code:addons/social_insurance/wizard/insurance_wizard.py:0
+#, python-format
+msgid "Form content is missing, this report cannot be printed."
+msgstr ""
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report__id
+#: model:ir.model.fields,field_description:social_insurance.field_report_social_insurance_print_report_template__id
+msgid "ID"
+msgstr "المُعرف"
+
+#. module: social_insurance
+#: model:ir.actions.report,name:social_insurance.print_social_insurance_id
+#: model:ir.ui.menu,name:social_insurance.insurance_wizard_report_form_action_menu
+#: model_terms:ir.ui.view,arch_db:social_insurance.print_report_template
+msgid "Insurance Report"
+msgstr "تقرير التأمينات"
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.print_report_template
+msgid "Insurance Salary"
+msgstr "أجر الاشتراك"
+
+#. module: social_insurance
+#: model:ir.actions.act_window,name:social_insurance.insurance_wizard_report_form_action
+msgid "Insurance report"
+msgstr "تقرير التامينات"
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__1
+msgid "January"
+msgstr "يناير"
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__7
+msgid "July"
+msgstr "يوليو"
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__6
+msgid "June"
+msgstr "يونيو"
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report____last_update
+#: model:ir.model.fields,field_description:social_insurance.field_report_social_insurance_print_report_template____last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report__write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report__write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__3
+msgid "March"
+msgstr "مارس"
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__5
+msgid "May"
+msgstr "مايو"
+
+#. module: social_insurance
+#: model:ir.model.fields,field_description:social_insurance.field_insurance_wizard_report__month
+msgid "Month"
+msgstr "الشهر"
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.print_report_template
+msgid "Month :"
+msgstr "الشهر"
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__11
+msgid "November"
+msgstr "نوفمبر"
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__10
+msgid "October"
+msgstr "أكتوبر"
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.insurance_wizard_report_form
+msgid "Print"
+msgstr "طباعة"
+
+#. module: social_insurance
+#: model:ir.model.fields.selection,name:social_insurance.selection__insurance_wizard_report__month__9
+msgid "September"
+msgstr "سبتمبر"
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.print_report_template
+msgid "Total"
+msgstr "الإجمالي"
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.print_report_template
+msgid "Total Salary"
+msgstr "الاجر الشامل"
+
+#. module: social_insurance
+#: model:ir.model,name:social_insurance.model_insurance_wizard_report
+msgid "insurance.wizard.report"
+msgstr ""
+
+#. module: social_insurance
+#: model_terms:ir.ui.view,arch_db:social_insurance.insurance_wizard_report_form
+msgid "or"
+msgstr "أو"
+
+#. module: social_insurance
+#: model:ir.model,name:social_insurance.model_report_social_insurance_print_report_template
+msgid "report.social_insurance.print_report_template"
+msgstr ""

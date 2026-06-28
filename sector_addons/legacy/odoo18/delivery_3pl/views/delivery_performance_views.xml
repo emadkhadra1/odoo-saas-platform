@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ══════════════════════════════════════════════
+         الأداء اليومي
+    ══════════════════════════════════════════════ -->
+    <record id="view_delivery_daily_performance_tree" model="ir.ui.view">
+        <field name="name">delivery.daily.performance.tree</field>
+        <field name="model">delivery.daily.performance</field>
+        <field name="arch" type="xml">
+            <list string="الأداء اليومي"
+                  decoration-success="is_valid_day == True"
+                  decoration-danger="is_valid_day == False">
+                <field name="date" string="التاريخ"/>
+                <field name="branch_id" string="الفرع"/>
+                <field name="rider_id" string="المندوب"/>
+                <field name="platform_account_id" string="حساب المنصة" optional="hide"/>
+                <field name="account_name" string="اسم الحساب" optional="hide"/>
+                <field name="vehicle_type_company" string="مركبة الشركة" optional="hide"/>
+                <field name="vehicle_type_contract" string="مركبة العقد" optional="hide"/>
+                <field name="platform_target" string="تارجت المنصة" optional="hide"/>
+                <field name="accepted_orders" string="مقبولة"/>
+                <field name="delivered_orders" string="مسلّمة"/>
+                <field name="cancelled_orders" string="ملغاة" optional="hide"/>
+                <field name="total_online_hours" string="الساعات الإجمالية"/>
+                <field name="peak_hours" string="ساعات الذروة" optional="hide"/>
+                <field name="valid_online_hours" string="الساعات الصالحة" optional="hide"/>
+                <field name="is_valid_day" string="يوم صالح؟" widget="boolean_toggle"/>
+                <field name="validity_notes" string="سبب عدم الصلاحية" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_delivery_daily_performance_form" model="ir.ui.view">
+        <field name="name">delivery.daily.performance.form</field>
+        <field name="model">delivery.daily.performance</field>
+        <field name="arch" type="xml">
+            <form string="الأداء اليومي">
+                <header>
+                    <button name="action_recompute_validity" type="object"
+                            string="إعادة حساب الصلاحية"
+                            class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="البيانات الأساسية">
+                            <field name="branch_id" string="الفرع"/>
+                            <field name="company_id" string="الشركة"/>
+                            <field name="rider_id" string="المندوب"/>
+                            <field name="date" string="التاريخ"/>
+                            <field name="import_session_id" string="جلسة الاستيراد"/>
+                        </group>
+                        <group string="بيانات الحساب">
+                            <field name="platform_account_id" string="حساب المنصة"/>
+                            <field name="account_name" string="اسم الحساب"/>
+                            <field name="vehicle_type_company" string="مركبة الشركة"/>
+                            <field name="vehicle_type_contract" string="مركبة العقد"/>
+                            <field name="license_plate" string="رقم اللوحة"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="الطلبات">
+                            <field name="platform_target" string="تارجت المنصة"/>
+                            <field name="accepted_orders" string="طلبات مقبولة"/>
+                            <field name="delivered_orders" string="طلبات مسلّمة"/>
+                            <field name="large_orders_completed" string="طلبات كبيرة مكتملة"/>
+                            <field name="cancelled_orders" string="طلبات ملغاة"/>
+                            <field name="rejected_orders" string="طلبات مرفوضة"/>
+                            <field name="on_time_deliveries" string="توصيل في الوقت"/>
+                            <field name="advance_deliveries" string="توصيل مبكر"/>
+                        </group>
+                        <group string="الساعات والصلاحية">
+                            <field name="total_online_hours" string="إجمالي الساعات الإلكترونية"/>
+                            <field name="valid_online_hours" string="الساعات الصالحة"/>
+                            <field name="peak_hours" string="ساعات الذروة"/>
+                            <field name="is_valid_day" string="يوم صالح؟"/>
+                            <field name="is_must_attend_day" string="يوم حضور إلزامي؟"/>
+                            <field name="validity_notes" string="ملاحظة الصلاحية"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_delivery_daily_performance_search" model="ir.ui.view">
+        <field name="name">delivery.daily.performance.search</field>
+        <field name="model">delivery.daily.performance</field>
+        <field name="arch" type="xml">
+            <search string="بحث في الأداء اليومي">
+                <field name="rider_id" string="المندوب"/>
+                <field name="branch_id" string="الفرع"/>
+                <field name="date" string="التاريخ"/>
+                <field name="platform_account_id" string="حساب المنصة"/>
+                <filter name="valid_days" string="أيام صالحة" domain="[('is_valid_day', '=', True)]"/>
+                <filter name="invalid_days" string="أيام غير صالحة" domain="[('is_valid_day', '=', False)]"/>
+                <filter name="must_attend" string="أيام الحضور الإلزامي" domain="[('is_must_attend_day', '=', True)]"/>
+                <group expand="0" string="تجميع بـ">
+                    <filter name="group_rider" string="المندوب" context="{'group_by': 'rider_id'}"/>
+                    <filter name="group_branch" string="الفرع" context="{'group_by': 'branch_id'}"/>
+                    <filter name="group_date" string="التاريخ" context="{'group_by': 'date'}"/>
+                    <filter name="group_vehicle" string="نوع المركبة" context="{'group_by': 'vehicle_type_contract'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_recompute_daily_validity" model="ir.actions.server">
+        <field name="name">إعادة حساب صلاحية الأيام</field>
+        <field name="model_id" ref="model_delivery_daily_performance"/>
+        <field name="binding_model_id" ref="model_delivery_daily_performance"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">records.action_recompute_validity()</field>
+    </record>
+
+    <record id="action_delivery_daily_performance" model="ir.actions.act_window">
+        <field name="name">الأداء اليومي</field>
+        <field name="res_model">delivery.daily.performance</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">لا توجد سجلات أداء يومي بعد</p>
+            <p>سجلات الأداء اليومي تُنشأ تلقائياً عند استيراد ملفات التوصيل.</p>
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════
+         الأداء الشهري
+    ══════════════════════════════════════════════ -->
+    <record id="view_delivery_monthly_performance_tree" model="ir.ui.view">
+        <field name="name">delivery.monthly.performance.tree</field>
+        <field name="model">delivery.monthly.performance</field>
+        <field name="arch" type="xml">
+            <list string="الأداء الشهري"
+                  decoration-success="is_valid == True"
+                  decoration-danger="is_valid == False">
+                <field name="period_display" string="الفترة"/>
+                <field name="branch_id" string="الفرع"/>
+                <field name="rider_id" string="المندوب"/>
+                <field name="is_valid" string="صالح؟"/>
+                <field name="validity_reason" string="سبب عدم الصلاحية"/>
+                <field name="valid_days" string="أيام صالحة"/>
+                <field name="valid_hours" string="ساعات صالحة" widget="float_time"/>
+                <field name="delivered_orders" string="طلبات مسلّمة"/>
+                <field name="performance_level" string="مستوى الأداء"/>
+                <field name="order_base_amount" string="أساس الطلبات"/>
+                <field name="capacity_incentive" string="حافز السعة"/>
+                <field name="experience_incentive" string="حافز الخبرة"/>
+                <field name="subsidy" string="الدعم"/>
+                <field name="tips_excl_vat" string="البقشيش"/>
+                <field name="total_revenue" string="الإجمالي"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_batch_compute_monthly_validity" model="ir.actions.server">
+        <field name="name">حساب الصلاحية من السجلات اليومية</field>
+        <field name="model_id" ref="model_delivery_monthly_performance"/>
+        <field name="binding_model_id" ref="model_delivery_monthly_performance"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">records.action_compute_from_daily()</field>
+    </record>
+
+    <record id="view_delivery_monthly_performance_form" model="ir.ui.view">
+        <field name="name">delivery.monthly.performance.form</field>
+        <field name="model">delivery.monthly.performance</field>
+        <field name="arch" type="xml">
+            <form string="الأداء الشهري">
+                <header>
+                    <button name="action_compute_from_daily"
+                            type="object"
+                            string="حساب من السجلات اليومية"
+                            class="oe_highlight"
+                            confirm="سيتم تحديث الأيام الصالحة والطلبات والصلاحية من السجلات اليومية المستوردة. متأكد؟"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="البيانات الأساسية">
+                            <field name="branch_id" string="الفرع"/>
+                            <field name="company_id" string="الشركة"/>
+                            <field name="rider_id" string="المندوب"/>
+                            <field name="period_month" string="الشهر"/>
+                            <field name="period_year" string="السنة"/>
+                            <field name="period_display" string="الفترة" readonly="1"/>
+                        </group>
+                        <group string="الصلاحية">
+                            <field name="is_valid" string="مندوب صالح؟"/>
+                            <field name="validity_reason" string="سبب عدم الصلاحية"/>
+                            <field name="valid_days" string="الأيام الصالحة"/>
+                            <field name="valid_hours" string="الساعات الصالحة" widget="float_time"/>
+                            <field name="valid_peak_hours" string="ساعات الذروة الصالحة" widget="float_time"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="الطلبات والأداء" name="orders">
+                            <group>
+                                <group string="الطلبات">
+                                    <field name="delivered_orders" string="طلبات مسلّمة"/>
+                                    <field name="accepted_orders" string="طلبات مقبولة"/>
+                                    <field name="cancelled_orders" string="طلبات ملغاة"/>
+                                    <field name="on_time_deliveries" string="توصيل في الوقت"/>
+                                    <field name="advance_deliveries" string="توصيل مبكر"/>
+                                </group>
+                                <group string="الأداء والتقييم">
+                                    <field name="on_time_rate" string="نسبة الالتزام بالوقت" widget="percentage"/>
+                                    <field name="cancellation_rate" string="نسبة الإلغاء" widget="percentage"/>
+                                    <field name="advance_rate" string="نسبة التوصيل المبكر" widget="percentage"/>
+                                    <field name="experience_score" string="نقاط الخبرة"/>
+                                    <field name="performance_level" string="مستوى الأداء"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="تفصيل الإيرادات" name="revenue">
+                            <group>
+                                <group string="الدخل">
+                                    <field name="order_base_amount" string="أساس الطلبات / الشريحة"/>
+                                    <field name="capacity_incentive" string="حافز السعة"/>
+                                    <field name="experience_incentive" string="حافز الخبرة"/>
+                                    <field name="subsidy" string="الدعم"/>
+                                    <field name="dxg" string="DXG"/>
+                                    <field name="other_activities" string="أنشطة أخرى"/>
+                                    <field name="tips_excl_vat" string="البقشيش"/>
+                                </group>
+                                <group string="الخصومات">
+                                    <field name="deductions" string="الخصومات"/>
+                                    <field name="food_damage_compensation" string="تعويض تلف الطعام"/>
+                                    <field name="other_adjustment" string="تعديلات أخرى"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="total_revenue" string="الإجمالي"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_delivery_monthly_performance_search" model="ir.ui.view">
+        <field name="name">delivery.monthly.performance.search</field>
+        <field name="model">delivery.monthly.performance</field>
+        <field name="arch" type="xml">
+            <search string="بحث في الأداء الشهري">
+                <field name="rider_id" string="المندوب"/>
+                <field name="branch_id" string="الفرع"/>
+                <field name="period_year" string="السنة"/>
+                <filter name="valid_riders" string="مناديب صالحون" domain="[('is_valid', '=', True)]"/>
+                <filter name="invalid_riders" string="مناديب غير صالحين" domain="[('is_valid', '=', False)]"/>
+                <group expand="0" string="تجميع بـ">
+                    <filter name="group_rider" string="المندوب" context="{'group_by': 'rider_id'}"/>
+                    <filter name="group_branch" string="الفرع" context="{'group_by': 'branch_id'}"/>
+                    <filter name="group_level" string="مستوى الأداء" context="{'group_by': 'performance_level'}"/>
+                    <filter name="group_valid" string="صالح / غير صالح" context="{'group_by': 'is_valid'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_delivery_monthly_performance" model="ir.actions.act_window">
+        <field name="name">الأداء الشهري</field>
+        <field name="res_model">delivery.monthly.performance</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">لا توجد سجلات أداء شهري بعد</p>
+            <p>سجلات الأداء الشهري تُحسب من السجلات اليومية عبر زر "حساب من السجلات اليومية".</p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,972 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* b2b_constructors
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-23 11:42+0000\n"
+"PO-Revision-Date: 2017-06-23 13:44+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: ar_SY\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_res_users_task_count
+msgid "# Tasks"
+msgstr "عدد المهام"
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_boq_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_form
+msgid "<span class=\"o_stat_text\">Invoices</span>"
+msgstr "<span class=\"o_stat_text\">فواتير</span>"
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_boq_form
+msgid "<span class=\"o_stat_text\">Qoutations</span>"
+msgstr "<span class=\"o_stat_text\">مستخلص</span>"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_invoice_id
+msgid "Account Invoice"
+msgstr "فاتورة المستخلص"
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_boq_form
+msgid "Add Constructors"
+msgstr "اضافة مقاول باطن"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_already_cashed
+msgid "Already Cashed"
+msgstr "ما سبق صرفة"
+
+#. module: b2b_constructors
+#: selection:b2b.progress.bill,state:0
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_boq_form
+msgid "Approve"
+msgstr "موافقة"
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_assign_constructor_wizard_form
+msgid "Assign"
+msgstr "تعيين"
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_assign_constructor_wizard_form
+msgid "Assign Constructors Wizard"
+msgstr "شاشة تعيين مقاول باطن"
+
+#. module: b2b_constructors
+#: selection:b2b.construction.boq,state:0
+msgid "Assigned"
+msgstr "تعيين"
+
+#. module: b2b_constructors
+#: code:addons/b2b_constructors/models/construction_boq.py:99
+#: model:ir.model,name:b2b_constructors.model_b2b_entrepreneurs_wizard
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_entrepreneurs_id
+#, python-format
+msgid "Assigned Constructors"
+msgstr "مقاول باطن مسند"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_percent
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_percent
+msgid "Assigned Quantity"
+msgstr "قيمة مسندة"
+
+#. module: b2b_constructors
+#: code:addons/b2b_constructors/wizard/assign_constructors.py:42
+#, python-format
+msgid "Assigned Quantity more than Available Quantity!"
+msgstr "القيمة المسندة اكبر من القيمة المتوفرة!"
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_assign_constructor_wizard_form
+msgid "Assignment Items"
+msgstr "بنود مسندة"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_required_quantity
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_required_quantity
+msgid "Assined Quantity"
+msgstr "قيمة مسندة"
+
+#. module: b2b_constructors
+#: model:ir.actions.report.xml,name:b2b_constructors.report_b2b_qoutation_print
+msgid "B2B Construction Qoutation"
+msgstr "مقاولات"
+
+#. module: b2b_constructors
+#: model:product.category,name:b2b_constructors.b2b_product_category_boq
+msgid "BOQ"
+msgstr "مناقصة"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,name:b2b_constructors.boq_business_item_action
+#: model:ir.ui.menu,name:b2b_constructors.boq_business_item_menu
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_entrepreneurs_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_boq_business_item_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_boq_business_item_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_boq_business_item_tree
+#: model:product.product,name:b2b_constructors.b2b_boq_product0
+#: model:product.template,name:b2b_constructors.b2b_boq_product0_product_template
+msgid "BOQ Business Item"
+msgstr "بنود اعمال"
+
+#. module: b2b_constructors
+#: model:ir.model,name:b2b_constructors.model_b2b_business_items
+msgid "BOQ Business Items"
+msgstr "بنود اعمال"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_construction_boq_indexation_ids
+msgid "BOQ Item"
+msgstr "بنود مقايسة"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,name:b2b_constructors.boq_main_item_action
+#: model:ir.ui.menu,name:b2b_constructors.boq_main_item_menu
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_entrepreneurs_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_boq_business_item_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_boq_main_item_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_boq_main_item_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_boq_main_item_tree
+#: model:ir.ui.view,arch_db:b2b_constructors.view_boq_sub_item_search
+msgid "BOQ Main Item"
+msgstr "بنود رئيسية"
+
+#. module: b2b_constructors
+#: model:ir.model,name:b2b_constructors.model_b2b_main_items
+msgid "BOQ Main Items"
+msgstr "بنود رئيسية"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,name:b2b_constructors.boq_sub_item_action
+#: model:ir.ui.menu,name:b2b_constructors.boq_sub_item_menu
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_entrepreneurs_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_boq_business_item_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_boq_sub_item_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_boq_sub_item_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_boq_sub_item_tree
+msgid "BOQ Sub Item"
+msgstr "بنود فرعية"
+
+#. module: b2b_constructors
+#: model:ir.model,name:b2b_constructors.model_b2b_sub_items
+msgid "BOQ Sub Items"
+msgstr "بنود فرعية"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_business_statement_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_business_statement_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_wizard_business_statement_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_indexation_business_statement_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_business_statement_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_business_statement_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_entrepreneurs_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_indexation_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_quotation_report_wizard_business_statement_id
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_indexation_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_lines_search
+msgid "Business Statement"
+msgstr "بنود اعمال"
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_assign_constructor_wizard_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_quotation_report_wizard_form
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_price
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_price
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_indexation_category
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_category
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_category
+msgid "Category"
+msgstr "الفئة"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,help:b2b_constructors.boq_business_item_action
+msgid "Click to create a new BOQ Business Item."
+msgstr "اضغط لانشاء بنود اعمال جديدة"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,help:b2b_constructors.boq_main_item_action
+msgid "Click to create a new BOQ Main Item."
+msgstr "اضغط لانشاء بنود مقايسة رئيسية جديدة"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,help:b2b_constructors.boq_sub_item_action
+msgid "Click to create a new BOQ Sub Item."
+msgstr "اضغط لانشاء بنود مقايسة فرعية جديدة"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,help:b2b_constructors.b2b_entrepreneurs_action
+msgid "Click to create a new Construction BOQ Assigned."
+msgstr "اضغط لانشاء تعيينات مقايسة جديدة"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,help:b2b_constructors.b2b_indexation_action
+msgid "Click to create a new Construction BOQ Lines."
+msgstr "اضغط لانشاء سطور مقايسة جديدة"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,help:b2b_constructors.b2b_construction_boq_action
+msgid "Click to create a new Construction BOQ."
+msgstr "اضغط لانشاء مقايسة جديدة"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,help:b2b_constructors.b2b_progress_bill_lines_action
+msgid "Click to create a new Construction Quotation Lines."
+msgstr "اضغط لانشاء سطور مستخلص جديد"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,help:b2b_constructors.b2b_progress_bill_type_action
+msgid "Click to create a new Construction Quotation Type."
+msgstr "اضغط لانشاء نوع مستخلص جديد"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,help:b2b_constructors.b2b_progress_bill_action
+msgid "Click to create a new Construction Quotation."
+msgstr "اضغط لانشاء مستخلص جديد"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,help:b2b_constructors.b2b_construction_type_action
+msgid "Click to create a new Construction Type."
+msgstr "اضغط لانشاء نوع مقاولة جديد"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,help:b2b_constructors.constructors_action
+msgid "Click to create a new Constructors."
+msgstr "اضغط لانشاء مقاول باطن جديد"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,help:b2b_constructors.b2b_deduction_action
+msgid "Click to create a new Deductions."
+msgstr "اضغط لانشاء مستقطع جديد"
+
+#. module: b2b_constructors
+#: model:ir.ui.menu,name:b2b_constructors.construction_config_menu
+msgid "Configuration"
+msgstr "الإعدادات"
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_search
+msgid "Consructor"
+msgstr "مقاول الباطن"
+
+#. module: b2b_constructors
+#: model:ir.ui.menu,name:b2b_constructors.construction_menu
+msgid "Construction"
+msgstr "مقاولات"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,name:b2b_constructors.b2b_construction_boq_action
+#: model:ir.model,name:b2b_constructors.model_b2b_construction_boq
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_purchase_order_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_purchase_order_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_wizard_purchase_order_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_indexation_purchase_order_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_purchase_order_id
+#: model:ir.ui.menu,name:b2b_constructors.b2b_purchase_order_menu
+#: model:ir.ui.menu,name:b2b_constructors.construction_boq_menu
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_boq_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_boq_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_boq_tree
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_entrepreneurs_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_search
+msgid "Construction BOQ"
+msgstr "مقايسات"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,name:b2b_constructors.b2b_entrepreneurs_action
+#: model:ir.model,name:b2b_constructors.model_b2b_assign_items_wizard
+#: model:ir.model,name:b2b_constructors.model_b2b_entrepreneurs
+#: model:ir.ui.menu,name:b2b_constructors.b2b_constructor_assign_menu
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_entrepreneurs_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_entrepreneurs_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_entrepreneurs_tree
+msgid "Construction BOQ Assigned"
+msgstr "تعيين المقايسات"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_indexation_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_indexation_id
+msgid "Construction BOQ Item"
+msgstr "بنود المقايسة"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,name:b2b_constructors.b2b_indexation_action
+#: model:ir.model,name:b2b_constructors.model_b2b_indexation
+#: model:ir.ui.menu,name:b2b_constructors.b2b_indexation_menu
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_boq_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_indexation_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_indexation_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_indexation_tree
+msgid "Construction BOQ Lines"
+msgstr "سطور المقايسة"
+
+#. module: b2b_constructors
+#: model:ir.module.category,name:b2b_constructors.module_category_construction
+msgid "Construction Groups"
+msgstr "مجموعات المقاولات"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_account_journal_is_construction_journal
+msgid "Construction Journal"
+msgstr "يومية مقاولات"
+
+#. module: b2b_constructors
+#: model:ir.ui.menu,name:b2b_constructors.construction_quotation_menu
+msgid "Construction Qoutation"
+msgstr "مستخلص"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,name:b2b_constructors.b2b_progress_bill_action
+#: model:ir.model,name:b2b_constructors.model_b2b_progress_bill
+#: model:ir.ui.menu,name:b2b_constructors.b2b_progress_bill_menu
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_tree
+msgid "Construction Quotation"
+msgstr "مستخلص"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,name:b2b_constructors.b2b_progress_bill_lines_action
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_line2_ids
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_line_ids
+#: model:ir.ui.menu,name:b2b_constructors.b2b_progress_bill_lines_menu
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_lines_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_lines_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_lines_tree
+msgid "Construction Quotation Lines"
+msgstr "سطور المستخلص"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,name:b2b_constructors.b2b_progress_bill_type_action
+#: model:ir.ui.menu,name:b2b_constructors.b2b_progress_bill_type_menu
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_type_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_type_tree
+msgid "Construction Quotation Type"
+msgstr "نوع المستخلص"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,name:b2b_constructors.b2b_construction_type_action
+#: model:ir.model,name:b2b_constructors.model_b2b_constrution_type
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_construction_boq_construction_type_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_construction_type_id
+#: model:ir.ui.menu,name:b2b_constructors.b2b_construction_type_menu
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_boq_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_type_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_type_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_type_tree
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_search
+msgid "Construction Type"
+msgstr "نوع المقاولة"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_consructor_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_consructor_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_wizard_consructor_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_consructor_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_consructor_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_consructor_id
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_entrepreneurs_search
+msgid "Constructor"
+msgstr "مقاول الباطن"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_construction_boq_constructor_ids
+msgid "Constructor Assignment"
+msgstr "تعيين مفاول الباطن"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_construction_boq_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_purchase_order_id
+msgid "Constructor Quotation"
+msgstr "اسم المقايسة"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,name:b2b_constructors.constructors_action
+#: model:ir.ui.menu,name:b2b_constructors.construction_constructors_menu
+#: model:ir.ui.menu,name:b2b_constructors.constructors_menu
+msgid "Constructors"
+msgstr "مقاول الباطن"
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_boq_form
+msgid "Constructors Assignment"
+msgstr "تعيين مفاول الباطن"
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_indexation_search
+msgid "Constrution BOQ"
+msgstr "مقايسة"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_create_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_business_items_create_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_construction_boq_create_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_constrution_type_create_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_deductions_create_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_create_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_wizard_create_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_indexation_create_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_main_items_create_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_create_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_create_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_create_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_type_create_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_quotation_report_wizard_create_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_sub_items_create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_create_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_business_items_create_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_construction_boq_create_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_constrution_type_create_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_deductions_create_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_create_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_wizard_create_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_indexation_create_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_main_items_create_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_create_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_create_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_create_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_type_create_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_quotation_report_wizard_create_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_sub_items_create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_current_work
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_current_work
+msgid "Current Work"
+msgstr "العمل الحالي"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_construction_boq_date_order
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_boq_search
+msgid "Date"
+msgstr "التاريخ"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_deductions_amount
+msgid "Deduction Amount"
+msgstr "المبلغ"
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,name:b2b_constructors.b2b_deduction_action
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_deduction_ids
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_deductions
+#: model:ir.ui.menu,name:b2b_constructors.b2b_deduction_menu
+#: model:ir.ui.menu,name:b2b_constructors.construction_deduction_menu
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_deduction_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_deduction_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_deduction_tree
+msgid "Deductions"
+msgstr "الاستقطاعات"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_display_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_business_items_display_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_construction_boq_display_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_constrution_type_display_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_deductions_display_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_display_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_wizard_display_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_indexation_display_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_main_items_display_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_display_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_display_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_display_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_type_display_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_quotation_report_wizard_display_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_sub_items_display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: b2b_constructors
+#: selection:b2b.construction.boq,state:0
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_boq_form
+msgid "Done"
+msgstr "منتهي"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_down_payment
+msgid "Down Payment"
+msgstr "خصم دفعة مقدمة"
+
+#. module: b2b_constructors
+#: selection:b2b.construction.boq,state:0 selection:b2b.progress.bill,state:0
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_pay_due
+msgid "Due for Pay"
+msgstr "المستخق للصرف"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_indexation_finished_quantity
+msgid "Finished Quantity"
+msgstr "الكمية المنفذة"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_from_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_quotation_report_wizard_from_date
+msgid "From"
+msgstr "مِن"
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_boq_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_entrepreneurs_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_indexation_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_lines_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_boq_business_item_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_boq_sub_item_search
+msgid "Group By"
+msgstr "تجميع حسب"
+
+#. module: b2b_constructors
+#: model:ir.module.category,description:b2b_constructors.module_category_construction
+msgid "Helps you manage Construction Work."
+msgstr "يساعدك على إدارة أعمال البناء."
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_business_items_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_construction_boq_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_constrution_type_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_deductions_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_wizard_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_indexation_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_main_items_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_type_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_quotation_report_wizard_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_sub_items_id
+msgid "ID"
+msgstr "المعرف"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_invoice_remaining
+msgid "Invoice Remaining"
+msgstr "القيمة المتبقية"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_res_partner_is_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_res_users_is_constructors
+msgid "Is a Constructors"
+msgstr "مقاول باطن"
+
+#. module: b2b_constructors
+#: model:ir.model,name:b2b_constructors.model_account_journal
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_journal_id
+msgid "Journal"
+msgstr "اليومية"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard___last_update
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_business_items___last_update
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_construction_boq___last_update
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_constrution_type___last_update
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_deductions___last_update
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs___last_update
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_wizard___last_update
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_indexation___last_update
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_main_items___last_update
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill___last_update
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2___last_update
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines___last_update
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_type___last_update
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_quotation_report_wizard___last_update
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_sub_items___last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_write_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_business_items_write_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_construction_boq_write_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_constrution_type_write_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_deductions_write_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_wizard_write_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_write_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_indexation_write_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_main_items_write_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_write_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_write_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_type_write_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_write_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_quotation_report_wizard_write_uid
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_sub_items_write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_write_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_business_items_write_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_construction_boq_write_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_constrution_type_write_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_deductions_write_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_wizard_write_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_write_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_indexation_write_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_main_items_write_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_write_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_write_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_type_write_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_write_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_quotation_report_wizard_write_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_sub_items_write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_wizard_item_ids
+msgid "Lines"
+msgstr "البنود"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_main_item_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_business_items_main_item_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_main_item_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_wizard_main_item_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_indexation_main_item_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_main_item_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_main_item_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_sub_items_main_item_id
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_indexation_search
+msgid "Main Item"
+msgstr "بنود رئيسية"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_deductions_name
+msgid "Name"
+msgstr "الاسم"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_deductions_notes
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_deduction_form
+msgid "Notes"
+msgstr "الملاحظات"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_old_assigned
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_old_assigned
+msgid "Old Assigned"
+msgstr "مسند سابقا"
+
+#. module: b2b_constructors
+#: model:ir.model,name:b2b_constructors.model_res_partner
+msgid "Partner"
+msgstr "شريك"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_pay_required
+msgid "Pay Required"
+msgstr "الاستحقاقات"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_wizard_percent
+msgid "Percent"
+msgstr "نسبة"
+
+#. module: b2b_constructors
+#: code:addons/b2b_constructors/models/progress_bill.py:202
+#, python-format
+msgid "Please, Enter Lines first!"
+msgstr "الرجاء ادخال سطور المستخلص اولا!"
+
+#. module: b2b_constructors
+#: code:addons/b2b_constructors/models/progress_bill_lines.py:47
+#, python-format
+msgid "Please, make sure you select 'Construction BOQ', 'Project Name', 'Constructor' and 'From Date' before add QUOTATION LINES"
+msgstr "الرجاء التأكد من ادخال المناقصة والمشروع والمقاول وتاريخ البدء وتاريخ الانتهاء قبل اضافة سطور المستخلص!"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_previous_work
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_previous_work
+msgid "Previous Work"
+msgstr "الاعمال السابقة"
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_boq_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_quotation_report_wizard_form
+msgid "Print"
+msgstr "طباعة"
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_lines_search
+msgid "Progress Bill"
+msgstr "مستخلص"
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_type_search
+msgid "Progress Bill Type"
+msgstr "نوع المستخلص"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_progress_bill_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_progress_bill_id
+msgid "Progress bill id"
+msgstr "مستخلص"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_project_id
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_boq_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_entrepreneurs_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_search
+msgid "Project"
+msgstr "المشروع"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_construction_boq_project_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_project_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_project_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_project_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_quotation_report_wizard_project_id
+msgid "Project Name"
+msgstr "اسم المشروع"
+
+#. module: b2b_constructors
+#: model:ir.model,name:b2b_constructors.model_b2b_quotation_report_wizard
+msgid "Qoutation Report Wizard"
+msgstr "اجمالي بنود الاعمال لمشروع"
+
+#. module: b2b_constructors
+#: model:ir.model,name:b2b_constructors.model_b2b_progress_bill_type
+msgid "Qoutation Type"
+msgstr "نوع المستخلص"
+
+#. module: b2b_constructors
+#: model:ir.model,name:b2b_constructors.model_b2b_progress_bill_lines
+msgid "Qoutation With BOQ Lines"
+msgstr "مستخلص بمقايسة"
+
+#. module: b2b_constructors
+#: model:ir.model,name:b2b_constructors.model_b2b_progress_bill_lines2
+msgid "Qoutation Without BOQ Lines"
+msgstr "مستخلص بدون مقايسة"
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_quotation_report_wizard_form
+msgid "Quoation Report Wizard"
+msgstr "اجمالي بنود الاعمال لمشروع"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_name
+msgid "Quotation No."
+msgstr "رقم المستخلص"
+
+#. module: b2b_constructors
+#: model:ir.actions.report.xml,name:b2b_constructors.b2b_report_sum_quotation
+#: model:ir.model,name:b2b_constructors.model_b2b_quotation_report
+#: model:ir.model,name:b2b_constructors.model_bip_quotation_report
+#: model:ir.model,name:b2b_constructors.model_bip_quotation_report2
+msgid "Quotation Report"
+msgstr "تقرير مستخلص"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_progress_bill_type_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_quotation_type
+msgid "Quotation Type"
+msgstr "نوع المستخلص"
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_boq_form
+msgid "Refuse"
+msgstr "رفض"
+
+#. module: b2b_constructors
+#: selection:b2b.construction.boq,state:0
+msgid "Refused"
+msgstr "مرفوض"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_indexation_remaining_quantity
+msgid "Remaining Quantity"
+msgstr "الكميه المتبقيه "
+
+#. module: b2b_constructors
+#: model:ir.ui.menu,name:b2b_constructors.construction_report_menu
+msgid "Reports"
+msgstr "التقارير"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_required_quantity
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_required_quantity
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_indexation_required_quantity
+msgid "Required Quantity"
+msgstr "الكمية المطلوبة"
+
+#. module: b2b_constructors
+#: code:addons/b2b_constructors/models/progress_bill.py:236
+#, python-format
+msgid "Selected Journal has not Credit Account!, Please, fill it first!"
+msgstr "اليومية المختار ليس لديه حسا دائن الرجاء ادخاله اولا!"
+
+#. module: b2b_constructors
+#: selection:b2b.progress.bill,state:0
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_form
+msgid "Sent"
+msgstr "أرسِل"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_state
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_boq_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_search
+msgid "State"
+msgstr "المحافظة"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_construction_boq_state
+msgid "Status"
+msgstr "الحاله "
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_indexation_search
+msgid "Su b Item"
+msgstr "بنود فرعية"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_sub_item_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_business_items_sub_item_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_sub_item_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_wizard_sub_item_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_indexation_sub_item_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_sub_item_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_sub_item_id
+msgid "Sub Item"
+msgstr "بنود فرعية"
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_construction_boq_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_form
+msgid "Submit"
+msgstr "إرسال"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_res_users_task_ids
+msgid "Tasks"
+msgstr "المهام"
+
+#. module: b2b_constructors
+#: code:addons/b2b_constructors/wizard/qoutation_wizard.py:67
+#: code:addons/b2b_constructors/wizard/qoutation_wizard.py:99
+#, python-format
+msgid "There are not data!"
+msgstr "لا يوجد مستخلص لهذا المشروع في هذه الفترة"
+
+#. module: b2b_constructors
+#: sql_constraint:b2b.constrution.type:0
+#: sql_constraint:b2b.progress.bill.type:0
+msgid "This Data found!"
+msgstr "هذه البيانات موجودة سابقا!"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_business_items_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_constrution_type_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_main_items_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_type_name
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_sub_items_name
+msgid "Title"
+msgstr "اللقب"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_to_date
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_quotation_report_wizard_to_date
+msgid "To"
+msgstr "إلى"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_indexation_total
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_work_amount_total
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_deduction_tree
+msgid "Total"
+msgstr "الإجمالي "
+
+#. module: b2b_constructors
+#: model:ir.actions.act_window,name:b2b_constructors.b2b_quotation_report_action
+#: model:ir.ui.menu,name:b2b_constructors.b2b_business_items_menu
+msgid "Total Business Items Wizard"
+msgstr "اجمالي بنود الاعمال لمشروع"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_total
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_total
+msgid "Total Cost"
+msgstr "إجمالي التكلفة"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_total_work
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_total_work
+msgid "Total Work"
+msgstr "الاجمالي"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_assign_items_wizard_uom_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_business_items_uom_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_entrepreneurs_uom_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_indexation_uom_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_uom_id
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_uom_id
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_entrepreneurs_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_indexation_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_b2b_progress_bill_lines_search
+#: model:ir.ui.view,arch_db:b2b_constructors.view_boq_business_item_search
+msgid "Unit"
+msgstr "وحدة القياس"
+
+#. module: b2b_constructors
+#: selection:b2b.construction.boq,state:0
+msgid "Wait Approve"
+msgstr "انتظار الموافقة"
+
+#. module: b2b_constructors
+#: selection:b2b.progress.bill,quotation_type:0
+msgid "With BOQ"
+msgstr "بمقايسة"
+
+#. module: b2b_constructors
+#: selection:b2b.progress.bill,quotation_type:0
+msgid "Without BOQ"
+msgstr "بدون مقايسة"
+
+#. module: b2b_constructors
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines2_work_amount
+#: model:ir.model.fields,field_description:b2b_constructors.field_b2b_progress_bill_lines_work_amount
+msgid "Work Amount"
+msgstr "قيمة الاعمال"
+
+#. module: b2b_constructors
+#: model:ir.model,name:b2b_constructors.model_b2b_deductions
+msgid "b2b.deductions"
+msgstr "مستقطاعات"
+
+#. module: b2b_constructors
+#: model:ir.ui.view,arch_db:b2b_constructors.view_assign_constructor_wizard_form
+#: model:ir.ui.view,arch_db:b2b_constructors.view_quotation_report_wizard_form
+msgid "or"
+msgstr "أو"

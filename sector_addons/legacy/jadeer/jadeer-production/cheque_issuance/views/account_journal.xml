@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_journal_form_inherit_deposit" model="ir.ui.view">
+            <field name="name">account.journal.form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="is_notes_pay" attrs="{'invisible':[('type', '!=', 'bank')]}"/>
+                    <field name="issue_bank_account_id"
+                           attrs="{'invisible':[('is_notes_pay', '!=', False),('type', '!=', 'bank')]}"/>
+                </xpath>
+                <xpath expr="//page[@name='advanced_settings']/group" position="inside">
+                    <group string="Return Account For Issued checks"
+                           attrs="{'invisible':[('is_notes_pay', '=', False)]}">
+                        <field name="issue_return_account_id"
+                               attrs="{'invisible':[('is_notes_pay', '=', False)],'required':[('is_notes_pay', '=', True)]}"/>
+                        <field name="utility_account_receivable_id"/>
+
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

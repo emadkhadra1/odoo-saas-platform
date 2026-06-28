@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from urllib.parse import quote
 
 from odoo import http
 from odoo.http import request
@@ -12,7 +13,13 @@ class OdooSaasWebsiteController(http.Controller):
 
     _preview_dir = Path(__file__).resolve().parents[1] / "static" / "preview"
     _asset_base = "/odoo_saas_website/static/preview/"
-    _asset_version = "19.0.1.3.1"
+    _asset_version = "19.0.1.4.0"
+    _demo_database_defaults = {
+        "construction": "demo_construction",
+        "real_estate": "demo_realestate",
+        "hr": "demo_hr",
+        "3pl": "demo_3pl",
+    }
 
     def _render_preview(self, filename="index.html"):
         html = (self._preview_dir / filename).read_text(encoding="utf-8")
@@ -146,6 +153,59 @@ class OdooSaasWebsiteController(http.Controller):
     )
     def solution_3pl_en(self, **kwargs):
         return self._render_preview("solution-3pl-en.html")
+
+    def _demo_database(self, sector_key):
+        default_database = self._demo_database_defaults[sector_key]
+        return (
+            request.env["ir.config_parameter"]
+            .sudo()
+            .get_param("qimam_saas_website.demo_database_%s" % sector_key, default_database)
+            .strip()
+            or default_database
+        )
+
+    def _redirect_demo_database(self, sector_key):
+        return request.redirect("/web/login?db=%s" % quote(self._demo_database(sector_key)), code=302)
+
+    @http.route(
+        ["/demo/construction", "/en/demo/construction"],
+        type="http",
+        auth="public",
+        website=True,
+        sitemap=False,
+    )
+    def demo_construction(self, **kwargs):
+        return self._redirect_demo_database("construction")
+
+    @http.route(
+        ["/demo/real-estate", "/en/demo/real-estate"],
+        type="http",
+        auth="public",
+        website=True,
+        sitemap=False,
+    )
+    def demo_real_estate(self, **kwargs):
+        return self._redirect_demo_database("real_estate")
+
+    @http.route(
+        ["/demo/hr", "/en/demo/hr"],
+        type="http",
+        auth="public",
+        website=True,
+        sitemap=False,
+    )
+    def demo_hr(self, **kwargs):
+        return self._redirect_demo_database("hr")
+
+    @http.route(
+        ["/demo/3pl", "/en/demo/3pl"],
+        type="http",
+        auth="public",
+        website=True,
+        sitemap=False,
+    )
+    def demo_3pl(self, **kwargs):
+        return self._redirect_demo_database("3pl")
 
     @staticmethod
     def _json_response(payload, status=200):

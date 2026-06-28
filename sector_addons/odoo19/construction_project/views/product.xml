@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="product_template_form_view_update" model="ir.ui.view">
+            <field name="name">product.template.form.update</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <!--/div/t[@t-call][last()]-->
+                <!--<xpath expr="//div[@class='oe_title']/div/div/t[@t-call][last()]" position="after">-->
+                <!-- Add your fields or attributes here -->
+
+                <!--<div>-->
+                <!--<field name="constration_product"/>-->
+                <!--<label for="constration_product"/>-->
+                <!--</div>-->
+
+                <!--</xpath>-->
+
+                <label for="purchase_ok" position="after">
+                    <div>
+
+                        <field name="constration_product"/>
+                        <label for="constration_product"/>
+
+                    </div>
+                </label>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

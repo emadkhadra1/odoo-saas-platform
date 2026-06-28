@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="account_check_cash" model="ir.ui.view">
+        <field name="name">account.check.cash.Form</field>
+        <field name="model">account.check.cash</field>
+        <field name="arch" type="xml">
+            <form string="Cash Cheques">
+                <group>
+                    <group>
+                        <field name="cash_journal_id"/>
+                        <field name="payment_id" invisible="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="create_cash_move" string="Confirm" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

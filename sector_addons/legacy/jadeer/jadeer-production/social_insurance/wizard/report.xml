@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                id="print_insurance_report_id"
+                model="insurance.wizard.report"
+                report_type="qweb-pdf"
+                string="Insurance Report"
+                name="social_insurance.print_report_template"
+                file="social_insurance.print_report_template"
+        />
+        <template id='print_report_template'>
+
+            <t t-call="web.html_container"/>
+            <t t-call='web.html_container'>
+                <t t-call='web.external_layout'>
+
+                    <div class='page'>
+                        <style type="text/css">
+                            table.report_table {
+                            font-size: 14px !important;
+                            border-collapse: collapse !important;
+                            width: 100% !important;
+                            }
+
+                            table.report_table th, table.report_table td {
+                            padding: 8px !important;
+                            text-align: center !important;
+                            }
+
+                            table.report_table tr:nth-child(even){background-color: #f2f2f2 !important;}
+
+                            table.report_table th {
+                            background-color: #4CAF50 !important;
+                            color: white !important;
+                            }
+                        </style>
+                        <h2 class="text-center" style="margin-bottom:20px;text-align:center">Insurance Report For Month: <span t-esc="doc.get_month_label()"/> </h2>
+
+                        <table class="report_table" style="border:1px;" >
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Insurance Salary</th>
+                                    <th>Total Salary</th>
+                                    <th>Employee Share Insurance</th>
+                                    <th>Company Share Insurance</th>
+                                    <th>Total</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="total_basic_sal" t-value="0"/>
+                                <t t-set="total_variable_sal" t-value="0"/>
+                                <t t-set="total_employee_share" t-value="0"/>
+                                <t t-set="total_company_share" t-value="0"/>
+                                <t t-set="total_all" t-value="0"/>
+                                <t t-set="total_rows" t-value="0"/>
+                                <t t-set="currency_id" t-value="0"/>
+
+                                <t t-foreach="data" t-as="obj">
+                                    <tr>
+                                        <td>
+                                            <span t-field="obj.employee_id"></span>
+                                        </td>
+
+                                        <td>
+                                            <span t-field="obj.basic_insurance_salary"></span>
+                                            <t t-set="total_basic_sal"
+                                               t-value="total_basic_sal + obj.basic_insurance_salary"/>
+<!--                                            <t t-set="total_all" t-value="total_all + obj.basic_insurance_salary"/>-->
+                                        </td>
+                                        <td>
+                                            <span t-field="obj.variable_insurance_salary"></span>
+                                            <t t-set="total_variable_sal"
+                                               t-value="total_variable_sal+obj.variable_insurance_salary"/>
+<!--                                            <t t-set="total_all" t-value="total_all + obj.variable_insurance_salary"/>-->
+
+                                        </td>
+                                        <td>
+                                            <span t-field="obj.employee_share_insurance"></span>
+                                            <t t-set="total_employee_share"
+                                               t-value="total_employee_share+obj.employee_share_insurance"/>
+                                            <t t-set="total_all" t-value="total_all + obj.employee_share_insurance"/>
+
+                                        </td>
+
+                                        <td>
+                                            <span t-field="obj.company_share_insurance"></span>
+                                            <t t-set="total_company_share"
+                                               t-value="total_company_share+obj.company_share_insurance"/>
+                                            <t t-set="total_all" t-value="total_all + obj.company_share_insurance"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="total_all" t-options='{"widget": "monetary", "display_currency": doc.company_id.currency_id}'></span>
+                                            <t t-set="total_rows" t-value="total_rows+total_all"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>Total</td>
+                                    <td>
+                                        <span t-esc="total_basic_sal" t-options='{"widget": "monetary", "display_currency": doc.company_id.currency_id}' ></span>
+                                    </td>
+                                    <td>
+                                        <span t-esc="total_variable_sal" t-options='{"widget": "monetary", "display_currency": doc.company_id.currency_id}'></span>
+                                    </td>
+                                    <td>
+                                        <span t-esc="total_employee_share" t-options='{"widget": "monetary", "display_currency": doc.company_id.currency_id}'></span>
+                                    </td>
+                                    <td>
+                                        <span t-esc="total_company_share" t-options='{"widget": "monetary", "display_currency": doc.company_id.currency_id}' ></span>
+                                    </td>
+                                    <td>
+                                        <span t-esc="total_rows" t-options='{"widget": "monetary", "display_currency": doc.company_id.currency_id}'></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

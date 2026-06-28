@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Adding a salary rule for loan-->
+    <data noupdate="1">
+
+        <!-- Salary Structure -->
+        <record id="hr_payroll_salary_structure_type_eg_emp" model="hr.payroll.structure.type">
+            <field name="name">Salary Structure Type</field>
+            <field name="country_id" ref="base.eg"/>
+        </record>
+
+        <record id="hr_payroll_salary_structure_eg_emp" model="hr.payroll.structure">
+            <field name="name">Salary Structure</field>
+            <field name="country_id" ref="base.eg"/>
+            <field name="type_id" ref="hr_payroll_salary_structure_type_eg_emp"/>
+        </record>
+
+        <record id="hr_rule_loan" model="hr.salary.rule">
+            <field name="name">Loan</field>
+            <field name="sequence" eval="190"/>
+            <field name="code">LO</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.LO and - (inputs.LO.amount)</field>
+            <field name="appears_on_payslip" eval="True"/>
+            <field name="struct_id" ref="ohrms_loan.hr_payroll_salary_structure_eg_emp"/>
+        </record>
+
+        <record id="hr_payslip_input_type_loan" model="hr.payslip.input.type">
+            <field name="code">LO</field>
+            <field name="name">Loan</field>
+        </record>
+
+    </data>
+</odoo>

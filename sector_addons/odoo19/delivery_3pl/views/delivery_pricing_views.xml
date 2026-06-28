@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_delivery_pricing_rule_tree" model="ir.ui.view">
+        <field name="name">delivery.pricing.rule.tree</field>
+        <field name="model">delivery.pricing.rule</field>
+        <field name="arch" type="xml">
+            <list string="قواعد التسعير"
+                  decoration-success="is_active == True"
+                  decoration-muted="is_active == False">
+                <field name="name" string="اسم القاعدة"/>
+                <field name="company_id" string="الشركة"/>
+                <field name="branch_id" string="الفرع" optional="show"/>
+                <field name="contract_id" string="العقد" optional="show"/>
+                <field name="city_id" string="المدينة" optional="show"/>
+                <field name="pricing_type" string="نوع التسعير" widget="badge"/>
+                <field name="vehicle_type" string="نوع المركبة" optional="show"/>
+                <field name="base_amount" string="المبلغ الأساسي (ريال)"/>
+                <field name="per_km_amount" string="المبلغ لكل كم" optional="show"/>
+                <field name="daily_rate" string="المعدل اليومي" optional="hide"/>
+                <field name="slab_count" string="الشرائح" optional="show"/>
+                <field name="incentive_level_count" string="المستويات" optional="show"/>
+                <field name="effective_from" string="تاريخ التطبيق"/>
+                <field name="effective_to" string="تاريخ الانتهاء" optional="show"/>
+                <field name="is_active" string="نشطة؟" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_delivery_pricing_rule_form" model="ir.ui.view">
+        <field name="name">delivery.pricing.rule.form</field>
+        <field name="model">delivery.pricing.rule</field>
+        <field name="arch" type="xml">
+            <form string="قاعدة تسعير">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="اسم قاعدة التسعير"/></h1>
+                    </div>
+                    <group>
+                        <group string="الربط والتصنيف">
+                            <field name="company_id" string="الشركة"/>
+                            <field name="branch_id" string="الفرع"/>
+                            <field name="contract_id" string="العقد"/>
+                            <field name="city_id" string="المدينة"/>
+                            <field name="pricing_type" string="نوع التسعير"/>
+                        </group>
+                        <group string="التفاصيل">
+                            <field name="vehicle_type" string="نوع المركبة"/>
+                            <field name="rider_performance_level" string="مستوى أداء المندوب"/>
+                            <field name="currency_id" string="العملة"/>
+                            <field name="is_active" string="نشطة؟"/>
+                        </group>
+                    </group>
+
+                    <group string="مبالغ الطلبات"
+                           invisible="pricing_type not in ('per_order', 'per_distance', 'tiered')">
+                        <group>
+                            <field name="base_amount" string="المبلغ الأساسي لكل طلب (ريال)"/>
+                            <field name="cod_rate" string="معدل الدفع عند الاستلام"/>
+                            <field name="paid_rate" string="معدل الطلبات المدفوعة"/>
+                            <field name="stacking_discount" string="خصم الجمع بين الطلبات"/>
+                        </group>
+                        <group invisible="pricing_type != 'per_distance'">
+                            <field name="per_km_amount" string="المبلغ لكل كيلومتر (ريال)"/>
+                            <field name="km_start_from" string="المسافة الابتدائية (كم)"/>
+                            <field name="max_km" string="أقصى مسافة (كم)"/>
+                        </group>
+                    </group>
+
+                    <group string="قواعد رفض الطلبات"
+                           invisible="pricing_type not in ('per_order', 'tiered')">
+                        <group>
+                            <field name="order_rejection_free_daily" string="عدد الرفضات المسموح بها يومياً"/>
+                            <field name="order_rejection_penalty" string="قيمة جزاء الرفض الزائد (ريال)"/>
+                        </group>
+                    </group>
+
+                    <group string="إعداد الراتب الثابت"
+                           invisible="pricing_type != 'fixed_salary'">
+                        <group>
+                            <field name="daily_rate" string="المعدل اليومي (ريال)"/>
+                            <field name="working_days" string="أيام العمل الشهرية"/>
+                            <field name="monthly_total" string="الإجمالي الشهري (ريال)"/>
+                        </group>
+                        <group>
+                            <field name="fallback_per_order" string="السعر الاحتياطي لكل طلب (ريال)"/>
+                            <field name="bonus_threshold" string="حد الطلبات للمكافأة"/>
+                            <field name="bonus_per_order" string="مكافأة لكل طلب زائد (ريال)"/>
+                        </group>
+                    </group>
+
+                    <group string="شروط مؤشرات الأداء"
+                           invisible="pricing_type != 'fixed_salary'">
+                        <group>
+                            <field name="shift_adherence_min" string="الحد الأدنى لالتزام الدوام (%)"/>
+                            <field name="on_time_delivery_min" string="الحد الأدنى للتوصيل في الوقت (%)"/>
+                            <field name="order_acceptance_min" string="الحد الأدنى لقبول الطلبات (%)"/>
+                        </group>
+                    </group>
+
+                    <group string="معايير المكافآت والجزاءات"
+                           invisible="pricing_type not in ('bonus', 'penalty')">
+                        <group>
+                            <field name="base_amount" string="المبلغ الأساسي (ريال)"/>
+                            <field name="min_orders" string="الحد الأدنى للطلبات"/>
+                            <field name="max_orders" string="الحد الأقصى للطلبات"/>
+                            <field name="bonus_amount" string="مبلغ المكافأة (ريال)"/>
+                        </group>
+                    </group>
+
+                    <group string="🤝 رسوم إدارة المقاول من الباطن"
+                           invisible="pricing_type != 'subcontract_fee'">
+                        <div class="alert alert-info" colspan="2" role="alert">
+                            <strong>آلية الحساب:</strong>
+                            عند التسوية، يُخصم من إجمالي أرباح المقاول من الباطن رسوم الإدارة المحددة هنا.
+                            يستلم المقاول: الإجمالي − الرسوم.
+                        </div>
+                        <group>
+                            <field name="subcontract_fee_basis" string="أساس احتساب الرسوم"/>
+                            <field name="subcontract_fee_pct"
+                                   string="نسبة الرسوم من الإجمالي (%)"
+                                   invisible="subcontract_fee_basis == 'flat'"/>
+                            <field name="base_amount"
+                                   string="رسوم ثابتة شهرية (ريال)"
+                                   invisible="subcontract_fee_basis != 'flat'"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="الشرائح التدرجية" name="slabs"
+                              invisible="pricing_type != 'tiered'">
+                            <field name="slab_ids">
+                                <list editable="bottom" string="الشرائح">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="label" string="الوصف"/>
+                                    <field name="from_orders" string="من (طلبات)"/>
+                                    <field name="to_orders" string="إلى (طلبات)"/>
+                                    <field name="price_per_order" string="السعر لكل طلب (ريال)"/>
+                                    <field name="max_payout" string="الحد الأقصى للدفع"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="مستويات الحوافز" name="incentive_levels"
+                              invisible="pricing_type not in ('experience_incentive', 'capacity_incentive')">
+                            <field name="incentive_level_ids">
+                                <list editable="bottom" string="المستويات">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="level" string="المستوى"/>
+                                    <field name="range_from" string="من"/>
+                                    <field name="range_to" string="إلى"/>
+                                    <field name="bike_amount" string="مبلغ الدراجة (ريال)"/>
+                                    <field name="car_amount" string="مبلغ السيارة (ريال)"/>
+                                    <field name="notes" string="ملاحظات"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+
+                    <group string="فترة التطبيق">
+                        <group>
+                            <field name="effective_from" string="تاريخ البدء"/>
+                            <field name="effective_to" string="تاريخ الانتهاء"/>
+                        </group>
+                    </group>
+                    <field name="notes" placeholder="ملاحظات إضافية..."/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_delivery_pricing_rule_search" model="ir.ui.view">
+        <field name="name">delivery.pricing.rule.search</field>
+        <field name="model">delivery.pricing.rule</field>
+        <field name="arch" type="xml">
+            <search string="بحث في قواعد التسعير">
+                <field name="name" string="اسم القاعدة"/>
+                <field name="company_id" string="الشركة"/>
+                <field name="branch_id" string="الفرع"/>
+                <filter name="active_rules" string="نشطة" domain="[('is_active', '=', True)]"/>
+                <separator/>
+                <filter name="type_per_order" string="لكل طلب" domain="[('pricing_type', '=', 'per_order')]"/>
+                <filter name="type_per_distance" string="لكل مسافة" domain="[('pricing_type', '=', 'per_distance')]"/>
+                <filter name="type_tiered" string="تدرجي" domain="[('pricing_type', '=', 'tiered')]"/>
+                <filter name="type_fixed_salary" string="راتب ثابت" domain="[('pricing_type', '=', 'fixed_salary')]"/>
+                <filter name="type_experience" string="حافز خبرة" domain="[('pricing_type', '=', 'experience_incentive')]"/>
+                <filter name="type_capacity" string="حافز سعة" domain="[('pricing_type', '=', 'capacity_incentive')]"/>
+                <filter name="type_subcontract_fee" string="رسوم مقاول" domain="[('pricing_type', '=', 'subcontract_fee')]"/>
+                <group expand="0" string="تجميع بـ">
+                    <filter name="group_company" string="الشركة" context="{'group_by': 'company_id'}"/>
+                    <filter name="group_branch" string="الفرع" context="{'group_by': 'branch_id'}"/>
+                    <filter name="group_contract" string="العقد" context="{'group_by': 'contract_id'}"/>
+                    <filter name="group_type" string="نوع التسعير" context="{'group_by': 'pricing_type'}"/>
+                    <filter name="group_city" string="المدينة" context="{'group_by': 'city_id'}"/>
+                    <filter name="group_vehicle" string="نوع المركبة" context="{'group_by': 'vehicle_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_delivery_pricing_rule" model="ir.actions.act_window">
+        <field name="name">قواعد التسعير</field>
+        <field name="res_model">delivery.pricing.rule</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active_rules': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">أضف أول قاعدة تسعير</p>
+            <p>قواعد التسعير تُستخدم في النمط المتقدم لحساب مستحقات المناديب.</p>
+        </field>
+    </record>
+</odoo>

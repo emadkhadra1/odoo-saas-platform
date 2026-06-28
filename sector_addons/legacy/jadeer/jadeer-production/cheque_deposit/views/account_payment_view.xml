@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_payment_form" model="ir.ui.view">
+            <field name="name">account.payment.form.inherit</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="cheque_base.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+<!--                    <button name="action_check_collected" type="object" string="Collect"-->
+<!--                            class="btn-success"-->
+<!--                            attrs="{'invisible':['|',('payment_status','not in',['deposit','recycle']),('payment_type_check', '!=', 'check')]}"/>-->
+                    <button name="action_open_collect_wizard" type="object" string="Collect"
+                            class="btn-success"
+                            attrs="{'invisible':['|',('payment_status','not in',['deposit','recycle','returned']),('payment_type_check', '!=', 'check')]}"/>
+
+<!--                    <button name="action_check_returned" type="object" string="Return"-->
+<!--                            class="btn-danger"-->
+<!--                            attrs="{'invisible':['|',('payment_status','not in',['deposit','recycle']),('payment_type_check', '!=', 'check')]}"/>-->
+                    <button name="cash_move"
+                            string="Cash"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': ['|',('payment_status','!=','returned'),('payment_type_check', '!=', 'check')]}"/>
+                    <button name="recycle_move"
+                            string="Recycle"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': ['|',('payment_status','!=','returned'),('payment_type_check', '!=', 'check')]}"/>
+                    <button name="writeoff_move"
+                            string="Write-Off"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': ['|',('payment_status','!=','returned'),('payment_type_check', '!=', 'check')]}"/>
+<!--                    <button name="recheck_move"-->
+<!--                            string="Re-Cheque"-->
+<!--                            type="object" class="oe_highlight"-->
+<!--                            attrs="{'invisible': ['|',('payment_status','!=','returned'),('payment_type_check', '!=', 'check')]}"/>-->
+<!--                    <button name="action_check_returned" type="object" string="Return"-->
+<!--                            class="btn-danger"-->
+<!--                            attrs="{'invisible':['|',('payment_status','not in',['deposit','recycle']),('payment_type_check', '!=', 'check')]}"/>-->
+                    <button name="action_check_returned_to_partner"
+                            string="Return To Partner"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': ['|',('payment_status','not in',['bounced']),('payment_type_check', '!=', 'check')]}"/>
+                    <button name="action_check_returned_to_pay"
+                            string="Return To Customer"
+                            type="object" class="btn-danger"
+                            attrs="{'invisible': [('payment_status','!=','returned')]}"/>
+
+                </xpath>
+                <xpath expr="//button[@name='action_draft']" position="attributes">
+                    <attribute name="groups">cheque_deposit.check_reset_to_draft_group</attribute>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button"
+                            name="button_journal_entries"
+                            string="Journal Items"
+                            type="object"
+                            groups="account.group_account_user"
+                            icon="fa-bars"/>
+                </xpath>
+                <field name="payment_type_check" position="after">
+                    <field name="due_date"
+                           attrs="{'invisible': [('payment_type_check', '=', 'payment')],
+                       'readonly': [('state', '!=', 'draft')],
+                      }"
+
+                    />
+
+                                        <field name="collected_date" attrs="{'invisible':[('payment_status','!=','collected')]}"/>
+
+                </field>
+                <field name="ref" position="replace">
+                    <field name="ref"
+                           attrs="{'readonly': [('state', '!=', 'draft')],'required': [('payment_type_check', '=', 'check')]}"/>
+                    <field name="check_no"
+                           attrs="{'invisible': ['|',('payment_type_check', '=', 'payment'),('is_internal_transfer', '!=', False)],
+                          'required': [('payment_type_check', '=', 'check'),('is_internal_transfer', '=', False)]}"/>
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="partner_invoices_id" domain="[('sale_order','=',offer_id),('move_type','in',['out_invoice','in_invoice']),('payment_state','!=','paid')]" attrs="{'invisible':[('partner_id','=',False)]}"/>
+                </field>
+                <field name="payment_transaction_id" position="after">
+                    <field name="date_now" invisible="1"/>
+                    <field name="type_of_check" />
+                    <field name="check_ty" />
+                    <field name="partner_bank"
+                           attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('payment_type_check', '=', 'payment')]}"/>
+                    <field name="check_deposit_id" readonly='1'
+                           attrs="{'invisible': ['|',('check_deposit_id', '=', False),('payment_type_check', '=', 'payment')]}"/>
+                </field>
+                <xpath expr="//group" position="after">
+                    <group string="Re-Check" attrs="{'invisible': [('payment_type_check', '=', 'payment')]}">
+                        <field name="re_check"/>
+                        <field name="recheck_payment_id" readonly="1"/>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='partner_bank_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_edit': True, 'no_open': True}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_payment_cheques_tree" model="ir.ui.view">
+            <field name="name">account.payment.tree.check</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="due_date == date_now"
+                      decoration-bf="due_date == date_now"
+                      decoration-it="due_date == date_now"
+                      decoration-success="is_current_week == True"
+                      edit="false">
+                    <field name="date_now" invisible="1"/>
+                    <field name="is_current_week" invisible="1"/>
+                    <field name="date"/>
+                    <field name="due_date"/>
+                    <field name="ref"/>
+                    <field name="partner_bank"/>
+                    <field name="name"/>
+                    <field name="journal_id"/>
+                    <field name="payment_method_id"/>
+                    <field name="partner_id" string="Customer"/>
+                    <field name="amount" sum="Amount"/>
+                    <!--                    <field name="current_state"/>-->
+                    <field name="state"/>
+                    <field name="payment_status" string="Cheque Status"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="partner_type" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_account_payment_cheques_search" model="ir.ui.view">
+            <field name="name">account.payment.search</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <search string="Payments">
+                    <field name="name" filter_domain="['|', ('name','ilike',self), ('ref','ilike',self)]"
+                           string="Description"/>
+                    <separator/>
+                    <field name="date_now"/>
+                    <field name="due_date"/>
+                    <field name="partner_id"/>
+                    <field name="journal_id"/>
+                    <field name="payment_status"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <filter string="Vendor Payments" domain="[('payment_type','=','outbound')]" name="outbound_filter"/>
+                    <filter string="Customer Payments" domain="[('payment_type','=','inbound')]" name="inbound_filter"/>
+                    <filter string="Transfers" domain="[('payment_type','=','transfer')]" name="transfers_filter"/>
+                    <separator/>
+                    <filter string="Draft" domain="[('state','=','draft')]" name='state_draft'/>
+                    <filter string="Posted" domain="[('state','=','posted')]" name='state_posted'/>
+                    <filter string="Sent" domain="[('state','=','sent')]" name='state_sent'/>
+                    <filter string="Reconciled" name="reconciled" domain="[('state','=','reconciled')]"/>
+                    <separator/>
+                    <filter string="Today" name="current_date"
+                            domain="[('due_date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')),
+                ('due_date', '&lt;=',datetime.datetime.now().strftime('%Y-%m-%d 23:23:59'))]"/>
+
+                    <filter string="Current Week" name="current_week"
+                            domain="[('due_date','&lt;',(context_today()+relativedelta(days=7)).strftime('%Y-%m-%d 23:59:59')),
+                ('due_date','&gt;=',context_today().strftime('%Y-%m-%d 00:00:00'))]"/>
+
+                    <filter string="Current Month" name="current_month"
+                            domain="[('due_date','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')), ('due_date','&gt;=',time.strftime('%%Y-%%m-01'))]"/>
+
+                    <filter string="Current Year" name="year"
+                            domain="[('due_date','&lt;=', time.strftime('%%Y-12-31')),('due_date','&gt;=',time.strftime('%%Y-01-01'))]"/>
+
+                    <separator/>
+                    <filter string="Partner" name="partner" domain="[]" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Journal" name="journal" domain="[]" context="{'group_by': 'journal_id'}"/>
+                    <filter string="Payment Method" name="paymentmethod" domain="[]"
+                            context="{'group_by': 'payment_method_id'}"/>
+                    <filter string="State" name="state" domain="[]" context="{'group_by': 'state'}"/>
+                    <filter string="Currency" name="currency" domain="[]" context="{'group_by': 'currency_id'}"
+                            groups="base.group_multi_currency"/>
+                    <filter string="Company" name="company" domain="[]" context="{'group_by': 'company_id'}"
+                            groups="base.group_multi_company"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_cheques_payment_action" model="ir.actions.act_window">
+            <field name="name">Payment Cheques</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.payment</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_id" ref="cheque_deposit.view_account_payment_cheques_tree"/>
+            <field name="domain">[('payment_type_check', '=', 'check'), ('state', '!=', 'False')]</field>
+            <field name="context">{'default_payment_type_check': 'check', 'default_payment_type': 'inbound',
+                                   'default_partner_type': 'customer', 'search_default_inbound_filter': 1}
+            </field>
+        </record>
+
+        <record id="account.action_account_payments" model="ir.actions.act_window">
+            <field name="name">Payments</field>
+            <field name="res_model">account.payment</field>
+            <field name="view_mode">tree,kanban,form,graph</field>
+            <field name="context">{'default_payment_type': 'inbound', 'default_partner_type': 'customer',
+                                   'search_default_inbound_filter': 1}
+            </field>
+            <field name="domain">[('payment_type_check', '!=', 'check')]</field>
+            <field name="view_id" ref="account.view_account_payment_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Register a payment
+                </p>
+                <p>
+                    Payments are used to register liquidity movements. You can process those payments by your own means
+                    or by using installed facilities.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="payment_cheques_menu" name="Checks"
+                  parent="account.menu_finance_entries"/>
+
+        <menuitem id="view_cheques_payment_menu" name="Payment Cheques"
+                  parent="payment_cheques_menu"
+                  action="view_cheques_payment_action"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_delivery_column_map_tree" model="ir.ui.view">
+        <field name="name">delivery.column.map.tree</field>
+        <field name="model">delivery.column.map</field>
+        <field name="arch" type="xml">
+            <list string="خريطة أعمدة Excel" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="contract_id" string="العقد" optional="hide"/>
+                <field name="excel_column" string="عمود Excel"/>
+                <field name="system_field" string="الحقل في النظام"/>
+                <field name="custom_key" string="مفتاح إضافي"
+                       invisible="system_field != '_extra_'"/>
+                <field name="is_auto_detected" string="تلقائي؟" optional="show"/>
+                <field name="notes" string="ملاحظة" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_delivery_column_map_form" model="ir.ui.view">
+        <field name="name">delivery.column.map.form</field>
+        <field name="model">delivery.column.map</field>
+        <field name="arch" type="xml">
+            <form string="إدخال خريطة عمود">
+                <sheet>
+                    <group>
+                        <group string="الربط">
+                            <field name="contract_id" string="العقد"/>
+                            <field name="excel_column" string="عمود Excel"/>
+                            <field name="system_field" string="الحقل في النظام"/>
+                        </group>
+                        <group string="إعدادات إضافية">
+                            <field name="sequence" string="الترتيب"/>
+                            <field name="is_auto_detected" string="تم الكشف تلقائياً؟"/>
+                            <field name="custom_key" string="مفتاح إضافي"
+                                   invisible="system_field != '_extra_'"/>
+                        </group>
+                    </group>
+                    <field name="notes" placeholder="ملاحظات اختيارية..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_delivery_column_map_search" model="ir.ui.view">
+        <field name="name">delivery.column.map.search</field>
+        <field name="model">delivery.column.map</field>
+        <field name="arch" type="xml">
+            <search string="بحث في خريطة الأعمدة">
+                <field name="excel_column" string="عمود Excel"/>
+                <field name="contract_id" string="العقد"/>
+                <field name="system_field" string="الحقل في النظام"/>
+                <filter name="auto_detected" string="تم الكشف تلقائياً"
+                        domain="[('is_auto_detected', '=', True)]"/>
+                <filter name="manual" string="يدوي"
+                        domain="[('is_auto_detected', '=', False)]"/>
+                <group expand="0" string="تجميع بـ">
+                    <filter name="group_contract" string="العقد"
+                            context="{'group_by': 'contract_id'}"/>
+                    <filter name="group_system_field" string="الحقل في النظام"
+                            context="{'group_by': 'system_field'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_delivery_column_map" model="ir.actions.act_window">
+        <field name="name">خريطة أعمدة Excel</field>
+        <field name="res_model">delivery.column.map</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_group_contract': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">لا توجد إعدادات أعمدة بعد</p>
+            <p>تُنشأ خريطة الأعمدة تلقائياً عند الضغط على "كشف الأعمدة" في جلسة الاستيراد، أو يمكن إضافتها يدوياً هنا أو من تبويب "خريطة أعمدة Excel" داخل العقد.</p>
+        </field>
+    </record>
+</odoo>

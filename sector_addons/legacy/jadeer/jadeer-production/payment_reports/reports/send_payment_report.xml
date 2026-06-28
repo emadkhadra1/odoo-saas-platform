@@ -1,0 +1,160 @@
+<odoo>
+    <report
+            id="payment_send_report"
+            model="account.payment"
+            report_type="qweb-pdf"
+            string="إيصال صرف نقدية"
+            name="payment_reports.payment_send_report_template"
+            file="payment_reports.payment_send_report_template"
+            paperformat="payment_reports.payment_receipt_format"
+    />
+
+    <template id='payment_send_report_template'>
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="payment_reports.external_layout_custom">
+                    <!--                    <t t-set="docs" t-value="docs.with_context({'lang': ar_001})"/>-->
+                    <div class="page" style="direction:rtl !important;">
+                        <style>
+                            @font-face {
+                                font-family: FontAljazeeraColor;
+                                src: url('/payment_reports/static/src/fonts/FontAljazeeraColor-lzzD.ttf') format('opentype');
+                            }
+                        </style>
+                        <div style="font-size:19px !important;font-family:FontAljazeeraColor;direction:rtl !important; ">
+                            <div class="row">
+                                <div class="col-4 text-center">
+                                </div>
+                                <div class="col-4">
+                                    <p style="text-align:center;font-size:25px;" class="amiri">
+                                        <strong style="font-family:FontAljazeeraColor">ايصال صرف نقدية</strong>
+                                    </p>
+                                </div>
+                                <div class="col-4"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 text-center">
+                                </div>
+                                <div class="col-4">
+                                    <p style="text-align:center;font-size:25px;" class="amiri">
+                                        <strong style="font-family:FontAljazeeraColor">
+                                            <span t-esc="o.name"/>
+                                        </strong>
+                                    </p>
+                                </div>
+                                <div class="col-4"></div>
+                            </div>
+                            <div class="row">
+                                <div>التاريخ: </div>
+                                <div style="padding-right:30px;">
+                                    <span t-esc="o.date"/>
+                                </div>
+                                <div class="col-6">
+
+                                </div>
+                                <div class="text-center padding-l-r-8">
+
+                                    <div><span class="text-center">قرش</span></div>
+                                    <div style="background-color:gray;">
+                                        <t t-if="float(('%.2f' % o.amount).split('.')[1]) > 0">
+                                            <span t-esc="(str('%.2f' % o.amount).split('.')[1])"/>
+                                        </t>
+                                        <t t-else="">
+                                            <div style="width: 10px;
+                                          height: 30px;
+                                          box-sizing: border-box;">
+
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+
+                                <div class="text-center" style="padding-right:20px;">
+                                    <div></div>
+                                    <div><span class="text-center">جنيه</span></div>
+
+                                    <div>
+                                        <span style="background-color:gray;"
+                                              t-esc="(str('%.2f' % o.amount).split('.')[0])"/>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div>القائم بالطباعة: </div>
+                                <div style="padding-right:20px;">
+                                    <span t-esc="o.env.user.name"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div class="row">
+                                <div>
+                                    أستلمت أنا:
+                                </div>
+                                <div style="padding-right:20px;">
+                                    <span t-field="o.partner_id"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div>
+                                    <span>مبلغ وقدره: </span>
+                                </div>
+                                <div style="padding-right:20px;">
+                                    <span style="background-color:gray;" t-esc="o.arabic_amount"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div>
+                                    وذلك قيمة:
+                                </div>
+                                <div style="padding-right:20px;">
+                                    <span t-field="o.ref"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-12 text-center">المستلم</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 text-center">
+                                            .............................................
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-12 text-center">الحسابات</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 text-center">
+                                            .............................................
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-12 text-center">يعتمد</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 text-center">
+                                            .............................................
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

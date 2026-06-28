@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_attendance_records,attendance.records,model_attendance_records,,1,1,1,1
+access_attendance_records_lines,attendance.records.lines,model_attendance_records_lines,,1,1,1,1
+access_import_attendance,access_import_attendance,model_import_attendance,,1,1,1,1
+access_import_attendance_result,access_import_attendance_result,model_import_attendance_result,,1,1,1,1
+access_import_attendance_error,access_import_attendance_error,model_import_attendance_error,,1,1,1,1
