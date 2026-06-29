@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_payroll_structure_type_user,hr.payroll.structure.type.user,model_hr_payroll_structure_type,hr.group_hr_user,1,1,1,1
+access_hr_payroll_structure_user,hr.payroll.structure.user,model_hr_payroll_structure,hr.group_hr_user,1,1,1,1
+access_hr_payslip_input_type_user,hr.payslip.input.type.user,model_hr_payslip_input_type,hr.group_hr_user,1,1,1,1
+access_hr_payslip_run_user,hr.payslip.run.user,model_hr_payslip_run,hr.group_hr_user,1,1,1,1
+access_hr_payslip_user,hr.payslip.user,model_hr_payslip,hr.group_hr_user,1,1,1,1
+access_hr_payslip_input_user,hr.payslip.input.user,model_hr_payslip_input,hr.group_hr_user,1,1,1,1
