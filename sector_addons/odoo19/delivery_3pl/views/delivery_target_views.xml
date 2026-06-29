@@ -139,13 +139,10 @@
                 <field name="company_id"/>
                 <field name="branch_id"/>
                 <field name="period_display"/>
-                <filter name="target_met" string="تحقق التارجيت" domain="[('target_met', '=', True)]"/>
-                <filter name="target_not_met" string="لم يتحقق التارجيت" domain="[('target_met', '=', False)]"/>
                 <group>
                     <filter name="group_company" string="الشركة" context="{'group_by': 'company_id'}"/>
                     <filter name="group_year" string="السنة" context="{'group_by': 'year'}"/>
                     <filter name="group_month" string="الشهر" context="{'group_by': 'month'}"/>
-                    <filter name="group_level" string="الشريحة المحققة" context="{'group_by': 'achieved_level'}"/>
                 </group>
             </search>
         </field>
