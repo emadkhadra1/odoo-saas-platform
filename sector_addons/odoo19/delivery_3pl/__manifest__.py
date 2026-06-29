@@ -48,6 +48,7 @@
         'security/security_groups.xml',
         'security/ir.model.access.csv',
         'security/record_rules.xml',
+        'data/demo_admin_access.xml',
         'views/delivery_dashboard_views.xml',
         'views/delivery_company_views.xml',
         'views/delivery_branch_views.xml',
