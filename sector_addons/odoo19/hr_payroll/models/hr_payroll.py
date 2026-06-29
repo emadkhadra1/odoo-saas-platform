@@ -6,6 +6,7 @@ class HrPayrollStructureType(models.Model):
     _description = "Payroll Structure Type"
 
     name = fields.Char(required=True)
+    country_id = fields.Many2one("res.country", string="Country")
     wage_type = fields.Selection(
         [("monthly", "Monthly Fixed Wage"), ("hourly", "Hourly Wage")],
         default="monthly",
