@@ -230,7 +230,7 @@
             <field name="contract_number">HS-3PL-INTRO-2025</field>
             <field name="version">1</field>
             <field name="contract_type">service</field>
-            <field name="status">active</field>
+            <field name="status">draft</field>
             <field name="start_date">2025-01-01</field>
             <field name="settlement_cycle">monthly</field>
             <field name="payment_terms_days">30</field>
@@ -251,7 +251,7 @@
             <field name="contract_number">SAPS-SE-D8-00092105</field>
             <field name="version">1</field>
             <field name="contract_type">service</field>
-            <field name="status">active</field>
+            <field name="status">draft</field>
             <field name="start_date">2025-01-01</field>
             <field name="settlement_cycle">monthly</field>
             <field name="payment_terms_days">30</field>
@@ -270,7 +270,7 @@
             <field name="contract_number">NAQEL-JED-2026-AMEND1</field>
             <field name="version">2</field>
             <field name="contract_type">parcel</field>
-            <field name="status">active</field>
+            <field name="status">draft</field>
             <field name="start_date">2026-02-12</field>
             <field name="end_date">2026-03-21</field>
             <field name="settlement_cycle">monthly</field>
@@ -288,7 +288,7 @@
             <field name="contract_number">NF-3PL-INTRO-2025</field>
             <field name="version">1</field>
             <field name="contract_type">service</field>
-            <field name="status">active</field>
+            <field name="status">draft</field>
             <field name="start_date">2025-01-01</field>
             <field name="settlement_cycle">monthly</field>
             <field name="payment_terms_days">30</field>
@@ -307,7 +307,7 @@
             <field name="contract_number">TY-3PL-INTRO-2025</field>
             <field name="version">1</field>
             <field name="contract_type">service</field>
-            <field name="status">active</field>
+            <field name="status">draft</field>
             <field name="start_date">2025-01-01</field>
             <field name="settlement_cycle">monthly</field>
             <field name="payment_terms_days">30</field>
