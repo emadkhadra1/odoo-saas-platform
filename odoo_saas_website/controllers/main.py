@@ -34,19 +34,19 @@ class OdooSaasWebsiteController(http.Controller):
             ],
         )
 
-    @http.route(["/", "/index.html", "/saas-platform"], type="http", auth="public", website=True, sitemap=True)
+    @http.route(["/", "/index.html", "/saas-platform"], type="http", auth="none")
     def saas_platform(self, **kwargs):
         return self._render_preview()
 
-    @http.route(["/en", "/index-en.html", "/en/saas-platform"], type="http", auth="public", website=True, sitemap=True)
+    @http.route(["/en", "/index-en.html", "/en/saas-platform"], type="http", auth="none")
     def saas_platform_en(self, **kwargs):
         return self._render_preview("index-en.html")
 
-    @http.route(["/services", "/services.html"], type="http", auth="public", website=True, sitemap=True)
+    @http.route(["/services", "/services.html"], type="http", auth="none")
     def services(self, **kwargs):
         return self._render_preview("services.html")
 
-    @http.route(["/en/services", "/services-en.html"], type="http", auth="public", website=True, sitemap=True)
+    @http.route(["/en/services", "/services-en.html"], type="http", auth="none")
     def services_en(self, **kwargs):
         return self._render_preview("services-en.html")
 
@@ -56,9 +56,7 @@ class OdooSaasWebsiteController(http.Controller):
             "/solutions/construction",
         ],
         type="http",
-        auth="public",
-        website=True,
-        sitemap=True,
+        auth="none",
     )
     def solution_construction(self, **kwargs):
         return self._render_preview("solution-construction.html")
@@ -69,9 +67,7 @@ class OdooSaasWebsiteController(http.Controller):
             "/en/solutions/construction",
         ],
         type="http",
-        auth="public",
-        website=True,
-        sitemap=True,
+        auth="none",
     )
     def solution_construction_en(self, **kwargs):
         return self._render_preview("solution-construction-en.html")
@@ -82,9 +78,7 @@ class OdooSaasWebsiteController(http.Controller):
             "/solutions/real-estate",
         ],
         type="http",
-        auth="public",
-        website=True,
-        sitemap=True,
+        auth="none",
     )
     def solution_realestate(self, **kwargs):
         return self._render_preview("solution-realestate.html")
@@ -95,9 +89,7 @@ class OdooSaasWebsiteController(http.Controller):
             "/en/solutions/real-estate",
         ],
         type="http",
-        auth="public",
-        website=True,
-        sitemap=True,
+        auth="none",
     )
     def solution_realestate_en(self, **kwargs):
         return self._render_preview("solution-realestate-en.html")
@@ -108,9 +100,7 @@ class OdooSaasWebsiteController(http.Controller):
             "/solutions/hr",
         ],
         type="http",
-        auth="public",
-        website=True,
-        sitemap=True,
+        auth="none",
     )
     def solution_hr(self, **kwargs):
         return self._render_preview("solution-hr.html")
@@ -121,9 +111,7 @@ class OdooSaasWebsiteController(http.Controller):
             "/en/solutions/hr",
         ],
         type="http",
-        auth="public",
-        website=True,
-        sitemap=True,
+        auth="none",
     )
     def solution_hr_en(self, **kwargs):
         return self._render_preview("solution-hr-en.html")
@@ -134,9 +122,7 @@ class OdooSaasWebsiteController(http.Controller):
             "/solutions/3pl",
         ],
         type="http",
-        auth="public",
-        website=True,
-        sitemap=True,
+        auth="none",
     )
     def solution_3pl(self, **kwargs):
         return self._render_preview("solution-3pl.html")
@@ -147,22 +133,23 @@ class OdooSaasWebsiteController(http.Controller):
             "/en/solutions/3pl",
         ],
         type="http",
-        auth="public",
-        website=True,
-        sitemap=True,
+        auth="none",
     )
     def solution_3pl_en(self, **kwargs):
         return self._render_preview("solution-3pl-en.html")
 
     def _demo_database(self, sector_key):
         default_database = self._demo_database_defaults[sector_key]
-        return (
-            request.env["ir.config_parameter"]
-            .sudo()
-            .get_param("qimam_saas_website.demo_database_%s" % sector_key, default_database)
-            .strip()
-            or default_database
-        )
+        try:
+            configured_database = (
+                request.env["ir.config_parameter"]
+                .sudo()
+                .get_param("qimam_saas_website.demo_database_%s" % sector_key, default_database)
+                .strip()
+            )
+        except RuntimeError:
+            configured_database = default_database
+        return configured_database or default_database
 
     def _redirect_demo_database(self, sector_key):
         return request.redirect("/web/login?db=%s" % quote(self._demo_database(sector_key)), code=302)
@@ -170,9 +157,7 @@ class OdooSaasWebsiteController(http.Controller):
     @http.route(
         ["/demo/construction", "/en/demo/construction"],
         type="http",
-        auth="public",
-        website=True,
-        sitemap=False,
+        auth="none",
     )
     def demo_construction(self, **kwargs):
         return self._redirect_demo_database("construction")
@@ -180,9 +165,7 @@ class OdooSaasWebsiteController(http.Controller):
     @http.route(
         ["/demo/real-estate", "/en/demo/real-estate"],
         type="http",
-        auth="public",
-        website=True,
-        sitemap=False,
+        auth="none",
     )
     def demo_real_estate(self, **kwargs):
         return self._redirect_demo_database("real_estate")
@@ -190,9 +173,7 @@ class OdooSaasWebsiteController(http.Controller):
     @http.route(
         ["/demo/hr", "/en/demo/hr"],
         type="http",
-        auth="public",
-        website=True,
-        sitemap=False,
+        auth="none",
     )
     def demo_hr(self, **kwargs):
         return self._redirect_demo_database("hr")
@@ -200,9 +181,7 @@ class OdooSaasWebsiteController(http.Controller):
     @http.route(
         ["/demo/3pl", "/en/demo/3pl"],
         type="http",
-        auth="public",
-        website=True,
-        sitemap=False,
+        auth="none",
     )
     def demo_3pl(self, **kwargs):
         return self._redirect_demo_database("3pl")
