@@ -6,6 +6,7 @@ usage() {
 Usage:
   bash deployment/bootstrap_sector_demo.sh construction
   bash deployment/bootstrap_sector_demo.sh 3pl
+  bash deployment/bootstrap_sector_demo.sh hr
 
 Environment variables:
   ODOO_CONTAINER=odoo19
@@ -64,8 +65,10 @@ case "${SECTOR}" in
     exit 2
     ;;
   hr|saudi_hr|saudi-hr)
-    echo "Saudi HR is not ready yet. Provide an extracted Odoo 19 addon set including hr_employee_updation, then run this script again." >&2
-    exit 2
+    TEMPLATE_DB="tenant_template_saudi_hr"
+    DEMO_DB="demo_hr"
+    INSTALL_MODULES="hr_contract,hr_payroll,qimam_hr_demo"
+    REQUIRED_ADDONS=(base mail web hr hr_contract hr_payroll qimam_hr_demo)
     ;;
   *)
     echo "Unknown sector: ${SECTOR}" >&2

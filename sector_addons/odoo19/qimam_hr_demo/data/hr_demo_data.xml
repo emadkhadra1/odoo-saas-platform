@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="department_people_operations" model="hr.department">
+        <field name="name">People Operations</field>
+    </record>
+
+    <record id="department_delivery_operations" model="hr.department">
+        <field name="name">Operations</field>
+    </record>
+
+    <record id="job_hr_manager" model="hr.job">
+        <field name="name">HR Manager</field>
+        <field name="department_id" ref="department_people_operations"/>
+    </record>
+
+    <record id="job_operations_supervisor" model="hr.job">
+        <field name="name">Operations Supervisor</field>
+        <field name="department_id" ref="department_delivery_operations"/>
+    </record>
+
+    <record id="employee_hr_manager" model="hr.employee">
+        <field name="name">Aisha Al-Qahtani</field>
+        <field name="work_email">aisha.hr@example.com</field>
+        <field name="work_phone">+966500000101</field>
+        <field name="department_id" ref="department_people_operations"/>
+        <field name="job_id" ref="job_hr_manager"/>
+    </record>
+
+    <record id="employee_operations_supervisor" model="hr.employee">
+        <field name="name">Khaled Al-Harbi</field>
+        <field name="work_email">khaled.ops@example.com</field>
+        <field name="work_phone">+966500000102</field>
+        <field name="department_id" ref="department_delivery_operations"/>
+        <field name="job_id" ref="job_operations_supervisor"/>
+    </record>
+
+    <record id="contract_hr_manager" model="hr.contract">
+        <field name="name">Aisha Al-Qahtani - Employment Contract</field>
+        <field name="employee_id" ref="employee_hr_manager"/>
+        <field name="date_start">2026-01-01</field>
+        <field name="wage">14500</field>
+        <field name="state">open</field>
+    </record>
+
+    <record id="contract_operations_supervisor" model="hr.contract">
+        <field name="name">Khaled Al-Harbi - Employment Contract</field>
+        <field name="employee_id" ref="employee_operations_supervisor"/>
+        <field name="date_start">2026-02-01</field>
+        <field name="wage">9800</field>
+        <field name="state">open</field>
+    </record>
+
+    <record id="payroll_structure_type_monthly" model="hr.payroll.structure.type">
+        <field name="name">Monthly Saudi Payroll</field>
+        <field name="wage_type">monthly</field>
+    </record>
+
+    <record id="payslip_input_housing" model="hr.payslip.input.type">
+        <field name="name">Housing Allowance</field>
+        <field name="code">HOUSE</field>
+    </record>
+
+    <record id="payslip_input_transport" model="hr.payslip.input.type">
+        <field name="name">Transport Allowance</field>
+        <field name="code">TRANS</field>
+    </record>
+
+    <record id="payroll_structure_monthly" model="hr.payroll.structure">
+        <field name="name">Saudi Monthly Salary</field>
+        <field name="type_id" ref="payroll_structure_type_monthly"/>
+        <field name="input_type_ids" eval="[(6, 0, [ref('payslip_input_housing'), ref('payslip_input_transport')])]"/>
+        <field name="note">Demo salary structure for Saudi HR SaaS trials.</field>
+    </record>
+
+    <record id="payslip_run_june_2026" model="hr.payslip.run">
+        <field name="name">June 2026 Payroll</field>
+        <field name="date_start">2026-06-01</field>
+        <field name="date_end">2026-06-30</field>
+        <field name="state">draft</field>
+    </record>
+
+    <record id="payslip_hr_manager_june_2026" model="hr.payslip">
+        <field name="name">June 2026 - Aisha Al-Qahtani</field>
+        <field name="employee_id" ref="employee_hr_manager"/>
+        <field name="payslip_run_id" ref="payslip_run_june_2026"/>
+        <field name="date_from">2026-06-01</field>
+        <field name="date_to">2026-06-30</field>
+        <field name="struct_id" ref="payroll_structure_monthly"/>
+        <field name="state">draft</field>
+    </record>
+
+    <record id="payslip_ops_supervisor_june_2026" model="hr.payslip">
+        <field name="name">June 2026 - Khaled Al-Harbi</field>
+        <field name="employee_id" ref="employee_operations_supervisor"/>
+        <field name="payslip_run_id" ref="payslip_run_june_2026"/>
+        <field name="date_from">2026-06-01</field>
+        <field name="date_to">2026-06-30</field>
+        <field name="struct_id" ref="payroll_structure_monthly"/>
+        <field name="state">draft</field>
+    </record>
+</odoo>

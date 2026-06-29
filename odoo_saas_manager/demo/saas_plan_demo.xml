@@ -82,8 +82,8 @@
         <field name="max_users">40</field>
         <field name="storage_limit">40.0</field>
         <field name="trial_days">14</field>
-        <field name="included_modules">base,mail,hr,hr_payroll,attendances_structure_base,attendance_rules,contract_work_hour,employee_bonuses,employee_penalty,hr_custody,ohrms_loan,ohrms_loan_accounting,ohrms_loan_custom,saudi_hr_eos,saudi_hr_iqama,social_insurance,saas_tenant_agent</field>
+        <field name="included_modules">base,mail,hr,hr_contract,hr_payroll,qimam_hr_demo</field>
         <field name="template_database">tenant_template_saudi_hr</field>
-        <field name="description">Saudi HR SaaS plan for attendance rules, payroll support, custody, loans, Iqama, social insurance, and end of service.</field>
+        <field name="description">Saudi HR SaaS demo plan for employees, contracts, payroll batches, and salary structures. Legacy custody, loans, attendance rules, Iqama, and end-of-service modules remain in the migration backlog.</field>
     </record>
 </odoo>

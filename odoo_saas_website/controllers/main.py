@@ -13,7 +13,7 @@ class OdooSaasWebsiteController(http.Controller):
 
     _preview_dir = Path(__file__).resolve().parents[1] / "static" / "preview"
     _asset_base = "/odoo_saas_website/static/preview/"
-    _asset_version = "19.0.1.5.0"
+    _asset_version = "19.0.1.6.0"
     _demo_database_defaults = {
         "construction": "demo_construction",
         "real_estate": "demo_realestate",

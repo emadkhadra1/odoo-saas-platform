@@ -72,4 +72,68 @@
             </list>
         </field>
     </record>
+
+    <record id="hr_payslip_run_view_list" model="ir.ui.view">
+        <field name="name">hr.payslip.run.list</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_payroll_structure_view_list" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.list</field>
+        <field name="model">hr.payroll.structure</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="type_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_payroll_structure_view_form" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.form</field>
+        <field name="model">hr.payroll.structure</field>
+        <field name="arch" type="xml">
+            <form string="Payroll Structure">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="type_id"/>
+                        <field name="input_type_ids" widget="many2many_tags"/>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_payslip_action" model="ir.actions.act_window">
+        <field name="name">Payslips</field>
+        <field name="res_model">hr.payslip</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="hr_payslip_run_action" model="ir.actions.act_window">
+        <field name="name">Payslip Batches</field>
+        <field name="res_model">hr.payslip.run</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="hr_payroll_structure_action" model="ir.actions.act_window">
+        <field name="name">Salary Structures</field>
+        <field name="res_model">hr.payroll.structure</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="hr_payroll_menu_root" name="Payroll" parent="hr.menu_hr_root" sequence="40"/>
+    <menuitem id="hr_payslip_menu" name="Payslips" parent="hr_payroll_menu_root" action="hr_payslip_action" sequence="10"/>
+    <menuitem id="hr_payslip_run_menu" name="Payslip Batches" parent="hr_payroll_menu_root" action="hr_payslip_run_action" sequence="20"/>
+    <menuitem id="hr_payroll_structure_menu" name="Salary Structures" parent="hr_payroll_menu_root" action="hr_payroll_structure_action" sequence="30"/>
 </odoo>

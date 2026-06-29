@@ -44,4 +44,17 @@
             </list>
         </field>
     </record>
+
+    <record id="hr_contract_action" model="ir.actions.act_window">
+        <field name="name">Contracts</field>
+        <field name="res_model">hr.contract</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="hr_contract_menu"
+        name="Contracts"
+        parent="hr.menu_hr_root"
+        action="hr_contract_action"
+        sequence="30"/>
 </odoo>
