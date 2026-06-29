@@ -1,0 +1,200 @@
+:root {
+    --qimam-navy: #0b1933;
+    --qimam-navy-2: #10284d;
+    --qimam-ink: #14233b;
+    --qimam-cyan: #2fd3e6;
+    --qimam-cyan-2: #12a9c3;
+    --qimam-soft: #f4f8fb;
+    --qimam-line: #d8e5ee;
+    --qimam-muted: #64748b;
+    --qimam-radius: 10px;
+}
+
+body.o_web_client {
+    font-family: "Cairo", "Segoe UI", Tahoma, Arial, sans-serif;
+    background: var(--qimam-soft);
+    color: var(--qimam-ink);
+}
+
+.o_main_navbar {
+    min-height: 54px;
+    background: linear-gradient(90deg, var(--qimam-navy), var(--qimam-navy-2)) !important;
+    border-bottom: 1px solid rgba(47, 211, 230, 0.28);
+    box-shadow: 0 10px 24px rgba(11, 25, 51, 0.18);
+}
+
+.o_main_navbar .o_menu_brand,
+.o_main_navbar .o_nav_entry,
+.o_main_navbar .dropdown-toggle {
+    color: #fff !important;
+    font-weight: 700;
+}
+
+.o_main_navbar .o_menu_brand {
+    letter-spacing: 0;
+}
+
+.o_main_navbar .o_menu_brand::before {
+    content: "";
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    margin-inline-end: 10px;
+    vertical-align: -7px;
+    background: url("/qimam_backend_theme/static/src/img/qimam-logo.png") center / contain no-repeat;
+    border-radius: 6px;
+}
+
+.o_main_navbar .o_nav_entry:hover,
+.o_main_navbar .dropdown-toggle:hover,
+.o_main_navbar .show > .dropdown-toggle {
+    background: rgba(47, 211, 230, 0.13) !important;
+    color: var(--qimam-cyan) !important;
+}
+
+.o_main_navbar .o_menu_sections .o_nav_entry,
+.o_main_navbar .o_menu_sections .dropdown-toggle {
+    border-radius: 8px;
+    margin: 6px 2px;
+    padding-inline: 12px;
+}
+
+.btn-primary,
+.o_form_button_save,
+.o_list_button_add,
+.o-kanban-button-new,
+.o_cp_buttons .btn-primary {
+    background: linear-gradient(135deg, var(--qimam-cyan), var(--qimam-cyan-2)) !important;
+    border-color: var(--qimam-cyan-2) !important;
+    color: #071827 !important;
+    font-weight: 800;
+    border-radius: 8px;
+    box-shadow: 0 8px 18px rgba(18, 169, 195, 0.22);
+}
+
+.btn-primary:hover,
+.o_form_button_save:hover,
+.o_list_button_add:hover,
+.o-kanban-button-new:hover,
+.o_cp_buttons .btn-primary:hover {
+    filter: brightness(0.97);
+    box-shadow: 0 10px 22px rgba(18, 169, 195, 0.30);
+}
+
+.btn-secondary,
+.btn-light,
+.o_form_button_cancel {
+    border-color: var(--qimam-line) !important;
+    color: var(--qimam-ink) !important;
+    border-radius: 8px;
+}
+
+.o_control_panel {
+    background: rgba(255, 255, 255, 0.96);
+    border-bottom: 1px solid var(--qimam-line);
+}
+
+.o_control_panel .breadcrumb,
+.o_control_panel .o_breadcrumb {
+    font-weight: 800;
+    color: var(--qimam-ink);
+}
+
+.o_searchview,
+.o_searchview_input_container,
+.o_cp_searchview {
+    border-radius: 10px !important;
+    border-color: var(--qimam-line) !important;
+}
+
+.o_form_view .o_form_sheet_bg {
+    background:
+        linear-gradient(180deg, rgba(47, 211, 230, 0.05), rgba(255, 255, 255, 0)),
+        var(--qimam-soft);
+}
+
+.o_form_view .o_form_sheet,
+.modal-content,
+.o_kanban_record,
+.o_kanban_renderer .o_kanban_record,
+.o_list_renderer,
+.o_renderer {
+    border-radius: var(--qimam-radius) !important;
+    border-color: var(--qimam-line) !important;
+    box-shadow: 0 8px 24px rgba(15, 35, 61, 0.06);
+}
+
+.o_form_view .o_form_sheet {
+    border-top: 3px solid var(--qimam-cyan);
+}
+
+.o_form_label,
+.o_td_label,
+.o_field_widget .o_form_label {
+    color: var(--qimam-ink);
+    font-weight: 700;
+}
+
+.o_required_modifier.o_input,
+.o_required_modifier .o_input {
+    border-inline-start: 3px solid var(--qimam-cyan) !important;
+}
+
+.o_list_renderer .o_list_table thead,
+.o_list_renderer table thead {
+    background: #eef7fb;
+    color: var(--qimam-ink);
+}
+
+.o_list_renderer .o_list_table thead th,
+.o_list_renderer table thead th {
+    font-weight: 800;
+    border-bottom: 1px solid var(--qimam-line);
+}
+
+.o_list_renderer .o_data_row:hover,
+.o_kanban_record:hover {
+    background: rgba(47, 211, 230, 0.07) !important;
+}
+
+.o_statusbar_status .o_arrow_button_current,
+.o_statusbar_status .btn-primary {
+    background: var(--qimam-navy) !important;
+    color: #fff !important;
+    border-color: var(--qimam-navy) !important;
+}
+
+.o_statusbar_status .o_arrow_button_current::before,
+.o_statusbar_status .o_arrow_button_current::after {
+    border-left-color: var(--qimam-navy) !important;
+    border-right-color: var(--qimam-navy) !important;
+}
+
+.o_Message,
+.o-mail-Message,
+.o_notification,
+.toast {
+    border-radius: 10px !important;
+}
+
+.dropdown-menu {
+    border-radius: 10px;
+    border-color: var(--qimam-line);
+    box-shadow: 0 18px 40px rgba(11, 25, 51, 0.14);
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background: rgba(47, 211, 230, 0.12);
+    color: var(--qimam-navy);
+}
+
+.o_home_menu_background {
+    background:
+        radial-gradient(circle at top right, rgba(47, 211, 230, 0.18), transparent 30%),
+        linear-gradient(135deg, var(--qimam-navy), #12284a 62%, #071426) !important;
+}
+
+.o_app .o_caption {
+    font-weight: 800;
+}
