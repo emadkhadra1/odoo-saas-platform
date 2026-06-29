@@ -57,32 +57,44 @@ class construction_project(models.Model):
 
         return res
 
-    @api.model
-    def create(self, vals):
-        if vals['partner_id'] and vals['name']:
-            print(vals['partner_id'], vals['name'])
-            stock_location_obj = self.env['stock.location']
-            # location_id = False
-            # stock_location_data = stock_location_obj.search(
-            #     [('name', '=', vals['name']), ('usage', '=', 'internal')], limit=1)
-            # print(stock_location_data)
-            # if stock_location_data:
-            #     location_id = stock_location_data[0].id
-            # print(location_id)
-            stock_location = stock_location_obj.create(
-                {'name': vals['name'], 'usage': 'internal',
-                 'location_id': self.location_id.id})
+    @api.model_create_multi
+    def create(self, vals_list):
+        projects = self.browse()
+        for vals in vals_list:
+            stock_location = False
+            project_name = vals.get('name')
+            partner_id = vals.get('partner_id')
 
-            vals.update({'location_dest_id': stock_location.id})
-            vals.update({'location_create': True})
-        anay = self.env['account.analytic.account'].create(
-            {'name': vals['name'], 'partner_id': vals['partner_id'], })
-        vals.update({'analytic_account_id': anay.id})
+            if partner_id and project_name:
+                stock_location_vals = {
+                    'name': project_name,
+                    'usage': 'internal',
+                }
+                parent_location_id = vals.get('location_id')
+                if not parent_location_id:
+                    warehouse = self.env['stock.warehouse'].browse(vals.get('warehouse_id')) if vals.get('warehouse_id') else self._get_warehouse_id()
+                    parent_location_id = warehouse.lot_stock_id.id or warehouse.view_location_id.id
+                if parent_location_id:
+                    stock_location_vals['location_id'] = parent_location_id
 
-        project = super(construction_project, self).create(vals)
-        print(project)
-        project.location_dest_id = stock_location.id
-        return project
+                stock_location = self.env['stock.location'].create(stock_location_vals)
+                vals.update({
+                    'location_dest_id': stock_location.id,
+                    'location_create': True,
+                })
+
+                if not vals.get('analytic_account_id'):
+                    analytic_account = self.env['account.analytic.account'].create({
+                        'name': project_name,
+                        'partner_id': partner_id,
+                    })
+                    vals['analytic_account_id'] = analytic_account.id
+
+            project = super(construction_project, self).create([vals])
+            if stock_location and not project.location_dest_id:
+                project.location_dest_id = stock_location.id
+            projects |= project
+        return projects
 
     def write(self, vals):
         if self.partner_id and self.name and self.location_dest_id and False:
