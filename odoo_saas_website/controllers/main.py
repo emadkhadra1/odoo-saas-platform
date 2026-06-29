@@ -147,7 +147,7 @@ class OdooSaasWebsiteController(http.Controller):
                 .get_param("qimam_saas_website.demo_database_%s" % sector_key, default_database)
                 .strip()
             )
-        except RuntimeError:
+        except (AttributeError, RuntimeError, TypeError):
             configured_database = default_database
         return configured_database or default_database
 
