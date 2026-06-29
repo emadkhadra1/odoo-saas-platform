@@ -53,11 +53,9 @@
             <field name="inherit_id" ref="b2b_constructors.view_template_property_form"/>
             <field name="arch" type="xml">
                 <!-- position values: after|before|replace|attributes|inside -->
-                <xpath expr="//header" position="inside">
-                    <button class="oe_highlight" invisible="constration_product != True" name="click_constration_product" string="Create BOQ Business Item" type="object"/>
-                </xpath>
                 <!-- position: after|before|replace|attributes|inside -->
                 <xpath expr="//field[@name='sub_item_id']" position="after">
+                    <button class="oe_highlight" invisible="constration_product != True" name="click_constration_product" string="Create BOQ Business Item" type="object"/>
                     <field name="second_sub_item_id"/>
                 </xpath></field>
         </record>
