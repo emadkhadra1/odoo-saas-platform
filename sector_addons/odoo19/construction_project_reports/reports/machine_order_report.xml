@@ -1,12 +1,12 @@
 <odoo>
     <data>
-        <report
-                id="machine_order_report"
-                model="construction.project"
-                string="طلبات المعدات"
-                name="construction_project_reports.machine_order_report_view"
-                file="construction_project_reports.machine_order_report"
-                report_type="qweb-pdf"/>
+        <record id="machine_order_report" model="ir.actions.report">
+            <field name="name">Machine Orders</field>
+            <field name="model">construction.project</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">construction_project_reports.machine_order_report_view</field>
+            <field name="report_file">construction_project_reports.machine_order_report</field>
+        </record>
 
 
         <template id="machine_order_report_view">

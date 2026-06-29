@@ -208,6 +208,12 @@
                     Click to create a new Owner Quotation.
                 </p></field>
         </record>
-        <report file="b2b_constructors.b2b_owner_qoutation_report" id="report_b2b_owner_qoutation_print" menu="True" model="b2b.progress.owner" name="b2b_constructors.b2b_owner_qoutation_report" report_type="qweb-pdf" string="B2B Owner Qoutation"/>
+        <record id="report_b2b_owner_qoutation_print" model="ir.actions.report">
+            <field name="name">B2B Owner Qoutation</field>
+            <field name="model">b2b.progress.owner</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">b2b_constructors.b2b_owner_qoutation_report</field>
+            <field name="report_file">b2b_constructors.b2b_owner_qoutation_report</field>
+        </record>
     </data>
 </odoo>

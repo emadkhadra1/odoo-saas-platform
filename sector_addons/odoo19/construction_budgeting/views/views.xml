@@ -94,7 +94,7 @@
                     <field name="cost"/>
                 </xpath>
                 <!-- position values: after|before|replace|attributes|inside -->
-                <xpath expr="//field[@name='bom_line_ids']//tree" position="inside">
+                <xpath expr="//field[@name='bom_line_ids']//list" position="inside">
                     <field invisible="1" name="bom_type"/>
                     <button class="oe_link" invisible="bom_type == 'costing'" name="create_pr" string="Create PR" type="object"/>
                     <button class="oe_link" invisible="bom_type == 'costing'" name="create_mo" string="Create MO" type="object"/>

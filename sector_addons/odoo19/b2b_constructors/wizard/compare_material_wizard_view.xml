@@ -39,15 +39,13 @@
             <field name="target">new</field>
         </record>
 
-        <report
-                id="b2b_report_sum_compare_material"
-                model="b2b.compare.material.report.wizard"
-                string="Compare material Report"
-                report_type="qweb-pdf"
-                file="b2b_constructors.report_b2b_c_material_sum_document"
-                name="b2b_constructors.report_b2b_c_material_sum_document"
-                attachment_use="False"
-                menu="False"
-        />
+        <record id="b2b_report_sum_compare_material" model="ir.actions.report">
+            <field name="name">Compare material Report</field>
+            <field name="model">b2b.compare.material.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">b2b_constructors.report_b2b_c_material_sum_document</field>
+            <field name="report_file">b2b_constructors.report_b2b_c_material_sum_document</field>
+            <field name="attachment_use">False</field>
+        </record>
     </data>
 </odoo>

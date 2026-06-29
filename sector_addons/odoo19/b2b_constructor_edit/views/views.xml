@@ -44,7 +44,7 @@
 
                 <!-- position values: after|before|replace|attributes|inside -->
                 <xpath expr="//field[@name='state']" position="before">
-                    <button name="%(account_loan_generate_wizard_action)d" class="oe_highlight" type="action" string="Update Multiplier" context="{'default_name': active_id, 'default_discount': discount, 'default_multiplier': multiplier, 'default_social_insurance': social_insurance, 'default_contracting': contracting}"/>
+                    <button name="%(account_loan_generate_wizard_action)d" class="oe_highlight" type="action" string="Update Multiplier" context="{'default_name': id, 'default_discount': discount, 'default_multiplier': multiplier, 'default_social_insurance': social_insurance, 'default_contracting': contracting}"/>
                 </xpath>
 
                 <xpath expr="//field[@name='indexation_ids']" position="attributes">
@@ -52,7 +52,7 @@
                 </xpath>
 
                 <!-- position: after|before|replace|attributes|inside -->
-                <xpath expr="//field[@name='indexation_ids']//tree//field[@name='cost']" position="after">
+                <xpath expr="//field[@name='indexation_ids']//list//field[@name='cost']" position="after">
                     <field name="multiplier"/>
                     <field name="multiplier_category"/>
                     <field name="discount"/>

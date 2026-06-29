@@ -1,12 +1,12 @@
 <odoo>
     <data>
-        <report
-                id="total_cost_report"
-                model="construction.project"
-                string="أجمالى تكلفة المشروعات"
-                name="construction_project_reports.total_cost_report_view"
-                file="construction_project_reports.total_cost_report"
-                report_type="qweb-pdf"/>
+        <record id="total_cost_report" model="ir.actions.report">
+            <field name="name">Total Project Cost</field>
+            <field name="model">construction.project</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">construction_project_reports.total_cost_report_view</field>
+            <field name="report_file">construction_project_reports.total_cost_report</field>
+        </record>
 
 
         <template id="total_cost_report_view">

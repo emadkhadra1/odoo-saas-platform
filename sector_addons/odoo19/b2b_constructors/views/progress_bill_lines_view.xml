@@ -128,16 +128,14 @@
             </field>
         </record>
 
-        <report
-                id="b2b_report_sum_quotation"
-                model="b2b.quotation.report.wizard"
-                string="Quotation Report1"
-                report_type="qweb-pdf"
-                file="b2b_constructors.report_b2b_qoutation_sum_document"
-                name="b2b_constructors.report_b2b_qoutation_sum_document"
-                attachment_use="False"
-                menu="False"
-        />
+        <record id="b2b_report_sum_quotation" model="ir.actions.report">
+            <field name="name">Quotation Report1</field>
+            <field name="model">b2b.quotation.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">b2b_constructors.report_b2b_qoutation_sum_document</field>
+            <field name="report_file">b2b_constructors.report_b2b_qoutation_sum_document</field>
+            <field name="attachment_use">False</field>
+        </record>
 
     </data>
 </odoo>

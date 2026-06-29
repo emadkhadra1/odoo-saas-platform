@@ -1,12 +1,12 @@
 <odoo>
     <data>
-        <report
-                id="receive_order_report"
-                model="construction.project"
-                string="أذون الصرف"
-                name="construction_project_reports.receive_order_report_view"
-                file="construction_project_reports.receive_order_report"
-                report_type="qweb-pdf"/>
+        <record id="receive_order_report" model="ir.actions.report">
+            <field name="name">Receive Orders</field>
+            <field name="model">construction.project</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">construction_project_reports.receive_order_report_view</field>
+            <field name="report_file">construction_project_reports.receive_order_report</field>
+        </record>
 
 
         <template id="receive_order_report_view">
