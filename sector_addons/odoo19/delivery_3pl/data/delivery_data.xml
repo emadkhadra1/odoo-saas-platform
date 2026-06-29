@@ -400,6 +400,8 @@
             <field name="rider_performance_level">all</field>
             <!-- 20 ريال لكل شحنة محصّلة (من 12/02/2026 حتى 17/02/2026) -->
             <field name="base_amount">20.00</field>
+            <field name="effective_from">2026-02-12</field>
+            <field name="effective_to">2026-02-17</field>
             <field name="notes">المرحلة الأولى من ملحق عقد ناقل جدة 2026.
 السعر: 20 ريال لكل شحنة تم تحصيلها فعلياً.
 الفترة: من 12/02/2026 إلى 17/02/2026.
@@ -418,6 +420,8 @@
             <field name="rider_performance_level">all</field>
             <!-- 14 ريال لكل شحنة محصّلة (من 18/02/2026) — السعر الساري حالياً -->
             <field name="base_amount">14.00</field>
+            <field name="effective_from">2026-02-18</field>
+            <field name="effective_to">2026-03-21</field>
             <field name="notes">المرحلة الثانية من ملحق عقد ناقل جدة 2026 — القاعدة السارية حالياً.
 السعر: 14 ريال لكل شحنة تم تحصيلها فعلياً.
 الفترة: من 18/02/2026 إلى 21/03/2026.
@@ -437,6 +441,7 @@
             <field name="vehicle_type">all</field>
             <field name="rider_performance_level">all</field>
             <field name="base_amount">0.00</field>
+            <field name="effective_from">2026-01-01</field>
             <field name="notes">تسعير شرائح كيتا مكة المكرمة (Slab Mode) — عقد SAPS-SE-D8-00092105.
 ⚠️ يجب تحديث أرقام الشرائح أدناه من الملحق رقم 1 من العقد الرسمي.
 الشرائح الواردة هنا تقريبية وتحتاج مراجعة.</field>
@@ -498,6 +503,7 @@
             <field name="rider_performance_level">high_performance</field>
             <!-- ⚠️ السعر مؤقت — راجع التقرير الشهري من هنقرستيشن وعدّل -->
             <field name="base_amount">0.00</field>
+            <field name="effective_from">2026-01-01</field>
             <field name="notes">سعر التوصيلة للسائق عالي الأداء (HP) في هنقرستيشن.
 ⚠️ أدخل السعر الفعلي من التقرير الشهري أو الملحق الرسمي لعقد هنقرستيشن.</field>
         </record>
@@ -512,6 +518,7 @@
             <field name="rider_performance_level">active_basic</field>
             <!-- ⚠️ السعر مؤقت — راجع التقرير الشهري من هنقرستيشن وعدّل -->
             <field name="base_amount">0.00</field>
+            <field name="effective_from">2026-01-01</field>
             <field name="notes">سعر التوصيلة للسائق النشط الأساسي (AB) في هنقرستيشن.
 ⚠️ أدخل السعر الفعلي من التقرير الشهري أو الملحق الرسمي لعقد هنقرستيشن.</field>
         </record>
@@ -529,6 +536,7 @@
             <field name="rider_performance_level">all</field>
             <!-- ⚠️ الراتب مؤقت — راجع الملحق الرسمي لعقد نينجا فود وعدّل -->
             <field name="base_amount">0.00</field>
+            <field name="effective_from">2026-01-01</field>
             <field name="daily_rate">0.00</field>
             <field name="working_days">26</field>
             <field name="notes">راتب ثابت للسائق بدوام كامل في نينجا فود.
@@ -545,6 +553,7 @@
             <field name="vehicle_type">all</field>
             <field name="rider_performance_level">all</field>
             <field name="base_amount">0.00</field>
+            <field name="effective_from">2026-01-01</field>
             <field name="notes">حافز السعة الشهري في نينجا فود — يُحسَب بحسب عدد الطلبات المنجزة.
 ⚠️ أدخل شرائح الحافز الفعلية من الملحق الرسمي لعقد نينجا فود.</field>
         </record>
@@ -558,6 +567,7 @@
             <field name="vehicle_type">all</field>
             <field name="rider_performance_level">all</field>
             <field name="base_amount">0.00</field>
+            <field name="effective_from">2026-01-01</field>
             <field name="notes">حافز الخبرة الشهري في نينجا فود — يُحسَب بحسب التقييم ومعدل الأداء.
 ⚠️ أدخل معايير الحافز الفعلية من الملحق الرسمي لعقد نينجا فود.</field>
         </record>
@@ -573,6 +583,7 @@
             <field name="rider_performance_level">all</field>
             <!-- ⚠️ السعر مؤقت — راجع نص العقد الرسمي مع تو يو وعدّل -->
             <field name="base_amount">0.00</field>
+            <field name="effective_from">2026-01-01</field>
             <field name="notes">سعر التوصيلة الواحدة مع تو يو (شركة خدمات مُمَثِّل التجارية).
 ⚠️ أدخل السعر الفعلي للتوصيلة من نص العقد الرسمي مع تو يو.</field>
         </record>
