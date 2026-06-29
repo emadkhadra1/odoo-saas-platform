@@ -28,18 +28,19 @@ docker exec -u 0 -i "${ODOO_CONTAINER}" python3 - <<'PY'
 from pathlib import Path
 
 config_path = Path("/etc/odoo/odoo.conf")
-module_name = "odoo_saas_website"
+required_modules = ["base", "web", "rpc", "odoo_saas_website"]
 lines = config_path.read_text().splitlines()
 for index, line in enumerate(lines):
     if line.strip().startswith("server_wide_modules"):
         key, _, value = line.partition("=")
         modules = [item.strip() for item in value.split(",") if item.strip()]
-        if module_name not in modules:
-            modules.append(module_name)
-            lines[index] = f"{key.strip()} = {','.join(modules)}"
+        for module_name in required_modules:
+            if module_name not in modules:
+                modules.append(module_name)
+        lines[index] = f"{key.strip()} = {','.join(modules)}"
         break
 else:
-    lines.append(f"server_wide_modules = base,web,{module_name}")
+    lines.append(f"server_wide_modules = {','.join(required_modules)}")
 config_path.write_text("\n".join(lines) + "\n")
 PY
 
