@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="base.user_admin" model="res.users">
-        <field name="groups_id" eval="[(4, ref('delivery_3pl.group_delivery_admin'))]"/>
+        <field name="group_ids" eval="[(4, ref('delivery_3pl.group_delivery_admin'))]"/>
     </record>
     <function model="res.users" name="write">
         <value eval="[ref('base.user_admin')]"/>
-        <value eval="{'groups_id': [(4, ref('delivery_3pl.group_delivery_admin'))]}"/>
+        <value eval="{'group_ids': [(4, ref('delivery_3pl.group_delivery_admin'))]}"/>
     </function>
 </odoo>
