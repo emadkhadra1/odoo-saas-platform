@@ -252,6 +252,8 @@ class DeliveryContract(models.Model):
         ]
         if self.branch_id:
             domain.append(('branch_id', '=', self.branch_id.id))
+        else:
+            domain.append(('branch_id', '=', False))
         current_active = self.search(domain)
         current_active.write({'status': 'expired'})
         self.write({'status': 'active'})
@@ -462,6 +464,8 @@ class DeliveryContract(models.Model):
                 ]
                 if rec.branch_id:
                     domain.append(('branch_id', '=', rec.branch_id.id))
+                else:
+                    domain.append(('branch_id', '=', False))
                 active_count = self.search_count(domain)
                 if active_count > 1:
                     branch_label = f" — فرع {rec.branch_id.name}" if rec.branch_id else ""

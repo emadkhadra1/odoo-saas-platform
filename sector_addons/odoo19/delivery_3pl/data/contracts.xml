@@ -13,6 +13,7 @@
 <delete model="delivery.pricing.rule"   search="[(1, '=', 1)]"/>
 <delete model="delivery.validity.criteria" search="[(1, '=', 1)]"/>
 <delete model="delivery.experience.score.config" search="[(1, '=', 1)]"/>
+<delete model="delivery.contract" search="[(1, '=', 1)]"/>
 
 <!-- ══════════════════════════════════════════════════════════════
      1. شركات المنصات (delivery.company)
