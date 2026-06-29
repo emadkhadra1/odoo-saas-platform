@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_qimam_realestate_project_user,qimam.realestate.project.user,model_qimam_realestate_project,base.group_user,1,1,1,1
+access_qimam_realestate_unit_user,qimam.realestate.unit.user,model_qimam_realestate_unit,base.group_user,1,1,1,1
+access_qimam_realestate_reservation_user,qimam.realestate.reservation.user,model_qimam_realestate_reservation,base.group_user,1,1,1,1
+access_qimam_realestate_payment_plan_user,qimam.realestate.payment.plan.user,model_qimam_realestate_payment_plan,base.group_user,1,1,1,1

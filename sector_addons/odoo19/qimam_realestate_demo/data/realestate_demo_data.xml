@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="partner_customer_noura" model="res.partner">
+        <field name="name">Noura Investment Co.</field>
+        <field name="email">noura@example.com</field>
+        <field name="phone">+966500000201</field>
+    </record>
+
+    <record id="partner_customer_faisal" model="res.partner">
+        <field name="name">Faisal Al-Otaibi</field>
+        <field name="email">faisal@example.com</field>
+        <field name="phone">+966500000202</field>
+    </record>
+
+    <record id="project_qimam_residences" model="qimam.realestate.project">
+        <field name="name">Qimam Residences</field>
+        <field name="code">QRD</field>
+        <field name="location">Riyadh</field>
+        <field name="developer">Qimam Technical Solutions</field>
+        <field name="state">selling</field>
+    </record>
+
+    <record id="project_jadeer_business_park" model="qimam.realestate.project">
+        <field name="name">Jadeer Business Park</field>
+        <field name="code">JBP</field>
+        <field name="location">Jeddah</field>
+        <field name="developer">Jadeer Properties</field>
+        <field name="state">selling</field>
+    </record>
+
+    <record id="unit_qrd_a101" model="qimam.realestate.unit">
+        <field name="project_id" ref="project_qimam_residences"/>
+        <field name="code">QRD-A101</field>
+        <field name="name">Apartment A101</field>
+        <field name="floor">1</field>
+        <field name="area">128</field>
+        <field name="bedroom_count">3</field>
+        <field name="list_price">1250000</field>
+        <field name="state">reserved</field>
+        <field name="customer_id" ref="partner_customer_faisal"/>
+    </record>
+
+    <record id="unit_qrd_a102" model="qimam.realestate.unit">
+        <field name="project_id" ref="project_qimam_residences"/>
+        <field name="code">QRD-A102</field>
+        <field name="name">Apartment A102</field>
+        <field name="floor">1</field>
+        <field name="area">142</field>
+        <field name="bedroom_count">3</field>
+        <field name="list_price">1380000</field>
+        <field name="state">available</field>
+    </record>
+
+    <record id="unit_jbp_office_501" model="qimam.realestate.unit">
+        <field name="project_id" ref="project_jadeer_business_park"/>
+        <field name="code">JBP-501</field>
+        <field name="name">Office 501</field>
+        <field name="floor">5</field>
+        <field name="area">96</field>
+        <field name="bedroom_count">0</field>
+        <field name="list_price">980000</field>
+        <field name="state">sold</field>
+        <field name="customer_id" ref="partner_customer_noura"/>
+    </record>
+
+    <record id="unit_jbp_office_502" model="qimam.realestate.unit">
+        <field name="project_id" ref="project_jadeer_business_park"/>
+        <field name="code">JBP-502</field>
+        <field name="name">Office 502</field>
+        <field name="floor">5</field>
+        <field name="area">112</field>
+        <field name="bedroom_count">0</field>
+        <field name="list_price">1120000</field>
+        <field name="state">available</field>
+    </record>
+
+    <record id="reservation_qrd_a101" model="qimam.realestate.reservation">
+        <field name="name">Reservation QRD-A101</field>
+        <field name="reservation_date">2026-06-10</field>
+        <field name="unit_id" ref="unit_qrd_a101"/>
+        <field name="customer_id" ref="partner_customer_faisal"/>
+        <field name="reservation_amount">62500</field>
+        <field name="state">reserved</field>
+    </record>
+
+    <record id="reservation_jbp_501" model="qimam.realestate.reservation">
+        <field name="name">Sale JBP-501</field>
+        <field name="reservation_date">2026-06-01</field>
+        <field name="unit_id" ref="unit_jbp_office_501"/>
+        <field name="customer_id" ref="partner_customer_noura"/>
+        <field name="reservation_amount">98000</field>
+        <field name="state">confirmed</field>
+    </record>
+
+    <record id="payment_qrd_a101_down_payment" model="qimam.realestate.payment.plan">
+        <field name="reservation_id" ref="reservation_qrd_a101"/>
+        <field name="name">Down Payment</field>
+        <field name="due_date">2026-06-15</field>
+        <field name="amount">250000</field>
+        <field name="state">due</field>
+    </record>
+
+    <record id="payment_qrd_a101_installment_1" model="qimam.realestate.payment.plan">
+        <field name="reservation_id" ref="reservation_qrd_a101"/>
+        <field name="name">Installment 1</field>
+        <field name="due_date">2026-07-15</field>
+        <field name="amount">125000</field>
+        <field name="state">draft</field>
+    </record>
+</odoo>

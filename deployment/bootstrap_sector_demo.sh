@@ -61,8 +61,10 @@ case "${SECTOR}" in
     REQUIRED_ADDONS=(base mail web hr hr_contract fleet hr_payroll delivery_3pl)
     ;;
   real-estate|realestate|real_estate)
-    echo "Real estate modules are still in sector_addons/legacy/jadeer and must be converted to Odoo 19 before bootstrapping." >&2
-    exit 2
+    TEMPLATE_DB="tenant_template_realestate"
+    DEMO_DB="demo_realestate"
+    INSTALL_MODULES="qimam_realestate_demo"
+    REQUIRED_ADDONS=(base mail web qimam_realestate_demo)
     ;;
   hr|saudi_hr|saudi-hr)
     TEMPLATE_DB="tenant_template_saudi_hr"

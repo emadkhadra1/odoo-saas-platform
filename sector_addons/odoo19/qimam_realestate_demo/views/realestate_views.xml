@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="qimam_realestate_project_view_list" model="ir.ui.view">
+        <field name="name">qimam.realestate.project.list</field>
+        <field name="model">qimam.realestate.project</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="location"/>
+                <field name="unit_count"/>
+                <field name="available_unit_count"/>
+                <field name="reserved_unit_count"/>
+                <field name="sold_unit_count"/>
+                <field name="expected_revenue"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="qimam_realestate_project_view_form" model="ir.ui.view">
+        <field name="name">qimam.realestate.project.form</field>
+        <field name="model">qimam.realestate.project</field>
+        <field name="arch" type="xml">
+            <form string="Real Estate Project">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="location"/>
+                            <field name="developer"/>
+                        </group>
+                        <group>
+                            <field name="state"/>
+                            <field name="unit_count"/>
+                            <field name="available_unit_count"/>
+                            <field name="reserved_unit_count"/>
+                            <field name="sold_unit_count"/>
+                            <field name="expected_revenue"/>
+                        </group>
+                    </group>
+                    <field name="unit_ids">
+                        <list editable="bottom">
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="floor"/>
+                            <field name="area"/>
+                            <field name="bedroom_count"/>
+                            <field name="list_price"/>
+                            <field name="state"/>
+                            <field name="customer_id"/>
+                        </list>
+                    </field>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="qimam_realestate_unit_view_list" model="ir.ui.view">
+        <field name="name">qimam.realestate.unit.list</field>
+        <field name="model">qimam.realestate.unit</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="floor"/>
+                <field name="area"/>
+                <field name="bedroom_count"/>
+                <field name="list_price"/>
+                <field name="state"/>
+                <field name="customer_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="qimam_realestate_unit_view_form" model="ir.ui.view">
+        <field name="name">qimam.realestate.unit.form</field>
+        <field name="model">qimam.realestate.unit</field>
+        <field name="arch" type="xml">
+            <form string="Real Estate Unit">
+                <header>
+                    <button name="action_available" type="object" string="Available" invisible="state == 'available'"/>
+                    <button name="action_reserved" type="object" string="Reserve" invisible="state != 'available'"/>
+                    <button name="action_sold" type="object" string="Mark Sold" invisible="state == 'sold'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="available,reserved,sold"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="project_id"/>
+                            <field name="floor"/>
+                        </group>
+                        <group>
+                            <field name="area"/>
+                            <field name="bedroom_count"/>
+                            <field name="list_price"/>
+                            <field name="customer_id"/>
+                        </group>
+                    </group>
+                    <field name="reservation_ids">
+                        <list>
+                            <field name="name"/>
+                            <field name="customer_id"/>
+                            <field name="reservation_date"/>
+                            <field name="reservation_amount"/>
+                            <field name="state"/>
+                        </list>
+                    </field>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="qimam_realestate_reservation_view_list" model="ir.ui.view">
+        <field name="name">qimam.realestate.reservation.list</field>
+        <field name="model">qimam.realestate.reservation</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="reservation_date"/>
+                <field name="project_id"/>
+                <field name="unit_id"/>
+                <field name="customer_id"/>
+                <field name="reservation_amount"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="qimam_realestate_reservation_view_form" model="ir.ui.view">
+        <field name="name">qimam.realestate.reservation.form</field>
+        <field name="model">qimam.realestate.reservation</field>
+        <field name="arch" type="xml">
+            <form string="Reservation">
+                <header>
+                    <button name="action_reserve" type="object" string="Reserve" invisible="state != 'draft'"/>
+                    <button name="action_confirm" type="object" string="Confirm Sale" invisible="state not in ['draft', 'reserved']"/>
+                    <button name="action_cancel" type="object" string="Cancel" invisible="state == 'cancelled'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,reserved,confirmed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="reservation_date"/>
+                            <field name="unit_id"/>
+                            <field name="project_id"/>
+                        </group>
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="salesperson_id"/>
+                            <field name="reservation_amount"/>
+                        </group>
+                    </group>
+                    <field name="payment_plan_ids">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="due_date"/>
+                            <field name="amount"/>
+                            <field name="state"/>
+                        </list>
+                    </field>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="qimam_realestate_project_action" model="ir.actions.act_window">
+        <field name="name">Projects</field>
+        <field name="res_model">qimam.realestate.project</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="qimam_realestate_unit_action" model="ir.actions.act_window">
+        <field name="name">Units</field>
+        <field name="res_model">qimam.realestate.unit</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="qimam_realestate_reservation_action" model="ir.actions.act_window">
+        <field name="name">Reservations</field>
+        <field name="res_model">qimam.realestate.reservation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="qimam_realestate_menu_root" name="Real Estate" sequence="30"/>
+    <menuitem id="qimam_realestate_project_menu" name="Projects" parent="qimam_realestate_menu_root" action="qimam_realestate_project_action" sequence="10"/>
+    <menuitem id="qimam_realestate_unit_menu" name="Units" parent="qimam_realestate_menu_root" action="qimam_realestate_unit_action" sequence="20"/>
+    <menuitem id="qimam_realestate_reservation_menu" name="Reservations" parent="qimam_realestate_menu_root" action="qimam_realestate_reservation_action" sequence="30"/>
+</odoo>

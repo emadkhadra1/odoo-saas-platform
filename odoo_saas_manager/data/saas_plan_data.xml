@@ -56,9 +56,9 @@
         <field name="max_users">25</field>
         <field name="storage_limit">50.0</field>
         <field name="trial_days">14</field>
-        <field name="included_modules">base,mail,crm,sale_management,sale_crm,account,realestate_project,project_phase_building_floor,partner_custom,payment_analytic_account,real_estate_security,real_estate,real_estate_crm,property_coding,web_notify,saas_tenant_agent</field>
+        <field name="included_modules">base,mail,qimam_realestate_demo</field>
         <field name="template_database">tenant_template_realestate</field>
-        <field name="description">Real estate SaaS plan for CRM, units, reservations, payment plans, projects, and sales operations.</field>
+        <field name="description">Real estate SaaS demo plan for projects, units, reservations, and payment plans. Full Jadeer CRM, portal, and real estate legacy modules remain in the migration backlog.</field>
     </record>
 
     <record id="saas_plan_saudi_hr_business" model="saas.plan">
