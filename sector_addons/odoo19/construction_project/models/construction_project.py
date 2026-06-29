@@ -57,6 +57,17 @@ class construction_project(models.Model):
 
         return res
 
+    def _get_analytic_plan_id(self):
+        plan = self.env['account.analytic.plan'].search([('name', '=', 'Project')], limit=1)
+        if not plan:
+            plan = self.env['account.analytic.plan'].search([], limit=1)
+        if not plan:
+            plan = self.env['account.analytic.plan'].create({
+                'name': 'Project',
+                'default_applicability': 'optional',
+            })
+        return plan.id
+
     @api.model_create_multi
     def create(self, vals_list):
         projects = self.browse()
@@ -87,6 +98,7 @@ class construction_project(models.Model):
                     analytic_account = self.env['account.analytic.account'].create({
                         'name': project_name,
                         'partner_id': partner_id,
+                        'plan_id': self._get_analytic_plan_id(),
                     })
                     vals['analytic_account_id'] = analytic_account.id
 
