@@ -54,7 +54,7 @@
                 <filter name="credits" string="إيداعات" domain="[('type', '=', 'credit')]"/>
                 <filter name="debits" string="سحوبات" domain="[('type', '=', 'debit')]"/>
                 <filter name="penalties" string="جزاءات" domain="[('type', '=', 'penalty')]"/>
-                <group expand="0" string="تجميع بـ">
+                <group>
                     <filter name="group_rider" string="المندوب" context="{'group_by': 'rider_id'}"/>
                     <filter name="group_type" string="نوع المعاملة" context="{'group_by': 'type'}"/>
                 </group>

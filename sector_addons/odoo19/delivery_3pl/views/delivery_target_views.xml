@@ -141,7 +141,7 @@
                 <field name="period_display"/>
                 <filter name="target_met" string="تحقق التارجيت" domain="[('target_met', '=', True)]"/>
                 <filter name="target_not_met" string="لم يتحقق التارجيت" domain="[('target_met', '=', False)]"/>
-                <group expand="0" string="تجميع بـ / Group By">
+                <group>
                     <filter name="group_company" string="الشركة" context="{'group_by': 'company_id'}"/>
                     <filter name="group_year" string="السنة" context="{'group_by': 'year'}"/>
                     <filter name="group_month" string="الشهر" context="{'group_by': 'month'}"/>

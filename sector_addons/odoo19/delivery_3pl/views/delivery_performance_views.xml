@@ -95,7 +95,7 @@
                 <filter name="valid_days" string="أيام صالحة" domain="[('is_valid_day', '=', True)]"/>
                 <filter name="invalid_days" string="أيام غير صالحة" domain="[('is_valid_day', '=', False)]"/>
                 <filter name="must_attend" string="أيام الحضور الإلزامي" domain="[('is_must_attend_day', '=', True)]"/>
-                <group expand="0" string="تجميع بـ">
+                <group>
                     <filter name="group_rider" string="المندوب" context="{'group_by': 'rider_id'}"/>
                     <filter name="group_branch" string="الفرع" context="{'group_by': 'branch_id'}"/>
                     <filter name="group_date" string="التاريخ" context="{'group_by': 'date'}"/>
@@ -249,7 +249,7 @@
                 <field name="period_year" string="السنة"/>
                 <filter name="valid_riders" string="مناديب صالحون" domain="[('is_valid', '=', True)]"/>
                 <filter name="invalid_riders" string="مناديب غير صالحين" domain="[('is_valid', '=', False)]"/>
-                <group expand="0" string="تجميع بـ">
+                <group>
                     <filter name="group_rider" string="المندوب" context="{'group_by': 'rider_id'}"/>
                     <filter name="group_branch" string="الفرع" context="{'group_by': 'branch_id'}"/>
                     <filter name="group_level" string="مستوى الأداء" context="{'group_by': 'performance_level'}"/>

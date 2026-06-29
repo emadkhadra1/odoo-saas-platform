@@ -44,7 +44,7 @@
                 <filter name="t1" string="رئيسية (T1)" domain="[('tier', '=', 'T1')]"/>
                 <filter name="t2" string="متوسطة (T2)" domain="[('tier', '=', 'T2')]"/>
                 <filter name="t3" string="صغيرة (T3)" domain="[('tier', '=', 'T3')]"/>
-                <group expand="0" string="تجميع بـ">
+                <group>
                     <filter name="group_tier" string="التصنيف" context="{'group_by': 'tier'}"/>
                 </group>
             </search>

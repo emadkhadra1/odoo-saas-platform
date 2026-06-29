@@ -54,7 +54,7 @@
                         domain="[('is_auto_detected', '=', True)]"/>
                 <filter name="manual" string="يدوي"
                         domain="[('is_auto_detected', '=', False)]"/>
-                <group expand="0" string="تجميع بـ">
+                <group>
                     <filter name="group_contract" string="العقد"
                             context="{'group_by': 'contract_id'}"/>
                     <filter name="group_system_field" string="الحقل في النظام"

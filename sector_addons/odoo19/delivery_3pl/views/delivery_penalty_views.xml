@@ -147,7 +147,7 @@
                 <filter name="pending" string="معلّقة" domain="[('status', '=', 'pending')]"/>
                 <filter name="applied" string="مطبّقة" domain="[('status', '=', 'applied')]"/>
                 <filter name="waived" string="متنازل عنها" domain="[('status', '=', 'waived')]"/>
-                <group expand="0" string="تجميع بـ">
+                <group>
                     <filter name="group_rider" string="المندوب" context="{'group_by': 'rider_id'}"/>
                     <filter name="group_type" string="نوع الجزاء" context="{'group_by': 'penalty_type_id'}"/>
                     <filter name="group_status" string="الحالة" context="{'group_by': 'status'}"/>

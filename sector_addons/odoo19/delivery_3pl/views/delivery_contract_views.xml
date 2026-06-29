@@ -403,7 +403,7 @@
                         domain="[('pricing_mode', '=', 'tier_per_order')]"/>
                 <filter name="mode_standard" string="النمط المتقدم"
                         domain="[('pricing_mode', '=', 'standard')]"/>
-                <group expand="0" string="تجميع بـ">
+                <group>
                     <filter name="group_company" string="الشركة" context="{'group_by': 'company_id'}"/>
                     <filter name="group_branch" string="الفرع" context="{'group_by': 'branch_id'}"/>
                     <filter name="group_status" string="الحالة" context="{'group_by': 'status'}"/>

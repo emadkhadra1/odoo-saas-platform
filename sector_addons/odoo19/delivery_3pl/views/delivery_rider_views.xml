@@ -407,7 +407,7 @@
                         domain="[('service_provider_id', '!=', False)]"/>
                 <filter name="advance_paid" string="سلفة مدفوعة"
                         domain="[('advance_paid', '=', True)]"/>
-                <group expand="0" string="تجميع بـ">
+                <group>
                     <filter name="group_company" string="الشركة" context="{'group_by': 'primary_company_id'}"/>
                     <filter name="group_branch" string="الفرع" context="{'group_by': 'branch_id'}"/>
                     <filter name="group_city" string="المدينة" context="{'group_by': 'city_id'}"/>
@@ -499,7 +499,7 @@
                         domain="[('active_platform_count', '=', 0)]"/>
                 <filter name="all_platforms" string="يغطون جميع المنصات"
                         domain="[('all_platforms_covered', '=', True)]"/>
-                <group expand="0" string="تجميع بـ">
+                <group>
                     <filter name="group_company" string="الشركة" context="{'group_by': 'primary_company_id'}"/>
                     <filter name="group_branch" string="الفرع" context="{'group_by': 'branch_id'}"/>
                     <filter name="group_coverage" string="التغطية" context="{'group_by': 'all_platforms_covered'}"/>

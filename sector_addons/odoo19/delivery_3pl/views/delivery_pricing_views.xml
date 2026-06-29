@@ -185,7 +185,7 @@
                 <filter name="type_experience" string="حافز خبرة" domain="[('pricing_type', '=', 'experience_incentive')]"/>
                 <filter name="type_capacity" string="حافز سعة" domain="[('pricing_type', '=', 'capacity_incentive')]"/>
                 <filter name="type_subcontract_fee" string="رسوم مقاول" domain="[('pricing_type', '=', 'subcontract_fee')]"/>
-                <group expand="0" string="تجميع بـ">
+                <group>
                     <filter name="group_company" string="الشركة" context="{'group_by': 'company_id'}"/>
                     <filter name="group_branch" string="الفرع" context="{'group_by': 'branch_id'}"/>
                     <filter name="group_contract" string="العقد" context="{'group_by': 'contract_id'}"/>

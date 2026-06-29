@@ -93,7 +93,7 @@
                 <field name="city_id"/>
                 <filter name="active_branches" string="نشطة" domain="[('is_active', '=', True)]"/>
                 <filter name="inactive_branches" string="غير نشطة" domain="[('is_active', '=', False)]"/>
-                <group expand="0" string="تجميع بـ">
+                <group>
                     <filter name="group_company" string="الشركة" context="{'group_by': 'company_id'}"/>
                     <filter name="group_city" string="المدينة" context="{'group_by': 'city_id'}"/>
                 </group>

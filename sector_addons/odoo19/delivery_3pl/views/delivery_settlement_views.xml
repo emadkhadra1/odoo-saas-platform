@@ -207,7 +207,7 @@
                         domain="[('payslip_run_id', '!=', False)]"/>
                 <filter name="no_payslips" string="لم تصدر رواتبها بعد"
                         domain="[('status', 'in', ('approved','locked')), ('payslip_run_id', '=', False)]"/>
-                <group expand="0" string="تجميع بـ / Group By">
+                <group>
                     <filter name="group_company" string="الشركة" context="{'group_by': 'company_id'}"/>
                     <filter name="group_branch" string="الفرع" context="{'group_by': 'branch_id'}"/>
                     <filter name="group_status" string="الحالة" context="{'group_by': 'status'}"/>

@@ -118,7 +118,7 @@
                 <field name="name_ar"/>
                 <filter name="active" string="نشطة" domain="[('is_active', '=', True)]"/>
                 <filter name="inactive" string="غير نشطة" domain="[('is_active', '=', False)]"/>
-                <group expand="0" string="تجميع بـ">
+                <group>
                     <filter name="group_cycle" string="دورة التسوية" context="{'group_by': 'settlement_cycle'}"/>
                 </group>
             </search>

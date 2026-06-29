@@ -192,7 +192,7 @@
                 <filter name="validated" string="تم التحقق" domain="[('status', '=', 'validated')]"/>
                 <filter name="imported" string="مكتمل" domain="[('status', '=', 'imported')]"/>
                 <filter name="failed" string="فاشل" domain="[('status', '=', 'failed')]"/>
-                <group expand="0" string="تجميع بـ">
+                <group>
                     <filter name="group_company" string="الشركة" context="{'group_by': 'company_id'}"/>
                     <filter name="group_branch" string="الفرع" context="{'group_by': 'branch_id'}"/>
                     <filter name="group_status" string="الحالة" context="{'group_by': 'status'}"/>
