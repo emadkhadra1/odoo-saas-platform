@@ -26,14 +26,10 @@ class construction_transport(models.Model):
 
     @api.depends('line_ids', 'line_ids.cost')
     def _compute_total(self):
-
-        total_cost = 0
-
-        if self.line_ids:
-            for line in self.line_ids:
-                total_cost += line.cost
-
-        self.total_cost = total_cost
+        for rec in self:
+            total_cost = sum(rec.line_ids.mapped('cost'))
+            rec.total_cost = total_cost
+            rec.total_amount = total_cost
         return True
 
     total_amount = fields.Float(string="Total Amount", tracking=True, compute="_compute_total",
@@ -66,8 +62,8 @@ class construction_transport(models.Model):
 
     @api.depends('boq_id')
     def compute_business_item_ids(self):
-        self.business_item_ids = False
-        self.business_item_ids = self.boq_id.indexation_ids.mapped('business_statement_id').ids
+        for rec in self:
+            rec.business_item_ids = rec.boq_id.indexation_ids.mapped('business_statement_id').ids if rec.boq_id else False
 
     def create_account_move(self):
         move_line_1 = {
@@ -96,10 +92,11 @@ class construction_transport(models.Model):
         account_move = self.env['account.move'].create(move_vals)
         self.account_move_id = account_move
 
-    @api.model
-    def create(self, vals):
-        vals['name'] = (self.env['ir.sequence'].next_by_code('construction.transport.madina')) or 'New'
-        return super(construction_transport, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals['name'] = (self.env['ir.sequence'].next_by_code('construction.transport.madina')) or 'New'
+        return super(construction_transport, self).create(vals_list)
 
 
 class construction_transport_line(models.Model):
@@ -109,10 +106,8 @@ class construction_transport_line(models.Model):
 
     @api.depends('unit_cost', 'qty')
     def _compute_cost(self):
-        cost = 0
-        if self.unit_cost and self.qty:
-            cost = self.qty * self.unit_cost
-        self.cost = cost
+        for rec in self:
+            rec.cost = rec.qty * rec.unit_cost if rec.unit_cost and rec.qty else 0
         return True
 
     @api.onchange('transport_id')

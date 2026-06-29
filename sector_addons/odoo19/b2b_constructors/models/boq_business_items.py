@@ -68,11 +68,9 @@ class BoqBusinessItem(models.Model):
     group_code = fields.Char("Code", compute="_compute_group_code")
     analytic_tags_ids = fields.Many2many(comodel_name="account.analytic.tag", relation="business_item_analytic_tags_rel", column1="business_item_id", column2="analytic_tag_id", string="Analytic Tags")
 
-    @api.model
-    def create(self, vals):
-        print(vals)
-        res = super(BoqBusinessItem, self).create(vals)
-        return res
+    @api.model_create_multi
+    def create(self, vals_list):
+        return super(BoqBusinessItem, self).create(vals_list)
 
     @api.depends('sub_business_statement_id', 'sub_item_id', 'main_item_id', 'code')
     def _compute_group_code(self):
@@ -98,10 +96,12 @@ class BoqBusinessItem(models.Model):
                 business_statement.append(i.business_statement_id.id)
         business_statement_ids = list(set(business_statement))
 
-        if self.env.user.has_group('b2b_constructors.group_edit_business_statement_item') or self.id not in business_statement_ids:
-            self.set_lines_readonly = False
-        else:
-            self.set_lines_readonly = True
+        can_edit = self.env.user.has_group('b2b_constructors.group_edit_business_statement_item')
+        for rec in self:
+            if can_edit or rec.id not in business_statement_ids:
+                rec.set_lines_readonly = False
+            else:
+                rec.set_lines_readonly = True
 
     @api.depends('line_ids')
     def _compute_estimated_cost(self):

@@ -50,6 +50,8 @@ class ProgressOwnerLines(models.Model):
         for rec in self:
             previous = 0.0
             notes=''
+            total_work = 0.0
+            work_amount = 0.0
             if rec.project_id:
                 if  not rec.progress_bill_id.project_id or not rec.progress_bill_id.consructor_id or not rec.progress_bill_id.from_date:
                     rec.business_statement_id = None
@@ -74,9 +76,11 @@ class ProgressOwnerLines(models.Model):
                     # rec.previous_work = previous
                     rec.notes = notes
 
-                    rec.total_work = previous + rec.current_work
+                    total_work = previous + rec.current_work
                     # rec.work_amount = rec.total_work * rec.category
-                    rec.work_amount = (rec.total_work * rec.category) * (rec.perc_c / 100)
+                    work_amount = (total_work * rec.category) * (rec.perc_c / 100)
+            rec.total_work = total_work
+            rec.work_amount = work_amount
 
     
     @api.depends('entrepreneurs_id', 'current_work', 'category', 'required_quantity')

@@ -12,8 +12,8 @@ class construction_labor(models.Model):
 
     @api.depends('boq_id')
     def compute_business_item_ids(self):
-        self.business_item_ids = False
-        self.business_item_ids = self.boq_id.indexation_ids.mapped('business_statement_id').ids
+        for rec in self:
+            rec.business_item_ids = rec.boq_id.indexation_ids.mapped('business_statement_id').ids if rec.boq_id else False
 
 
 class ConstructionLaborLine(models.Model):

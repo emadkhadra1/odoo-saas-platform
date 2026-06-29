@@ -453,21 +453,23 @@ class ProgressBill(models.Model):
     #         else:
     #             raise ValidationError(_("Selected Journal has not Credit Account!, Please, fill it first!"))
 
-    @api.model
-    def create(self, vals):
-        if vals.get("quotation_type", False) == "with_boq":
-            qoutation_no = self.search([
-                # ("project_id", "=", vals["project_id"]),
-                ("consructor_id", "=", vals["consructor_id"]),
-                ("purchase_order_id", "=", vals["purchase_order_id"]),
-            ], order="name desc", limit=1)
-            vals["name"] = (qoutation_no.name + 1) if qoutation_no else 1
-        else:
-            qoutation_no = self.search([
-                ("consructor_id", "=", vals["consructor_id"]),
-                ("project_id", "=", vals["project_id"]),
-                ("construction_type_id", "=", vals["construction_type_id"]),
-            ], order="name desc", limit=1)
-            vals["name"] = (qoutation_no.name + 1) if qoutation_no else 1
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = self.browse()
+        for vals in vals_list:
+            if vals.get("quotation_type", False) == "with_boq":
+                qoutation_no = self.search([
+                    ("consructor_id", "=", vals.get("consructor_id")),
+                    ("purchase_order_id", "=", vals.get("purchase_order_id")),
+                ], order="name desc", limit=1)
+                vals["name"] = (qoutation_no.name + 1) if qoutation_no else 1
+            else:
+                qoutation_no = self.search([
+                    ("consructor_id", "=", vals.get("consructor_id")),
+                    ("project_id", "=", vals.get("project_id")),
+                    ("construction_type_id", "=", vals.get("construction_type_id")),
+                ], order="name desc", limit=1)
+                vals["name"] = (qoutation_no.name + 1) if qoutation_no else 1
 
-        return super(ProgressBill, self).create(vals)
+            records |= super(ProgressBill, self).create([vals])
+        return records
