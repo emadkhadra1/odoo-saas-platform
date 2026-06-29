@@ -21,10 +21,11 @@ class construction_machine(models.Model):
             raise UserError(_('You cannot delete .'))
         return super(construction_machine, self).unlink()
 
-    @api.model
-    def create(self, vals):
-        vals['name'] = (self.env['ir.sequence'].next_by_code('construction.machine.madina')) or 'New'
-        return super(construction_machine, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals['name'] = (self.env['ir.sequence'].next_by_code('construction.machine.madina')) or 'New'
+        return super(construction_machine, self).create(vals_list)
 
     def _get_date_now(self):
         res = date.today()

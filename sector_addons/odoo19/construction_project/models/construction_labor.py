@@ -84,10 +84,11 @@ class construction_labor(models.Model):
         account_move = self.env['account.move'].create(move_vals)
         self.account_move_id = account_move
 
-    @api.model
-    def create(self, vals):
-        vals['name'] = (self.env['ir.sequence'].next_by_code('construction.labor.madina')) or 'New'
-        return super(construction_labor, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals['name'] = (self.env['ir.sequence'].next_by_code('construction.labor.madina')) or 'New'
+        return super(construction_labor, self).create(vals_list)
 
 
 class construction_labor_line(models.Model):

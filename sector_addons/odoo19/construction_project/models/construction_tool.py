@@ -20,10 +20,11 @@ class construction_tool(models.Model):
         if self.state == 'done':
             raise UserError(_('You cannot delete .'))
         return super(construction_tool, self).unlink()
-    @api.model
-    def create(self, vals):
-        vals['name'] = (self.env['ir.sequence'].next_by_code('construction.tool.madina')) or 'New'
-        return super(construction_tool, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals['name'] = (self.env['ir.sequence'].next_by_code('construction.tool.madina')) or 'New'
+        return super(construction_tool, self).create(vals_list)
 
 
     def _get_date_now(self):

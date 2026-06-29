@@ -312,15 +312,16 @@ class construction_receive_order(models.Model):
     #     self.update_message_follower()
     #     return res
 
-    @api.model
-    def create(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
         # if vals.get('name', 'New') == 'New' and self.env.user.company_id.type == 'maka':
         #     # print('iam in rental.sequence')
         #     vals['name'] = (self.env['ir.sequence'].next_by_code('construction.receive.order.maka')) or 'New'
         # if vals.get('name', 'New') == 'New' and self.env.user.company_id.type == 'madina':
             # print('iam in rental.sequence')
-        vals['name'] = (self.env['ir.sequence'].next_by_code('construction.receive.order.madina')) or 'New'
-        res = super(construction_receive_order, self).create(vals)
+        for vals in vals_list:
+            vals['name'] = (self.env['ir.sequence'].next_by_code('construction.receive.order.madina')) or 'New'
+        res = super(construction_receive_order, self).create(vals_list)
         # res.update_message_follower()
         return res
 
@@ -639,10 +640,11 @@ class construction_receive_order_line(models.Model):
 
     qty_state = fields.Char(string="Qty State", compute="_compute_qty_state",store=True,  required=False, )
 
-    @api.model
-    def create(self, vals):
-        vals['name'] = (self.env['ir.sequence'].next_by_code('construction.receive.order.line.madina')) or 'New'
-        res = super(construction_receive_order_line, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals['name'] = (self.env['ir.sequence'].next_by_code('construction.receive.order.line.madina')) or 'New'
+        res = super(construction_receive_order_line, self).create(vals_list)
         # res.update_message_follower()
         return res
 
