@@ -37,14 +37,10 @@ class construction_machine(models.Model):
     
     @api.depends('line_ids', 'line_ids.cost')
     def _compute_total(self):
-
-        total_cost = 0
-
-        if self.line_ids:
-            for line in self.line_ids:
-                total_cost += line.cost
-
-        self.total_cost = total_cost
+        for rec in self:
+            total_cost = sum(rec.line_ids.mapped('cost'))
+            rec.total_cost = total_cost
+            rec.total_amount = total_cost
         return True
 
     total_amount = fields.Float(string="Total Amount",tracking=True, compute="_compute_total", store=True, required=False, )
@@ -98,10 +94,8 @@ class construction_machine_line(models.Model):
     
     @api.depends('unit_cost', 'qty')
     def _compute_cost(self):
-        cost = 0
-        if self.unit_cost and self.qty:
-            cost = self.qty * self.unit_cost
-        self.cost = cost
+        for rec in self:
+            rec.cost = rec.qty * rec.unit_cost if rec.unit_cost and rec.qty else 0
         return True
 
 

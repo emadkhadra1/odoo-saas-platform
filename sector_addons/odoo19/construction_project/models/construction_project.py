@@ -132,11 +132,13 @@ class construction_project(models.Model):
 
     @api.depends('warehouse_id')
     def _compute_location_id(self):
-
-        if self.warehouse_id and self.warehouse_id.out_type_id:
-            self.picking_type_id = self.warehouse_id.out_type_id.id
-            if self.warehouse_id.out_type_id.default_location_src_id:
-                self.location_id = self.warehouse_id.out_type_id.default_location_src_id.id
+        for rec in self:
+            rec.picking_type_id = False
+            rec.location_id = False
+            if rec.warehouse_id and rec.warehouse_id.out_type_id:
+                rec.picking_type_id = rec.warehouse_id.out_type_id.id
+                if rec.warehouse_id.out_type_id.default_location_src_id:
+                    rec.location_id = rec.warehouse_id.out_type_id.default_location_src_id.id
                 # self.location_dest_id = self.warehouse_id.out_type_id.default_location_dest_id.id
         return True
 
@@ -194,28 +196,13 @@ class construction_project(models.Model):
 
                  )
     def _compute_total_cost(self):
-        total_cost = 0
-        for one_component in self.project_component_ids:
-            total_cost += one_component.component_cost
-
-        for receive_order in self.receive_order_ids:
-            if receive_order.state == 'done' or receive_order.state == 'delivered':
-                total_cost += receive_order.total_cost
-
-        for one_labor in self.labor_ids:
-            if one_labor.state == 'done':
-                total_cost += one_labor.total_cost
-
-        for one_machine in self.machine_ids:
-            if one_machine.state == 'done':
-                total_cost += one_machine.total_cost
-
-        for one_tool in self.tool_ids:
-            if one_tool.state == 'done':
-                total_cost += one_tool.total_cost
-
-        self.total_cost = total_cost
-
+        for rec in self:
+            total_cost = sum(rec.project_component_ids.mapped('component_cost'))
+            total_cost += sum(rec.receive_order_ids.filtered(lambda order: order.state in ('done', 'delivered')).mapped('total_cost'))
+            total_cost += sum(rec.labor_ids.filtered(lambda order: order.state == 'done').mapped('total_cost'))
+            total_cost += sum(rec.machine_ids.filtered(lambda order: order.state == 'done').mapped('total_cost'))
+            total_cost += sum(rec.tool_ids.filtered(lambda order: order.state == 'done').mapped('total_cost'))
+            rec.total_cost = total_cost
         return True
 
     receive_order_ids = fields.One2many(comodel_name="construction.receive.order", inverse_name="project_id",
@@ -223,38 +210,32 @@ class construction_project(models.Model):
 
     @api.depends('estimated_costs', 'selling_price')
     def _comp_estimated_net_profit(self):
-        estimated_net_profit = 0
-        if self.estimated_costs and self.selling_price:
-            estimated_net_profit = self.selling_price - self.estimated_costs
-
-        self.estimated_net_profit = estimated_net_profit
+        for rec in self:
+            rec.estimated_net_profit = rec.selling_price - rec.estimated_costs if rec.estimated_costs and rec.selling_price else 0
         return True
 
     @api.depends('estimated_costs', 'selling_price')
     def _comp_estimated_profit_margin_ratio(self):
-        estimated_profit_margin_ratio = 0
-        if self.estimated_costs and self.selling_price and self.estimated_costs > 0:
-            estimated_profit_margin_ratio = 100 - ((self.estimated_costs / self.selling_price) * 100)
-
-        self.estimated_profit_margin_ratio = estimated_profit_margin_ratio
+        for rec in self:
+            estimated_profit_margin_ratio = 0
+            if rec.estimated_costs and rec.selling_price and rec.selling_price > 0:
+                estimated_profit_margin_ratio = 100 - ((rec.estimated_costs / rec.selling_price) * 100)
+            rec.estimated_profit_margin_ratio = estimated_profit_margin_ratio
         return True
 
     @api.depends('total_cost', 'selling_price')
     def _comp_net_profit(self):
-        net_profit = 0
-        if self.total_cost and self.selling_price:
-            net_profit = self.selling_price - self.total_cost
-
-        self.net_profit = net_profit
+        for rec in self:
+            rec.net_profit = rec.selling_price - rec.total_cost if rec.total_cost and rec.selling_price else 0
         return True
 
     @api.depends('total_cost', 'selling_price')
     def _comp_net_profit_ratio(self):
-        net_profit_ratio = 0
-        if self.total_cost and self.selling_price and self.total_cost > 0:
-            net_profit_ratio = (self.selling_price / self.total_cost) * 100
-
-        self.net_profit_ratio = net_profit_ratio
+        for rec in self:
+            net_profit_ratio = 0
+            if rec.total_cost and rec.selling_price and rec.total_cost > 0:
+                net_profit_ratio = (rec.selling_price / rec.total_cost) * 100
+            rec.net_profit_ratio = net_profit_ratio
         return True
 
     total_cost = fields.Float(string="Actual Cost", compute="_compute_total_cost", store=True, required=False, )

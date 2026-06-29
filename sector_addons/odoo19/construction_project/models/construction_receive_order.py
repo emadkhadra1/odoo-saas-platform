@@ -280,21 +280,16 @@ class construction_receive_order(models.Model):
     
     @api.depends('receive_order_ids','receive_order_ids.price','receive_order_ids.cost')
     def _compute_total(self):
-        total_amount=0
-        # total_cost=0
-        if self.receive_order_ids:
-            for line in self.receive_order_ids:
-                total_amount+=line.price
-                # total_cost+=line.cost
-        self.total_amount=total_amount
+        for rec in self:
+            rec.total_amount = sum(rec.receive_order_ids.mapped('price'))
         # self.total_cost=total_cost
         return True
 
 
     @api.onchange('receive_order_user_ids')
     def _compute_unit_cost_total(self):
-        total = sum(self.receive_order_user_ids.mapped('price'))
-        self.total_cost = total
+        for rec in self:
+            rec.total_cost = sum(rec.receive_order_user_ids.mapped('price'))
 
 
 
@@ -565,6 +560,8 @@ class construction_receive_order_line(models.Model):
                 rec.qty_state = "red"
             elif rec.qty <= rec.order_qty:
                 rec.qty_state = "green"
+            else:
+                rec.qty_state = False
         return True
 
     def make_purchase_order(self):
@@ -655,29 +652,22 @@ class StockPicking(models.Model):
 
     @api.depends('state')
     def _compute_change_receive_order(self):
-        change_receive_order = "Waiting"
-        if (self.receive_order_line_id or self.receive_order_id_ref) and self.state and self.state =='done':
-            ok='change state and git cost line'
-            inventory_value = 0
-            inv_qty = 0
-            unit_cost = 0
-            valuations = self.env['stock.valuation.layer'].search([('stock_move_id', 'in', self.move_lines.ids)])
-            for quant in valuations:
-                inventory_value += quant.value
-                inv_qty += quant.quantity
-                    # print ">>quant.inventory_value= ",quant.inventory_value
-            # print "inventory_value/quant.qty>>>>>>>>",inventory_value/quant.qty
-            # print "inventory_value"
-            # print inventory_value
-            if inv_qty:
-                unit_cost = inventory_value / inv_qty
-            self.receive_order_line_id.write({'cost': inventory_value,'unit_cost': unit_cost})
-            change_receive_order ="Done"
-            #zakaria start
-            receive_order = self.env['construction.receive.order']
-            self.receive_order_id_ref.write({'state': 'delivered'})
-            #zakaria end
-        self.change_receive_order = change_receive_order
+        for rec in self:
+            change_receive_order = "Waiting"
+            if (rec.receive_order_line_id or rec.receive_order_id_ref) and rec.state == 'done':
+                inventory_value = 0
+                inv_qty = 0
+                unit_cost = 0
+                valuations = rec.env['stock.valuation.layer'].search([('stock_move_id', 'in', rec.move_lines.ids)])
+                for quant in valuations:
+                    inventory_value += quant.value
+                    inv_qty += quant.quantity
+                if inv_qty:
+                    unit_cost = inventory_value / inv_qty
+                rec.receive_order_line_id.write({'cost': inventory_value, 'unit_cost': unit_cost})
+                change_receive_order = "Done"
+                rec.receive_order_id_ref.write({'state': 'delivered'})
+            rec.change_receive_order = change_receive_order
         return True
 
     change_receive_order = fields.Char(string="change_receive_order",compute="_compute_change_receive_order", required=False, )

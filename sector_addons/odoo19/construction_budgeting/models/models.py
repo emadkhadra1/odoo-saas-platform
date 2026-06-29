@@ -41,7 +41,8 @@ class MRPBOM(models.Model):
     
     @api.depends('bom_line_ids')
     def _compute_estimated_cost(self):
-        self.estimated_cost = sum([line.cost for line in self.bom_line_ids])
+        for rec in self:
+            rec.estimated_cost = sum(rec.bom_line_ids.mapped('cost'))
 
 
 class MRPBOMLines(models.Model):

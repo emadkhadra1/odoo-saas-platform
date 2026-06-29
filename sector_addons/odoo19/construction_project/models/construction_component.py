@@ -27,12 +27,11 @@ class project_component(models.Model):
 
     @api.depends('item_id', 'product_id')
     def _compute_component_name(self):
-        name = ''
-        if self.item_id and self.product_id:
-            name = self.product_id.name + "/" + self.item_id.name
-
-        self.name = name
-
+        for rec in self:
+            name = ''
+            if rec.item_id and rec.product_id:
+                name = "%s/%s" % (rec.product_id.name, rec.item_id.name)
+            rec.name = name
         return True
 
     @api.onchange('product_id')
@@ -52,15 +51,14 @@ class project_component(models.Model):
 
     @api.depends('item_id', 'item_id.unit_id')
     def _compute_project_unit(self):
-        project_id = False
-        unit_id = False
-        if self.item_id and self.item_id.unit_id and self.item_id.unit_id.project_id:
-            if self.item_id.unit_id.project_id:
-                project_id = self.item_id.unit_id.project_id.id
-                unit_id = self.item_id.unit_id.id
-        self.project_id = project_id
-        self.unit_id = unit_id
-
+        for rec in self:
+            project_id = False
+            unit_id = False
+            if rec.item_id and rec.item_id.unit_id:
+                unit_id = rec.item_id.unit_id.id
+                project_id = rec.item_id.unit_id.project_id.id or False
+            rec.project_id = project_id
+            rec.unit_id = unit_id
         return True
 
     project_id = fields.Many2one(comodel_name="construction.project", compute="_compute_project_unit", store=True,
@@ -86,11 +84,8 @@ class project_component(models.Model):
 
     @api.depends('picking_id', 'picking_id.state')
     def _compute_picking_state(self):
-        picking_state = ''
-        if self.picking_id:
-            picking_state = self.picking_id.state
-
-        self.picking_state = picking_state
+        for rec in self:
+            rec.picking_state = rec.picking_id.state if rec.picking_id else ''
         return True
 
     picking_state = fields.Char(string="Picking State", compute="_compute_picking_state", store=True, required=False, )

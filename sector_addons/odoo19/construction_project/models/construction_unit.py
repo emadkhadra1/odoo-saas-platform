@@ -38,13 +38,8 @@ class project_unit(models.Model):
     
     @api.depends('project_item_ids', 'project_item_ids.project_component_ids', 'project_item_ids.project_component_ids.component_cost')
     def _compute_total_unit_cost(self):
-        total_unit_cost = 0
-        for unit in self.project_item_ids:
-            for one_component in unit.project_component_ids:
-                total_unit_cost += one_component.component_cost
-
-        self.total_unit_cost = total_unit_cost
-
+        for rec in self:
+            rec.total_unit_cost = sum(rec.project_item_ids.mapped('project_component_ids.component_cost'))
         return True
 
     project_id = fields.Many2one(comodel_name="construction.project",   default=_default_project_id, string="Project",  )

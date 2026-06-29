@@ -37,14 +37,10 @@ class construction_tool(models.Model):
     
     @api.depends('line_ids', 'line_ids.cost')
     def _compute_total(self):
-
-        total_cost = 0
-
-        if self.line_ids:
-            for line in self.line_ids:
-                total_cost += line.cost
-
-        self.total_cost = total_cost
+        for rec in self:
+            total_cost = sum(rec.line_ids.mapped('cost'))
+            rec.total_cost = total_cost
+            rec.total_amount = total_cost
         return True
 
     total_amount = fields.Float(string="Total Amount",tracking=True, compute="_compute_total", store=True, required=False, )
@@ -95,10 +91,8 @@ class construction_tool_line(models.Model):
     
     @api.depends('unit_cost', 'qty')
     def _compute_cost(self):
-        cost = 0
-        if self.unit_cost and self.qty:
-            cost = self.qty * self.unit_cost
-        self.cost = cost
+        for rec in self:
+            rec.cost = rec.qty * rec.unit_cost if rec.unit_cost and rec.qty else 0
         return True
 
 
@@ -137,4 +131,3 @@ class construction_tools(models.Model):
     unit_cost = fields.Float(string="Cost",  required=False, )
     unit_price = fields.Float(string="Price",  required=False, )
     note = fields.Text(string="Note", required=False, )
-

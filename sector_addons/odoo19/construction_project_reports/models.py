@@ -25,8 +25,8 @@ class construction_project(models.Model):
 
     @api.depends('project_description','receive_order_ids.total_amount','labor_ids.total_cost','machine_ids.total_cost','tool_ids.total_cost','project_component_ids.component_cost')
     def _amount_all(self):
-        total_receive_order= total_labor = total_machine=total_tool = total_component = 0.0
         for recorde in self:
+            total_receive_order = total_labor = total_machine = total_tool = total_component = 0.0
             for component_line in recorde.project_component_ids:
                 total_component += component_line.component_cost
 
@@ -46,13 +46,10 @@ class construction_project(models.Model):
                 if tool_line.state == 'done':
                     total_tool += tool_line.total_cost
 
-
-
-            self.total_component=total_component
-            self.total_receive_order=total_receive_order
-            self.total_labor=total_labor
-            self.total_machine=total_machine
-            self.total_tool=total_tool
-            self.total_detialed_cost=total_receive_order+total_labor+total_machine+total_tool+total_component
-
+            recorde.total_component = total_component
+            recorde.total_receive_order = total_receive_order
+            recorde.total_labor = total_labor
+            recorde.total_machine = total_machine
+            recorde.total_tool = total_tool
+            recorde.total_detialed_cost = total_receive_order + total_labor + total_machine + total_tool + total_component
 

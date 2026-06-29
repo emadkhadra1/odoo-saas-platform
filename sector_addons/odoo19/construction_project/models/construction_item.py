@@ -30,34 +30,28 @@ class project_item(models.Model):
     
     @api.depends('unit_id', 'product_id')
     def _compute_item_name(self):
-        name = ''
-        if self.unit_id and self.product_id:
-            name = self.product_id.name + "/" + self.unit_id.name
-
-        self.name = name
-
+        for rec in self:
+            name = ''
+            if rec.unit_id and rec.product_id:
+                name = "%s/%s" % (rec.product_id.name, rec.unit_id.name)
+            rec.name = name
         return True
 
     
     @api.depends('project_component_ids' ,'project_component_ids.component_cost' )
     def _compute_total_item_cost(self):
-        total_item_cost=0
-        for one_component in self.project_component_ids :
-            total_item_cost += one_component.component_cost
-
-        self.total_item_cost = total_item_cost
-
+        for rec in self:
+            rec.total_item_cost = sum(rec.project_component_ids.mapped('component_cost'))
         return True
 
     
     @api.depends('item_qty' ,'total_item_cost' )
     def _compute_item_cost(self):
-        item_cost=0
-        if self.item_qty and self.total_item_cost:
-            item_cost=self.total_item_cost  / self.item_qty
-
-        self.item_cost = item_cost
-
+        for rec in self:
+            item_cost = 0
+            if rec.item_qty and rec.total_item_cost:
+                item_cost = rec.total_item_cost / rec.item_qty
+            rec.item_cost = item_cost
         return True
 
     
@@ -211,11 +205,8 @@ class project_item(models.Model):
     
     @api.depends('picking_id', 'picking_id.state')
     def _compute_picking_state(self):
-        picking_state = ''
-        if self.picking_id:
-            picking_state = self.picking_id.state
-
-        self.picking_state = picking_state
+        for rec in self:
+            rec.picking_state = rec.picking_id.state if rec.picking_id else ''
         return True
 
 
@@ -227,9 +218,8 @@ class project_item(models.Model):
     
     @api.depends('unit_id','warehouse_id')
     def _compute_project_id(self):
-        project_id=False
-        if self.unit_id and self.unit_id.project_id:
-            self.project_id=self.unit_id.project_id.id
+        for rec in self:
+            rec.project_id = rec.unit_id.project_id.id if rec.unit_id and rec.unit_id.project_id else False
 
         # if self.unit_id and self.unit_id.project_id and self.unit_id.project_id.partner_id:
         #     self.location_dest_id = self.unit_id.project_id.partner_id.property_stock_customer.id
@@ -239,9 +229,6 @@ class project_item(models.Model):
         #     self.picking_type_id = self.warehouse_id.out_type_id.id
         #     if self.warehouse_id.out_type_id.default_location_src_id:
         #         self.location_id=self.warehouse_id.out_type_id.default_location_src_id.id
-
-
-
 
         return True
     unit_id = fields.Many2one(comodel_name="project.unit",states=states_item_1 ,  string="Unit", required=True, )
