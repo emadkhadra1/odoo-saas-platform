@@ -1,8 +1,8 @@
 {
-    "name": "Qimam HR Attendance Rules",
+    "name": "قمم - قواعد الحضور والانصراف",
     "version": "19.0.1.0.0",
     "category": "Human Resources/Attendances",
-    "summary": "Saudi attendance policies for lateness, early checkout, absence, and overtime.",
+    "summary": "سياسات سعودية للتأخير والانصراف المبكر والغياب والعمل الإضافي.",
     "author": "Qimam Technical Solutions",
     "license": "LGPL-3",
     "depends": ["hr", "hr_attendance", "resource", "mail"],

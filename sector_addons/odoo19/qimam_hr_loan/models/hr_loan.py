@@ -6,44 +6,47 @@ from odoo.exceptions import UserError, ValidationError
 
 class QimamHrLoan(models.Model):
     _name = "qimam.hr.loan"
-    _description = "Employee Loan and Advance"
+    _description = "السلف والقروض للموظفين"
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _order = "request_date desc, id desc"
 
-    name = fields.Char(default="New", copy=False, readonly=True, tracking=True)
-    employee_id = fields.Many2one("hr.employee", required=True, tracking=True, ondelete="restrict")
-    department_id = fields.Many2one(related="employee_id.department_id", store=True, readonly=True)
-    job_id = fields.Many2one(related="employee_id.job_id", store=True, readonly=True)
-    request_date = fields.Date(default=fields.Date.context_today, required=True, tracking=True)
+    name = fields.Char(string="رقم الطلب", default="New", copy=False, readonly=True, tracking=True)
+    employee_id = fields.Many2one("hr.employee", string="الموظف", required=True, tracking=True, ondelete="restrict")
+    department_id = fields.Many2one(string="القسم", related="employee_id.department_id", store=True, readonly=True)
+    job_id = fields.Many2one(string="المسمى الوظيفي", related="employee_id.job_id", store=True, readonly=True)
+    request_date = fields.Date(string="تاريخ الطلب", default=fields.Date.context_today, required=True, tracking=True)
     loan_type = fields.Selection(
-        [("loan", "Employee Loan"), ("advance", "Salary Advance")],
+        [("loan", "قرض موظف"), ("advance", "سلفة راتب")],
+        string="نوع الطلب",
         default="advance",
         required=True,
         tracking=True,
     )
-    reason = fields.Text(required=True)
-    amount = fields.Monetary(required=True, tracking=True, currency_field="currency_id")
-    installment_count = fields.Integer(default=1, required=True)
-    first_deduction_date = fields.Date(default=fields.Date.context_today, required=True)
+    reason = fields.Text(string="سبب الطلب", required=True)
+    amount = fields.Monetary(string="المبلغ", required=True, tracking=True, currency_field="currency_id")
+    installment_count = fields.Integer(string="عدد الأقساط", default=1, required=True)
+    first_deduction_date = fields.Date(string="تاريخ أول استقطاع", default=fields.Date.context_today, required=True)
     currency_id = fields.Many2one(
         "res.currency",
+        string="العملة",
         default=lambda self: self.env.company.currency_id,
         required=True,
     )
-    line_ids = fields.One2many("qimam.hr.loan.line", "loan_id", string="Installments", copy=False)
-    paid_amount = fields.Monetary(compute="_compute_amounts", currency_field="currency_id", store=True)
-    balance_amount = fields.Monetary(compute="_compute_amounts", currency_field="currency_id", store=True)
+    line_ids = fields.One2many("qimam.hr.loan.line", "loan_id", string="الأقساط", copy=False)
+    paid_amount = fields.Monetary(string="المبلغ المسدد", compute="_compute_amounts", currency_field="currency_id", store=True)
+    balance_amount = fields.Monetary(string="الرصيد المتبقي", compute="_compute_amounts", currency_field="currency_id", store=True)
     state = fields.Selection(
         [
-            ("draft", "Draft"),
-            ("submitted", "Submitted"),
-            ("approved", "Approved"),
-            ("running", "In Deduction"),
-            ("paid", "Paid"),
-            ("refused", "Refused"),
-            ("cancelled", "Cancelled"),
+            ("draft", "مسودة"),
+            ("submitted", "بانتظار الاعتماد"),
+            ("approved", "معتمدة"),
+            ("running", "تحت الاستقطاع"),
+            ("paid", "مسددة"),
+            ("refused", "مرفوضة"),
+            ("cancelled", "ملغاة"),
         ],
         default="draft",
+        string="الحالة",
         required=True,
         tracking=True,
     )
@@ -58,9 +61,9 @@ class QimamHrLoan(models.Model):
     def _check_positive_amounts(self):
         for loan in self:
             if loan.amount <= 0:
-                raise ValidationError(_("Loan amount must be greater than zero."))
+                raise ValidationError(_("يجب أن يكون مبلغ السلفة أو القرض أكبر من صفر."))
             if loan.installment_count <= 0:
-                raise ValidationError(_("Installment count must be greater than zero."))
+                raise ValidationError(_("يجب أن يكون عدد الأقساط أكبر من صفر."))
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -73,7 +76,7 @@ class QimamHrLoan(models.Model):
     def action_compute_installments(self):
         for loan in self:
             if loan.state not in ("draft", "submitted"):
-                raise UserError(_("Installments can only be recomputed before approval."))
+                raise UserError(_("لا يمكن إعادة احتساب الأقساط إلا قبل الاعتماد."))
             loan.line_ids.unlink()
             installment_amount = loan.amount / loan.installment_count
             current_date = loan.first_deduction_date
@@ -118,23 +121,23 @@ class QimamHrLoan(models.Model):
 
 class QimamHrLoanLine(models.Model):
     _name = "qimam.hr.loan.line"
-    _description = "Employee Loan Installment"
+    _description = "قسط سلفة أو قرض موظف"
     _order = "date, sequence, id"
 
-    loan_id = fields.Many2one("qimam.hr.loan", required=True, ondelete="cascade")
-    sequence = fields.Integer(default=1)
-    employee_id = fields.Many2one("hr.employee", required=True, ondelete="restrict")
-    date = fields.Date(required=True)
-    amount = fields.Monetary(required=True, currency_field="currency_id")
-    currency_id = fields.Many2one(related="loan_id.currency_id", readonly=True)
-    paid = fields.Boolean()
-    payslip_id = fields.Many2one("hr.payslip", string="Payslip")
+    loan_id = fields.Many2one("qimam.hr.loan", string="طلب السلفة أو القرض", required=True, ondelete="cascade")
+    sequence = fields.Integer(string="م", default=1)
+    employee_id = fields.Many2one("hr.employee", string="الموظف", required=True, ondelete="restrict")
+    date = fields.Date(string="تاريخ القسط", required=True)
+    amount = fields.Monetary(string="مبلغ القسط", required=True, currency_field="currency_id")
+    currency_id = fields.Many2one(string="العملة", related="loan_id.currency_id", readonly=True)
+    paid = fields.Boolean(string="مسدد")
+    payslip_id = fields.Many2one("hr.payslip", string="مسير الراتب")
 
 
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
-    loan_count = fields.Integer(compute="_compute_qimam_loan_count")
+    loan_count = fields.Integer(string="عدد السلف والقروض", compute="_compute_qimam_loan_count")
 
     def _compute_qimam_loan_count(self):
         grouped = self.env["qimam.hr.loan"].read_group(
@@ -150,7 +153,7 @@ class HrEmployee(models.Model):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": _("Loans and Advances"),
+            "name": _("السلف والقروض"),
             "res_model": "qimam.hr.loan",
             "view_mode": "list,form",
             "domain": [("employee_id", "=", self.id)],

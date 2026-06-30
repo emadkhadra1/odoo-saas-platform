@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
     <record id="document_type_iqama" model="qimam.hr.document.type">
-        <field name="name">Iqama</field>
+        <field name="name">الإقامة</field>
         <field name="code">IQAMA</field>
         <field name="sequence">10</field>
     </record>
     <record id="document_type_passport" model="qimam.hr.document.type">
-        <field name="name">Passport</field>
+        <field name="name">جواز السفر</field>
         <field name="code">PASSPORT</field>
         <field name="sequence">20</field>
     </record>
     <record id="document_type_contract" model="qimam.hr.document.type">
-        <field name="name">Employment Contract</field>
+        <field name="name">عقد العمل</field>
         <field name="code">CONTRACT</field>
         <field name="sequence">30</field>
     </record>
     <record id="document_type_medical_insurance" model="qimam.hr.document.type">
-        <field name="name">Medical Insurance Card</field>
+        <field name="name">بطاقة التأمين الطبي</field>
         <field name="code">MEDICAL</field>
         <field name="sequence">40</field>
     </record>

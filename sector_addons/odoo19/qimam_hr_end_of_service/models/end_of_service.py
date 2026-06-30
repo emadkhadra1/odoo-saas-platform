@@ -4,49 +4,52 @@ from odoo.exceptions import ValidationError
 
 class QimamHrEndOfService(models.Model):
     _name = "qimam.hr.end.service"
-    _description = "End of Service Settlement"
+    _description = "تسوية نهاية الخدمة"
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _order = "termination_date desc, id desc"
 
-    name = fields.Char(default="New", copy=False, readonly=True, tracking=True)
-    employee_id = fields.Many2one("hr.employee", required=True, tracking=True, ondelete="restrict")
+    name = fields.Char(string="رقم التسوية", default="New", copy=False, readonly=True, tracking=True)
+    employee_id = fields.Many2one("hr.employee", string="الموظف", required=True, tracking=True, ondelete="restrict")
     contract_id = fields.Many2one(
         "hr.contract",
+        string="العقد",
         domain="[('employee_id', '=', employee_id)]",
         tracking=True,
         ondelete="set null",
     )
-    department_id = fields.Many2one(related="employee_id.department_id", store=True, readonly=True)
-    job_id = fields.Many2one(related="employee_id.job_id", store=True, readonly=True)
-    date_start = fields.Date(string="Joining Date", required=True, tracking=True)
-    termination_date = fields.Date(required=True, default=fields.Date.context_today, tracking=True)
+    department_id = fields.Many2one(string="القسم", related="employee_id.department_id", store=True, readonly=True)
+    job_id = fields.Many2one(string="المسمى الوظيفي", related="employee_id.job_id", store=True, readonly=True)
+    date_start = fields.Date(string="تاريخ المباشرة", required=True, tracking=True)
+    termination_date = fields.Date(string="تاريخ انتهاء العلاقة", required=True, default=fields.Date.context_today, tracking=True)
     termination_type = fields.Selection(
         [
-            ("resignation", "Resignation"),
-            ("termination", "Company Termination"),
-            ("contract_end", "Contract End"),
+            ("resignation", "استقالة"),
+            ("termination", "إنهاء من الشركة"),
+            ("contract_end", "انتهاء عقد"),
         ],
         default="contract_end",
+        string="سبب نهاية الخدمة",
         required=True,
     )
-    wage = fields.Monetary(required=True, currency_field="currency_id")
-    currency_id = fields.Many2one("res.currency", default=lambda self: self.env.company.currency_id, required=True)
-    service_years = fields.Float(compute="_compute_settlement", store=True)
-    gratuity_amount = fields.Monetary(compute="_compute_settlement", store=True, currency_field="currency_id")
-    leave_balance_amount = fields.Monetary(currency_field="currency_id")
-    other_allowances = fields.Monetary(currency_field="currency_id")
-    deductions = fields.Monetary(currency_field="currency_id")
-    net_amount = fields.Monetary(compute="_compute_settlement", store=True, currency_field="currency_id")
-    notes = fields.Text()
+    wage = fields.Monetary(string="الأجر الأساسي", required=True, currency_field="currency_id")
+    currency_id = fields.Many2one("res.currency", string="العملة", default=lambda self: self.env.company.currency_id, required=True)
+    service_years = fields.Float(string="مدة الخدمة بالسنوات", compute="_compute_settlement", store=True)
+    gratuity_amount = fields.Monetary(string="مكافأة نهاية الخدمة", compute="_compute_settlement", store=True, currency_field="currency_id")
+    leave_balance_amount = fields.Monetary(string="رصيد الإجازات", currency_field="currency_id")
+    other_allowances = fields.Monetary(string="مستحقات أخرى", currency_field="currency_id")
+    deductions = fields.Monetary(string="استقطاعات", currency_field="currency_id")
+    net_amount = fields.Monetary(string="صافي المستحق", compute="_compute_settlement", store=True, currency_field="currency_id")
+    notes = fields.Text(string="ملاحظات")
     state = fields.Selection(
         [
-            ("draft", "Draft"),
-            ("confirmed", "Confirmed"),
-            ("approved", "Approved"),
-            ("paid", "Paid"),
-            ("cancelled", "Cancelled"),
+            ("draft", "مسودة"),
+            ("confirmed", "بانتظار الاعتماد"),
+            ("approved", "معتمدة"),
+            ("paid", "مصروفة"),
+            ("cancelled", "ملغاة"),
         ],
         default="draft",
+        string="الحالة",
         required=True,
         tracking=True,
     )
@@ -81,7 +84,7 @@ class QimamHrEndOfService(models.Model):
     def _check_dates(self):
         for settlement in self:
             if settlement.date_start and settlement.termination_date and settlement.termination_date < settlement.date_start:
-                raise ValidationError(_("Termination date cannot be before joining date."))
+                raise ValidationError(_("لا يمكن أن يكون تاريخ انتهاء العلاقة قبل تاريخ المباشرة."))
 
     @api.model_create_multi
     def create(self, vals_list):

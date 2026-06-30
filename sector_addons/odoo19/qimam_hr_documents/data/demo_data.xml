@@ -4,7 +4,7 @@
         <field name="employee_id" ref="qimam_hr_demo.employee_hr_manager"/>
         <field name="document_type_id" ref="document_type_iqama"/>
         <field name="document_number">2450000001</field>
-        <field name="issue_place">Riyadh</field>
+        <field name="issue_place">الرياض</field>
         <field name="issue_date">2026-01-01</field>
         <field name="expiry_date">2027-01-01</field>
         <field name="state">confirmed</field>
@@ -13,7 +13,7 @@
         <field name="employee_id" ref="qimam_hr_demo.employee_operations_supervisor"/>
         <field name="document_type_id" ref="document_type_passport"/>
         <field name="document_number">P90000123</field>
-        <field name="issue_place">Jeddah</field>
+        <field name="issue_place">جدة</field>
         <field name="issue_date">2023-05-01</field>
         <field name="expiry_date">2026-07-20</field>
         <field name="state">confirmed</field>

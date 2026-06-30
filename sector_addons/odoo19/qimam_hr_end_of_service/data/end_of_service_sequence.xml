@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="seq_qimam_hr_end_service" model="ir.sequence">
-        <field name="name">Qimam End of Service Settlement</field>
+        <field name="name">قمم - تسوية نهاية الخدمة</field>
         <field name="code">qimam.hr.end.service</field>
         <field name="prefix">EOS/%(year)s/</field>
         <field name="padding">5</field>

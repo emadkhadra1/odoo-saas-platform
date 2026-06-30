@@ -1,8 +1,8 @@
 {
-    "name": "Qimam HR End of Service",
+    "name": "قمم - نهاية الخدمة",
     "version": "19.0.1.0.0",
     "category": "Human Resources",
-    "summary": "Saudi end-of-service settlement workflow for HR demos.",
+    "summary": "دورة تسوية نهاية الخدمة وحساب المستحقات للموظفين في السوق السعودي.",
     "author": "Qimam Technical Solutions",
     "license": "LGPL-3",
     "depends": ["hr", "hr_contract", "mail"],

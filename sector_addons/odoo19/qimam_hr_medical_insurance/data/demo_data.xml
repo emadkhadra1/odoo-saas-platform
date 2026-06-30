@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
     <record id="demo_medical_policy_2026" model="qimam.hr.medical.policy">
-        <field name="name">Qimam Medical Policy 2026</field>
-        <field name="provider">Bupa Arabia</field>
+        <field name="name">وثيقة قمم للتأمين الطبي 2026</field>
+        <field name="provider">بوبا العربية</field>
         <field name="policy_number">MED-2026-001</field>
         <field name="date_start">2026-01-01</field>
         <field name="date_end">2026-12-31</field>

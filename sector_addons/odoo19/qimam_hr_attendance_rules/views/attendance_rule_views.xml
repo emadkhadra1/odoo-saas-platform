@@ -18,7 +18,7 @@
         <field name="name">qimam.attendance.policy.form</field>
         <field name="model">qimam.attendance.policy</field>
         <field name="arch" type="xml">
-            <form string="Attendance Policy">
+            <form string="سياسة دوام">
                 <sheet>
                     <div class="oe_title"><h1><field name="name"/></h1></div>
                     <group>
@@ -66,18 +66,18 @@
     </record>
 
     <record id="action_qimam_attendance_policy" model="ir.actions.act_window">
-        <field name="name">Attendance Policies</field>
+        <field name="name">سياسات الدوام</field>
         <field name="res_model">qimam.attendance.policy</field>
         <field name="view_mode">list,form</field>
     </record>
 
     <record id="action_qimam_attendance_policy_line" model="ir.actions.act_window">
-        <field name="name">Attendance Rules</field>
+        <field name="name">قواعد الحضور والانصراف</field>
         <field name="res_model">qimam.attendance.policy.line</field>
         <field name="view_mode">list</field>
     </record>
 
-    <menuitem id="menu_qimam_attendance_rules_root" name="Attendance Rules" parent="hr_attendance.menu_hr_attendance_root" sequence="55"/>
-    <menuitem id="menu_qimam_attendance_policies" name="Attendance Policies" parent="menu_qimam_attendance_rules_root" action="action_qimam_attendance_policy" sequence="10"/>
-    <menuitem id="menu_qimam_attendance_rules" name="Rule Lines" parent="menu_qimam_attendance_rules_root" action="action_qimam_attendance_policy_line" sequence="20"/>
+    <menuitem id="menu_qimam_attendance_rules_root" name="قواعد الحضور والانصراف" parent="hr_attendance.menu_hr_attendance_root" sequence="55"/>
+    <menuitem id="menu_qimam_attendance_policies" name="سياسات الدوام" parent="menu_qimam_attendance_rules_root" action="action_qimam_attendance_policy" sequence="10"/>
+    <menuitem id="menu_qimam_attendance_rules" name="بنود القواعد" parent="menu_qimam_attendance_rules_root" action="action_qimam_attendance_policy_line" sequence="20"/>
 </odoo>

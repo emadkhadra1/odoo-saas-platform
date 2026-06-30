@@ -11,7 +11,7 @@
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <field name="member_count"/>
-                <field name="annual_premium" sum="Total"/>
+                <field name="annual_premium" sum="الإجمالي"/>
                 <field name="state"/>
             </list>
         </field>
@@ -21,11 +21,11 @@
         <field name="name">qimam.hr.medical.policy.form</field>
         <field name="model">qimam.hr.medical.policy</field>
         <field name="arch" type="xml">
-            <form string="Medical Insurance Policy">
+            <form string="وثيقة تأمين طبي">
                 <header>
-                    <button name="action_activate" string="Activate" type="object" class="oe_highlight" invisible="state != 'draft'"/>
-                    <button name="action_expire" string="Expire" type="object" invisible="state != 'active'"/>
-                    <button name="action_cancel" string="Cancel" type="object" invisible="state not in ('draft', 'active')"/>
+                    <button name="action_activate" string="تفعيل" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_expire" string="إنهاء" type="object" invisible="state != 'active'"/>
+                    <button name="action_cancel" string="إلغاء" type="object" invisible="state not in ('draft', 'active')"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,active,expired"/>
                 </header>
                 <sheet>
@@ -68,7 +68,7 @@
                 <field name="insurance_class"/>
                 <field name="membership_number"/>
                 <field name="date_end"/>
-                <field name="premium_amount" sum="Total"/>
+                <field name="premium_amount" sum="الإجمالي"/>
                 <field name="state"/>
             </list>
         </field>
@@ -78,11 +78,11 @@
         <field name="name">qimam.hr.medical.member.form</field>
         <field name="model">qimam.hr.medical.member</field>
         <field name="arch" type="xml">
-            <form string="Employee Medical Insurance">
+            <form string="تأمين طبي للموظف">
                 <header>
-                    <button name="action_activate" string="Activate" type="object" invisible="state != 'suspended'"/>
-                    <button name="action_suspend" string="Suspend" type="object" invisible="state != 'active'"/>
-                    <button name="action_expire" string="Expire" type="object" invisible="state == 'expired'"/>
+                    <button name="action_activate" string="تفعيل" type="object" invisible="state != 'suspended'"/>
+                    <button name="action_suspend" string="إيقاف" type="object" invisible="state != 'active'"/>
+                    <button name="action_expire" string="إنهاء" type="object" invisible="state == 'expired'"/>
                     <field name="state" widget="statusbar" statusbar_visible="active,suspended,expired"/>
                 </header>
                 <sheet>
@@ -101,7 +101,7 @@
                         </group>
                     </group>
                     <notebook>
-                        <page string="Notes">
+                        <page string="ملاحظات">
                             <field name="notes"/>
                         </page>
                     </notebook>
@@ -112,18 +112,18 @@
     </record>
 
     <record id="action_qimam_hr_medical_policy" model="ir.actions.act_window">
-        <field name="name">Medical Policies</field>
+        <field name="name">وثائق التأمين الطبي</field>
         <field name="res_model">qimam.hr.medical.policy</field>
         <field name="view_mode">list,form</field>
     </record>
 
     <record id="action_qimam_hr_medical_member" model="ir.actions.act_window">
-        <field name="name">Employee Medical Insurance</field>
+        <field name="name">تأمين الموظفين الطبي</field>
         <field name="res_model">qimam.hr.medical.member</field>
         <field name="view_mode">list,form</field>
     </record>
 
-    <menuitem id="menu_qimam_hr_medical_root" name="Medical Insurance" parent="hr.menu_hr_root" sequence="44"/>
-    <menuitem id="menu_qimam_hr_medical_member" name="Covered Employees" parent="menu_qimam_hr_medical_root" action="action_qimam_hr_medical_member" sequence="10"/>
-    <menuitem id="menu_qimam_hr_medical_policy" name="Policies" parent="menu_qimam_hr_medical_root" action="action_qimam_hr_medical_policy" sequence="20"/>
+    <menuitem id="menu_qimam_hr_medical_root" name="التأمين الطبي" parent="hr.menu_hr_root" sequence="44"/>
+    <menuitem id="menu_qimam_hr_medical_member" name="الموظفون المؤمن عليهم" parent="menu_qimam_hr_medical_root" action="action_qimam_hr_medical_member" sequence="10"/>
+    <menuitem id="menu_qimam_hr_medical_policy" name="وثائق التأمين" parent="menu_qimam_hr_medical_root" action="action_qimam_hr_medical_policy" sequence="20"/>
 </odoo>

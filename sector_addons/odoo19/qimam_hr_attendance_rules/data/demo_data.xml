@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
     <record id="demo_attendance_policy_saudi_standard" model="qimam.attendance.policy">
-        <field name="name">Saudi Standard Attendance Policy</field>
+        <field name="name">سياسة الدوام السعودية القياسية</field>
         <field name="grace_minutes">15</field>
         <field name="monthly_permission_minutes">120</field>
         <field name="overtime_start_after_minutes">30</field>

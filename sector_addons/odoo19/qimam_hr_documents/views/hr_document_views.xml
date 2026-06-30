@@ -53,12 +53,12 @@
         <field name="name">qimam.hr.document.form</field>
         <field name="model">qimam.hr.document</field>
         <field name="arch" type="xml">
-            <form string="Employee Document">
+            <form string="وثيقة موظف">
                 <header>
-                    <button name="action_confirm" string="Confirm" type="object" class="oe_highlight" invisible="state != 'draft'"/>
-                    <button name="action_mark_expired" string="Mark Expired" type="object" invisible="state != 'confirmed'"/>
-                    <button name="action_cancel" string="Cancel" type="object" invisible="state not in ('draft', 'confirmed')"/>
-                    <button name="action_reset_to_draft" string="Reset to Draft" type="object" invisible="state not in ('expired', 'cancelled')"/>
+                    <button name="action_confirm" string="تأكيد" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_mark_expired" string="تسجيل كمنتهية" type="object" invisible="state != 'confirmed'"/>
+                    <button name="action_cancel" string="إلغاء" type="object" invisible="state not in ('draft', 'confirmed')"/>
+                    <button name="action_reset_to_draft" string="إرجاع إلى مسودة" type="object" invisible="state not in ('expired', 'cancelled')"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,expired"/>
                 </header>
                 <sheet>
@@ -83,7 +83,7 @@
                         <field name="attachment_ids" widget="many2many_binary"/>
                     </group>
                     <notebook>
-                        <page string="Notes">
+                        <page string="ملاحظات">
                             <field name="notes"/>
                         </page>
                     </notebook>
@@ -101,25 +101,25 @@
                 <field name="name"/>
                 <field name="employee_id"/>
                 <field name="document_type_id"/>
-                <filter name="expiring" string="Expiring Soon" domain="[('expiry_status','=','expiring')]"/>
-                <filter name="expired" string="Expired" domain="[('expiry_status','=','expired')]"/>
+                <filter name="expiring" string="قريبة الانتهاء" domain="[('expiry_status','=','expiring')]"/>
+                <filter name="expired" string="منتهية" domain="[('expiry_status','=','expired')]"/>
             </search>
         </field>
     </record>
 
     <record id="action_qimam_hr_document" model="ir.actions.act_window">
-        <field name="name">Employee Documents</field>
+        <field name="name">وثائق الموظفين</field>
         <field name="res_model">qimam.hr.document</field>
         <field name="view_mode">list,form</field>
     </record>
 
     <record id="action_qimam_hr_document_type" model="ir.actions.act_window">
-        <field name="name">Document Types</field>
+        <field name="name">أنواع الوثائق</field>
         <field name="res_model">qimam.hr.document.type</field>
         <field name="view_mode">list,form</field>
     </record>
 
-    <menuitem id="menu_qimam_hr_document_root" name="Employee Documents" parent="hr.menu_hr_root" sequence="43"/>
-    <menuitem id="menu_qimam_hr_document" name="Documents" parent="menu_qimam_hr_document_root" action="action_qimam_hr_document" sequence="10"/>
-    <menuitem id="menu_qimam_hr_document_type" name="Document Types" parent="menu_qimam_hr_document_root" action="action_qimam_hr_document_type" sequence="20"/>
+    <menuitem id="menu_qimam_hr_document_root" name="وثائق الموظفين" parent="hr.menu_hr_root" sequence="43"/>
+    <menuitem id="menu_qimam_hr_document" name="الوثائق" parent="menu_qimam_hr_document_root" action="action_qimam_hr_document" sequence="10"/>
+    <menuitem id="menu_qimam_hr_document_type" name="أنواع الوثائق" parent="menu_qimam_hr_document_root" action="action_qimam_hr_document_type" sequence="20"/>
 </odoo>

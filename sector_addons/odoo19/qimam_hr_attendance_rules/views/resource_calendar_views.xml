@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="resource.resource_calendar_form"/>
         <field name="arch" type="xml">
             <xpath expr="//sheet/group" position="inside">
-                <group string="Attendance Policy">
+                <group string="سياسة الحضور والانصراف">
                     <field name="qimam_attendance_policy_id"/>
                 </group>
             </xpath>

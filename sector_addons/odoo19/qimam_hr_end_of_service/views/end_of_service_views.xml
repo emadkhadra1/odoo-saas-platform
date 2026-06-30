@@ -10,7 +10,7 @@
                 <field name="termination_type"/>
                 <field name="termination_date"/>
                 <field name="service_years"/>
-                <field name="net_amount" sum="Total"/>
+                <field name="net_amount" sum="الإجمالي"/>
                 <field name="state"/>
             </list>
         </field>
@@ -20,13 +20,13 @@
         <field name="name">qimam.hr.end.service.form</field>
         <field name="model">qimam.hr.end.service</field>
         <field name="arch" type="xml">
-            <form string="End of Service Settlement">
+            <form string="تسوية نهاية الخدمة">
                 <header>
-                    <button name="action_confirm" string="Confirm" type="object" class="oe_highlight" invisible="state != 'draft'"/>
-                    <button name="action_approve" string="Approve" type="object" class="oe_highlight" invisible="state != 'confirmed'"/>
-                    <button name="action_mark_paid" string="Mark Paid" type="object" class="oe_highlight" invisible="state != 'approved'"/>
-                    <button name="action_cancel" string="Cancel" type="object" invisible="state not in ('draft', 'confirmed')"/>
-                    <button name="action_reset_to_draft" string="Reset to Draft" type="object" invisible="state != 'cancelled'"/>
+                    <button name="action_confirm" string="تأكيد" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_approve" string="اعتماد" type="object" class="oe_highlight" invisible="state != 'confirmed'"/>
+                    <button name="action_mark_paid" string="تسجيل الصرف" type="object" class="oe_highlight" invisible="state != 'approved'"/>
+                    <button name="action_cancel" string="إلغاء" type="object" invisible="state not in ('draft', 'confirmed')"/>
+                    <button name="action_reset_to_draft" string="إرجاع إلى مسودة" type="object" invisible="state != 'cancelled'"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,approved,paid"/>
                 </header>
                 <sheet>
@@ -48,7 +48,7 @@
                             <field name="service_years"/>
                         </group>
                     </group>
-                    <group string="Settlement Amounts">
+                    <group string="مبالغ التسوية">
                         <group>
                             <field name="gratuity_amount"/>
                             <field name="leave_balance_amount" readonly="state != 'draft'"/>
@@ -60,7 +60,7 @@
                         </group>
                     </group>
                     <notebook>
-                        <page string="Notes">
+                        <page string="ملاحظات">
                             <field name="notes"/>
                         </page>
                     </notebook>
@@ -71,10 +71,10 @@
     </record>
 
     <record id="action_qimam_hr_end_service" model="ir.actions.act_window">
-        <field name="name">End of Service</field>
+        <field name="name">نهاية الخدمة</field>
         <field name="res_model">qimam.hr.end.service</field>
         <field name="view_mode">list,form</field>
     </record>
 
-    <menuitem id="menu_qimam_hr_end_service" name="End of Service" parent="hr.menu_hr_root" action="action_qimam_hr_end_service" sequence="42"/>
+    <menuitem id="menu_qimam_hr_end_service" name="نهاية الخدمة" parent="hr.menu_hr_root" action="action_qimam_hr_end_service" sequence="42"/>
 </odoo>

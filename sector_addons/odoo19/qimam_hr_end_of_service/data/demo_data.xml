@@ -8,7 +8,7 @@
         <field name="termination_type">contract_end</field>
         <field name="wage">9800.0</field>
         <field name="leave_balance_amount">1200.0</field>
-        <field name="notes">Demo final settlement for HR workflow testing.</field>
+        <field name="notes">تسوية نهاية خدمة تجريبية لاختبار دورة الموارد البشرية.</field>
         <field name="state">confirmed</field>
     </record>
 </odoo>

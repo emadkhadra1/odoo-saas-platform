@@ -1,8 +1,8 @@
 {
-    "name": "Qimam HR Loans and Advances",
+    "name": "قمم - السلف والقروض",
     "version": "19.0.1.0.0",
     "category": "Human Resources",
-    "summary": "Employee loan and salary advance requests for Saudi HR operations.",
+    "summary": "طلبات السلف والقروض واستقطاع الأقساط للموظفين وفق احتياج السوق السعودي.",
     "author": "Qimam Technical Solutions",
     "license": "LGPL-3",
     "depends": ["hr", "hr_contract", "hr_payroll", "mail"],

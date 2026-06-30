@@ -4,54 +4,56 @@ from odoo.exceptions import ValidationError
 
 class QimamHrDocumentType(models.Model):
     _name = "qimam.hr.document.type"
-    _description = "Employee Document Type"
+    _description = "نوع وثيقة الموظف"
     _order = "sequence, name"
 
-    name = fields.Char(required=True, translate=True)
-    code = fields.Char(required=True)
-    sequence = fields.Integer(default=10)
-    active = fields.Boolean(default=True)
-    requires_expiry = fields.Boolean(default=True)
+    name = fields.Char(string="نوع الوثيقة", required=True, translate=True)
+    code = fields.Char(string="الكود", required=True)
+    sequence = fields.Integer(string="الترتيب", default=10)
+    active = fields.Boolean(string="نشط", default=True)
+    requires_expiry = fields.Boolean(string="لها تاريخ انتهاء", default=True)
 
     _sql_constraints = [
-        ("code_unique", "unique(code)", "Document type code must be unique."),
+        ("code_unique", "unique(code)", "يجب أن يكون كود نوع الوثيقة غير مكرر."),
     ]
 
 
 class QimamHrDocument(models.Model):
     _name = "qimam.hr.document"
-    _description = "Employee Document"
+    _description = "وثيقة موظف"
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _order = "expiry_date, id desc"
     _rec_name = "name"
 
-    name = fields.Char(compute="_compute_name", store=True)
-    employee_id = fields.Many2one("hr.employee", required=True, tracking=True, ondelete="cascade")
-    document_type_id = fields.Many2one("qimam.hr.document.type", required=True, tracking=True)
-    document_number = fields.Char(tracking=True)
-    issue_place = fields.Char()
-    issue_date = fields.Date(tracking=True)
-    expiry_date = fields.Date(tracking=True)
-    days_to_expire = fields.Integer(compute="_compute_expiry", store=True)
+    name = fields.Char(string="اسم الوثيقة", compute="_compute_name", store=True)
+    employee_id = fields.Many2one("hr.employee", string="الموظف", required=True, tracking=True, ondelete="cascade")
+    document_type_id = fields.Many2one("qimam.hr.document.type", string="نوع الوثيقة", required=True, tracking=True)
+    document_number = fields.Char(string="رقم الوثيقة", tracking=True)
+    issue_place = fields.Char(string="مكان الإصدار")
+    issue_date = fields.Date(string="تاريخ الإصدار", tracking=True)
+    expiry_date = fields.Date(string="تاريخ الانتهاء", tracking=True)
+    days_to_expire = fields.Integer(string="الأيام المتبقية", compute="_compute_expiry", store=True)
     expiry_status = fields.Selection(
         [
-            ("valid", "Valid"),
-            ("expiring", "Expiring Soon"),
-            ("expired", "Expired"),
-            ("no_expiry", "No Expiry"),
+            ("valid", "سارية"),
+            ("expiring", "قريبة الانتهاء"),
+            ("expired", "منتهية"),
+            ("no_expiry", "بدون انتهاء"),
         ],
+        string="حالة الانتهاء",
         compute="_compute_expiry",
         store=True,
     )
-    attachment_ids = fields.Many2many("ir.attachment", string="Attachments")
-    notes = fields.Text()
+    attachment_ids = fields.Many2many("ir.attachment", string="المرفقات")
+    notes = fields.Text(string="ملاحظات")
     state = fields.Selection(
         [
-            ("draft", "Draft"),
-            ("confirmed", "Confirmed"),
-            ("expired", "Expired"),
-            ("cancelled", "Cancelled"),
+            ("draft", "مسودة"),
+            ("confirmed", "مؤكدة"),
+            ("expired", "منتهية"),
+            ("cancelled", "ملغاة"),
         ],
+        string="الحالة",
         default="draft",
         tracking=True,
     )
@@ -62,7 +64,7 @@ class QimamHrDocument(models.Model):
             parts = [document.employee_id.name or "", document.document_type_id.name or ""]
             if document.document_number:
                 parts.append(document.document_number)
-            document.name = " - ".join([part for part in parts if part]) or _("Employee Document")
+            document.name = " - ".join([part for part in parts if part]) or _("وثيقة موظف")
 
     @api.depends("expiry_date", "document_type_id.requires_expiry")
     def _compute_expiry(self):
@@ -85,7 +87,7 @@ class QimamHrDocument(models.Model):
     def _check_dates(self):
         for document in self:
             if document.issue_date and document.expiry_date and document.expiry_date < document.issue_date:
-                raise ValidationError(_("Expiry date cannot be before issue date."))
+                raise ValidationError(_("لا يمكن أن يكون تاريخ الانتهاء قبل تاريخ الإصدار."))
 
     def action_confirm(self):
         self.write({"state": "confirmed"})
@@ -103,7 +105,7 @@ class QimamHrDocument(models.Model):
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
-    qimam_document_count = fields.Integer(compute="_compute_qimam_document_count")
+    qimam_document_count = fields.Integer(string="عدد الوثائق", compute="_compute_qimam_document_count")
 
     def _compute_qimam_document_count(self):
         grouped = self.env["qimam.hr.document"].read_group(
@@ -119,7 +121,7 @@ class HrEmployee(models.Model):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": _("Employee Documents"),
+            "name": _("وثائق الموظفين"),
             "res_model": "qimam.hr.document",
             "view_mode": "list,form",
             "domain": [("employee_id", "=", self.id)],
