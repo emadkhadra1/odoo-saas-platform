@@ -53,6 +53,7 @@ class AccountPayment(models.Model):
 
     batch_payment_id = fields.Many2one("account.batch.payment", string="Batch Payment")
     batch_name = fields.Char("Batch Transfer Name")
+    ref = fields.Char(string="Reference")
     payment_date = fields.Date(string="Payment Date")
     due_date = fields.Date(string="Due Date")
     invoice_date_due = fields.Date(string="Invoice Due Date")
