@@ -25,7 +25,7 @@
             <field name="name">Sales Team</field>
         </record>
         <record model="ir.ui.menu" id="sale.sales_team_config">
-            <field name="groups_id" eval="[(6,0,[ref('real_estate_security.group_sales_team_menu')])]"/>
+            <field name="group_ids" eval="[(6,0,[ref('real_estate_security.group_sales_team_menu')])]"/>
             <field name="parent_id" ref="sale.sale_menu_root"/>
             <field name="sequence">10</field>
         </record>
