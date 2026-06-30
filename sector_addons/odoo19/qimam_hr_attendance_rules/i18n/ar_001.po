@@ -4,41 +4,54 @@ msgstr ""
 "Language: ar_001\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
+#. module: qimam_hr_attendance_rules
 msgid "Attendance Rules"
 msgstr "قواعد الحضور والانصراف"
 
+#. module: qimam_hr_attendance_rules
 msgid "Attendance Policies"
 msgstr "سياسات الدوام"
 
+#. module: qimam_hr_attendance_rules
 msgid "Attendance Policy"
 msgstr "سياسة دوام"
 
+#. module: qimam_hr_attendance_rules
 msgid "Rule Lines"
 msgstr "بنود القواعد"
 
+#. module: qimam_hr_attendance_rules
 msgid "Late Check In"
 msgstr "تأخير حضور"
 
+#. module: qimam_hr_attendance_rules
 msgid "Early Check Out"
 msgstr "انصراف مبكر"
 
+#. module: qimam_hr_attendance_rules
 msgid "Missing Check Out"
 msgstr "عدم تسجيل انصراف"
 
+#. module: qimam_hr_attendance_rules
 msgid "Absence"
 msgstr "غياب"
 
+#. module: qimam_hr_attendance_rules
 msgid "Overtime"
 msgstr "عمل إضافي"
 
+#. module: qimam_hr_attendance_rules
 msgid "Grace Minutes"
 msgstr "دقائق السماح"
 
+#. module: qimam_hr_attendance_rules
 msgid "Monthly Permission Minutes"
 msgstr "دقائق الاستئذان الشهرية"
 
+#. module: qimam_hr_attendance_rules
 msgid "Overtime Start After Minutes"
 msgstr "يبدأ الإضافي بعد دقائق"
 
+#. module: qimam_hr_attendance_rules
 msgid "To minutes cannot be less than from minutes."
 msgstr "لا يمكن أن تكون دقائق النهاية أقل من دقائق البداية."

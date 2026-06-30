@@ -4,29 +4,38 @@ msgstr ""
 "Language: ar_001\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
+#. module: qimam_hr_medical_insurance
 msgid "Medical Insurance"
 msgstr "التأمين الطبي"
 
+#. module: qimam_hr_medical_insurance
 msgid "Medical Policies"
 msgstr "وثائق التأمين الطبي"
 
+#. module: qimam_hr_medical_insurance
 msgid "Covered Employees"
 msgstr "الموظفون المؤمن عليهم"
 
+#. module: qimam_hr_medical_insurance
 msgid "Medical Insurance Policy"
 msgstr "وثيقة تأمين طبي"
 
+#. module: qimam_hr_medical_insurance
 msgid "Employee Medical Insurance"
 msgstr "تأمين طبي للموظف"
 
+#. module: qimam_hr_medical_insurance
 msgid "Provider"
 msgstr "شركة التأمين"
 
+#. module: qimam_hr_medical_insurance
 msgid "Policy Number"
 msgstr "رقم الوثيقة"
 
+#. module: qimam_hr_medical_insurance
 msgid "Insurance"
 msgstr "التأمين"
 
+#. module: qimam_hr_medical_insurance
 msgid "Policy end date cannot be before start date."
 msgstr "لا يمكن أن يكون تاريخ نهاية الوثيقة قبل تاريخ بدايتها."

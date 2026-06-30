@@ -4,47 +4,62 @@ msgstr ""
 "Language: ar_001\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
+#. module: qimam_hr_documents
 msgid "Employee Documents"
 msgstr "وثائق الموظفين"
 
+#. module: qimam_hr_documents
 msgid "Documents"
 msgstr "الوثائق"
 
+#. module: qimam_hr_documents
 msgid "Document Types"
 msgstr "أنواع الوثائق"
 
+#. module: qimam_hr_documents
 msgid "Employee Document"
 msgstr "وثيقة موظف"
 
+#. module: qimam_hr_documents
 msgid "Employee Document Type"
 msgstr "نوع وثيقة موظف"
 
+#. module: qimam_hr_documents
 msgid "Iqama"
 msgstr "الإقامة"
 
+#. module: qimam_hr_documents
 msgid "Passport"
 msgstr "جواز السفر"
 
+#. module: qimam_hr_documents
 msgid "Employment Contract"
 msgstr "عقد العمل"
 
+#. module: qimam_hr_documents
 msgid "Medical Insurance Card"
 msgstr "بطاقة التأمين الطبي"
 
+#. module: qimam_hr_documents
 msgid "Expiring Soon"
 msgstr "قريبة الانتهاء"
 
+#. module: qimam_hr_documents
 msgid "Expired"
 msgstr "منتهية"
 
+#. module: qimam_hr_documents
 msgid "Valid"
 msgstr "سارية"
 
+#. module: qimam_hr_documents
 msgid "No Expiry"
 msgstr "بدون انتهاء"
 
+#. module: qimam_hr_documents
 msgid "Mark Expired"
 msgstr "تسجيل كمنتهية"
 
+#. module: qimam_hr_documents
 msgid "Expiry date cannot be before issue date."
 msgstr "لا يمكن أن يكون تاريخ الانتهاء قبل تاريخ الإصدار."

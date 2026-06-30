@@ -4,32 +4,42 @@ msgstr ""
 "Language: ar_001\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
+#. module: qimam_hr_end_of_service
 msgid "End of Service"
 msgstr "نهاية الخدمة"
 
+#. module: qimam_hr_end_of_service
 msgid "End of Service Settlement"
 msgstr "تسوية نهاية الخدمة"
 
+#. module: qimam_hr_end_of_service
 msgid "Joining Date"
 msgstr "تاريخ المباشرة"
 
+#. module: qimam_hr_end_of_service
 msgid "Termination Date"
 msgstr "تاريخ انتهاء الخدمة"
 
+#. module: qimam_hr_end_of_service
 msgid "Resignation"
 msgstr "استقالة"
 
+#. module: qimam_hr_end_of_service
 msgid "Company Termination"
 msgstr "إنهاء من الشركة"
 
+#. module: qimam_hr_end_of_service
 msgid "Contract End"
 msgstr "انتهاء عقد"
 
+#. module: qimam_hr_end_of_service
 msgid "Settlement Amounts"
 msgstr "مبالغ التسوية"
 
+#. module: qimam_hr_end_of_service
 msgid "Mark Paid"
 msgstr "تسجيل الصرف"
 
+#. module: qimam_hr_end_of_service
 msgid "Termination date cannot be before joining date."
 msgstr "لا يمكن أن يكون تاريخ انتهاء الخدمة قبل تاريخ المباشرة."
