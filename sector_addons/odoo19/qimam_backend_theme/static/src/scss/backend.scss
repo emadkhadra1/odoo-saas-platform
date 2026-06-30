@@ -244,7 +244,8 @@ body.o_web_client {
 
 @media (min-width: 992px) {
     .o_main_navbar .o_menu_apps .dropdown-menu.show,
-    .o_main_navbar .o_menu_apps_menu.show {
+    .o_main_navbar .o_menu_apps_menu.show,
+    .qimam-app-menu-panel.qimam-app-menu-panel-open {
         position: fixed !important;
         inset: 64px 0 0 0 !important;
         width: 100vw !important;
@@ -267,7 +268,8 @@ body.o_web_client {
     }
 
     .o_main_navbar .o_menu_apps .dropdown-menu.show::before,
-    .o_main_navbar .o_menu_apps_menu.show::before {
+    .o_main_navbar .o_menu_apps_menu.show::before,
+    .qimam-app-menu-panel.qimam-app-menu-panel-open::before {
         content: "Qimam Solutions Cloud";
         grid-column: 1 / -1;
         color: #fff;
@@ -277,7 +279,8 @@ body.o_web_client {
     }
 
     .o_main_navbar .o_menu_apps .dropdown-menu.show::after,
-    .o_main_navbar .o_menu_apps_menu.show::after {
+    .o_main_navbar .o_menu_apps_menu.show::after,
+    .qimam-app-menu-panel.qimam-app-menu-panel-open::after {
         content: "اختر النظام أو التطبيق الذي تريد العمل عليه";
         grid-column: 1 / -1;
         color: rgba(226, 241, 247, 0.78);
@@ -288,7 +291,9 @@ body.o_web_client {
 
     .o_main_navbar .o_menu_apps .dropdown-menu.show .dropdown-item,
     .o_main_navbar .o_menu_apps_menu.show .dropdown-item,
-    .o_main_navbar .o_menu_apps .qimam-app-tile {
+    .o_main_navbar .o_menu_apps .qimam-app-tile,
+    .qimam-app-menu-panel.qimam-app-menu-panel-open .dropdown-item,
+    .qimam-app-menu-panel.qimam-app-menu-panel-open .qimam-app-tile {
         position: relative;
         min-height: 132px;
         padding: 18px 12px 14px !important;
@@ -311,7 +316,9 @@ body.o_web_client {
 
     .o_main_navbar .o_menu_apps .dropdown-menu.show .dropdown-item:hover,
     .o_main_navbar .o_menu_apps_menu.show .dropdown-item:hover,
-    .o_main_navbar .o_menu_apps .qimam-app-tile:hover {
+    .o_main_navbar .o_menu_apps .qimam-app-tile:hover,
+    .qimam-app-menu-panel.qimam-app-menu-panel-open .dropdown-item:hover,
+    .qimam-app-menu-panel.qimam-app-menu-panel-open .qimam-app-tile:hover {
         transform: translateY(-3px);
         border-color: rgba(47, 211, 230, 0.76);
         background: rgba(47, 211, 230, 0.16) !important;
