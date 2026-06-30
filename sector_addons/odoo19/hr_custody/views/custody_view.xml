@@ -109,10 +109,6 @@
                 <field name="employee"/>
                 <filter name="approved" string="Approved" domain="[('state','=','approved')]"/>
                 <filter name="returned" string="Returned" domain="[('state','=','returned')]"/>
-                <group string="Group By">
-                    <filter name="group_employee" string="Employee" context="{'group_by': 'employee'}"/>
-                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
-                </group>
             </search>
         </field>
     </record>
