@@ -325,20 +325,20 @@ body.o_web_client {
     }
 
     .qimam-app-icon {
+        --qimam-icon-bg: linear-gradient(145deg, #2fd3e6, #12a9c3);
+        --qimam-icon-shadow: rgba(18, 169, 195, 0.28);
         width: 58px;
         height: 58px;
         border-radius: 18px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        background:
-            linear-gradient(145deg, rgba(47, 211, 230, 0.95), rgba(18, 169, 195, 0.74)),
-            #12a9c3;
+        background: var(--qimam-icon-bg);
         color: #071827;
         font-size: 17px;
         font-weight: 950;
         letter-spacing: 0;
-        box-shadow: 0 12px 26px rgba(18, 169, 195, 0.28);
+        box-shadow: 0 12px 26px var(--qimam-icon-shadow);
     }
 
     .qimam-app-title {
@@ -451,17 +451,19 @@ body.o_web_client {
     }
 
     .qimam-menu-icon {
+        --qimam-icon-bg: linear-gradient(145deg, #2fd3e6, #12a9c3);
+        --qimam-icon-shadow: rgba(18, 169, 195, 0.24);
         width: 46px;
         height: 46px;
         border-radius: 15px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(145deg, rgba(47, 211, 230, 0.96), rgba(18, 169, 195, 0.76));
+        background: var(--qimam-icon-bg);
         color: #071827;
         font-size: 14px;
         font-weight: 950;
-        box-shadow: 0 10px 22px rgba(18, 169, 195, 0.24);
+        box-shadow: 0 10px 22px var(--qimam-icon-shadow);
     }
 
     .qimam-menu-title {
@@ -476,6 +478,100 @@ body.o_web_client {
         position: relative;
         overflow: hidden;
         color: transparent;
+    }
+
+    .qimam-app-icon[data-qimam-icon="CON"],
+    .qimam-menu-icon[data-qimam-icon="CON"],
+    .qimam-app-icon[data-qimam-icon="PRJ"],
+    .qimam-menu-icon[data-qimam-icon="PRJ"] {
+        --qimam-icon-bg: linear-gradient(145deg, #22d3ee, #2563eb);
+        --qimam-icon-shadow: rgba(37, 99, 235, 0.34);
+    }
+
+    .qimam-app-icon[data-qimam-icon="FIN"],
+    .qimam-menu-icon[data-qimam-icon="FIN"] {
+        --qimam-icon-bg: linear-gradient(145deg, #fbbf24, #f97316);
+        --qimam-icon-shadow: rgba(249, 115, 22, 0.34);
+    }
+
+    .qimam-app-icon[data-qimam-icon="SAL"],
+    .qimam-menu-icon[data-qimam-icon="SAL"] {
+        --qimam-icon-bg: linear-gradient(145deg, #fb7185, #db2777);
+        --qimam-icon-shadow: rgba(219, 39, 119, 0.32);
+    }
+
+    .qimam-app-icon[data-qimam-icon="DB"],
+    .qimam-menu-icon[data-qimam-icon="DB"],
+    .qimam-app-icon[data-qimam-icon="CAL"],
+    .qimam-menu-icon[data-qimam-icon="CAL"] {
+        --qimam-icon-bg: linear-gradient(145deg, #60a5fa, #7c3aed);
+        --qimam-icon-shadow: rgba(124, 58, 237, 0.32);
+    }
+
+    .qimam-app-icon[data-qimam-icon="DS"],
+    .qimam-menu-icon[data-qimam-icon="DS"],
+    .qimam-app-icon[data-qimam-icon="CNT"],
+    .qimam-menu-icon[data-qimam-icon="CNT"] {
+        --qimam-icon-bg: linear-gradient(145deg, #a78bfa, #ec4899);
+        --qimam-icon-shadow: rgba(236, 72, 153, 0.30);
+    }
+
+    .qimam-app-icon[data-qimam-icon="TD"],
+    .qimam-menu-icon[data-qimam-icon="TD"],
+    .qimam-app-icon[data-qimam-icon="HR"],
+    .qimam-menu-icon[data-qimam-icon="HR"] {
+        --qimam-icon-bg: linear-gradient(145deg, #34d399, #16a34a);
+        --qimam-icon-shadow: rgba(22, 163, 74, 0.30);
+    }
+
+    .qimam-app-icon[data-qimam-icon="PO"],
+    .qimam-menu-icon[data-qimam-icon="PO"] {
+        --qimam-icon-bg: linear-gradient(145deg, #fcd34d, #ea580c);
+        --qimam-icon-shadow: rgba(234, 88, 12, 0.32);
+    }
+
+    .qimam-app-icon[data-qimam-icon="STK"],
+    .qimam-menu-icon[data-qimam-icon="STK"] {
+        --qimam-icon-bg: linear-gradient(145deg, #2dd4bf, #8b5cf6);
+        --qimam-icon-shadow: rgba(139, 92, 246, 0.32);
+    }
+
+    .qimam-app-icon[data-qimam-icon="MFG"],
+    .qimam-menu-icon[data-qimam-icon="MFG"] {
+        --qimam-icon-bg: linear-gradient(145deg, #94a3b8, #0ea5e9);
+        --qimam-icon-shadow: rgba(14, 165, 233, 0.30);
+    }
+
+    .qimam-app-icon[data-qimam-icon="LNK"],
+    .qimam-menu-icon[data-qimam-icon="LNK"],
+    .qimam-app-icon[data-qimam-icon="WEB"],
+    .qimam-menu-icon[data-qimam-icon="WEB"] {
+        --qimam-icon-bg: linear-gradient(145deg, #38bdf8, #0f766e);
+        --qimam-icon-shadow: rgba(15, 118, 110, 0.30);
+    }
+
+    .qimam-app-icon[data-qimam-icon="APP"],
+    .qimam-menu-icon[data-qimam-icon="APP"] {
+        --qimam-icon-bg: linear-gradient(145deg, #22d3ee, #10b981);
+        --qimam-icon-shadow: rgba(16, 185, 129, 0.30);
+    }
+
+    .qimam-app-icon[data-qimam-icon="SET"],
+    .qimam-menu-icon[data-qimam-icon="SET"] {
+        --qimam-icon-bg: linear-gradient(145deg, #cbd5e1, #475569);
+        --qimam-icon-shadow: rgba(71, 85, 105, 0.30);
+    }
+
+    .qimam-app-icon[data-qimam-icon="RE"],
+    .qimam-menu-icon[data-qimam-icon="RE"] {
+        --qimam-icon-bg: linear-gradient(145deg, #14b8a6, #f59e0b);
+        --qimam-icon-shadow: rgba(245, 158, 11, 0.32);
+    }
+
+    .qimam-app-icon[data-qimam-icon="3PL"],
+    .qimam-menu-icon[data-qimam-icon="3PL"] {
+        --qimam-icon-bg: linear-gradient(145deg, #fb923c, #ef4444);
+        --qimam-icon-shadow: rgba(239, 68, 68, 0.32);
     }
 
     .qimam-app-icon::before,
