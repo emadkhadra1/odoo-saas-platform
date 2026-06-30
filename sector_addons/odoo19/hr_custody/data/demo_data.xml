@@ -25,7 +25,6 @@
               <field name="work_location_id" ref="work_data"/>
               <field name="work_phone">(956)-3852-7863</field>
               <field name="work_email">juliet123@example.com</field>
-              <field name="image_1920" type="base64" file="hr_custody/static/images/hr_custody_employee.jpg"/>
         </record>
 
 

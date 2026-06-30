@@ -22,7 +22,7 @@
 ###################################################################################
 {
     'name': 'Open HRMS Custody',
-    # 'version': '15.0.1.0.0',
+    'version': '19.0.1.0.0',
     'summary': """Manage the company properties when it is in the custody of an employee""",
     'description': 'Manage the company properties when it is in the custody of an employee',
     'live_test_url': 'https://youtu.be/rd62HYzZxFI',
@@ -31,18 +31,15 @@
     'company': 'Cybrosys Techno Solutions',
     'maintainer': 'Cybrosys Techno Solutions',
     'website': "https://www.openhrms.com",
-    'depends': ['hr', 'mail', 'hr_employee_updation', 'product'],
+    'depends': ['hr', 'mail', 'product'],
     'data': [
         'security/ir.model.access.csv',
-        'security/custody_security.xml',
-        'views/wizard_reason_view.xml',
         'views/custody_view.xml',
-        'views/hr_custody_notification.xml',
         'views/hr_employee_view.xml',
-        'views/notification_mail.xml',
-        'reports/custody_report.xml'
+        'data/custody_sequence.xml',
+        'data/demo_data.xml',
     ],
-    'demo': ['data/demo_data.xml'],
+    'demo': [],
     'images': ['static/description/banner.png'],
     'license': 'AGPL-3',
     'installable': True,

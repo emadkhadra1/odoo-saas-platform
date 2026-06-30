@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_custody_property_list" model="ir.ui.view">
+        <field name="name">custody.property.list</field>
+        <field name="model">custody.property</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_custody_property_form" model="ir.ui.view">
+        <field name="name">custody.property.form</field>
+        <field name="model">custody.property</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="product_id"/>
+                        <field name="active"/>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_custody_property" model="ir.actions.act_window">
+        <field name="name">Custody Properties</field>
+        <field name="res_model">custody.property</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_hr_custody_list" model="ir.ui.view">
+        <field name="name">hr.custody.list</field>
+        <field name="model">hr.custody</field>
+        <field name="arch" type="xml">
+            <list decoration-info="state == 'requested'" decoration-success="state == 'approved'" decoration-muted="state in ('returned', 'cancelled')">
+                <field name="name"/>
+                <field name="custody_name"/>
+                <field name="employee"/>
+                <field name="department_id"/>
+                <field name="date_request"/>
+                <field name="return_date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hr_custody_form" model="ir.ui.view">
+        <field name="name">hr.custody.form</field>
+        <field name="model">hr.custody</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_request" string="Submit" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_approve" string="Approve" type="object" class="oe_highlight" invisible="state != 'requested'"/>
+                    <button name="action_return" string="Return" type="object" class="oe_highlight" invisible="state != 'approved'"/>
+                    <button name="action_refuse" string="Refuse" type="object" invisible="state != 'requested'"/>
+                    <button name="action_cancel" string="Cancel" type="object" invisible="state not in ('draft', 'requested')"/>
+                    <button name="action_reset_to_draft" string="Reset to Draft" type="object" invisible="state not in ('refused', 'cancelled')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,requested,approved,returned"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="custody_name" readonly="state not in ('draft')"/>
+                            <field name="employee" readonly="state not in ('draft')"/>
+                            <field name="department_id"/>
+                            <field name="job_id"/>
+                        </group>
+                        <group>
+                            <field name="date_request" readonly="state not in ('draft')"/>
+                            <field name="return_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Purpose">
+                            <field name="purpose" readonly="state not in ('draft')"/>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hr_custody_search" model="ir.ui.view">
+        <field name="name">hr.custody.search</field>
+        <field name="model">hr.custody</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="custody_name"/>
+                <field name="employee"/>
+                <filter name="approved" string="Approved" domain="[('state','=','approved')]"/>
+                <filter name="returned" string="Returned" domain="[('state','=','returned')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_employee" string="Employee" context="{'group_by': 'employee'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hr_custody" model="ir.actions.act_window">
+        <field name="name">Employee Custodies</field>
+        <field name="res_model">hr.custody</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_hr_custody_root" name="Custody Management" parent="hr.menu_hr_root" sequence="80"/>
+    <menuitem id="menu_hr_custody" name="Custodies" parent="menu_hr_custody_root" action="action_hr_custody" sequence="10"/>
+    <menuitem id="menu_custody_property" name="Custody Properties" parent="menu_hr_custody_root" action="action_custody_property" sequence="20"/>
+</odoo>
