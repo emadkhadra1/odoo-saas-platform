@@ -78,10 +78,8 @@
                 <field name="employee_id"/>
                 <filter name="running" string="In Deduction" domain="[('state','=','running')]"/>
                 <filter name="unpaid" string="Open Balance" domain="[('balance_amount','&gt;',0)]"/>
-                <group expand="0" string="Group By">
-                    <filter name="group_employee" string="Employee" context="{'group_by':'employee_id'}"/>
-                    <filter name="group_state" string="Status" context="{'group_by':'state'}"/>
-                </group>
+                <filter name="group_employee" string="Employee" context="{'group_by':'employee_id'}"/>
+                <filter name="group_state" string="Status" context="{'group_by':'state'}"/>
             </search>
         </field>
     </record>
