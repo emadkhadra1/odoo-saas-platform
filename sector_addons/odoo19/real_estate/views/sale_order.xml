@@ -1,0 +1,313 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+            <menuitem active="False" id="sale.sale_menu_root" name="Sales" sequence="30" web_icon="sale_management,static/description/icon.png" />
+    <record id="sale_order_view_tree2" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name= 'name']" position="after">
+                <field name="unit_id" />
+                <field name="unit_state" string="Unit Status" />
+                <field name="contract_date" />
+            </xpath>
+            <xpath expr="//field[@name= 'name']" position="attributes">
+                <attribute name="string">Offer Number</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_order_view_tree_inherit_crm" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tax_totals_json']" position="before">
+                <field name="subtotal_amount" />
+                <field name="utility_amount" />
+                <field invisible="1" name="reservation_amount" />
+                <field invisible="1" name="reservation_percentage" />
+            </xpath>
+                                        <xpath expr="//button[@name='preview_sale_order']" position="replace">
+            </xpath>
+
+            <div class="oe_button_box" name="button_box" position="inside">
+
+                <button class="oe_stat_button" icon="fa-dollar" name="action_view_checks" string="Payments" type="object">
+                    <field invisible="1" name="checks_count" widget="statinfo" />
+                </button>
+                <button class="oe_stat_button" icon="fa-pencil-square-o" name="action_view_invoice_units" type="object">
+                    <field name="installment_count" widget="statinfo" />
+                </button>
+            </div>
+            <xpath expr="//control" position="replace">
+                <control>
+                    <create string="Add a Line" />
+                </control>
+            </xpath>
+            <xpath expr="//field[@name='order_line']" position="attributes">
+                <attribute name="attrs">{
+                    'readonly': [('state', 'not in', ['draft', 'sent', 'reservation', 'down_payment'])]}
+                </attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_id']" position="replace">
+                <field context="{'search_default_customer':1, 'show_address': 1, 'show_vat': True}" name="partner_id" options="{&quot;always_reload&quot;: True}" widget="res_partner_many2one" />
+            </xpath>
+            <xpath expr="//field[@name='validity_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//label[@for='date_order']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_order']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='other_information']/group[2]/group[@name='sale_shipping']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='tax_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='price_unit']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='product_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='tax_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='product_id']" position="attributes">
+                <attribute name="required">False</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='name']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='qty_delivered']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='product_uom']" position="attributes">
+                <attribute name="invisible">1</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='qty_invoiced']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='product_uom_qty']" position="attributes">
+                <attribute name="string">No.Of Installements</attribute>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='product_id']" position="after">
+                <field domain="[('included_price', '=', False)]" name="product_utility_ids" />
+                <field name="pay_type" />
+                <field name="percentage" />
+                <field name="duration" />
+                <field invisible="1" name="value" />
+                <field invisible="1" name="schedule_period" />
+                <field invisible="1" name="interset" />
+                <field invisible="1" name="amount_percentage" />
+                <field invisible="1" name="stop_per" />
+                <field invisible="1" name="recerv_unit" />
+                <field name="start_date" required="1" />
+                <field invisible="1" name="readonly" />
+                <field name="install_inv_id" />
+            </xpath>
+            <xpath expr="//tree/field[@name='price_unit']" position="before">
+                <field name="no_of_installements" />
+                <field name="unit_price" />
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field invisible="1" name="invoice_inv" />
+                <field invisible="1" name="readonly" />
+                <field invisible="1" name="repeat_installements" />
+                <field invisible="1" name="partner_set" />
+                <field invisible="1" name="last_invoice" />
+                <field invisible="1" name="arabic_amount_unit" />
+                <field invisible="1" name="remain_arabic_amount" />
+                <field invisible="1" name="arabic_amount" />
+                <field invisible="1" name="arabic_area" />
+                <field invisible="1" name="inv_calc_payment" />
+                <field name="unit_id" required="1" />
+                <field name="unit_price" />
+                <field name="total_attached_area" />
+                <field invisible="0" name="total_amount" />
+                <field invisible="0" name="total_utilities" />
+                <field name="discount_amount" />
+                <field name="hold_amount" />
+                
+                <field force_save="1" name="opportunity_id" readonly="1" />
+            </xpath>
+
+
+            <xpath expr="//field[@name='currency_id']" position="before">
+                <field invisible="1" name="unit_payment_plan_id" widget="many2many_tags" />
+                <field domain="[('id','in',unit_payment_plan_id)]" name="payment_plan_id" options="{'no_create': True,'no_open':True}" />
+                <field name="date_order" string="Offer Date" />
+                <field name="contract_date" />
+                <field name="unit_delivery_date" />
+                <field name="user_id" />
+                <field name="sale_person2_id" />
+                <field name="sale_person3_id" />
+
+                <field name="discount_amount" />
+                <field name="price_before_discount" />
+                <field name="price_disc" />
+                <field force_save="1" name="reservation_date" readonly="1" />
+                <field name="unreserve_date" />
+                <field force_save="1" name="discount_request_id" readonly="1" />
+            </xpath>
+            <xpath expr="//field[@name='pricelist_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='update_prices']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//label[@for='pricelist_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='pricelist_id']" position="before">
+                <field invisible="1" name="check" />
+                <field invisible="1" name="reserve" />
+                
+                <field invisible="1" name="request_reserve" />
+            </xpath>
+            <xpath expr="//header" position="replace">
+                <header>
+                    <field invisible="1" name="authorized_transaction_ids" />
+                    <button class="oe_highlight" name="payment_action_capture" string="Capture Transaction" type="object" />
+                    <button confirm="Are you sure you want to void the authorized transaction? This action can't be undone." name="payment_action_void" string="Void Transaction" type="object" />
+                    <button class="btn-primary" groups="real_estate_security.group_manager" name="action_quotation_send" string="Send by Email" type="object" />
+                    <button class="btn-primary" context="{'proforma': True}" groups="sale.group_proforma_sales" name="action_quotation_send" string="Send PRO-FORMA Invoice" type="object" />
+
+
+
+
+
+
+
+                    <button context="{'proforma': True}" groups="sale.group_proforma_sales" name="action_quotation_send" string="Send PRO-FORMA Invoice" type="object" />
+                    <button groups="real_estate_security.group_manager" name="action_quotation_send" string="Send by Email" type="object" />
+                    <button groups="real_estate_security.group_manager" name="action_cancel" string="Cancel" type="object" />
+
+
+
+
+
+
+                    <button groups="real_estate_security.group_manager" name="action_draft" string="Set to Quotation" type="object" />
+                    <button help="If the sale is locked, you can not modify it anymore. However, you will still be able to invoice or deliver." name="action_done" string="Lock" type="object" />
+
+
+
+
+
+
+
+
+
+                    
+                    <button groups="sales_team.group_sale_manager" name="action_unlock" string="Unlock" type="object" />
+                    <field name="state" statusbar_visible="draft,sent,sale" widget="statusbar" />
+                    <button groups="real_estate_security.group_manager,real_estate.group_calculate_payment" name="calculate_payment_plan" string="Calculate Payment" type="object" />
+
+                    <button class="btn-primary" groups="real_estate_security.group_manager" name="action_create_installement" string="Create Installments" type="object" />
+
+
+
+
+                    <button class="oe_highlight" groups="real_estate_security.group_user" name="action_request_reserve" string="Reserve Request" type="object" />
+                    <button class="oe_highlight" groups="real_estate.sales_request_hold_approve" name="sales_reserve_approve" string="Sales Reserve Approve" type="object" />
+                    
+                    
+                    
+                    
+                    <button class="oe_highlight" groups="real_estate_security.group_manager" name="action_reserve_unit" string="Sales Director Approve" type="object" />
+
+
+                    <button class="btn-primary" groups="real_estate.group_offer_downpayment" name="action_make_down_payment" string="DownPayment" type="object" />
+                    <button class="btn-primary" groups="real_estate_security.group_so_confirm" name="action_confirm" string="Done Deal" type="object" />
+                </header>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+
+                <field domain="[('broker','=',True)]" force_save="1" name="broker_id" options="{'no_create':1}" readonly="1" />
+                <field force_save="1" name="broker_manager_id" options="{'no_create':1}" readonly="1" />
+                <field force_save="1" name="broker_sales_id" options="{'no_create':1}" readonly="1" />
+                <field force_save="1" name="local_overseas" readonly="1" />
+                <field force_save="1" name="source" readonly="1" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_order_view_form" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='sale_info']/field[@name='invoice_status']" position="attributes">
+                <attribute eval="False" name="invisible" />
+            </xpath>
+            <xpath expr="//button[@name='action_quotation_send']" position="before">
+                <button class="btn-primary" groups="real_estate_security.group_manager" invisible="1" name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice" type="action" />
+                <button context="{'default_advance_payment_method': 'percentage'}" groups="real_estate_security.group_manager" invisible="1" name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice" type="action" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_offers_new" model="ir.actions.act_window">
+        <field name="name">Offer</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">form,list</field>
+        <field name="context">{'form_view_ref': 'real_estate.sale_order_view_tree_inherit_crm'}</field>
+        <field name="domain">[('opportunity_id', '=', active_id)]</field>
+    </record>
+
+    <record id="action_offers_menu" model="ir.actions.act_window">
+        <field name="name">Offers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">list,form,pivot</field>
+        <field name="context">{'form_view_ref': 'real_estate.sale_order_view_tree_inherit_crm'}</field>
+        <field name="view_id" ref="sale_order_view_tree2" />
+        <field name="domain">[('unit_id', '!=', False), ('state', 'not in', ['sale'])]</field>
+    </record>
+
+    <record id="action_contract_menu" model="ir.actions.act_window">
+        <field name="name">Contract</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">list,form,pivot</field>
+        <field name="context">{'form_view_ref': 'real_estate.sale_order_view_tree_inherit_crm'}</field>
+        <field name="view_id" ref="sale_order_view_tree2" />
+        <field name="domain">[('state', 'in', ('sale', 'down_payment')), ('unit_id', '!=', False)]</field>
+    </record>
+
+    <record id="sale.action_quotations_with_onboarding" model="ir.actions.act_window">
+        <field name="domain">[('unit_id', '=', False)]</field>
+    </record>
+
+    <menuitem id="contracts_menu_categ" name="Contracts" parent="realestate_project.real_estate_root_menu" sequence="5" />
+
+    <menuitem action="action_offers_menu" id="offers_menu" name="Offers" parent="contracts_menu_categ" sequence="1" />
+
+    <menuitem action="action_offers_menu" id="accounting_offers_menu" name="Offers" parent="account.menu_finance_receivables" sequence="-99" />
+
+    <menuitem action="action_contract_menu" id="contracts_menu" name="Contracts" parent="contracts_menu_categ" sequence="2" />
+
+    <menuitem action="sales_team.crm_team_action_sales" groups="sales_team.group_sale_manager" id="realestate_report_sales_team" name="Sales Teams" parent="contracts_menu_categ" sequence="3" />
+
+    <menuitem action="account.res_partner_action_customer" groups="sales_team.group_sale_salesman" id="res_partner_menu" parent="contracts_menu_categ" sequence="4" />
+
+</odoo>

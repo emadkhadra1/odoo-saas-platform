@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+
+        <record id="sales_group_unit_sale" model="res.groups">
+            <field name="name">Units (sale)</field>
+        </record>
+        <record id="sales_group_update_price" model="res.groups">
+            <field name="name">Update Price</field>
+        </record>
+
+        <record id="group_all_broker" model="res.groups">
+            <field name="name">All Broker</field>
+        </record>
+        <record id="sales_group_unit_all" model="res.groups">
+            <field name="name">Units (All)</field>
+        </record>
+        <record id="sales_team_leaders" model="res.groups">
+            <field name="name">sales Team leader</field>
+        </record>
+
+        <record id="realestate_sales_tl_rule" model="ir.rule">
+            <field name="name">Sales Team Leader : see Team offers</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="domain_force">[('user_id', 'in', user.get_all_team_users())]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4,ref('real_estate.sales_team_leaders'))]"/>
+        </record>
+
+        <record id="realestate_crm_tl_rule" model="ir.rule">
+            <field name="name">Sales Team Leader : see Team leads</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="domain_force">[('user_id', 'in', user.get_all_team_users())]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4,ref('real_estate.sales_team_leaders'))]"/>
+        </record>
+
+        <record id="ir_filters_own_hold_requests" model="ir.rule">
+            <field name="name">Filter: Own Hold Requests</field>
+            <field name="model_id" ref="real_estate.model_product_request"/>
+            <field name="domain_force">[('sales_person_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        </record>
+        <record id="ir_filters_all_hold_requests" model="ir.rule">
+            <field name="name">Filter: All Hold Requests</field>
+            <field name="model_id" ref="real_estate.model_product_request"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman_all_leads'))]"/>
+        </record>
+        <record id="ir_filters_all_unit_template" model="ir.rule">
+            <field name="name">Filter: All unit sale</field>
+            <field name="model_id" ref="real_estate.model_product_template"/>
+            <field name="domain_force">[('state', '=', 'sale')]</field>
+            <field name="groups" eval="[(4, ref('real_estate.sales_group_unit_sale'))]"/>
+        </record>
+        <record id="ir_filters_admin_unit_template" model="ir.rule">
+            <field name="name">Filter: admin unit sale</field>
+            <field name="model_id" ref="real_estate.model_product_template"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('real_estate.sales_group_unit_all'))]"/>
+        </record>
+        <record id="utility_rule" model="ir.rule">
+            <field name="name">Utility multi-company</field>
+            <field name="model_id" ref="model_utility_utility"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'child_of',
+                                                                          [user.company_id.id])]
+            </field>
+
+        </record>
+        <record id="accounting_all_offers_rule" model="ir.rule">
+            <field name="name">Sale order</field>
+            <field name="model_id" ref="model_sale_order_line"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[1, '=', 1]
+            </field>
+            <field name="groups"
+                   eval="[(4, ref('account.group_account_invoice')),(4, ref('account.group_account_manager')),(4, ref('account.group_account_user'))]"/>
+
+        </record>
+        <record id="sales_request_hold_approve" model="res.groups">
+            <field name="name">Sales Request Hold Approve</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="accounting_request_hold_approve" model="res.groups">
+            <field name="name">Accounting Request Hold Approve</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_offer_downpayment" model="res.groups">
+            <field name="name">DownPayment Group</field>
+        </record>
+
+        <record id="group_unit_hold_request" model="res.groups">
+            <field name="name">Unit Hold Request</field>
+        </record>
+
+        <record id="group_unit_blocked_request" model="res.groups">
+            <field name="name">Unit Block Access</field>
+        </record>
+
+        <record id="edit_offer_line_group" model="res.groups">
+            <field name="name">Edit Offer Lines</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+        <record id="group_calculate_payment" model="res.groups">
+            <field name="name">Offer Calculate Payment</field>
+        </record>
+
+    </data>
+</odoo>

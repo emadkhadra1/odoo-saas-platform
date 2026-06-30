@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-inherit="mail.Activity" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o_Activity_details')]//t[@t-if='activity.assignee']" position="after">
+            <dt>Department</dt>
+           <t t-if="activity.department_id">
+               <dd class="o_Activity_detailsAssignation">
+                   <t t-esc="activity.department_id"/>
+               </dd>
+           </t>
+
+        </xpath>
+    </t>
+
+</templates>

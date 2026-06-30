@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="update_price_wizard_from" model="ir.ui.view">
+        <field name="name">update.price.wizard.wizard.form</field>
+        <field name="model">update.price.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Update Price">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="unit_update" />
+                        </group>
+                        <group>
+                            <field name="attach_area_update" />
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Unit">
+                            <field force_save="1" name="unit_ids" readonly="0" widget="many2many_tags" />
+                            
+                        </group>
+                        
+                        
+                        
+                        
+                        <group string="Attached Area">
+                            <field domain="[('product_id','=',unit_ids)]" force_save="1" name="attached_area_ids" readonly="0" widget="many2many_tags" />
+                        </group>
+
+                        <group string="Update">
+                            <field force_save="1" name="update_type" readonly="0" required="1" />
+                            <field force_save="1" name="update_percentage" readonly="0" />
+                            <field force_save="1" name="update_amount" readonly="0" />
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button class="btn btn-success" confirm="Are you sure you want update prices?" icon="fa-check" name="confirm" string="Confirm" type="object" />
+                    <button class="oe_link" special="cancel" string="Cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_update_price_wizard" model="ir.actions.act_window">
+        <field name="name">Update Price</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">update.price.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="update_price_wizard_from" />
+        <field name="target">new</field>
+    </record>
+    <menuitem action="action_update_price_wizard" groups="real_estate.sales_group_update_price" id="menu_action_update_price" name="Update Price" parent="realestate_project.real_estate_root_menu" sequence="5" />
+</odoo>

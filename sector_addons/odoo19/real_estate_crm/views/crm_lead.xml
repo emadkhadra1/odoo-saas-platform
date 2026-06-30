@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="salesales_view_tree_inherit" model="ir.ui.view">
+            <field name="name">sale.order.crm.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="real_estate.sale_order_view_tree_inherit_crm" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='team_id']" position="after">
+                    <field name="sale_person2_id" />
+                    <field name="sale_person2_sale_team" />
+                    <field name="sale_person3_id" />
+                    <field name="sale_person3_sale_team" />
+                </xpath>
+            </field>
+        </record>
+
+        
+        <record id="crm_lead_lost_view_form_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.lost.view.form.inherit</field>
+            <field name="model">crm.lead.lost</field>
+            <field name="inherit_id" ref="crm.crm_lead_lost_view_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='lost_reason_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="crm_case_tree_view_oppor" model="ir.ui.view">
+            <field name="name">crm.lead.view.form.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="log_notes" />
+                    <field name="log_date" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_lead_view_form_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.view.form.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_view_sale_order']" position="replace">
+                    <button class="oe_stat_button" icon="fa-pencil-square-o" name="action_view_sale_quotation" type="object">
+                        <field name="quotation_count" string="Offers" widget="statinfo" />
+                    </button>
+                </xpath>
+                <xpath expr="//button[@name='action_view_sale_quotation']" position="replace">
+                    <button class="oe_stat_button" icon="fa-usd" name="action_view_sale_order" type="object">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value"><field name="sale_amount_total" options="{'currency_field': 'company_currency'}" widget="monetary" /></span>
+                            <span class="o_stat_text">Contracts</span>
+                            <field invisible="1" name="sale_order_count" />
+                        </div>
+                    </button>
+                </xpath>
+                <xpath expr="//field[@name='mobile']" position="attributes">
+                    <attribute name="attrs">{'required':[('partner_international_id','=',False)]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='%(crm.action_crm_lead2opportunity_partner)d']" position="after">
+                    <xpath expr="//button[@name='%(crm.crm_lead_lost_action)d']" position="move" />
+                </xpath>
+                
+                
+                
+                
+                
+                
+                <xpath expr="//field[@name='team_id']" position="after">
+                    <field name="create_uid" />
+                </xpath>
+                <xpath expr="//group[@name='lead_priority']" position="after">
+                    <group>
+                        <field name="age" />
+                        <field name="marital" />
+                        <field name="industry_id" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        
+        <record id="crm_lead_view_form" model="ir.ui.view">
+            <field name="name">crm.lead.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button class="oe_highlight" name="action_unit_search" string="Search On Available Units" type="object" />
+                </xpath>
+                <xpath expr="//field[@name='team_id']" position="after">
+                    <field name="sale_person2_id" widget="many2one_avatar_user" />
+                    <field name="sales_person2_sale_team" />
+                    <field name="sale_person3_id" widget="many2one_avatar_user" />
+                    <field name="sales_person3_sale_team" />
+
+                    <field name="local_overseas" />
+                    <field name="source" />
+                </xpath>
+
+                <xpath expr="//page[1]" position="before">
+                    <page string="Unit Info">
+                        <group>
+                            <group>
+                                <field name="project_id" options="{'no_create': True}" />
+                                <field name="optional_project_id" options="{'no_create': True}" />
+                                <field invisible="1" name="unit_type" />
+                                
+                                <field domain="[('id','in',filter_unit_type_ids)]" name="unit_type_ids" options="{'no_create': True}" widget="many2many_tags" />
+                                <field invisible="1" name="filter_singularity_ids" widget="many2many_tags" />
+                                <field invisible="1" name="filter_unit_type_ids" widget="many2many_tags" />
+                                <field domain="[('id','in',filter_singularity_ids)]" name="singularity_ids" widget="many2many_checkboxes" />
+                                <field name="unit_id" />
+                                <field name="unit_state" />
+                            </group>
+                            <group>
+                                <label for="price_min" string="Price" />
+                                <div>
+                                    <field class="oe_inline" name="price_min" />
+                                    -&amp;nbsp;&amp;nbsp;
+                                    <field class="oe_inline" name="price_max" />
+                                </div>
+                                <label for="area_min" string="Area" />
+                                <div class="row">
+                                    <field class="oe_inline" name="area_min" />
+                                    <span class="oe_inline">ãŽ¡</span>
+                                    &amp;nbsp;&amp;nbsp;
+                                    <field class="oe_inline" name="area_max" />
+                                    <span>ãŽ¡</span>
+                                </div>
+                                <label for="floor_min" string="Floor" />
+                                <div class="row">
+                                    <field class="oe_inline" name="floor_min" />
+                                    -&amp;nbsp;&amp;nbsp;
+                                    <field class="oe_inline" name="floor_max" />
+                                </div>
+                                <label for="room_min" string="Room" />
+                                <div class="row">
+                                    <field class="oe_inline" name="room_min" />
+                                    -&amp;nbsp;&amp;nbsp;
+                                    <field class="oe_inline" name="room_max" />
+                                </div>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="product_template_search_view" model="ir.ui.view">
+            <field name="name">product.template</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//filter[@name='categ_id']" position="after">
+                    <filter context="{'group_by':'state'}" name="state" string="State" />
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="product_template_action" model="ir.actions.act_window">
+            <field name="name">Units</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,list,form,activity</field>
+            <field name="search_view_id" ref="product.product_template_search_view" />
+            <field eval="[(5, 0, 0),                           (0, 0, {'view_mode': 'kanban', 'view_id': ref('product.product_template_kanban_view')}),                           (0, 0, {'view_mode': 'list', 'view_id': ref('real_estate.product_template_list_view_inherit')})]" name="view_ids" />
+            <field name="search_view_id" ref="product.product_template_search_view" />
+            
+            
+            
+            
+            
+            <field name="domain">[
+                ('state', 'not in', ['sold', 'blocked']),
+                '|',
+                ('is_residential', '=', True),
+                ('is_land', '=', True),
+            ]
+            </field>
+        </record>
+
+        <record id="crm.crm_lead_all_leads" model="ir.actions.act_window">
+            <field name="name">Leads</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_mode">list,kanban,graph,pivot,calendar,form,activity</field>
+            <field name="domain">['|', ('type', '=', 'lead'), ('type', '=', False)]</field>
+            <field name="search_view_id" ref="crm.view_crm_case_leads_filter" />
+            <field name="context">{
+                'default_type': 'lead',
+                'search_default_type': 'lead',
+                'search_default_to_process': 1,
+            }
+            </field>
+        </record>
+
+
+        <menuitem action="product_template_action" id="menu_product_template_proker" name="Properties" parent="crm.crm_menu_root" sequence="6" />
+
+        <menuitem action="crm.crm_lead_all_leads" groups="real_estate_crm.group_access_lead" id="crm_menu_leads" name="Leads" parent="crm.crm_menu_root" sequence="1" />
+
+
+        <menuitem action="crm.crm_opportunity_report_action_lead" groups="real_estate_crm.group_access_lead" id="crm.crm_opportunity_report_menu_lead" name="Leads" parent="crm.crm_menu_report" sequence="1" />
+
+
+    </data>
+</odoo>

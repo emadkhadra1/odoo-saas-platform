@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="ir_cron_scheduler_demo_action_hold" model="ir.cron">
+            <field name="name">Back To Sale / Reserve</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field eval="False" name="doall"/>
+            <field name="state">code</field>
+            <field name="code">model.automate_unit_reservation()</field>
+        </record>
+
+<!--       <record id="action_unit_avail" model="ir.actions.server">-->
+<!--            <field name="name">Available For Sale</field>-->
+<!--            <field name="model_id" ref="product.model_product_template"/>-->
+<!--            <field name="binding_model_id" ref="product.model_product_template"/>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">records.convert_to_available()</field>-->
+<!--        </record>-->
+    </data>
+</odoo>

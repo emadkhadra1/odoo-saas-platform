@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_batch_payment_form" model="ir.ui.view">
+        <field name="name">account.batch.payment.form</field>
+        <field name="model">account.batch.payment</field>
+        <field name="arch" type="xml">
+            <form string="Batch Payment">
+                <header>
+                    <button name="action_post_payment" string="Post" type="object" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="validate_batch" string="Validate" type="object" class="btn-primary" invisible="state != 'post'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,post,sent,reconciled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="batch_type"/>
+                            <field name="journal_id"/>
+                            <field name="payment_method_id"/>
+                        </group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="currency_id"/>
+                            <field name="file_generation_enabled"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Payments" name="batch_content">
+                            <field name="payment_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="ref"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount"/>
+                                    <field name="currency_id"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_batch_payment_list" model="ir.ui.view">
+        <field name="name">account.batch.payment.list</field>
+        <field name="model">account.batch.payment</field>
+        <field name="arch" type="xml">
+            <list string="Batch Payments">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="batch_type"/>
+                <field name="journal_id"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_batch_payment_out" model="ir.actions.act_window">
+        <field name="name">Batch Payments</field>
+        <field name="res_model">account.batch.payment</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_batch_payment_purchases" name="Batch Payments" parent="account.menu_finance_payables" action="action_batch_payment_out" sequence="80"/>
+</odoo>

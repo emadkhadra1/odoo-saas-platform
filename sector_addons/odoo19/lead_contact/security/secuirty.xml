@@ -1,0 +1,6 @@
+<odoo>
+    <record id="edit_leads_phones" model="res.groups">
+        <field name="name">Edit  name &amp; phone &amp; mobile &amp; mobile2 in leads </field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>

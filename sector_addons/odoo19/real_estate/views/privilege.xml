@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="property_privilege_form" model="ir.ui.view">
+            <field name="name">property.privileges.form.view</field>
+            <field name="model">privilege.privilege</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="4">
+                            <field name="prev_id" required="1"/>
+                            <field name="description" required="0"/>
+                            <field name="percent" required="0" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="property_privilege_tree" model="ir.ui.view">
+            <field name="name">property.privileges.tree.view</field>
+            <field name="model">privilege.privilege</field>
+            <field name="arch" type="xml">
+                <list string="">
+                    <field name="prev_id"/>
+                    <field name="description"/>
+                    <field name="percent" invisible="1"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="property_privilege_name_form" model="ir.ui.view">
+            <field name="name">privilege.name.form.view</field>
+            <field name="model">privilege.name</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="property_privilege_action" model="ir.actions.act_window">
+            <field name="name">Singularity</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">privilege.privilege</field>
+            <field name="view_mode">list,form</field>
+            <field name="target">current</field>
+        </record>
+
+        <menuitem id="singularity_categ"
+                  name="Singularities"
+                  action="property_privilege_action"
+                  parent="realestate_project.real_estate_configuration_menu"
+                  sequence="5"
+        />
+
+    </data>
+</odoo>

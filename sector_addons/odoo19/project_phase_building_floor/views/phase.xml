@@ -1,0 +1,95 @@
+<odoo>
+    <data>
+        <record id="project_phase_form" model="ir.ui.view">
+            <field name="name">Phase Form</field>
+            <field name="model">project.phase</field>
+            <field name="arch" type="xml">
+                <form string="Phase">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="project_id"
+                                       required="1"/>
+                                <field name="analytic_tag_id"  invisible="1" options="{'no_create':True}"/>
+                                <field name="cost" readonly="1" invisible="1"/>
+                                <field name="company_id"
+                                       groups="base.group_multi_company"
+                                       options="{'no_create': True}" invisible="1"/>
+                                <field name="delivery_date" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="project_phase_tree" model="ir.ui.view">
+            <field name="name">project_phase_tree</field>
+            <field name="model">project.phase</field>
+            <field name="arch" type="xml">
+                <list string="">
+                    <field name="name"/>
+                    <field name="analytic_tag_id" invisible="1"/>
+                    <field name="project_id"/>
+
+                </list>
+            </field>
+        </record>
+        <record id="view_phase_search" model="ir.ui.view">
+            <field name="name">project.phase.search</field>
+            <field name="model">project.phase</field>
+            <field name="arch" type="xml">
+                <search string="Phase">
+                    <separator/>
+                    <field name="name"/>
+                    <field name="analytic_tag_id"/>
+                    <separator/>
+                    <filter string="Tag" name="analytic_tag_id" domain="[]" context="{'group_by': 'analytic_tag_id'}"/>
+                </search>
+            </field>
+        </record>
+        <record id="view_phase_kanban" model="ir.ui.view">
+            <field name="name">project.phase.kanban</field>
+            <field name="model">project.phase</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <field name="analytic_tag_id"/>
+                    <field name="id"/>
+                    <templates>
+                        <t t-name="card">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_record_top mb8">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <span>
+                                                Name:
+                                                <t t-esc="record.name.value"/>
+                                            </span>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        Tag:
+                                        <t t-esc="record.analytic_tag_id.value"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+
+            </field>
+        </record>
+
+        <!--TODO the most powerfull window action-->
+        <record id="project_phase_tree_window_action" model="ir.actions.act_window">
+            <field name="name">Phase</field>
+            <field name="res_model">project.phase</field>
+            <field name="view_mode">list,form,search,kanban</field>
+            <field name="target">current</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="view_partner_realstate_form" model="ir.ui.view">
+        <field name="name">res.partner.stock.warning</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category_id']" position="before">
+                <field name="partner_national_id" />
+                <field name="partner_international_id" />
+            </xpath>
+            <field name="vat" position="attributes">
+                <attribute name="attrs">{'invisible': [('company_type', '!=', 'company')]}</attribute>
+
+            </field>
+            <field name="vat" position="after">
+                <field name="broker" />
+                <field name="second_address" />
+                <field name="def_type" />
+                <field name="per_id" />
+                <field name="release_date" />
+                <field name="expiry_date" />
+                <field name="work_phone" widget="phone" />
+                <field name="issue_from" />
+                <field name="nationality" />
+            </field>
+            <page name="internal_notes" position="after">
+                <page string="Units">
+                    <field name="unit_ids" readonly="1">
+                        <list>
+                            <field name="name" />
+                            <field name="categ_id" />
+                            <field name="list_price" />
+                        </list>
+                    </field>
+                </page>
+                <page string="Sales Users">
+                    <field name="sales_users_ids" nolabel="1" />
+                </page>
+            </page>
+
+        </field>
+    </record>
+    
+    <record id="view_res_partner_filter_inherit" model="ir.ui.view">
+        <field name="name">res.partner.filter</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='category_id']" position="before">
+                <field invisible="1" name="broker_id_company_type" />
+                <field filter_domain="[('unit_ids.name', 'ilike', self)]" name="unit_ids" string="Unit" />
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="action_partner_broker_form" model="ir.actions.act_window">
+        <field name="name">Broker</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('broker', '=', True), '|', ('user_id', '=', uid), ('sales_users_ids', '=', uid)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Contact in your address book
+            </p>
+            <p>
+                Odoo helps you track all activities related to your contacts.
+            </p>
+        </field>
+    </record>
+    <menuitem action="real_estate.action_partner_broker_form" id="res_partner_menu_broker" name="Broker" parent="crm.crm_menu_sales" sequence="5" />
+</odoo>

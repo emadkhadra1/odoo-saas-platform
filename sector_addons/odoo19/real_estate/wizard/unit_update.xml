@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="unit_update_view_form" model="ir.ui.view">
+            <field name="name">unit.update.name</field>
+            <field name="model">unit.update</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="type" widget="radio" />
+                        </group>
+                        <group>
+                            <group>
+                                <label for="unit_area" string="Unit Area" />
+                                <div class="o_row">
+                                    <field name="unit_area" style="width:30%" />
+                                    <span>Price/Meter</span>
+                                    <field class="oe_inline" name="unit_meter_price" widget="monetary" />
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                                <field name="min_deposit_amount" />
+                            </group>
+                            <group>
+                                <field name="sale_price" />
+                            </group>
+                            <field invisible="1" name="currency_id" />
+                        </group>
+                        <div>
+                            <field name="privilege_ids">
+                                <list editable="top">
+                                    <field name="privilege_id" />
+                                    <field name="percent" />
+                                </list>
+                            </field>
+                        </div>
+                        <div>
+                            <field name="utility_ids">
+                                <list editable="top">
+                                    <field name="utility_id" />
+                                    <field name="price" />
+                                </list>
+                            </field>
+                        </div>
+
+                        <notebook>
+                            <page string="Units">
+                                <field name="product_ids" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <button class="btn-primary" name="action_update_unit_data" string="Update" type="object" />
+                        <button class="btn-default" special="cancel" string="Cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="unit_update_window_action" model="ir.actions.act_window">
+            <field name="name">Unit Update</field>
+            <field name="res_model">unit.update</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem action="unit_update_window_action" id="unit_update_menu" name="Unit Update" parent="realestate_project.real_estate_configuration_menu" sequence="10" />
+
+    </data>
+</odoo>

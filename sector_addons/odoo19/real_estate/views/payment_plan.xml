@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="real_payment_plan_form" model="ir.ui.view">
+            <field name="name">payment_plan_form</field>
+            <field name="model">payment.plan</field>
+            <field name="arch" type="xml">
+                <form string="Payment plan">
+                    <sheet>
+                       <div class="oe_title">
+                            <h1 style="color:teal;">
+                                <strong>
+                                    <field name="name" />
+                                </strong>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="discount_type" options="{'horizontal': true}" widget="radio" />
+                                <field name="discount_amount" />
+                                <field name="discount_percentage" />
+                            </group>
+
+
+
+                        </group>
+                        <notebook>
+                            <page string="Distribution">
+                                <field name="payment_line_ids">
+                                    <list editable="bottom">
+                                        <field invisible="1" name="pricing_unit" />
+                                        <field name="percentage" />
+                                        <field name="duration" />
+                                        <field invisible="1" name="value" />
+                                        <field invisible="1" name="schedule_period" />
+                                        <field name="pay_type" />
+                                        <field invisible="1" name="start_date" />
+                                        <field invisible="1" name="is_product" />
+                                        <field invisible="1" name="amount" />
+                                        <field name="no_of_installements" />
+                                        <field invisible="1" name="line_interset" />
+                                        <field invisible="1" name="non_return" />
+
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="real_payment_plan_tree" model="ir.ui.view">
+            <field name="name">payment_plan_tree</field>
+            <field name="model">payment.plan</field>
+            <field name="arch" type="xml">
+                <list string="Payment plan">
+                    <field name="name" />
+                </list>
+            </field>
+        </record>
+
+
+        <record id="payment_plan_form_view" model="ir.actions.act_window">
+            <field name="name">Payment plan</field>
+            <field name="res_model">payment.plan</field>
+            <field name="view_mode">list,form</field>
+
+
+            <field eval="False" name="view_id" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Click to create a customer invoice.</p>
+                <p>Odoo's electronic invoicing allows to ease and fasten the collection of customer payments.
+                    Your customer receives the invoice by email and he can pay online and/or import
+                    it in his own system.
+                </p>
+                <p>The discussions with your customer are automatically displayed at the bottom of each
+                    invoice.
+                </p>
+            </field>
+        </record>
+        <record id="payment_plan_form_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence" />
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="real_payment_plan_tree" />
+            <field name="act_window_id" ref="payment_plan_form_view" />
+        </record>
+        <record id="payment_plan_tree_view" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="real_payment_plan_form" />
+            <field name="act_window_id" ref="payment_plan_form_view" />
+        </record>
+
+
+        <menuitem action="payment_plan_form_view" id="real_estate_payment_plan" name="Payment Plans" parent="realestate_project.real_estate_configuration_menu" />
+
+    </data>
+</odoo>

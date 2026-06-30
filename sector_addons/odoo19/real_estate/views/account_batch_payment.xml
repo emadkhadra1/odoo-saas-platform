@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="account_payment_inherit_batch" model="ir.ui.view">
+        <field name="name">account.batch.payment</field>
+        <field name="model">account.batch.payment</field>
+        <field name="inherit_id" ref="account_batch_payment.view_batch_payment_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="replace">
+                <header>
+                    <field invisible="1" name="id" />
+                    <field invisible="1" name="file_generation_enabled" />
+                    <button name="print_batch_payment" string="Print" type="object" />
+                    <button groups="real_estate_security.group_manager" name="export_batch_payment" string="re-Generate Export File" type="object" />
+
+                    <button class="oe_highlight" groups="real_estate_security.group_manager" name="validate_batch" string="Validate" type="object" />
+
+                    <button class="oe_highlight" groups="real_estate_security.group_manager" name="action_post_payment" string="Post" type="object" />
+                    <field invisible="1" name="checks_generted" />
+                    <button class="oe_highlight" groups="real_estate_security.group_manager" name="action_create_payment_from_so" string="ØªØ¹Ø¯ÙŠÙ„ ÙˆØ±Ø¨Ø· Ø§Ù„Ø§Ù‚Ø³Ø§Ø·" type="object" />
+
+                    <button class="oe_highlight" groups="real_estate_security.group_manager" name="action_generate_from_so" string="Generate Checks" type="object" />
+
+                    <button class="oe_highlight" groups="real_estate_security.group_manager" invisible="1" name="action_create_payment" string="Ø§Ù†Ø´Ø§Ø¡ Ø§Ù„Ø§Ù‚Ø³Ø§Ø·" type="object" />
+                    <field name="state" statusbar_visible="draft,post,sent,reconciled" widget="statusbar" />
+                </header>
+            </xpath>
+
+            <xpath expr="//field[@name='date']" position="after">
+                <field name="period" />
+            </xpath>
+
+            <xpath expr="//field[@name='journal_id']" position="attributes">
+                <attribute name="string">Journal</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='payment_method_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+                <attribute name="required">0</attribute>
+
+            </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <field force_save="1" name="counter" store="True" />
+                <field name="start_from" />
+                <field name="amount" required="1" />
+                <field name="currency_id" />
+            </xpath>
+            <xpath expr="//field[@name='batch_type']" position="after">
+                <field name="order_id" />
+                <field name="unit_id" />
+                <field name="partner_id" required="1" />
+            </xpath>
+            <xpath expr="//field[@name='payment_method_id']" position="before">
+                <field name="partner_bank" />
+                <field name="bank_branch" />
+                <field invisible="1" name="collected_amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;" type="" />
+            </xpath>
+
+            <xpath expr="//field[@name='payment_ids']/tree/field[@name='name']" position="replace">
+                <field name="batch_name" />
+
+            </xpath>
+            <xpath expr="//field[@name='payment_ids']/tree/field[@name='ref']" position="after">
+                <field name="invoice_date_due" />
+
+            </xpath>
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <xpath expr="//page[@name='batch_content']" position="attributes">
+                <attribute name="attrs">{'invisible':[('checks_generted','!=',True)]}</attribute>
+            </xpath>
+            <xpath expr="//page[@name='batch_content']" position="before">
+                <page name="generate" string="Generated Payment">
+                    <field force_save="1" name="genrate_payment_ids" options="{'no_create': True,'no_edit': True,'no_open': True}" widget="many2many">
+                        <list string="Payments">
+                            <field name="date" />
+                            <field name="partner_id" />
+                            <field name="ref" />
+                            <field name="invoice_date_due" />
+                            <field name="amount" />
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='batch_type']" position="attributes">
+                <attribute name="required">0</attribute>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

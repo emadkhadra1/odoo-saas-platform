@@ -1,0 +1,190 @@
+<odoo>
+    <data>
+<!--        <record id="project_view_map" model="ir.ui.view">-->
+<!--            <field name="name">real.estate.project.map</field>-->
+<!--            <field name="model">real.estate.project</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <map res_partner="id">-->
+<!--                    <marker-popup>-->
+<!--                        <field name="name" string="Name "/>-->
+<!--                    </marker-popup>-->
+<!--                </map>-->
+<!--            </field>-->
+<!--        </record>-->
+        <record id="real_estate_project_view_form" model="ir.ui.view">
+            <field name="name">real.estate.project</field>
+            <field name="model">real.estate.project</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box">
+                            <button name="open_project_units" type="object" string="Units"
+                                    class="oe_stat_button" icon="fa-building">
+
+                            </button>
+                        </div>
+                        <field name="image_128" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
+
+                         <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" class="oe_inline" placeholder="e.g. Project XYZ" required="1"/>
+                            </h1>
+                        </div>
+
+
+                        <group name="project_det">
+                            <group name="project_info">
+                                <field name="code"  required="1"/>
+                                <field name="analytic_account_id"  readonly="1"/>
+                            </group>
+                             <group name="project_info2">
+                                 <field name="company_id" groups="base.group_multi_company" options="{'no_create':1}"/>
+
+                             </group>
+                        </group>
+                        <notebook>
+                            <page string="Images" name="images">
+                                <button name="action_image_preview" class="btn-success" string="Preview"
+                                        type="object"/>
+                                <field name="image_ids" nolabel="1">
+                                    <kanban options="{'no_open':True}" data-reload-on-close="true">
+                                        <field name="id"/>
+                                        <field name="image"/>
+                                        <field name="name"/>
+                                        <templates>
+                                            <t t-name="card">
+                                                <div style="width: 210px;">
+                                                    <center>
+                                                        <a type="open">
+                                                            <img t-att-src="kanban_image('ptoject.image', 'image', record.id.raw_value)"
+                                                                 class="zoom" data-reload-on-close="true" width="210px"
+                                                                 height="200px"
+                                                                 alt="Project Image"/>
+                                                        </a>
+                                                    </center>
+                                                </div>
+
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                    <list string="Project Images">
+                                        <field name="name"/>
+                                        <field name="image" required="True"/>
+                                    </list>
+                                    <form string="Project Image">
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                            </group>
+                                            <group>
+                                                <field name="image"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Other Materials" name="other_materials">
+                                <group>
+                                    <group>
+                                        <field name="docs_ids"  widget="many2many_binary"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Location" name="other_materials">
+                                <group>
+                                    <group>
+                                        <field name="map_url"  widget="url"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Accounting" name="accounting">
+                                <group name="accounting">
+                                    <group string="Journal (Delivered Units)">
+                                        <field name="journal_id" domain="[('company_id','=',company_id)]"
+                                               required="1"/>
+                                        <field name="credit_account_id" domain="[('company_id','=',company_id)]"
+                                               required="1"/>
+                                    </group>
+                                    <group string="Journal (Costing)">
+                                        <field name="cost_journal_id" domain="[('company_id','=',company_id)]"
+                                               required="1"/>
+                                        <field name="cost_credit_account_id" domain="[('company_id','=',company_id)]"
+                                               required="1"/>
+                                        <field name="cost_debit_account_id" domain="[('company_id','=',company_id)]"
+                                               required="1"/>
+                                        <field name="property_stock_valuation_account_id" domain="[('company_id','=',company_id)]"
+                                               required="0"/>
+
+                                    </group>
+                                    <group string="Receivables">
+                                        <field name="property_account_receivable_id" options="{'no_create':True}" required="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="real_estate_project_view_tree" model="ir.ui.view">
+            <field name="name">real.estate.project</field>
+            <field name="model">real.estate.project</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+        <record id="real_estate_project_view_kanban" model="ir.ui.view">
+            <field name="name">real.estate.project</field>
+            <field name="model">real.estate.project</field>
+            <field name="arch" type="xml">
+            <kanban>
+                <field name="id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('real.estate.project', 'image_128', record.id.raw_value)" alt="Project" class="o_image_64_contain"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div name="tags"/>
+                                <ul>
+                                    <li>Code: <field name="code" /></li>
+                                </ul>
+
+
+                                <div name="tags2"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+        <record id="realestate_project_window_action" model="ir.actions.act_window">
+            <field name="name">Projects</field>
+            <field name="res_model">real.estate.project</field>
+            <field name="view_mode">kanban,list,form,search</field>
+            <field name="target">current</field>
+        </record>
+        <menuitem id="dashboard_menu"
+                  name="Projects"
+                  parent="real_estate_root_menu"
+                  action="realestate_project_window_action"
+                  groups="realestate_project.real_estate_project_menu_group,real_estate_security.group_manager"
+                  sequence="1"/>
+        <menuitem id="realestate_projects_menu"
+                  name="Projects"
+                  parent="dashboard_menu"
+                  action="realestate_project_window_action"
+                  sequence="1"/>
+    </data>
+</odoo>

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_select_unit_wizard,select.unit.wizard,model_select_unit_wizard,,1,1,1,1
+access_select_unit_wizard_line,select.unit.wizard.line,model_select_unit_wizard_line,,1,1,1,1
+"crm_access_ir_actions_act_window_view_group_system","ir_actions_act_window_view_group_system","base.model_ir_actions_act_window_view","base.group_user",1,0,0,0
+"access_ir_ui_view_group_user","ir_ui_view group_user","base.model_ir_ui_view",,1,0,0,0
+"real_access_ir_actions_act_window_system","ir_actions_act_window_system","base.model_ir_actions_act_window",,1,0,0,0

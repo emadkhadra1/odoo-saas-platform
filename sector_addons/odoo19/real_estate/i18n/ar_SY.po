@@ -1,0 +1,1757 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* real_estate
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-15 22:27+0000\n"
+"PO-Revision-Date: 2020-01-15 22:27+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__no_of_installements
+#: model:ir.model.fields,field_description:real_estate.field_sale_order_line__no_of_installements
+msgid "# Installments"
+msgstr "عدد الأقساط"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__room
+#: model:ir.model.fields,field_description:real_estate.field_product_template__room
+msgid "# Rooms"
+msgstr "الغرف"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.res_config_settings_view_form_realestate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_hold_request_form
+msgid "<font color=\"teal\">Days</font>"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_account_payment
+msgid "Account Check Payment"
+msgstr "حساب الشيكات"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__message_needaction
+msgid "Action Needed"
+msgstr "الإجراء المطلوب"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__active
+msgid "Active"
+msgstr "نشط"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__activity_ids
+msgid "Activities"
+msgstr "الأنشطة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__activity_state
+msgid "Activity State"
+msgstr "حالة النشاط"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_history__hist_date
+msgid "Actual Date"
+msgstr "التاريخ الفعلي"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+msgid "Add a Line"
+msgstr "أضف سطر"
+
+#. module: real_estate
+#: model:product.category,name:real_estate.product_category_all
+msgid "All"
+msgstr "الكل"
+
+#. module: real_estate
+#: code:addons/real_estate/models/account_batch_payment.py:144
+#, python-format
+msgid "All payments in the batch must belong to the same company."
+msgstr ""
+
+#. module: real_estate
+#: code:addons/real_estate/models/account_batch_payment.py:156
+#, python-format
+msgid "All payments in the batch must share the same payment method."
+msgstr ""
+
+#. module: real_estate
+#: code:addons/real_estate/models/account_batch_payment.py:151
+#, python-format
+msgid "All payments in the batch must share the same type."
+msgstr ""
+
+#. module: real_estate
+#: model:res.groups,name:real_estate.group_so_confirm
+msgid "Allow SO Confirm"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan__discount_amount
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__amount
+#: selection:payment.plan,discount_type:0
+#: selection:payment.plan.line,pricing_unit:0
+msgid "Amount"
+msgstr "المبلغ"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.crm_case_form_view_leads_inherited
+msgid "Analysis"
+msgstr "التحليل"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_account_invoice__analytic_account_id
+#: model:ir.model.fields,field_description:real_estate.field_account_payment__analytic_account_id
+#: model:ir.model.fields,field_description:real_estate.field_product_product__analytic_account_id
+#: model:ir.model.fields,field_description:real_estate.field_product_template__analytic_account_id
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Analytic Account"
+msgstr "الحساب التحليلي"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_hold_request_form
+#: selection:product.request,state:0
+msgid "Approve"
+msgstr "قبول"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order__arabic_amount
+msgid "Arabic Amount"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order__arabic_amount_unit
+msgid "Arabic Amount Unit"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order__arabic_area
+msgid "Arabic Area"
+msgstr ""
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+msgid "Are you sure you want to void the authorized transaction? This action can't be undone."
+msgstr "هل أنت متأكد أنك تريد إبطال المعاملة المُصدق عليها؟ لا يمكن التراجع عن هذا الإجراء."
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_room__area
+msgid "Area"
+msgstr "المنطقة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__message_attachment_count
+msgid "Attachment Count"
+msgstr "عدد المرفقات"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_cede__attachment_id
+#: model:ir.model.fields,field_description:real_estate.field_product_history__attachment_id
+msgid "Attachments"
+msgstr "المُرفقات"
+
+#. module: real_estate
+#: selection:product.request,hold_type:0
+msgid "Automatic"
+msgstr "تلقائي"
+
+#. module: real_estate
+#: selection:product.history,state:0
+msgid "Back For Sale"
+msgstr ""
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Back To Sale"
+msgstr "إعادة لحالة المتاح"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_account_batch_payment__bank_branch
+msgid "Bank Branch"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_account_batch_payment
+msgid "Batch Payment"
+msgstr "شيكات مجمعة"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+#: selection:product.history,state:0
+#: selection:product.template,state:0
+msgid "Blocked"
+msgstr "متوقف"
+
+#. module: real_estate
+#: selection:product.history,state:0
+#: selection:product.template,state:0
+msgid "Booked"
+msgstr "محجوز"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__booked_date
+#: model:ir.model.fields,field_description:real_estate.field_product_template__booked_date
+msgid "Booked Date"
+msgstr "تاريخ الحجز"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+msgid "Calculate Payment"
+msgstr "إحسب الدفعات"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_offer_payment_plan__campaign_id
+msgid "Campaign"
+msgstr "الحملة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__purchase_ok
+#: model:ir.model.fields,field_description:real_estate.field_product_template__purchase_ok
+msgid "Can be Purchased"
+msgstr "يمكن شراؤها"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_product_cede_form
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: real_estate
+#: selection:sale.order,state:0
+msgid "Cancelled"
+msgstr "إلغيت"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+msgid "Capture Transaction"
+msgstr "التقاط المعاملة"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+#: selection:product.history,state:0
+msgid "Cede"
+msgstr "تنازل"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_account_invoice__check
+#: model:ir.model.fields,field_description:real_estate.field_sale_order__check
+msgid "Check"
+msgstr "شيك"
+
+#. module: real_estate
+#: model_terms:ir.actions.act_window,help:real_estate.payment_plan_form_view
+#: model_terms:ir.actions.act_window,help:real_estate.real_image_preview_tree_view_all
+msgid "Click to create a customer invoice."
+msgstr "إضغط لإنشاء فاتورة"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Coding"
+msgstr "التكويد"
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_res_company
+msgid "Companies"
+msgstr "المؤسسات"
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_res_config_settings
+msgid "Config Settings"
+msgstr "ضبط الإعدادات"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_product_cede_form
+msgid "Confirm"
+msgstr "تأكيد"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_history__confirm_date
+#: model:ir.model.fields,field_description:real_estate.field_product_product__confirm_date
+#: model:ir.model.fields,field_description:real_estate.field_product_template__confirm_date
+msgid "Confirmation Date"
+msgstr "تاريخ التأكيد"
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_res_partner
+msgid "Contact"
+msgstr "جهة الاتصال"
+
+#. module: real_estate
+#: selection:payment.plan.line,pay_type:0
+#: selection:sale.order.line,pay_type:0
+msgid "Contracting"
+msgstr "دفعة تعاقد"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_account_batch_payment__counter
+msgid "Counter"
+msgstr "العدد"
+
+#. module: real_estate
+#: model:ir.actions.server,name:real_estate.ir_cron_scheduler_demo_action_booked_ir_actions_server
+#: model:ir.cron,cron_name:real_estate.ir_cron_scheduler_demo_action_booked
+#: model:ir.cron,name:real_estate.ir_cron_scheduler_demo_action_booked
+msgid "Counter:Back To Sale / Booked"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.actions.server,name:real_estate.ir_cron_scheduler_demo_action_hold_ir_actions_server
+#: model:ir.cron,cron_name:real_estate.ir_cron_scheduler_demo_action_hold
+#: model:ir.cron,name:real_estate.ir_cron_scheduler_demo_action_hold
+msgid "Counter:Back To Sale / Hold"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_res_partner__country_id
+#: model:ir.model.fields,field_description:real_estate.field_res_users__country_id
+msgid "Country"
+msgstr "دولة"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_hold_request_wizard
+msgid "Create"
+msgstr "إنشاء"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+msgid "Create Installements"
+msgstr "إنشاء الأقساط"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.crm_view_form2
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Create Offer"
+msgstr "إنشاء عرض"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_offer_payment_plan__create_uid
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan__create_uid
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__create_uid
+#: model:ir.model.fields,field_description:real_estate.field_product_cede__create_uid
+#: model:ir.model.fields,field_description:real_estate.field_product_history__create_uid
+#: model:ir.model.fields,field_description:real_estate.field_product_image__create_uid
+#: model:ir.model.fields,field_description:real_estate.field_product_image_preview__create_uid
+#: model:ir.model.fields,field_description:real_estate.field_product_request__create_uid
+#: model:ir.model.fields,field_description:real_estate.field_product_room__create_uid
+#: model:ir.model.fields,field_description:real_estate.field_product_utility__create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_offer_payment_plan__create_date
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan__create_date
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__create_date
+#: model:ir.model.fields,field_description:real_estate.field_product_cede__create_date
+#: model:ir.model.fields,field_description:real_estate.field_product_history__create_date
+#: model:ir.model.fields,field_description:real_estate.field_product_image__create_date
+#: model:ir.model.fields,field_description:real_estate.field_product_image_preview__create_date
+#: model:ir.model.fields,field_description:real_estate.field_product_request__create_date
+#: model:ir.model.fields,field_description:real_estate.field_product_room__create_date
+#: model:ir.model.fields,field_description:real_estate.field_product_utility__create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_offer_payment_plan__crm_id
+msgid "Crm"
+msgstr "إدارة العملاء"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_account_batch_payment__currency_id
+msgid "Currency"
+msgstr "العملة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_offer_payment_plan__partner_id
+#: model:ir.model.fields,field_description:real_estate.field_product_request__customer_id
+msgid "Customer"
+msgstr "العميل"
+
+#. module: real_estate
+#: selection:payment.plan.line,schedule_period:0
+#: selection:sale.order.line,schedule_period:0
+msgid "Day"
+msgstr "اليوم"
+
+#. module: real_estate
+#: selection:sale.order.line,display_type:0
+msgid "Default"
+msgstr "الإفتراضي"
+
+#. module: real_estate
+#: model:product.product,description:real_estate.product_product_19_bom
+#: model:product.template,description:real_estate.product_product_19_bom_product_template
+msgid "Default Product"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_res_partner__def_type
+#: model:ir.model.fields,field_description:real_estate.field_res_users__def_type
+msgid "Definition Type"
+msgstr ""
+
+#. module: real_estate
+#: selection:payment.plan.line,pay_type:0
+#: selection:sale.order.line,pay_type:0
+msgid "Delivery"
+msgstr "دفعة الإستلام"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__delivery_date
+#: model:ir.model.fields,field_description:real_estate.field_product_template__delivery_date
+msgid "Delivery Date"
+msgstr "تاريخ التسليم"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_utility__name
+msgid "Description"
+msgstr "الوصف"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_hold_request_wizard
+msgid "Discard"
+msgstr "تجاهل"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan__discount_type
+msgid "Discount"
+msgstr "التخفيض"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_image__display_image
+msgid "Display Image"
+msgstr "عرض الصورة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_offer_payment_plan__display_name
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan__display_name
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__display_name
+#: model:ir.model.fields,field_description:real_estate.field_product_cede__display_name
+#: model:ir.model.fields,field_description:real_estate.field_product_history__display_name
+#: model:ir.model.fields,field_description:real_estate.field_product_image__display_name
+#: model:ir.model.fields,field_description:real_estate.field_product_image_preview__display_name
+#: model:ir.model.fields,field_description:real_estate.field_product_request__display_name
+#: model:ir.model.fields,field_description:real_estate.field_product_room__display_name
+#: model:ir.model.fields,field_description:real_estate.field_product_utility__display_name
+msgid "Display Name"
+msgstr "الاسم المعروض"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order_line__display_type
+msgid "Display Type"
+msgstr "نوع العرض"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.real_payment_plan_form
+msgid "Distribution"
+msgstr "التوزيع"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_account_invoice__date_due
+#: model:ir.model.fields,field_description:real_estate.field_account_invoice__date_temp
+msgid "Due Date"
+msgstr "تاريخ الاستحقاق"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.crm_case_form_view_leads_inherited
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.crm_case_form_view_leads_inherited
+msgid "Extra Info"
+msgstr "معلومات إضافية"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Finishing Description"
+msgstr "وصف التشطيب"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__floor
+#: model:ir.model.fields,field_description:real_estate.field_product_template__floor
+msgid "Floor #"
+msgstr "رقم الدور"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__floor_num
+#: model:ir.model.fields,field_description:real_estate.field_product_product__floor_number
+#: model:ir.model.fields,field_description:real_estate.field_product_template__floor_num
+#: model:ir.model.fields,field_description:real_estate.field_product_template__floor_number
+msgid "Floor # invisible"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__message_follower_ids
+msgid "Followers"
+msgstr "المتابعون"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "المتابعون (القنوات)"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "المتابعون (الشركاء)"
+
+#. module: real_estate
+#: selection:product.template,state:0
+msgid "For Sale"
+msgstr "متاح للبيع"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__header_inv
+msgid "Header Inv"
+msgstr ""
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "History"
+msgstr "السجل"
+
+#. module: real_estate
+#: selection:product.history,state:0
+#: selection:product.template,state:0
+msgid "Hold"
+msgstr "معلق"
+
+#. module: real_estate
+#: selection:product.history,state:0
+msgid "Hold Approve"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__hold_date
+#: model:ir.model.fields,field_description:real_estate.field_product_template__hold_date
+msgid "Hold Date"
+msgstr "تاريخ التعليق"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__hold_days
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_hold_request_form
+msgid "Hold Days"
+msgstr "عدد أيام التعليق"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__hold_reason
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_hold_request_form
+msgid "Hold Reason"
+msgstr "سبب التعليق"
+
+#. module: real_estate
+#: selection:product.history,state:0
+msgid "Hold Rejected"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__name
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_hold_request_form
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_hold_request_tree
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_hold_request_wizard
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_product_cede_form
+msgid "Hold Request"
+msgstr "طلب تعليق"
+
+#. module: real_estate
+#: model:ir.actions.act_window,name:real_estate.action_hold_request_all
+#: model:ir.ui.menu,name:real_estate.menu_hold_request
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Hold Requests"
+msgstr "طلبات التعليق"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__hold_type
+msgid "Hold Type"
+msgstr "طريقة التعليق"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_offer_payment_plan__id
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan__id
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__id
+#: model:ir.model.fields,field_description:real_estate.field_product_cede__id
+#: model:ir.model.fields,field_description:real_estate.field_product_history__id
+#: model:ir.model.fields,field_description:real_estate.field_product_image__id
+#: model:ir.model.fields,field_description:real_estate.field_product_image_preview__id
+#: model:ir.model.fields,field_description:real_estate.field_product_request__id
+#: model:ir.model.fields,field_description:real_estate.field_product_room__id
+#: model:ir.model.fields,field_description:real_estate.field_product_utility__id
+#: model:ir.model.fields,field_description:real_estate.field_res_partner__per_id
+#: model:ir.model.fields,field_description:real_estate.field_res_users__per_id
+#: selection:res.partner,def_type:0
+msgid "ID"
+msgstr "المُعرف"
+
+#. module: real_estate
+#: model:ir.model.fields,help:real_estate.field_product_request__message_unread
+msgid "If checked new messages require your attention."
+msgstr "إذا كان محددًا، فهناك رسائل جديدة تحتاج لرؤيتها."
+
+#. module: real_estate
+#: model:ir.model.fields,help:real_estate.field_product_request__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "إذا كان محددًا، فهناك رسائل جديدة تحتاج لرؤيتها."
+
+#. module: real_estate
+#: model:ir.model.fields,help:real_estate.field_product_request__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "إذا كان محددًا، فقد حدث خطأ في تسليم بعض الرسائل."
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+msgid "If the sale is locked, you can not modify it anymore. However, you will still be able to invoice or deliver."
+msgstr "إذا تم إقفال أمر البيع، لن تستطيع تعديله. لكن سيكون بإمكانك فوترته أو تسليمه."
+
+#. module: real_estate
+#: model:ir.model.fields,help:real_estate.field_account_invoice__date_due
+msgid "If you use payment terms, the due date will be computed automatically at the generation of accounting entries. The Payment terms may compute several due dates, for example 50% now and 50% in one month, but if you want to force a due date, make sure that the payment term is not set on the invoice. If you keep the Payment terms and the due date empty, it means direct payment."
+msgstr "في حال استخدام شروط السداد، سيتم حساب تاريخ الاستحقاق تلقائيًا عند إنشاء القيود المحاسبية. قد تحسب شروط السداد عدة تواريخ استحقاق، علي سبيل المثال: 50% الآن، 50% بعد شهر, لكن إذا كنت ترغب فى فرض تاريخ الاستحقاق, تأكد من أن طريقة الدفع لا تظهر على الفاتورة. إذا تركت خانات شروط الدفع وتاريخ الاستحقاق فارغة، فهذا يعني الدفع المباشر."
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_image__image
+#: model:ir.model.fields,field_description:real_estate.field_product_image_preview__image_preview
+msgid "Image"
+msgstr "الصورة"
+
+#. module: real_estate
+#: model:ir.ui.menu,name:real_estate.menu_real_image_preview_tree_view_all
+msgid "Image Preview"
+msgstr "عرض الصورة"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Images"
+msgstr "الصور"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_utility__included_price
+msgid "Included In Total Price"
+msgstr "ضمن سعر الوحدة"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+msgid "Installements"
+msgstr "الأقساط"
+
+#. module: real_estate
+#: selection:payment.plan.line,pay_type:0
+#: selection:sale.order.line,pay_type:0
+msgid "Installment"
+msgstr "القسط"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__unit_amount
+msgid "Installment Amount"
+msgstr "قيمة القسط"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan__interset
+#: model:ir.model.fields,field_description:real_estate.field_sale_order_line__interset
+#: model:product.product,name:real_estate.product_product_19_bom
+#: model:product.template,name:real_estate.product_product_19_bom_product_template
+msgid "Interest"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order_line__amount_percentage
+msgid "Interest Amount"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__line_interset
+msgid "Interset"
+msgstr "الفائدة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order__inv_calc_payment
+msgid "Inv Calc Payment"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_account_invoice
+msgid "Invoice"
+msgstr "الفاتورة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order__invoice_inv
+msgid "Invoice Inv"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__message_is_follower
+msgid "Is Follower"
+msgstr "متابع"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__is_interest
+#: model:ir.model.fields,field_description:real_estate.field_product_template__is_interest
+msgid "Is Interest"
+msgstr "فائدة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__is_land
+#: model:ir.model.fields,field_description:real_estate.field_product_template__is_land
+msgid "Is Land"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__is_penality
+#: model:ir.model.fields,field_description:real_estate.field_product_template__is_penality
+msgid "Is Penality"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__is_product
+msgid "Is Product"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__is_residential
+#: model:ir.model.fields,field_description:real_estate.field_product_template__is_residential
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate_filter
+msgid "Is Unit"
+msgstr "وحدة سكنية"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_res_partner__issue_from
+#: model:ir.model.fields,field_description:real_estate.field_res_users__issue_from
+msgid "Issue From"
+msgstr ""
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.account_payment_inherit_batch
+msgid "Journal"
+msgstr "دفتر اليومية"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order__last_invoice
+msgid "Last Invoice"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_offer_payment_plan____last_update
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan____last_update
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line____last_update
+#: model:ir.model.fields,field_description:real_estate.field_product_cede____last_update
+#: model:ir.model.fields,field_description:real_estate.field_product_history____last_update
+#: model:ir.model.fields,field_description:real_estate.field_product_image____last_update
+#: model:ir.model.fields,field_description:real_estate.field_product_image_preview____last_update
+#: model:ir.model.fields,field_description:real_estate.field_product_request____last_update
+#: model:ir.model.fields,field_description:real_estate.field_product_room____last_update
+#: model:ir.model.fields,field_description:real_estate.field_product_utility____last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_offer_payment_plan__write_uid
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan__write_uid
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__write_uid
+#: model:ir.model.fields,field_description:real_estate.field_product_cede__write_uid
+#: model:ir.model.fields,field_description:real_estate.field_product_history__write_uid
+#: model:ir.model.fields,field_description:real_estate.field_product_image__write_uid
+#: model:ir.model.fields,field_description:real_estate.field_product_image_preview__write_uid
+#: model:ir.model.fields,field_description:real_estate.field_product_request__write_uid
+#: model:ir.model.fields,field_description:real_estate.field_product_room__write_uid
+#: model:ir.model.fields,field_description:real_estate.field_product_utility__write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_offer_payment_plan__write_date
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan__write_date
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__write_date
+#: model:ir.model.fields,field_description:real_estate.field_product_cede__write_date
+#: model:ir.model.fields,field_description:real_estate.field_product_history__write_date
+#: model:ir.model.fields,field_description:real_estate.field_product_image__write_date
+#: model:ir.model.fields,field_description:real_estate.field_product_image_preview__write_date
+#: model:ir.model.fields,field_description:real_estate.field_product_request__write_date
+#: model:ir.model.fields,field_description:real_estate.field_product_room__write_date
+#: model:ir.model.fields,field_description:real_estate.field_product_utility__write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_crm_lead
+msgid "Lead/Opportunity"
+msgstr "عرض/فرصة"
+
+#. module: real_estate
+#: model:ir.model.fields,help:real_estate.field_account_invoice__analytic_account_id
+#: model:ir.model.fields,help:real_estate.field_account_payment__analytic_account_id
+#: model:ir.model.fields,help:real_estate.field_product_product__analytic_account_id
+#: model:ir.model.fields,help:real_estate.field_product_template__analytic_account_id
+msgid "Link this project to an analytic account if you need financial management on projects. It enables you to connect projects with budgets, planning, cost and revenue analysis, timesheets on projects, etc."
+msgstr ""
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+msgid "Lock"
+msgstr "قفل"
+
+#. module: real_estate
+#: selection:sale.order,state:0
+msgid "Locked"
+msgstr "مغلق"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "المرفق الرئيسي"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_res_company__booked_days
+#: model:ir.model.fields,field_description:real_estate.field_res_config_settings__booked_days
+msgid "Max Booked Days"
+msgstr "أقصي عدد ايام حجز"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order_line__max_rec
+msgid "Max Rec"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_offer_payment_plan__medium_id
+msgid "Medium"
+msgstr "متوسط"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__message_has_error
+msgid "Message Delivery error"
+msgstr "خطأ في تسليم الرسائل"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__message_ids
+msgid "Messages"
+msgstr "الرسائل"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__min_deposit_amount
+#: model:ir.model.fields,field_description:real_estate.field_product_template__min_deposit_amount
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Min Deposit Amount"
+msgstr "قيمة دفعة الحجز"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__min_deposit_amount_temp
+#: model:ir.model.fields,field_description:real_estate.field_product_template__min_deposit_amount_temp
+#: model:ir.model.fields,field_description:real_estate.field_sale_order__min_deposit_amount
+msgid "Min Deposit Amount Temp"
+msgstr ""
+
+#. module: real_estate
+#: selection:payment.plan.line,schedule_period:0
+#: selection:sale.order.line,schedule_period:0
+msgid "Month"
+msgstr "الشهر"
+
+#. module: real_estate
+#: selection:account.batch.payment,period:0
+msgid "Monthly"
+msgstr "شهريا"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_account_payment__batch_name
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan__name
+#: model:ir.model.fields,field_description:real_estate.field_product_image__name
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Name"
+msgstr "الاسم"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_res_partner__nationality
+#: model:ir.model.fields,field_description:real_estate.field_res_users__nationality
+msgid "Nationality"
+msgstr "الجنسية"
+
+#. module: real_estate
+#: selection:account.batch.payment,state:0
+msgid "New"
+msgstr "جديد"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.real_image_preview_form
+msgid "Next"
+msgstr "التالي"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "الموعد النهائي للنشاط التالي"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__activity_summary
+msgid "Next Activity Summary"
+msgstr "ملخص النشاط التالي"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__activity_type_id
+msgid "Next Activity Type"
+msgstr "نوع النشاط التالي"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+msgid "No.Of Installements"
+msgstr "عدد الأقساط"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__non_return
+msgid "Non-Returned Amount"
+msgstr "المبلغ الغير مسترد"
+
+#. module: real_estate
+#: selection:sale.order.line,display_type:0
+msgid "Note"
+msgstr "ملاحظات"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_room__notes
+msgid "Notes"
+msgstr "ملاحظات"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__message_needaction_counter
+msgid "Number of Actions"
+msgstr "عدد الإجراءات"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__message_has_error_counter
+msgid "Number of error"
+msgstr "عدد الأخطاء"
+
+#. module: real_estate
+#: model:ir.model.fields,help:real_estate.field_product_request__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "عدد الرسائل التي تتطلب إجراء"
+
+#. module: real_estate
+#: model:ir.model.fields,help:real_estate.field_product_request__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "عدد الرسائل الحادث بها خطأ في التسليم"
+
+#. module: real_estate
+#: model:ir.model.fields,help:real_estate.field_product_request__message_unread_counter
+msgid "Number of unread messages"
+msgstr "عدد الرسائل الجديدة"
+
+#. module: real_estate
+#: model_terms:ir.actions.act_window,help:real_estate.payment_plan_form_view
+#: model_terms:ir.actions.act_window,help:real_estate.real_image_preview_tree_view_all
+msgid "Odoo's electronic invoicing allows to ease and fasten the collection of customer payments.\n"
+"                    Your customer receives the invoice by email and he can pay online and/or import\n"
+"                    it in his own system."
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__offer_id
+#: selection:sale.order,state:0
+msgid "Offer"
+msgstr "عرض سعر"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree2
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+msgid "Offer Date"
+msgstr "تاريخ العرض"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree2
+msgid "Offer Number"
+msgstr "عدد العروض"
+
+#. module: real_estate
+#: selection:sale.order,state:0
+msgid "Offer Sent"
+msgstr "العرض ارسل"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order_line__product_uom_qty
+msgid "Ordered Quantity"
+msgstr "كمية "
+
+#. module: real_estate
+#: selection:product.request,activity_state:0
+msgid "Overdue"
+msgstr "مستحق الدفع"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_account_batch_payment__partner_id
+msgid "Partner"
+msgstr "الشريك"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_account_batch_payment__partner_bank
+msgid "Partner Bank"
+msgstr "بنك العميل"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order__partner_set
+msgid "Partner Set"
+msgstr ""
+
+#. module: real_estate
+#: selection:res.partner,def_type:0
+msgid "Passport"
+msgstr "الباسبور"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_account_batch_payment__amount
+msgid "Payment Amount"
+msgstr "المبلغ المدفوع"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan__payment_line_ids
+msgid "Payment Line"
+msgstr "سطر الدفعة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_account_batch_payment__payment_method_id
+msgid "Payment Method"
+msgstr "طرق السداد"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_offer_payment_plan__payment_plan_id
+#: model:ir.model.fields,field_description:real_estate.field_offer_payment_plan__payment_plan_ids
+#: model:ir.model.fields,field_description:real_estate.field_product_product__payment_plan_id
+#: model:ir.model.fields,field_description:real_estate.field_product_template__payment_plan_id
+#: model:ir.model.fields,field_description:real_estate.field_product_utility__payment_plan_id
+#: model:ir.model.fields,field_description:real_estate.field_sale_order__payment_plan_id
+msgid "Payment Plan"
+msgstr "خطة التسعير"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__payment_id
+msgid "Payment Reference"
+msgstr "مرجع الدفع"
+
+#. module: real_estate
+#: model:ir.actions.act_window,name:real_estate.payment_plan_form_view
+#: model_terms:ir.ui.view,arch_db:real_estate.real_payment_plan_form
+#: model_terms:ir.ui.view,arch_db:real_estate.real_payment_plan_tree
+msgid "Payment plan"
+msgstr "خطة التسعير"
+
+#. module: real_estate
+#: model:ir.ui.menu,name:real_estate.real_estate_payment_plan
+msgid "Payment plan profile"
+msgstr "نموذج خطة التسعير"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.account_payment_inherit_batch
+msgid "Payments"
+msgstr "المدفوعات"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan__discount_percentage
+#: selection:payment.plan,discount_type:0
+#: selection:payment.plan.line,pricing_unit:0
+msgid "Percentage"
+msgstr "النسبة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__percentage
+#: model:ir.model.fields,field_description:real_estate.field_sale_order_line__percentage
+msgid "Percentage (%)"
+msgstr "النسبة المئوية"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_account_batch_payment__period
+msgid "Period"
+msgstr "المدة"
+
+#. module: real_estate
+#: model:product.category,name:real_estate.product_category_5
+msgid "Physical"
+msgstr ""
+
+#. module: real_estate
+#: selection:product.request,activity_state:0
+msgid "Planned"
+msgstr "مخطط"
+
+#. module: real_estate
+#: code:addons/real_estate/models/product_template.py:46
+#: code:addons/real_estate/models/product_template.py:202
+#: code:addons/real_estate/models/sales_order.py:373
+#, python-format
+msgid "Please add Min Deposit Amount For Unit \"%s\""
+msgstr "من فضلك اضف مبلغ الحجز داخل بيانات الوحدة"
+
+#. module: real_estate
+#: selection:account.batch.payment,state:0
+#: model_terms:ir.ui.view,arch_db:real_estate.account_payment_inherit_batch
+msgid "Post"
+msgstr "ترحيل"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+msgid "Preview"
+msgstr "المعاينة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_utility__price
+msgid "Price"
+msgstr "سعر"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__pricing_unit
+msgid "Pricing Unit"
+msgstr "وحدة التسعير"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.account_payment_inherit_batch
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+msgid "Print"
+msgstr "طباعة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__product_id
+#: model:ir.model.fields,field_description:real_estate.field_product_cede__product_id
+#: model:ir.model.fields,field_description:real_estate.field_product_history__product_id
+#: model:ir.model.fields,field_description:real_estate.field_product_image__product_id
+#: model:ir.model.fields,field_description:real_estate.field_product_image_preview__product_id
+#: model:ir.model.fields,field_description:real_estate.field_product_room__product_id
+#: model:ir.model.fields,field_description:real_estate.field_product_utility__product_id
+#: model:ir.model.fields,field_description:real_estate.field_sale_order_line__product_id
+msgid "Product"
+msgstr "المنتج"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Product Category"
+msgstr "فئة المنتج"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__product_history_ids
+#: model:ir.model.fields,field_description:real_estate.field_product_template__product_history_ids
+msgid "Product History"
+msgstr "تاريخ الوحدة"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.real_image_preview_form
+#: model_terms:ir.ui.view,arch_db:real_estate.real_image_preview_tree
+msgid "Product Image"
+msgstr "صورة المنتج"
+
+#. module: real_estate
+#: model:ir.actions.act_window,name:real_estate.real_image_preview_tree_view_all
+#: model:ir.model.fields,field_description:real_estate.field_product_product__image_ids
+#: model:ir.model.fields,field_description:real_estate.field_product_template__image_ids
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Product Images"
+msgstr "صور الوحدة"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Product Name"
+msgstr "اسم المنتج"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__product_room_ids
+#: model:ir.model.fields,field_description:real_estate.field_product_template__product_room_ids
+msgid "Product Room"
+msgstr "الغرف"
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_product_template
+msgid "Product Template"
+msgstr "قالب المنتج"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__product_utility_ids
+#: model:ir.model.fields,field_description:real_estate.field_product_template__product_utility_ids
+msgid "Product Utility"
+msgstr "ملحقات الوحدة"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Property"
+msgstr "الوحدة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_cede__customer_id
+#: model:ir.model.fields,field_description:real_estate.field_product_product__customer_id
+#: model:ir.model.fields,field_description:real_estate.field_product_template__customer_id
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Property Customer"
+msgstr "العميل"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_image__product_image_preview
+#: model:ir.model.fields,field_description:real_estate.field_product_image_preview__image_id
+#: model:ir.model.fields,field_description:real_estate.field_product_image_preview__image_ids
+#: model:ir.model.fields,field_description:real_estate.field_product_image_preview__name
+msgid "Property Images"
+msgstr "صور الوحدة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__product_id
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Property Name"
+msgstr "اسم الوحدة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__vendor_id
+#: model:ir.model.fields,field_description:real_estate.field_product_template__vendor_id
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Property Owner"
+msgstr "مالك الوحدة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order_line__product_utility_ids
+msgid "Property Utility"
+msgstr "ملحق الوحدة"
+
+#. module: real_estate
+#: selection:account.batch.payment,period:0
+msgid "Quarter"
+msgstr "ربع سنوي"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order__readonly
+#: model:ir.model.fields,field_description:real_estate.field_sale_order_line__readonly
+msgid "Readonly"
+msgstr "للقراءة فقط"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order_line__recerv_unit
+msgid "Recerv Unit"
+msgstr ""
+
+#. module: real_estate
+#: selection:account.batch.payment,state:0
+msgid "Reconciled"
+msgstr "تم التسوية"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_hold_request_form
+#: selection:product.request,state:0
+msgid "Reject"
+msgstr "رفض"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_res_partner__release_date
+#: model:ir.model.fields,field_description:real_estate.field_res_users__release_date
+msgid "Release Date"
+msgstr "تاريخ الطرح"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order__remain_arabic_amount
+msgid "Remain Arabic Amount"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__remain_amount
+#: model:ir.model.fields,field_description:real_estate.field_product_template__remain_amount
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Remaining Amount"
+msgstr "صافي المبلغ المتبقي"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__remain_amount_with_interest
+#: model:ir.model.fields,field_description:real_estate.field_product_template__remain_amount_with_interest
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Remaining Amount With Interest"
+msgstr "المبلغ المتبقي بالفائدة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order__repeat_installements
+msgid "Repeat Installements"
+msgstr ""
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+#: selection:product.history,state:0
+msgid "Replace"
+msgstr "إستبدال"
+
+#. module: real_estate
+#: selection:product.request,state:0
+msgid "Request"
+msgstr "اطلب"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__requset_id
+#: model:ir.model.fields,field_description:real_estate.field_product_template__requset_id
+msgid "Requset"
+msgstr "اطلب"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+#: selection:sale.order,state:0
+msgid "Reservation"
+msgstr "الحجز"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order__reserve
+msgid "Reserve"
+msgstr "احجز"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_history__sales_person_id
+msgid "Responsible"
+msgstr "المسئول"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__activity_user_id
+msgid "Responsible User"
+msgstr "المستخدم المسئول"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+#: selection:product.history,state:0
+msgid "Return"
+msgstr "إسترجاع"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_room__name
+msgid "Room"
+msgstr "غرفة"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Rooms"
+msgstr "الغرف"
+
+#. module: real_estate
+#: selection:sale.order,state:0
+msgid "Sale"
+msgstr "بيع"
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_sale_order
+#: model:ir.model.fields,field_description:real_estate.field_account_invoice__sale_order
+msgid "Sale Order"
+msgstr "أمر البيع"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_offer_payment_plan__team_id
+msgid "Sales Channel"
+msgstr "قناة البيع"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_account_batch_payment__order_id
+msgid "Sales Order"
+msgstr "أمر البيع"
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "سطر عرض السعر"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan__sales_person
+#: model:ir.model.fields,field_description:real_estate.field_product_request__sales_person_id
+msgid "Sales Person"
+msgstr "مسئول المبيعات"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Sales Price"
+msgstr "سعر البيع"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_res_partner__second_address
+#: model:ir.model.fields,field_description:real_estate.field_res_users__second_address
+msgid "Second Address"
+msgstr "عنوان العمل"
+
+#. module: real_estate
+#: selection:sale.order.line,display_type:0
+msgid "Section"
+msgstr "قسم"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.res_config_settings_view_form_realestate
+msgid "Select Max Number Of Booked Property"
+msgstr ""
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+msgid "Send PRO-FORMA Invoice"
+msgstr "إرسال فاتورة مبدئية"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+msgid "Send by Email"
+msgstr "إرسال رسالة بريد إلكتروني"
+
+#. module: real_estate
+#: selection:account.batch.payment,state:0
+msgid "Sent"
+msgstr "ارسل"
+
+#. module: real_estate
+#: model:product.category,name:real_estate.product_category_1
+msgid "Service"
+msgstr ""
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+msgid "Set to Quotation"
+msgstr "تعيينه كعرض سعر"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+#: selection:product.history,state:0
+#: selection:product.template,state:0
+msgid "Sold"
+msgstr "مباع"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_offer_payment_plan__source_id
+msgid "Source"
+msgstr "المصدر"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_offer_payment_plan__start_date
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__start_date
+#: model:ir.model.fields,field_description:real_estate.field_sale_order_line__start_date
+msgid "Start Date"
+msgstr "تاريخ البدء"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_account_batch_payment__start_from
+msgid "Start From"
+msgstr "بداية من"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_account_batch_payment__state
+#: model:ir.model.fields,field_description:real_estate.field_product_request__state
+msgid "State"
+msgstr "الحالة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_history__state
+#: model:ir.model.fields,field_description:real_estate.field_product_product__state
+#: model:ir.model.fields,field_description:real_estate.field_product_template__state
+#: model:ir.model.fields,field_description:real_estate.field_sale_order__state
+msgid "Status"
+msgstr "الحالة"
+
+#. module: real_estate
+#: model:ir.model.fields,help:real_estate.field_product_request__activity_state
+msgid "Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr "الحالة على أساس الأنشطة\n"
+"المتأخرة: تاريخ الاستحقاق مر\n"
+"اليوم: تاريخ النشاط هو اليوم\n"
+"المخطط: الأنشطة المستقبلية."
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order_line__stop_per
+msgid "Stop Per"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,help:real_estate.field_sale_order_line__display_type
+msgid "Technical field for UX purpose."
+msgstr "حقل تقني يهدف لتحسين تجربة المستخدم."
+
+#. module: real_estate
+#: code:addons/real_estate/models/account_batch_payment.py:158
+#, python-format
+msgid "The batch must have the same payment method as the payments it contains."
+msgstr ""
+
+#. module: real_estate
+#: code:addons/real_estate/models/account_batch_payment.py:153
+#, python-format
+msgid "The batch must have the same type as the payments it contains."
+msgstr ""
+
+#. module: real_estate
+#: model_terms:ir.actions.act_window,help:real_estate.payment_plan_form_view
+#: model_terms:ir.actions.act_window,help:real_estate.real_image_preview_tree_view_all
+msgid "The discussions with your customer are automatically displayed at the bottom of each\n"
+"                    invoice."
+msgstr ""
+
+#. module: real_estate
+#: code:addons/real_estate/models/account_batch_payment.py:148
+#, python-format
+msgid "The journal of the batch payment and of the payments it contains must be the same."
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,help:real_estate.field_account_batch_payment__payment_method_id
+msgid "The payment method used by the payments in this batch."
+msgstr "طريقة السداد المستخدمة في عمليات السداد في هذه الدفعة."
+
+#. module: real_estate
+#: code:addons/real_estate/models/product_template.py:40
+#: code:addons/real_estate/models/product_template.py:196
+#: code:addons/real_estate/models/sales_order.py:297
+#: code:addons/real_estate/models/sales_order.py:367
+#, python-format
+msgid "There is no income account defined for this product: \"%s\". You may have to install a chart of account from Accounting app, settings menu."
+msgstr ""
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "This note is only for internal purposes."
+msgstr "تُستخدم هذه الملاحظة للأغراض الداخلية فقط."
+
+#. module: real_estate
+#: selection:product.request,activity_state:0
+msgid "Today"
+msgstr "اليوم"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.account_payment_inherit_batch
+msgid "Total"
+msgstr "الإجمالي"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order__total_amount
+msgid "Total Amount"
+msgstr "إجمالي المبلغ"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__total_amout
+#: model:ir.model.fields,field_description:real_estate.field_product_template__total_amout
+msgid "Total Amout"
+msgstr "إجمالي المبلغ"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__total_Area
+#: model:ir.model.fields,field_description:real_estate.field_product_template__total_Area
+msgid "Total Area"
+msgstr "إجمالي المساحة"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.crm_case_form_view_leads_inherited
+msgid "Tracking"
+msgstr "التتبع"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__pay_type
+#: model:ir.model.fields,field_description:real_estate.field_sale_order_line__pay_type
+msgid "Type"
+msgstr "النوع"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_account_batch_payment__unit_id
+#: model:ir.model.fields,field_description:real_estate.field_account_invoice__unit_id
+#: model:ir.model.fields,field_description:real_estate.field_offer_payment_plan__product_tmpl_id
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__schedule_period
+#: model:ir.model.fields,field_description:real_estate.field_sale_order__unit_id
+#: model:ir.model.fields,field_description:real_estate.field_sale_order_line__schedule_period
+#: model:uom.category,name:real_estate.product_uom_categ_unit
+msgid "Unit"
+msgstr "الوحدة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__unit_code
+#: model:ir.model.fields,field_description:real_estate.field_product_template__unit_code
+msgid "Unit Code"
+msgstr "كود الوحدة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_sale_order_line__price_unit
+#: model:ir.model.fields,field_description:real_estate.field_sale_order_line__unit_price
+msgid "Unit Price"
+msgstr "سعر الوحدة"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Unit Status"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__unit_type
+#: model:ir.model.fields,field_description:real_estate.field_product_template__unit_type
+msgid "Unit Type"
+msgstr ""
+
+#. module: real_estate
+#: model:product.product,uom_name:real_estate.product_product_19_bom
+#: model:product.template,uom_name:real_estate.product_product_19_bom_product_template
+#: model:uom.uom,name:real_estate.product_uom_unit
+msgid "Unit(s)"
+msgstr "وحدة(ات)"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+msgid "Unlock"
+msgstr "فتح"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__message_unread
+msgid "Unread Messages"
+msgstr "الرسائل الجديدة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "عدد الرسائل الجديدة"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "Utility"
+msgstr "ملحق"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.account_payment_inherit_batch
+msgid "Validate"
+msgstr "اعتماد"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_payment_plan_line__value
+#: model:ir.model.fields,field_description:real_estate.field_sale_order_line__value
+msgid "Value"
+msgstr "القيمة"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.sale_order_view_tree_inherit_crm
+msgid "Void Transaction"
+msgstr "معاملة باطلة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_request__website_message_ids
+msgid "Website Messages"
+msgstr "رسائل الموقع"
+
+#. module: real_estate
+#: model:ir.model.fields,help:real_estate.field_product_request__website_message_ids
+msgid "Website communication history"
+msgstr "سجل تواصل الموقع"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_res_partner__work_phone
+#: model:ir.model.fields,field_description:real_estate.field_res_users__work_phone
+msgid "Work Phone"
+msgstr "هاتف العمل"
+
+#. module: real_estate
+#: selection:account.batch.payment,period:0
+msgid "Yearly"
+msgstr "سنويا"
+
+#. module: real_estate
+#: model:product.product,weight_uom_name:real_estate.product_product_19_bom
+#: model:product.template,weight_uom_name:real_estate.product_product_19_bom_product_template
+msgid "kg"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_offer_payment_plan
+msgid "offer.payment.plan"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_payment_plan
+msgid "payment.plan"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_payment_plan_line
+msgid "payment.plan.line"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_product_cede
+msgid "product.cede"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_product_history
+msgid "product.history"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_product_image
+msgid "product.image"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_product_image_preview
+msgid "product.image.preview"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_product_request
+msgid "product.request"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_product_room
+msgid "product.room"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model,name:real_estate.model_product_utility
+msgid "product.utility"
+msgstr ""
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.account_payment_inherit_batch
+msgid "re-Generate Export File"
+msgstr "إعادة إنشاء الملف المُصدّر"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.product_real_estate
+msgid "اعاده جدوله الاقساط"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_account_batch_payment__collected_amount
+msgid "المبلغ المحصل"
+msgstr ""
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.account_payment_inherit_batch
+msgid "انشاء الاقساط"
+msgstr ""
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__building_deleivery
+#: model:ir.model.fields,field_description:real_estate.field_product_template__building_deleivery
+msgid "Building Delivery"
+msgstr "تسليم العمارة"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__key_deleivery
+#: model:ir.model.fields,field_description:real_estate.field_product_template__key_deleivery
+msgid "Key Delivery"
+msgstr "تسليم المفتاح"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__unit_deleivery
+#: model:ir.model.fields,field_description:real_estate.field_product_template__unit_deleivery
+msgid "Unit Delivery"
+msgstr "تسليم الوحده"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__electricity_deleivery
+#: model:ir.model.fields,field_description:real_estate.field_product_template__electricity_deleivery
+msgid "Electric Delivery"
+msgstr "تسليم عداد الكهرباء"
+
+#. module: real_estate
+#: model:ir.model.fields,field_description:real_estate.field_product_product__maintenance_deposit
+#: model:ir.model.fields,field_description:real_estate.field_product_template__maintenance_deposit
+msgid "Utilities Delivery"
+msgstr "تسليم وديعة الصيانة"
+
+#. module: real_estate
+#: model_terms:ir.ui.view,arch_db:real_estate.account_payment_inherit_batch
+msgid "تعديل وربط الاقساط"
+msgstr ""
+

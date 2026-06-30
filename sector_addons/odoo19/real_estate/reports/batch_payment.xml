@@ -1,0 +1,90 @@
+<odoo>
+    <template id="batch_payment_template_custom">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="real_estate.external_batch_custom" t-lang="ar_001">
+                    <div class="page text-right" style="direction: rtl !important;">
+                        <div class="row">
+                            <div class="col-6 center text-center"
+                                 style="align:center !important;margin: auto;"><h3>سند صرف شيك</h3>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div class="row" style="line-height: 2;">
+                            <div class="col-6 text-right float-right">
+                                <strong><span>التاريخ :</span></strong>
+                                <span t-field="o.date"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="row" style="line-height: 2;">
+                            <div class="col-6 text-right float-right">
+                                <strong><span>يصرف لأمر السادة :</span></strong>
+                                <span t-="o.partner_id"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="row" style="line-height: 2;">
+                            <div class="col-6 text-right float-right">
+                                <strong><span>البنك المسحوب عليه :</span></strong>
+                                <span t-field="o.partner_bank"></span>
+                            </div>
+                            <div class="col-6 text-right float-right">
+                                <strong><span>فرع :</span></strong>
+                                <span t-field="o.bank_branch"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="row" style="line-height: 2;">
+                            <div class="col-6 text-right float-right">
+                                <strong><span>رقم الحساب :</span></strong>
+                                <span t-field="o.name"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="row" style="line-height: 2;">
+                            <div class="col-12 text-right float-right">
+                                <strong><span>وفقا للبيان التالي وذلك قيمة :</span></strong>
+                                <span t-field="o.arabic_amount_unit"></span>
+                            </div>
+
+                        </div>
+                                                <br/>
+                        <table class="table border border-dark table-bordered table-sm" width="100%"
+                               style="table-layout: fixed;">
+                            <thead>
+                                <th class="text-center">المبلغ</th>
+                                <th class="text-center">رقم الشيك</th>
+                                <th class="text-center">تاريخ الاستحقاق</th>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.payment_ids" t-as="payment">
+                                    <td class="text-center"><span t-field="payment.amount_signed"/> </td>
+                                    <td class="text-center"><span t-field="payment.ref"/></td>
+                                    <td class="text-center"><span t-field="payment.invoice_date_due"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <report
+            id="batch_payment_template_custom_report"
+            string="سند صرف شيك"
+            model="account.batch.payment"
+            report_type="qweb-pdf"
+            name="real_estate.batch_payment_template_custom"
+            file="real_estate.batch_payment_template_custom"
+            print_report_name="'سند صرف شيك'"
+            paperformat="real_estate.batch_payment_template_custom_report_format"
+
+    />
+</odoo>

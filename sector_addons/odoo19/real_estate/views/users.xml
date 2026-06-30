@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="res_user_form_product">
+        <field name="name">Users Preferences</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//notebook" position="inside">
+                    <page name="Product Configuration" invisible="1" string="Product Configuration">
+                        <field name="products_ids"/>
+                    </page>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>
