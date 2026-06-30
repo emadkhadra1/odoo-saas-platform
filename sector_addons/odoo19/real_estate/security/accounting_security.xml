@@ -14,12 +14,10 @@
 
         <record id="group_accounting_menu" model="res.groups">
             <field name="name">Accounting Menu</field>
-            <field name="category_id" ref="real_estate.module_category_usability_realestate"/>
         </record>
 
         <record id="group_invoicing_menu" model="res.groups">
             <field name="name">Invoicing Menu</field>
-            <field name="category_id" ref="real_estate.module_category_usability_realestate"/>
         </record>
 
 <!--        <record id="group_create_checks_so" model="res.groups">-->
