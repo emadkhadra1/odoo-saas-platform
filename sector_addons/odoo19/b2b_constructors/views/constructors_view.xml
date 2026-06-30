@@ -12,7 +12,7 @@
                     <field name="is_constructors"/>
                 </xpath>
                 <xpath expr="//page[@name='sales_purchases']" position="after">
-                    <page name="deduction" string="Deductions">
+                    <page name="deduction" string="الخصومات">
                         <field name="deduction_ids" >
                             <list editable="bottom">
 
@@ -31,7 +31,7 @@
         </record>
 
         <record id="base.action_partner_customer_form" model="ir.actions.act_window">
-            <field name="name">Customers</field>
+            <field name="name">العملاء</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">res.partner</field>
             <field name="view_mode">kanban,list,form</field>
@@ -50,7 +50,7 @@
         </record>
 
         <record id="base.action_partner_form" model="ir.actions.act_window">
-            <field name="name">Customers</field>
+            <field name="name">العملاء</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">res.partner</field>
             <field name="view_mode">kanban,list,form</field>
@@ -70,7 +70,7 @@
         </record>
 
         <record id="base.action_partner_supplier_form" model="ir.actions.act_window">
-            <field name="name">Suppliers</field>
+            <field name="name">الموردون</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">res.partner</field>
             <field name="domain">[]</field>
@@ -91,7 +91,7 @@
         </record>
 
         <record id="constructors_action" model="ir.actions.act_window">
-            <field name="name">Constructors</field>
+            <field name="name">المقاولون</field>
             <field name="res_model">res.partner</field>
             <field name="view_mode">kanban,list,form</field>
             <field name="domain">[("is_constructors", "=", True)]</field>

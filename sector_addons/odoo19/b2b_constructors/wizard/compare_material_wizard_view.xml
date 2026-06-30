@@ -6,7 +6,7 @@
             <field name="name">view.compare.material.report.wizard.form</field>
             <field name="model">b2b.compare.material.report.wizard</field>
             <field name="arch" type="xml">
-                <form string="Compare Material Report Wizard">
+                <form string="معالج تقرير مقارنة المواد">
                     <sheet>
                         <group name="main">
                             <group>
@@ -24,23 +24,23 @@
                         </group>
                     </sheet>
                     <footer>
-                        <button name="action_print" type="object" string="Print" class="oe_highlight"/>
+                        <button name="action_print" type="object" string="طباعة" class="oe_highlight"/>
                         or
-                        <button special="cancel" string="Cancel"/>
+                        <button special="cancel" string="إلغاء"/>
                     </footer>
                 </form>
             </field>
         </record>
 
         <record id="b2b_compare_material_report_action" model="ir.actions.act_window">
-            <field name="name">Total compare. Material Items Wizard</field>
+            <field name="name">معالج إجمالي مقارنة بنود المواد</field>
             <field name="res_model">b2b.compare.material.report.wizard</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
 
         <record id="b2b_report_sum_compare_material" model="ir.actions.report">
-            <field name="name">Compare material Report</field>
+            <field name="name">تقرير مقارنة المواد</field>
             <field name="model">b2b.compare.material.report.wizard</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">b2b_constructors.report_b2b_c_material_sum_document</field>

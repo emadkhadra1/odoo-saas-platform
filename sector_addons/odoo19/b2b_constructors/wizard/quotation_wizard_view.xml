@@ -6,7 +6,7 @@
             <field name="name">view.quotation.report.wizard.form</field>
             <field name="model">b2b.quotation.report.wizard</field>
             <field name="arch" type="xml">
-                <form string="Quoation Report Wizard">
+                <form string="معالج تقرير عرض السعر">
                   <sheet>
                     <group name="main">
                       <group>
@@ -20,16 +20,16 @@
                     </group>
                   </sheet>
                     <footer>
-                        <button name="action_print" type="object" string="Print" class="oe_highlight"/>
+                        <button name="action_print" type="object" string="طباعة" class="oe_highlight"/>
                         or
-                        <button special="cancel" string="Cancel"/>
+                        <button special="cancel" string="إلغاء"/>
                     </footer>
                 </form>
             </field>
         </record>
 
         <record id="b2b_quotation_report_action" model="ir.actions.act_window">
-          <field name="name">Total Business Items Wizard</field>
+          <field name="name">معالج إجمالي بنود الأعمال</field>
           <field name="res_model">b2b.quotation.report.wizard</field>
           <field name="view_mode">form</field>
           <field name="target">new</field>

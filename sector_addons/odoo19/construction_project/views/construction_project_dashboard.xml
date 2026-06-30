@@ -66,7 +66,7 @@
     </record>
 
     <record id="open_construction_project_dashboard_kanban" model="ir.actions.act_window">
-        <field name="name">Accounting Dashboard</field>
+        <field name="name">لوحة المحاسبة</field>
         <field name="res_model">construction.project</field>
         <field name="view_mode">kanban,form</field>
         <field name="usage">menu</field>

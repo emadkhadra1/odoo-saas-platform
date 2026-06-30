@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Construction Project ",
+    'name': "قمم - مشاريع المقاولات",
 
     'summary': """
        Construction Project """,

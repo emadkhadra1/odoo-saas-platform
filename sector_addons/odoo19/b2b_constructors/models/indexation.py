@@ -12,25 +12,25 @@ from odoo.exceptions import ValidationError
 class Indexation(models.Model):
     _name = 'b2b.indexation'
     _inherit = ['mail.thread']
-    _description = "Construction BOQ Lines"
+    _description = "بنود جدول الكميات"
 
     _rec_name = "business_statement_id"
 
-    purchase_order_id = fields.Many2one("b2b.construction.boq", string="Construction BOQ", required=True, ondelete='cascade',)
-    main_item_id = fields.Many2one("b2b.main.items", string="Main Item", required=True)
-    sub_item_id = fields.Many2one("b2b.sub.items", string="Sub Item", required=True )
-    business_statement_id = fields.Many2one("b2b.business.items", string="Business Statement", required=True)
-    currency_id = fields.Many2one(comodel_name="res.currency", string="Currency",
+    purchase_order_id = fields.Many2one("b2b.construction.boq", string="جدول كميات المقاولات", required=True, ondelete='cascade',)
+    main_item_id = fields.Many2one("b2b.main.items", string="????? ???????", required=True)
+    sub_item_id = fields.Many2one("b2b.sub.items", string="????? ??????", required=True )
+    business_statement_id = fields.Many2one("b2b.business.items", string="بيان الأعمال", required=True)
+    currency_id = fields.Many2one(comodel_name="res.currency", string="العملة",
                                   default=lambda self: self.env.user.company_id.currency_id)
     cost = fields.Monetary(related='business_statement_id.estimated_cost', store=True)
-    sub_business_statement_id = fields.Many2one("b2b.sub.business.items", string="Second Sub Item", required=True)
-    uom_id = fields.Many2one(related="business_statement_id.uom_id", string="Unit", readonly=True, store=True)
-    category = fields.Float(string="Category",digits='Constructor price')
-    required_quantity = fields.Float(string="Required Quantity")
-    finished_quantity = fields.Float(compute="_calculate_quantity", string="Finished Quantity")
-    remaining_quantity = fields.Float(compute="_calculate_quantity", string="Remaining Quantity")
-    total = fields.Float(compute="_calculate_quantity", string="Total Sell")
-    total_cost = fields.Float(compute="_calculate_quantity", string="Total Cost")
+    sub_business_statement_id = fields.Many2one("b2b.sub.business.items", string="????? ?????? ??????", required=True)
+    uom_id = fields.Many2one(related="business_statement_id.uom_id", string="الوحدة", readonly=True, store=True)
+    category = fields.Float(string="التصنيف",digits='Constructor price')
+    required_quantity = fields.Float(string="الكمية المطلوبة")
+    finished_quantity = fields.Float(compute="_calculate_quantity", string="الكمية المنجزة")
+    remaining_quantity = fields.Float(compute="_calculate_quantity", string="الكمية المتبقية")
+    total = fields.Float(compute="_calculate_quantity", string="إجمالي البيع")
+    total_cost = fields.Float(compute="_calculate_quantity", string="إجمالي التكلفة")
 
     @api.onchange('main_item_id')
     def onchange_main_item_id(self):
@@ -56,7 +56,7 @@ class Indexation(models.Model):
                 rec.main_item_id = rec.business_statement_id.sub_item_id.main_item_id
 
     
-    @api.depends('required_quantity', 'cost', 'category')
+    @api.depends('required_quantity', 'التكلفة', 'category')
     def _calculate_quantity(self):
         bill_lines = self.env["b2b.progress.bill.lines"]
         for rec in self:

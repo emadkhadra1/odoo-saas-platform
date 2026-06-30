@@ -11,14 +11,14 @@ class BoqMainItems(models.Model):
     _name = 'b2b.main.items'
     _inherit = ['mail.thread']
     _rec_name = 'name'
-    _description = "BOQ Main Items"
+    _description = "البنود الرئيسية في جدول الكميات"
 
     _sql_constraints = [
         ('unique_name',
          'UNIQUE (name)',
         "This data found!"),]
 
-    name = fields.Char(string="Title", required=True)
+    name = fields.Char(string="العنوان", required=True)
     code = fields.Char()
 
     @api.model

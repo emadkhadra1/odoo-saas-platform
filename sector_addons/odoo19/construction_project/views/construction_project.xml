@@ -24,7 +24,7 @@
             <field name="name">construction.project.form</field>
             <field name="model">construction.project</field>
             <field name="arch" type="xml">
-                <form string="Construction Project">
+                <form string="مشاريع المقاولات">
                     <sheet>
                         <group>
                             <group>
@@ -55,7 +55,7 @@
 
                             </group>
                         </group>
-                        <group string="Units"></group>
+                        <group string="الوحدات"></group>
                         <field name="project_unit_ids">
                             <list editable="bottom">
 
@@ -68,7 +68,7 @@
                             </list>
 
                         </field>
-                        <group string="Items"></group>
+                        <group string="البنود"></group>
                         <field name="project_item_ids" readonly="1">
                             <list editable="bottom">
 
@@ -86,7 +86,7 @@
                             </list>
                         </field>
 
-                        <group string="Components"></group>
+                        <group string="المكونات"></group>
                         <field name="project_component_ids" readonly="1">
                             <list editable="bottom">
 
@@ -104,7 +104,7 @@
                         </field>
 
 
-                        <group string="Reciver Orders"></group>
+                        <group string="أوامر الاستلام"></group>
                         <field name="receive_order_ids" nolable="1">
                             <!--editable="bottom"-->
                             <list>
@@ -112,14 +112,14 @@
                                 <field name="name"/>
                                 <field name="date"/>
 
-                                <field name="total_cost" sum="cost"/>
-                                <field name="total_amount" sum="amount"/>
+                                <field name="total_cost" sum="التكلفة"/>
+                                <field name="total_amount" sum="المبلغ"/>
 
                                 <field name="state"/>
                             </list>
                         </field>
 
-                        <group string="Labors"></group>
+                        <group string="العمالة"></group>
                         <field name="labor_ids" nolable="1">
                             <!--editable="bottom"-->
                             <list>
@@ -127,13 +127,13 @@
                                 <field name="name"/>
                                 <field name="date"/>
 
-                                <field name="total_cost" sum="cost"/>
+                                <field name="total_cost" sum="التكلفة"/>
 
                                 <field name="state"/>
                             </list>
                         </field>
 
-                        <group string="Machines"></group>
+                        <group string="المعدات"></group>
                         <field name="machine_ids" nolable="1">
                             <!--editable="bottom"-->
                             <list>
@@ -141,12 +141,12 @@
                                 <field name="name"/>
                                 <field name="date"/>
 
-                                <field name="total_cost" sum="cost"/>
+                                <field name="total_cost" sum="التكلفة"/>
 
                                 <field name="state"/>
                             </list>
                         </field>
-                        <group string="Tools"></group>
+                        <group string="الأدوات"></group>
                         <field name="tool_ids" nolable="1">
                             <!--editable="bottom"-->
                             <list>
@@ -154,7 +154,7 @@
                                 <field name="name"/>
                                 <field name="date"/>
 
-                                <field name="total_cost" sum="cost"/>
+                                <field name="total_cost" sum="التكلفة"/>
 
                                 <field name="state"/>
                             </list>
@@ -185,7 +185,7 @@
             <field name="name">construction.project.tree</field>
             <field name="model">construction.project</field>
             <field name="arch" type="xml">
-                <list string="Construction Project">
+                <list string="مشاريع المقاولات">
                     <field name="name"/>
                     <field name="partner_id"/>
                     <field name="selling_price"/>
@@ -201,7 +201,7 @@
         </record>
 
         <record id="view_construction_project_action" model="ir.actions.act_window">
-            <field name="name">Construction Project</field>
+            <field name="name">مشاريع المقاولات</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">construction.project</field>
             <field name="view_mode">list,form</field>

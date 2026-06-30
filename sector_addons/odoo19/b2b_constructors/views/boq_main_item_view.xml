@@ -6,7 +6,7 @@
       <field name="name">view.b2b.boq.main.items.form</field>
       <field name="model">b2b.main.items</field>
       <field name="arch" type="xml">
-        <form string="BOQ Main Item">
+        <form string="بند رئيسي في جدول الكميات">
           <sheet>
             <group name="main">
               <group>
@@ -27,7 +27,7 @@
       <field name="name">view.boq_main_item.tree</field>
       <field name="model">b2b.main.items</field>
       <field name="arch" type="xml">
-        <list string="BOQ Main Item">
+        <list string="بند رئيسي في جدول الكميات">
           <field name="name"/>
           <field name="code"/>
         </list>
@@ -38,7 +38,7 @@
       <field name="name">view.boq_main_item.search</field>
       <field name="model">b2b.main.items</field>
       <field name="arch" type="xml">
-        <search string="BOQ Main Item">
+        <search string="بند رئيسي في جدول الكميات">
           <field name="name"/>
           <field name="code"/>
         </search>
@@ -46,7 +46,7 @@
     </record>
 
     <record id="boq_main_item_action" model="ir.actions.act_window">
-      <field name="name">BOQ Main Item</field>
+      <field name="name">بند رئيسي في جدول الكميات</field>
       <field name="res_model">b2b.main.items</field>
       <field name="view_mode">list,form</field>
       <field name="domain">[]</field>

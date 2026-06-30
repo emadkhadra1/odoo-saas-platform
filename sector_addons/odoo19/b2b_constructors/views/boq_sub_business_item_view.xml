@@ -6,7 +6,7 @@
       <field name="name">view.b2b.boq.business.items.form</field>
       <field name="model">b2b.sub.business.items</field>
       <field name="arch" type="xml">
-        <form string="BOQ Second Sub Item">
+        <form string="بند فرعي ثاني في جدول الكميات">
           <sheet>
             <group name="main">
               <group>
@@ -29,7 +29,7 @@
       <field name="name">view.b2b_sub_business_item.tree</field>
       <field name="model">b2b.sub.business.items</field>
       <field name="arch" type="xml">
-        <list string="BOQ Second Sub Item">
+        <list string="بند فرعي ثاني في جدول الكميات">
           <field name="name"/>
           <field name="code"/>
           <field name="sub_item_id"/>
@@ -43,22 +43,22 @@
       <field name="name">view.b2b_sub_business_item.search</field>
       <field name="model">b2b.sub.business.items</field>
       <field name="arch" type="xml">
-        <search string="BOQ Second Sub Item">
+        <search string="بند فرعي ثاني في جدول الكميات">
           <field name="name"/>
           <field name="code"/>
           <field name="sub_item_id"/>
 <!--          <field name="uom_id"/>-->
           <group name="groupby">
-            <filter name="main_item_id_groupby" string="BOQ Main Item" context="{'group_by': 'main_item_id'}"/>
-            <filter name="sub_item_id_groupby" string="BOQ Sub Item" context="{'group_by': 'sub_item_id'}"/>
-<!--            <filter name="uom_id_groupby" string="Unit" context="{'group_by': 'uom_id'}"/>-->
+            <filter name="main_item_id_groupby" string="بند رئيسي في جدول الكميات" context="{'group_by': 'main_item_id'}"/>
+            <filter name="sub_item_id_groupby" string="بند فرعي في جدول الكميات" context="{'group_by': 'sub_item_id'}"/>
+<!--            <filter name="uom_id_groupby" string="الوحدة" context="{'group_by': 'uom_id'}"/>-->
           </group>
         </search>
       </field>
     </record>
 
     <record id="b_2_b_sub_business_items_action" model="ir.actions.act_window">
-        <field name="name">Second Sub Items</field>
+        <field name="name">البنود الفرعية الثانية</field>
         <field name="res_model">b2b.sub.business.items</field>
         <field name="view_mode">list,form</field>
     </record>

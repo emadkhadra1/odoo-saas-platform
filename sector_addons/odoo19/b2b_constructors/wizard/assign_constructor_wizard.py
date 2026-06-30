@@ -7,7 +7,7 @@ from odoo.exceptions import ValidationError
 class AsignmentConstructorWizard(models.TransientModel):
     _name = 'b2b.entrepreneurs.wizard'
 
-    _description = "Assigned Constructors"
+    _description = "المقاولون المسندون"
 
     _rec_name = "purchase_order_id"
 
@@ -34,18 +34,18 @@ class AsignmentConstructorWizard(models.TransientModel):
     #         order = self.env['b2b.construction.boq'].search([('id', '=', self._context.get('active_id'))])
     #         return order.indexation_ids.mapped('sub_business_statement_id')
 
-    purchase_order_id = fields.Many2one("b2b.construction.boq", string="Construction BOQ", required=True, ondelete='cascade', readonly=True, default=_get_purchase_order_id)
-    sub_business_statement_id = fields.Many2one("b2b.sub.business.items", string="Second Sub Item", required=False )
+    purchase_order_id = fields.Many2one("b2b.construction.boq", string="جدول كميات المقاولات", required=True, ondelete='cascade', readonly=True, default=_get_purchase_order_id)
+    sub_business_statement_id = fields.Many2one("b2b.sub.business.items", string="????? ?????? ??????", required=False )
     # sub_business_statement_ids = fields.Many2one("b2b.sub.business.items",
     #                                              default=_get_sub_business_statement_ids,readonly=1,
-    #                                              string="Second Sub Item", required=False )
-    consructor_id = fields.Many2one("res.partner", string='Contractor', required=True, domain="[('is_constructors', '=', True)]", context="{'default_is_constructors': True}")
-    main_item_id = fields.Many2one("b2b.main.items", string="Main Item", required=False)
+    #                                              string="????? ?????? ??????", required=False )
+    consructor_id = fields.Many2one("res.partner", string='المقاول', required=True, domain="[('is_constructors', '=', True)]", context="{'default_is_constructors': True}")
+    main_item_id = fields.Many2one("b2b.main.items", string="????? ???????", required=False)
     main_item_ids = fields.Many2many("b2b.main.items",
                                      default=_get_main_item_ids,readonly=1,
-                                     string="Main Item", required=False)
-    sub_item_id = fields.Many2one("b2b.sub.items", string="Sub Item", required=False )
-    sub_item_ids = fields.Many2many("b2b.sub.items", string="Sub Item",
+                                     string="????? ???????", required=False)
+    sub_item_id = fields.Many2one("b2b.sub.items", string="????? ??????", required=False )
+    sub_item_ids = fields.Many2many("b2b.sub.items", string="????? ??????",
                                     default=_get_sub_item_ids,readonly=1
                                     ,required=False )
     business_items_ids = fields.Many2many(
@@ -53,10 +53,10 @@ class AsignmentConstructorWizard(models.TransientModel):
         default=_get_business_items_ids
     )
     business_statement_id = fields.Many2one("b2b.business.items",
-                                            string="Business Statement", required=False)
-    percent = fields.Float(string="Percent", required=False, default=100)
-    item_ids = fields.One2many('b2b.assign.items.wizard', 'entrepreneurs_id', string='Lines', required=True)
-    # indexation_id = fields.Many2one("b2b.indexation", string='Construction BOQ Item', required=True, domain="[('purchase_order_id', '=', purchase_order_id)]", context="{'default_purchase_order_id': purchase_order_id}")
+                                            string="بيان الأعمال", required=False)
+    percent = fields.Float(string="النسبة", required=False, default=100)
+    item_ids = fields.One2many('b2b.assign.items.wizard', 'entrepreneurs_id', string='??????', required=True)
+    # indexation_id = fields.Many2one("b2b.indexation", string='بند جدول الكميات', required=True, domain="[('purchase_order_id', '=', purchase_order_id)]", context="{'default_purchase_order_id': purchase_order_id}")
 
     
     @api.onchange('consructor_id', 'item_ids')

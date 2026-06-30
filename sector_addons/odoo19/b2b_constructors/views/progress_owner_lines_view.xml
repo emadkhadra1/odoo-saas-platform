@@ -6,7 +6,7 @@
       <field name="name">view.b2b.progress.owner.lines.form</field>
       <field name="model">b2b.progress.owner.lines</field>
       <field name="arch" type="xml">
-        <form string="Owner Quotation Lines">
+        <form string="بنود عرض المالك">
           <sheet>
             <group name="main">
               <group>
@@ -39,7 +39,7 @@
       <field name="name">view.b2b_progress_owner_lines.tree</field>
       <field name="model">b2b.progress.owner.lines</field>
       <field name="arch" type="xml">
-        <list string="Owner Quotation Lines" decoration-danger="total_work > required_quantity">
+        <list string="بنود عرض المالك" decoration-danger="total_work > required_quantity">
           <field name="progress_bill_id" widget="selection" invisible="0"/>
           <field name="main_item_id" widget="selection"/>
           <field name="sub_item_id" widget="selection"/>
@@ -63,7 +63,7 @@
       <field name="name">view.b2b_progress_owner_lines.search</field>
       <field name="model">b2b.progress.owner.lines</field>
       <field name="arch" type="xml">
-        <search string="Owner Quotation Lines">
+        <search string="بنود عرض المالك">
           <field name="progress_bill_id"/>
           <field name="uom_id"/>
           <field name="category"/>
@@ -76,9 +76,9 @@
           <field name="total_work"/>
           <field name="work_amount"/>
           <group name="groupby">
-            <filter name="progress_bill_id_groupby" string="Progress Bill" context="{'group_by': 'progress_bill_id'}"/>
-            <filter name="uom_id_groupby" string="Unit" context="{'group_by': 'uom_id'}"/>
-            <filter name="business_statement_id_groupby" string="Business Statement" context="{'group_by': 'business_statement_id'}"/>
+            <filter name="progress_bill_id_groupby" string="مستخلص الأعمال" context="{'group_by': 'progress_bill_id'}"/>
+            <filter name="uom_id_groupby" string="الوحدة" context="{'group_by': 'uom_id'}"/>
+            <filter name="business_statement_id_groupby" string="بيان الأعمال" context="{'group_by': 'business_statement_id'}"/>
           </group>
         </search>
       </field>
@@ -88,7 +88,7 @@
             <field name="name">b2b.progress.owner.Lines.pivot</field>
             <field name="model">b2b.progress.owner.lines</field>
             <field name="arch" type="xml">
-                <pivot string="owner Quotation">
+                <pivot string="عرض مالك المشروع">
                     <field name="project_id" type="row"/>
                     <field name="consructor_id" type="col"/>
                     <!--<field name="date" interval="year" type="col"/>-->
@@ -103,7 +103,7 @@
             <field name="name">b2b.progress.owner.Lines.graph</field>
             <field name="model">b2b.progress.owner.lines</field>
             <field name="arch" type="xml">
-                <graph string="Owner Quotation">
+                <graph string="عرض مالك المشروع">
                     <field name="project_id" type="row"/>
                     <field name="total_work" type="measure"/>
                                         <field name="work_amount" type="measure"/>
@@ -112,7 +112,7 @@
             </field>
         </record>
     <record id="b2b_progress_owner_lines_action" model="ir.actions.act_window">
-      <field name="name">Owner Quotation Lines</field>
+      <field name="name">بنود عرض المالك</field>
       <field name="res_model">b2b.progress.owner.lines</field>
             <field name="view_mode">list,form,pivot,graph</field>
       <field name="domain">[]</field>
@@ -127,7 +127,7 @@
     <!--<report-->
     <!--id="b2b_report_sum_quotation"-->
     <!--model="b2b.quotation.report.wizard"-->
-    <!--string="Quotation Report"-->
+    <!--string="تقرير عرض السعر"-->
     <!--report_type="qweb-pdf"-->
     <!--file="b2b_constructors.b2b_qoutation_sum_report"-->
     <!--name="b2b_constructors.b2b_qoutation_sum_report"-->

@@ -3,49 +3,49 @@
     <data noupdate="0">
 
         <record id="update_multiplier_wizard_form" model="ir.ui.view">
-            <field name="name">Update Multiplier</field>
+            <field name="name">تحديث المعامل</field>
             <field name="model">update.multiplier</field>
             <field name="arch" type="xml">
-                <form string="Update Multiplier">
+                <form string="تحديث المعامل">
                     <field name="name" invisible="1"/>
                     <group>
                         <label for="multiplier"/>
                         <div class="o_row">
                             <field name="multiplier" class="col-3"/>
-                            <button name="update_multiplier_default_value" string="Set Default Value" type="object"/>
-                            <button name="update_lines_multiplier" string="Set in Lines" type="object"/>
+                            <button name="update_multiplier_default_value" string="تعيين القيمة الافتراضية" type="object"/>
+                            <button name="update_lines_multiplier" string="تطبيق على البنود" type="object"/>
                         </div>
                         <label for="discount"/>
                         <div class="o_row">
                             <field name="discount" class="col-3"/>
-                            <button name="update_discount_default_value" string="Set Default Value" type="object"/>
-                            <button name="update_lines_discount" string="Set in Lines" type="object"/>
+                            <button name="update_discount_default_value" string="تعيين القيمة الافتراضية" type="object"/>
+                            <button name="update_lines_discount" string="تطبيق على البنود" type="object"/>
                         </div>
                         <label for="social_insurance"/>
                         <div class="o_row">
                             <field name="social_insurance" class="col-3"/>
-                            <button name="update_social_insurance_default_value" string="Set Default Value" type="object"/>
-                            <button name="update_lines_social_insurance" string="Set in Lines" type="object"/>
+                            <button name="update_social_insurance_default_value" string="تعيين القيمة الافتراضية" type="object"/>
+                            <button name="update_lines_social_insurance" string="تطبيق على البنود" type="object"/>
                         </div>
                         <label for="contracting"/>
                         <div class="o_row">
                             <field name="contracting" class="col-3"/>
-                            <button name="update_contracting_default_value" string="Set Default Value" type="object"/>
-                            <button name="update_lines_contracting" string="Set in Lines" type="object"/>
+                            <button name="update_contracting_default_value" string="تعيين القيمة الافتراضية" type="object"/>
+                            <button name="update_lines_contracting" string="تطبيق على البنود" type="object"/>
                         </div>
                     </group>
                     <footer>
-                        <button special="save" string="Save"
+                        <button special="save" string="حفظ"
                                 class="btn btn-primary" type="object" />
                         or
-                        <button string="Cancel" class="oe_link" special="cancel"/>
+                        <button string="إلغاء" class="oe_link" special="cancel"/>
                     </footer>
                 </form>
             </field>
         </record>
 
         <record id="account_loan_generate_wizard_action" model="ir.actions.act_window">
-            <field name="name">Update Multiplier</field>
+            <field name="name">تحديث المعامل</field>
             <field name="res_model">update.multiplier</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>

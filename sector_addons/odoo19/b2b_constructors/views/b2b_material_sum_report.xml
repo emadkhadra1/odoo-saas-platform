@@ -71,9 +71,9 @@
                         </tr>
                         <tr align="center">
                             <td colspan="3" height="17" align="right" valign="middle">
-                                From
+                                من
                                 <t t-esc="from_date"/>
-                                To
+                                إلى
                                 <t t-esc="to_date"/>
                             </td>
                             <!--<td align="right" valign="middle">-->
@@ -119,7 +119,7 @@
 
                                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                             colspan="2" align="center" valign="middle" bgcolor="#CCCCCC">
-                                            <b>Item</b>
+                                            <b>البند</b>
                                         </td>
                                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                             height="17" align="center" valign="middle" bgcolor="#CCCCCC">
@@ -127,15 +127,15 @@
                                         </td>
                                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                             height="17" align="center" valign="middle" bgcolor="#CCCCCC">
-                                            <b>Qty</b>
+                                            <b>الكمية</b>
                                         </td>
                                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                             height="17" align="center" valign="middle" bgcolor="#CCCCCC">
-                                            <b>Category</b>
+                                            <b>التصنيف</b>
                                         </td>
                                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                             height="17" align="center" valign="middle" bgcolor="#CCCCCC">
-                                            <b>Total Amount</b>
+                                            <b>إجمالي المبلغ</b>
                                         </td>
                                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                             height="17" align="center" valign="middle" bgcolor="#CCCCCC">
@@ -214,7 +214,7 @@
 
                                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                             colspan="2" align="center" valign="middle" bgcolor="#CCCCCC">
-                                            <b>Item</b>
+                                            <b>البند</b>
                                         </td>
                                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                             height="17" align="center" valign="middle" bgcolor="#CCCCCC">
@@ -222,15 +222,15 @@
                                         </td>
                                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                             height="17" align="center" valign="middle" bgcolor="#CCCCCC">
-                                            <b>Total Work</b>
+                                            <b>إجمالي الأعمال</b>
                                         </td>
                                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                             height="17" align="center" valign="middle" bgcolor="#CCCCCC">
-                                            <b>Category</b>
+                                            <b>التصنيف</b>
                                         </td>
                                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                             height="17" align="center" valign="middle" bgcolor="#CCCCCC">
-                                            <b>Total Amount</b>
+                                            <b>إجمالي المبلغ</b>
                                         </td>
                                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                             height="17" align="center" valign="middle" bgcolor="#CCCCCC">

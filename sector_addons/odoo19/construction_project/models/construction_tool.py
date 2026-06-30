@@ -18,7 +18,7 @@ class construction_tool(models.Model):
     
     def unlink(self):
         if self.state == 'done':
-            raise UserError(_('You cannot delete .'))
+            raise UserError(_('?? ????? ?????.'))
         return super(construction_tool, self).unlink()
     @api.model_create_multi
     def create(self, vals_list):
@@ -44,14 +44,14 @@ class construction_tool(models.Model):
             rec.total_amount = total_cost
         return True
 
-    total_amount = fields.Float(string="Total Amount",tracking=True, compute="_compute_total", store=True, required=False, )
-    total_cost = fields.Float(string="Total Cost",tracking=True, compute="_compute_total", store=True, required=False, )
-    name = fields.Char(string="Serial", required=False,tracking=True, )
-    project_id = fields.Many2one(comodel_name="construction.project", tracking=True,string="Project", required=True, )
-    date = fields.Date(string="Date", default=_get_date_now,tracking=True, required=False, )
-    state = fields.Selection(string="State", default='new',tracking=True, selection=[('new', 'New'), ('done', 'Done'), ],
+    total_amount = fields.Float(string="إجمالي المبلغ",tracking=True, compute="_compute_total", store=True, required=False, )
+    total_cost = fields.Float(string="إجمالي التكلفة",tracking=True, compute="_compute_total", store=True, required=False, )
+    name = fields.Char(string="المسلسل", required=False,tracking=True, )
+    project_id = fields.Many2one(comodel_name="construction.project", tracking=True,string="المشروع", required=True, )
+    date = fields.Date(string="التاريخ", default=_get_date_now,tracking=True, required=False, )
+    state = fields.Selection(string="الحالة", default='new',tracking=True, selection=[('new', 'New'), ('done', 'تم'), ],
                              required=False, )
-    line_ids = fields.One2many(comodel_name="construction.tool.line", inverse_name="order_tool_id",  string="tool Lines", required=False, )
+    line_ids = fields.One2many(comodel_name="construction.tool.line", inverse_name="order_tool_id",  string="بنود الأدوات", required=False, )
     journal_id = fields.Many2one(comodel_name="account.journal", string="", )
     debit_account_id = fields.Many2one(comodel_name="account.account", string="", )
     credit_account_id = fields.Many2one(comodel_name="account.account", string="", )
@@ -59,7 +59,7 @@ class construction_tool(models.Model):
 
     def create_account_move(self):
         move_line_1 = {
-            'name': 'Order Machines',
+            'name': 'طلبات المعدات',
             'account_id': self.debit_account_id.id,
             'debit': self.total_cost,
             'credit': 0.0,
@@ -90,7 +90,7 @@ class construction_tool_line(models.Model):
     _description = 'construction_service_tool_line'
 
     
-    @api.depends('unit_cost', 'qty')
+    @api.depends('unit_cost', 'الكمية')
     def _compute_cost(self):
         for rec in self:
             rec.cost = rec.qty * rec.unit_cost if rec.unit_cost and rec.qty else 0
@@ -112,23 +112,23 @@ class construction_tool_line(models.Model):
             self.qty = self.order_qty
 
 
-    tool_id = fields.Many2one(comodel_name="construction.tools", string="tool", required=True, )
-    product_uom_id = fields.Many2one( 'uom.uom', string='Unit of Measure', related='tool_id.product_uom_id',store=True,readonly=True)
+    tool_id = fields.Many2one(comodel_name="construction.tools", string="أداة", required=True, )
+    product_uom_id = fields.Many2one( 'uom.uom', string='وحدة القياس', related='tool_id.product_uom_id',store=True,readonly=True)
 
-    name = fields.Char(string="Titel", required=False, )
-    order_tool_id = fields.Many2one(comodel_name="construction.tool", string="Order tool", required=False, )
-    unit_cost = fields.Float(string="Uint Cost", required=True, )
-    order_qty = fields.Float(string="Qty", default=1, required=True, )
-    qty = fields.Float(string="Approved Qty", default=1, required=True, )
-    cost = fields.Float(string="Cost", compute="_compute_cost", store=True, required=False, )
+    name = fields.Char(string="العنوان", required=False, )
+    order_tool_id = fields.Many2one(comodel_name="construction.tool", string="طلب أداة", required=False, )
+    unit_cost = fields.Float(string="تكلفة الوحدة", required=True, )
+    order_qty = fields.Float(string="الكمية", default=1, required=True, )
+    qty = fields.Float(string="الكمية المعتمدة", default=1, required=True, )
+    cost = fields.Float(string="التكلفة", compute="_compute_cost", store=True, required=False, )
 
 
 class construction_tools(models.Model):
     _name = 'construction.tools'
 
-    name = fields.Char(string="Name", required=True, )
-    product_uom_id = fields.Many2one( 'uom.uom', string='Unit of Measure',   )
+    name = fields.Char(string="الاسم", required=True, )
+    product_uom_id = fields.Many2one( 'uom.uom', string='وحدة القياس',   )
 
-    unit_cost = fields.Float(string="Cost",  required=False, )
-    unit_price = fields.Float(string="Price",  required=False, )
-    note = fields.Text(string="Note", required=False, )
+    unit_cost = fields.Float(string="التكلفة",  required=False, )
+    unit_price = fields.Float(string="السعر",  required=False, )
+    note = fields.Text(string="ملاحظة", required=False, )

@@ -10,9 +10,9 @@ from odoo import models, fields, api
 class ConstructionType(models.Model):
     _name = 'b2b.constrution.type'
 
-    _description = "Construction Type"
+    _description = "أنواع المقاولات"
 
-    name = fields.Char(string="Title", required=True)
+    name = fields.Char(string="العنوان", required=True)
 
     _sql_constraints = [
         ('unique_name',

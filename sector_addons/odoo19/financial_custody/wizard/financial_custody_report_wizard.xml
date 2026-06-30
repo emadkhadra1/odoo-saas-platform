@@ -8,26 +8,26 @@
            <field name="arch" type="xml">
                <form string="">
                    <group>
-                       <label for="day_from" string="Time Period"/>
+                       <label for="day_from" string="الفترة الزمنية"/>
                        <div><field name="day_from"/> - <field name="day_to"/></div>
                    </group>
                    <footer>
-                    <button name="print_report" string="Print" type="object" class="btn-primary"/>
-                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                    <button name="print_report" string="طباعة" type="object" class="btn-primary"/>
+                    <button string="إلغاء" class="btn-secondary" special="cancel" />
                 </footer>
                </form>
            </field>
        </record>
 
         <record id="action_financial_custody_report_wizard_view" model="ir.actions.act_window">
-            <field name="name">Financial Custody Report</field>
+            <field name="name">تقرير العهد المالية</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">financial.custody.report.wizard</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
 
-        <menuitem id="menu_financial_custody_report_wzard_view" name="Report"
+        <menuitem id="menu_financial_custody_report_wzard_view" name="تقرير"
                   parent="financial_custody.menu_financial_custody_root"
                   action="financial_custody.action_financial_custody_report_wizard_view" sequence="99"/>
     </data>

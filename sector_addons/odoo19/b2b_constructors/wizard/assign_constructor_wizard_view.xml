@@ -6,7 +6,7 @@
             <field name="name">view.assign.constructors.wizard.form</field>
             <field name="model">b2b.entrepreneurs.wizard</field>
             <field name="arch" type="xml">
-                <form string="Assign Constructors Wizard">
+                <form string="معالج إسناد المقاولين">
                   <sheet>
                     <group name="main">
                       <group>
@@ -27,7 +27,7 @@
                       </group>
                     </group>
                     <notebook>
-                      <page string="Assignment Items">
+                      <page string="بنود الإسناد">
                         <field name="item_ids">
                           <list editable="bottom">
                             <field name="purchase_order_id" invisible="1"/>
@@ -50,9 +50,9 @@
                     </notebook>
                   </sheet>
                     <footer>
-                        <button name="action_assign" type="object" string="Assign" class="oe_highlight"/>
+                        <button name="action_assign" type="object" string="إسناد" class="oe_highlight"/>
                         or
-                        <button special="cancel" string="Cancel"/>
+                        <button special="cancel" string="إلغاء"/>
                     </footer>
                 </form>
             </field>

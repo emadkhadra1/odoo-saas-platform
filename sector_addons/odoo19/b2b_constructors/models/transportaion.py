@@ -12,7 +12,7 @@ class construction_transport(models.Model):
 
     def unlink(self):
         if self.state == 'done':
-            raise UserError(_('You cannot delete .'))
+            raise UserError(_('?? ????? ?????.'))
         return super(construction_transport, self).unlink()
 
     def _get_date_now(self):
@@ -32,21 +32,21 @@ class construction_transport(models.Model):
             rec.total_amount = total_cost
         return True
 
-    total_amount = fields.Float(string="Total Amount", tracking=True, compute="_compute_total",
+    total_amount = fields.Float(string="إجمالي المبلغ", tracking=True, compute="_compute_total",
                                 store=True,
                                 required=False, )
-    total_cost = fields.Float(string="Total Cost", tracking=True, compute="_compute_total", store=True,
+    total_cost = fields.Float(string="إجمالي التكلفة", tracking=True, compute="_compute_total", store=True,
                               required=False, )
-    name = fields.Char(string="Serial", tracking=True, required=False, )
-    project_id = fields.Many2one(comodel_name="construction.project", tracking=True, string="Project",
+    name = fields.Char(string="المسلسل", tracking=True, required=False, )
+    project_id = fields.Many2one(comodel_name="construction.project", tracking=True, string="المشروع",
                                  required=True, )
-    date = fields.Date(string="Date", default=_get_date_now, tracking=True, required=False, )
-    state = fields.Selection(string="State", default='new', tracking=True,
-                             selection=[('new', 'New'), ('done', 'Done'), ],
+    date = fields.Date(string="التاريخ", default=_get_date_now, tracking=True, required=False, )
+    state = fields.Selection(string="الحالة", default='new', tracking=True,
+                             selection=[('new', 'New'), ('done', 'تم'), ],
                              required=False, )
     line_ids = fields.One2many(comodel_name="construction.transport.line", inverse_name="order_transport_id",
-                               string="transport Lines", required=False, )
-    employment = fields.Selection(string="Employment", default='in', tracking=True,
+                               string="بنود النقل", required=False, )
+    employment = fields.Selection(string="التوظيف", default='in', tracking=True,
                                   selection=[('in', 'Company Employment '), ('out', 'Out Employment'), ],
                                   required=False, )
 
@@ -54,11 +54,11 @@ class construction_transport(models.Model):
     debit_account_id = fields.Many2one(comodel_name="account.account", string="", )
     credit_account_id = fields.Many2one(comodel_name="account.account", string="", )
     account_move_id = fields.Many2one(comodel_name="account.move", string="", )
-    boq_id = fields.Many2one(comodel_name="b2b.construction.boq", tracking=True, string="BOQ",
+    boq_id = fields.Many2one(comodel_name="b2b.construction.boq", tracking=True, string="جدول الكميات",
                              required=True, domain="[('project_id', '=', project_id)]")
     business_item_ids = fields.Many2many(comodel_name="b2b.business.items", compute="compute_business_item_ids")
     business_item_id = fields.Many2one(comodel_name="b2b.business.items", tracking=True,
-                                       string="Business Item", domain="[('id', 'in', business_item_ids)]")
+                                       string="بند أعمال", domain="[('id', 'in', business_item_ids)]")
 
     @api.depends('boq_id')
     def compute_business_item_ids(self):
@@ -104,7 +104,7 @@ class construction_transport_line(models.Model):
 
     _description = 'construction_service_transport_line'
 
-    @api.depends('unit_cost', 'qty')
+    @api.depends('unit_cost', 'الكمية')
     def _compute_cost(self):
         for rec in self:
             rec.cost = rec.qty * rec.unit_cost if rec.unit_cost and rec.qty else 0
@@ -122,17 +122,17 @@ class construction_transport_line(models.Model):
         if self.order_qty:
             self.qty = self.order_qty
 
-    transport_id = fields.Many2one(comodel_name="construction.transports", string="transport", required=True, )
-    product_uom_id = fields.Many2one('uom.uom', string='Unit of Measure', related='transport_id.product_uom_id', store=True,
+    transport_id = fields.Many2one(comodel_name="construction.transports", string="نقل", required=True, )
+    product_uom_id = fields.Many2one('uom.uom', string='وحدة القياس', related='transport_id.product_uom_id', store=True,
                                      readonly=True)
 
-    name = fields.Char(string="Title", required=False, )
-    order_transport_id = fields.Many2one(comodel_name="construction.transport", string="Order transport", required=False, )
-    unit_cost = fields.Float(string="Unit Cost", required=True, )
-    order_qty = fields.Float(string="Qty", default=1, required=True, )
-    qty = fields.Float(string="Approved Qty", default=1, required=True, )
-    cost = fields.Float(string="Cost", compute="_compute_cost", store=True, required=False, )
-    transportation = fields.Float(string="Transportation", compute="compute_labour_install")
+    name = fields.Char(string="العنوان", required=False, )
+    order_transport_id = fields.Many2one(comodel_name="construction.transport", string="طلب نقل", required=False, )
+    unit_cost = fields.Float(string="تكلفة الوحدة", required=True, )
+    order_qty = fields.Float(string="الكمية", default=1, required=True, )
+    qty = fields.Float(string="الكمية المعتمدة", default=1, required=True, )
+    cost = fields.Float(string="التكلفة", compute="_compute_cost", store=True, required=False, )
+    transportation = fields.Float(string="النقل", compute="compute_labour_install")
 
     @api.depends('order_transport_id.business_item_id')
     def compute_labour_install(self):
@@ -143,8 +143,8 @@ class construction_transport_line(models.Model):
 class construction_transports(models.Model):
     _name = 'construction.transports'
 
-    name = fields.Char(string="Name", required=True, )
-    product_uom_id = fields.Many2one('uom.uom', string='Unit of Measure', )
-    unit_cost = fields.Float(string="Cost", required=False, )
-    unit_price = fields.Float(string="Price", required=False, )
-    note = fields.Text(string="Note", required=False, )
+    name = fields.Char(string="الاسم", required=True, )
+    product_uom_id = fields.Many2one('uom.uom', string='وحدة القياس', )
+    unit_cost = fields.Float(string="التكلفة", required=False, )
+    unit_price = fields.Float(string="السعر", required=False, )
+    note = fields.Text(string="ملاحظة", required=False, )

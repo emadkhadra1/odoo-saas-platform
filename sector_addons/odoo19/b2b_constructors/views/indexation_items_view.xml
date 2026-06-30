@@ -6,7 +6,7 @@
       <field name="name">view.b2b.indexation.items.form</field>
       <field name="model">b2b.indexation.items</field>
       <field name="arch" type="xml">
-        <form string="Construction BOQ Items">
+        <form string="بنود جدول الكميات">
           <sheet>
             <group name="main">
               <group>
@@ -17,7 +17,7 @@
               </group>
             </group>
             <notebook>
-              <page string="Child">
+              <page string="فرعي">
                 <field name="child_ids">
                   <list editable="bottom">
                     <field name="name"/>
@@ -34,7 +34,7 @@
       <field name="name">view.indexation_items.tree</field>
       <field name="model">b2b.indexation.items</field>
       <field name="arch" type="xml">
-        <list string="Construction BOQ Items">
+        <list string="بنود جدول الكميات">
           <field name="name"/>
           <field name="parent_id"/>
         </list>
@@ -45,18 +45,18 @@
       <field name="name">view.indexation_items.search</field>
       <field name="model">b2b.indexation.items</field>
       <field name="arch" type="xml">
-        <search string="Construction BOQ Items">
+        <search string="بنود جدول الكميات">
           <field name="name"/>
           <field name="parent_id"/>
           <group name="groupby">
-            <filter name="parent_id_groupby" string="Parent" context="{'group_by': 'parent_id'}"/>
+            <filter name="parent_id_groupby" string="الأصل" context="{'group_by': 'parent_id'}"/>
           </group>
         </search>
       </field>
     </record>
 
     <record id="indexation_items_action" model="ir.actions.act_window">
-      <field name="name">Construction BOQ Items</field>
+      <field name="name">بنود جدول الكميات</field>
       <field name="res_model">b2b.indexation.items</field>
       <field name="view_mode">list,form</field>
       <field name="domain">[]</field>

@@ -14,7 +14,7 @@ import base64
 class BusinessItemImport(models.TransientModel):
     _name = 'b2b.business.items.import.wiz'
 
-    sheet_import = fields.Binary(string="Upload File")
+    sheet_import = fields.Binary(string="رفع ملف")
     sheet_import_filename = fields.Char()
 
     def import_data(self):
@@ -59,7 +59,7 @@ class BusinessItemImport(models.TransientModel):
 class ConstructionBOQImport(models.TransientModel):
     _name = 'b2b.construction.boq.import.wiz'
 
-    sheet_import = fields.Binary(string="Upload File")
+    sheet_import = fields.Binary(string="رفع ملف")
     sheet_import_filename = fields.Char()
 
     def import_data(self):

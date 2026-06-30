@@ -7,18 +7,18 @@ class BoqBusinessItemLine(models.Model):
     _name = 'b2b.business.item.line'
     _inherit = 'b2b.business.item.line'
 
-    product_cost = fields.Monetary(string="Item Cost", currency_field="currency_id", required=False, )
-    supplier_discount = fields.Float(string="Supplier Disc.(%)",  required=False, )
-    sales_tax = fields.Float(string="Sales Tax(%)",  required=False, )
-    customs = fields.Float(string="Customs(%)",  required=False, )
-    clearance = fields.Float(string="Clearance(%)",  required=False, )
-    product_price = fields.Monetary(string="Product Price", currency_field="currency_id", compute="_compute_product_price", store=True)
-    cost_after_discount = fields.Monetary(string="Cost After Discount", currency_field="currency_id", compute="_compute_product_price", store=True)
-    hockup = fields.Monetary(string="Hock Up", currency_field="currency_id",required=False, )
-    labor_install = fields.Monetary(string="Labor Install", currency_field="currency_id",required=False, )
-    transportation = fields.Monetary(string="Transportation", currency_field="currency_id",required=False, )
-    other_cost = fields.Monetary(string="Other Cost", currency_field="currency_id", required=False, )
-    cost = fields.Monetary(string="Cost", currency_field="currency_id", compute='_compute_cost', store=True)
+    product_cost = fields.Monetary(string="تكلفة البند", currency_field="currency_id", required=False, )
+    supplier_discount = fields.Float(string="خصم المورد (%)",  required=False, )
+    sales_tax = fields.Float(string="ضريبة المبيعات (%)",  required=False, )
+    customs = fields.Float(string="الجمارك (%)",  required=False, )
+    clearance = fields.Float(string="نسبة التخليص (%)",  required=False, )
+    product_price = fields.Monetary(string="سعر المنتج", currency_field="currency_id", compute="_compute_product_price", store=True)
+    cost_after_discount = fields.Monetary(string="التكلفة بعد الخصم", currency_field="currency_id", compute="_compute_product_price", store=True)
+    hockup = fields.Monetary(string="تكلفة الربط", currency_field="currency_id",required=False, )
+    labor_install = fields.Monetary(string="تركيب العمالة", currency_field="currency_id",required=False, )
+    transportation = fields.Monetary(string="النقل", currency_field="currency_id",required=False, )
+    other_cost = fields.Monetary(string="تكلفة أخرى", currency_field="currency_id", required=False, )
+    cost = fields.Monetary(string="التكلفة", currency_field="currency_id", compute='_compute_cost', store=True)
     
     @api.depends('product_cost', 'supplier_discount', 'sales_tax', 'clearance', 'customs')
     def _compute_product_price(self):
@@ -41,12 +41,12 @@ class B2BIndexation(models.Model):
     _name = 'b2b.indexation'
     _inherit = 'b2b.indexation'
 
-    multiplier = fields.Float(string="Multiplier(%)", )
-    discount = fields.Float(string="Discount(%)", default=lambda s: s.purchase_order_id and s.purchase_order_id.discount, )
-    social_insurance = fields.Float(string="Soc. Ins.(%)", )
-    contracting = fields.Float(string="Contracting(%)", )
-    # category = fields.Float(string="Category", digits='Constructor price', compute="_compute_indexation_category", store=True)
-    multiplier_category = fields.Float(string="Multiplier Category", digits='Constructor price', compute="_compute_indexation_category", store=True)
+    multiplier = fields.Float(string="المعامل (%)", )
+    discount = fields.Float(string="الخصم (%)", default=lambda s: s.purchase_order_id and s.purchase_order_id.discount, )
+    social_insurance = fields.Float(string="التأمينات الاجتماعية (%)", )
+    contracting = fields.Float(string="نسبة المقاولة (%)", )
+    # category = fields.Float(string="التصنيف", digits='Constructor price', compute="_compute_indexation_category", store=True)
+    multiplier_category = fields.Float(string="تصنيف المعامل", digits='Constructor price', compute="_compute_indexation_category", store=True)
 
     @api.onchange('cost', 'multiplier', 'discount', 'social_insurance', 'contracting')
     def _onchange_ratios(self):
@@ -68,7 +68,7 @@ class B2BConstructionBoQ(models.Model):
     _name = 'b2b.construction.boq'
     _inherit = 'b2b.construction.boq'
 
-    multiplier = fields.Float(string="Multiplier", )
-    discount = fields.Float(string="Discount(%)", )
-    social_insurance = fields.Float(string="Soc. Ins.(%)", )
-    contracting = fields.Float(string="Contracting(%)", )
+    multiplier = fields.Float(string="المعامل", )
+    discount = fields.Float(string="الخصم (%)", )
+    social_insurance = fields.Float(string="التأمينات الاجتماعية (%)", )
+    contracting = fields.Float(string="نسبة المقاولة (%)", )

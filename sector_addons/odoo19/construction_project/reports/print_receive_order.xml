@@ -4,7 +4,7 @@
 
 
         <record id="print_construction_receive_order" model="ir.actions.report">
-            <field name="name">Receive Order Report</field>
+            <field name="name">تقرير أمر الاستلام</field>
             <field name="model">construction.receive.order</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">construction_project.construction_receive_order_report</field>
@@ -109,14 +109,14 @@
                         <thead>
                             <tr>
                                 <th> <h3> S.No</h3> </th>
-                                <th> <h3> Product</h3> </th>
+                                <th> <h3> المنتج</h3> </th>
 
-                                <th> <h3> Quantity</h3> </th>
+                                <th> <h3> الكمية</h3> </th>
                                 <th class="text-right"> <h3> Unit Price</h3> </th>
                                 <th class="text-right"> <h3> Final Price</h3> </th>
                                 <!--<th class="text-right" groups="sale.group_discount_per_so_line">Discount (%)</th>-->
                                 <!--<th class="text-right">Taxes</th>-->
-                                <th class="text-right"> <h3> Amount</h3> </th>
+                                <th class="text-right"> <h3> المبلغ</h3> </th>
                             </tr>
                         </thead>
                         <t t-set="i" t-value="1"/>

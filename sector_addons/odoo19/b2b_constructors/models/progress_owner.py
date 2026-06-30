@@ -18,17 +18,17 @@ class invoice(models.Model):
 class ProgressOwner(models.Model):
     _name = 'b2b.progress.owner'
     _inherit = ['mail.thread']
-    _description = "Owner Quotation"
+    _description = "عرض مالك المشروع"
 
     _rec_name = "consructor_id"
     _order = 'id desc'
 
     STATUS = [
         ("draft", "Draft"),
-        ("sent", "Sent"),
-        ("cancel", "Cancel"),
+        ("sent", "مرسل"),
+        ("cancel", "إلغاء"),
 
-        ("approve", "Approve"),
+        ("approve", "اعتماد"),
     ]
 
     TYPING = [
@@ -91,40 +91,40 @@ class ProgressOwner(models.Model):
 
     analytic_account_id = fields.Many2one('account.analytic.account', 'Analytic Account',
                                           related='project_id.analytic_account_id', store=True)
-    name = fields.Integer(string="Quotation No.", readonly=True, default=0)
-    purchase_order_id = fields.Many2one("b2b.construction.boq", string="Contractor Quotation", required=False)
-    construction_type_id = fields.Many2one("b2b.constrution.type", string='Construction Type', readonly=False,
+    name = fields.Integer(string="رقم عرض السعر", readonly=True, default=0)
+    purchase_order_id = fields.Many2one("b2b.construction.boq", string="عرض المقاول", required=False)
+    construction_type_id = fields.Many2one("b2b.constrution.type", string='أنواع المقاولات', readonly=False,
                                            required=True)
-    project_id = fields.Many2one("construction.project", string='Project Name', required=True)
-    consructor_id = fields.Many2one("res.partner", string='Customer', required=True, store=True)
-    progress_bill_type_id = fields.Many2one('b2b.progress.bill.type', string='Quotation Type', required=True)
-    from_date = fields.Date(string='From', required=True, default=fields.Date.context_today, tracking=True)
-    to_date = fields.Date(string='To', required=True, default=fields.Date.context_today, tracking=True)
-    state = fields.Selection(STATUS, string="State", default="draft", required=True, tracking=True)
-    line_ids = fields.One2many('b2b.progress.owner.lines', 'progress_bill_id', string='Construction Quotation Lines',
+    project_id = fields.Many2one("construction.project", string='اسم المشروع', required=True)
+    consructor_id = fields.Many2one("res.partner", string='العميل', required=True, store=True)
+    progress_bill_type_id = fields.Many2one('b2b.progress.bill.type', string='نوع عرض السعر', required=True)
+    from_date = fields.Date(string='من', required=True, default=fields.Date.context_today, tracking=True)
+    to_date = fields.Date(string='إلى', required=True, default=fields.Date.context_today, tracking=True)
+    state = fields.Selection(STATUS, string="الحالة", default="draft", required=True, tracking=True)
+    line_ids = fields.One2many('b2b.progress.owner.lines', 'progress_bill_id', string='بنود عروض المقاولات',
                                required=False, ondelete='cascade',)
-    line2_ids = fields.One2many('b2b.progress.owner.lines2', 'progress_bill_id', string='Construction Quotation Lines',
+    line2_ids = fields.One2many('b2b.progress.owner.lines2', 'progress_bill_id', string='بنود عروض المقاولات',
                                 required=False, ondelete='cascade',)
     deduction_ids = fields.Many2many('b2b.deductions', 'owner_deduction_rel', 'owner_id', 'deduction_id',
-                                     string='Deductions')
-    my_domain = fields.Many2many(comodel_name='b2b.deductions', string='Domain', relation='bill_deduction_rel1',
+                                     string='الخصومات')
+    my_domain = fields.Many2many(comodel_name='b2b.deductions', string='النطاق', relation='bill_deduction_rel1',
                                  column1='bill_id', column2='deduction_id', compute='_get_domain_str')
 
-    work_amount_total = fields.Float(compute="_calculate_line_ids", string="Total",store=True,digits='Constructor price')
-    already_cashed = fields.Float(compute="_calculate_already_cashed", string="Already Cashed",digits='Constructor price', store=True)
-    down_payment = fields.Float(string="Down Payment",digits='Constructor price', related="project_id.owner_downpayment")
-    down_payment_amount = fields.Float('DownPayment Amount', compute="compute_downpayment_amount")
-    pay_required = fields.Float(compute="_calculate_pay_required", string="Pay Required",digits='Constructor price')
-    deductions = fields.Float(compute="_calculate_deduction", string="Deductions",digits='Constructor price')
-    pay_due = fields.Float(compute="_calculate_pay_due", string="Due for Pay",store=False,digits='Constructor price')
-    invoice_id = fields.Many2one("account.move", string="Account Invoice", readonly=True)
-    invoice_remaining = fields.Float(compute="_get_residual", string="Invoice Remaining", readonly=True)
-    journal_id = fields.Many2one("account.journal", string="Journal", required=True,
+    work_amount_total = fields.Float(compute="_calculate_line_ids", string="الإجمالي",store=True,digits='Constructor price')
+    already_cashed = fields.Float(compute="_calculate_already_cashed", string="تم صرفها مسبقًا",digits='Constructor price', store=True)
+    down_payment = fields.Float(string="دفعة مقدمة",digits='Constructor price', related="project_id.owner_downpayment")
+    down_payment_amount = fields.Float('???? ?????? ???????', compute="compute_downpayment_amount")
+    pay_required = fields.Float(compute="_calculate_pay_required", string="الدفع مطلوب",digits='Constructor price')
+    deductions = fields.Float(compute="_calculate_deduction", string="الخصومات",digits='Constructor price')
+    pay_due = fields.Float(compute="_calculate_pay_due", string="مستحق الدفع",store=False,digits='Constructor price')
+    invoice_id = fields.Many2one("account.move", string="فاتورة الحساب", readonly=True)
+    invoice_remaining = fields.Float(compute="_get_residual", string="المتبقي للفوترة", readonly=True)
+    journal_id = fields.Many2one("account.journal", string="اليومية", required=True,
                                  domain="[('type', '=', 'sale'),('is_construction_journal', '=', True)]",
                                  context="{'default_is_construction_journal':True, }")
-    quotation_type = fields.Selection(TYPING, string='Quotation Type', required=True)
+    quotation_type = fields.Selection(TYPING, string='نوع عرض السعر', required=True)
     business_statement_domain_ids = fields.Many2many(related="purchase_order_id.business_statement_domain_ids")
-    business_item_ids = fields.Many2many(comodel_name="b2b.business.items", relation="owner_bill_business_items2_rel", column1="owner_bill_id", column2="business_item_id", string="Business Statements", )
+    business_item_ids = fields.Many2many(comodel_name="b2b.business.items", relation="owner_bill_business_items2_rel", column1="owner_bill_id", column2="business_item_id", string="بيانات الأعمال", )
 
     # 
     # def button_insert_lines(self):
@@ -374,7 +374,7 @@ class ProgressOwner(models.Model):
                     rec.quotation_type == "without_boq" and not rec.line2_ids):
                 # if not rec.line_ids:
 
-                raise ValidationError(_("Please, Enter Lines first!"))
+                raise ValidationError(_("???? ????? ?????? ????."))
             else:
                 rec.write({
                     "state": "sent",
@@ -463,7 +463,7 @@ class ProgressOwner(models.Model):
                     "invoice_id": invoice_id.id,
                 })
             else:
-                raise ValidationError(_("Selected Journal has not Credit Account!, Please, fill it first!"))
+                raise ValidationError(_("??????? ??????? ?? ????? ??? ???? ????? ???? ?????? ????."))
 
     @api.model_create_multi
     def create(self, vals_list):

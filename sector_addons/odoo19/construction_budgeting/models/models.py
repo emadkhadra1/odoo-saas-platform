@@ -8,7 +8,7 @@ class ProductTemplate(models.Model):
     _name = 'product.template'
     _inherit = 'product.template'
 
-    second_sub_item_id = fields.Many2one(comodel_name="b2b.sub.business.items", string="Second sub business", required=False, )
+    second_sub_item_id = fields.Many2one(comodel_name="b2b.sub.business.items", string="بند أعمال فرعي ثاني", required=False, )
 
     def click_constration_product(self):
         if self.constration_product:
@@ -32,11 +32,11 @@ class MRPBOM(models.Model):
     _name = 'mrp.bom'
     _inherit = 'mrp.bom'
 
-    bom_type = fields.Selection(string="BOQ Type", selection=[('costing', 'Costing'), ('budgeting', 'Budgeting'), ], default='costing', )
-    construction_project_id = fields.Many2one(comodel_name="construction.project", string="Construction Project", required=False, )
-    currency_id = fields.Many2one(comodel_name="res.currency", string="Currency", required=False,
+    bom_type = fields.Selection(string="نوع جدول الكميات", selection=[('costing', 'Costing'), ('budgeting', 'Budgeting'), ], default='costing', )
+    construction_project_id = fields.Many2one(comodel_name="construction.project", string="مشاريع المقاولات", required=False, )
+    currency_id = fields.Many2one(comodel_name="res.currency", string="العملة", required=False,
                                   default=lambda self: self.env.user.company_id.currency_id)
-    estimated_cost = fields.Monetary(string="Estimated Cost", currency_field="currency_id", compute="_compute_estimated_cost", )
+    estimated_cost = fields.Monetary(string="التكلفة التقديرية", currency_field="currency_id", compute="_compute_estimated_cost", )
 
     
     @api.depends('bom_line_ids')
@@ -49,24 +49,24 @@ class MRPBOMLines(models.Model):
     _name = 'mrp.bom.line'
     _inherit = 'mrp.bom.line'
 
-    currency_id = fields.Many2one(comodel_name="res.currency", string="Currency",
+    currency_id = fields.Many2one(comodel_name="res.currency", string="العملة",
                                   default=lambda self: self.env.user.company_id.currency_id)
-    product_cost = fields.Monetary(string="Item Cost", currency_field="currency_id", required=False, )
-    supplier_discount = fields.Float(string="Supplier Disc.(%)", required=False, )
-    sales_tax = fields.Float(string="Sales Tax(%)", required=False, )
-    customs = fields.Float(string="Customs(%)", required=False, )
-    clearance = fields.Float(string="Clearance(%)", required=False, )
-    product_price = fields.Monetary(string="Product Price", currency_field="currency_id",
+    product_cost = fields.Monetary(string="تكلفة البند", currency_field="currency_id", required=False, )
+    supplier_discount = fields.Float(string="خصم المورد (%)", required=False, )
+    sales_tax = fields.Float(string="ضريبة المبيعات (%)", required=False, )
+    customs = fields.Float(string="الجمارك (%)", required=False, )
+    clearance = fields.Float(string="نسبة التخليص (%)", required=False, )
+    product_price = fields.Monetary(string="سعر المنتج", currency_field="currency_id",
                                     compute="_compute_product_price", store=True)
-    cost_after_discount = fields.Monetary(string="Cost After Discount", currency_field="currency_id",
+    cost_after_discount = fields.Monetary(string="التكلفة بعد الخصم", currency_field="currency_id",
                                           compute="_compute_product_price", store=True)
-    hockup = fields.Monetary(string="Hock Up", currency_field="currency_id", required=False, )
-    labor_install = fields.Monetary(string="Labor Install", currency_field="currency_id", required=False, )
-    transportation = fields.Monetary(string="Transportation", currency_field="currency_id", required=False, )
-    other_cost = fields.Monetary(string="Other Cost", currency_field="currency_id", required=False, )
-    cost = fields.Monetary(string="Total Cost", currency_field="currency_id", compute='_compute_cost', store=True)
+    hockup = fields.Monetary(string="تكلفة الربط", currency_field="currency_id", required=False, )
+    labor_install = fields.Monetary(string="تركيب العمالة", currency_field="currency_id", required=False, )
+    transportation = fields.Monetary(string="النقل", currency_field="currency_id", required=False, )
+    other_cost = fields.Monetary(string="تكلفة أخرى", currency_field="currency_id", required=False, )
+    cost = fields.Monetary(string="إجمالي التكلفة", currency_field="currency_id", compute='_compute_cost', store=True)
     bom_type = fields.Selection(related="bom_id.bom_type", store=True)
-    subtotal = fields.Monetary(string="Total", currency_field="currency_id", compute="_compute_cost", )
+    subtotal = fields.Monetary(string="الإجمالي", currency_field="currency_id", compute="_compute_cost", )
     product_id = fields.Many2one(
         'product.product', 'Component', domain=[('constration_product', '=', False)],  required=True)
 
@@ -112,9 +112,9 @@ class ConstructionProject(models.Model):
     _name = 'construction.project'
     _inherit = 'construction.project'
 
-    code = fields.Char(string="Code", required=False, )
-    bom_ids = fields.One2many(comodel_name="mrp.bom", inverse_name="construction_project_id", string="BoMs", required=False, )
-    bom_count = fields.Integer(string="BoMs", compute="_compute_bom_count")
+    code = fields.Char(string="الكود", required=False, )
+    bom_ids = fields.One2many(comodel_name="mrp.bom", inverse_name="construction_project_id", string="قوائم المواد", required=False, )
+    bom_count = fields.Integer(string="قوائم المواد", compute="_compute_bom_count")
 
     
     @api.depends('bom_count')

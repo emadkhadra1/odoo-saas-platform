@@ -23,7 +23,7 @@
             <field name="name">project.unit.form</field>
             <field name="model">project.unit</field>
             <field name="arch" type="xml">
-                <form string="Project Unit">
+                <form string="وحدة المشروع">
 
                     <sheet>
                         <group>
@@ -47,7 +47,7 @@
             <field name="name">project.unit.tree</field>
             <field name="model">project.unit</field>
             <field name="arch" type="xml">
-                <list string="Project Unit">
+                <list string="وحدة المشروع">
                     <field name="name"/>
                     <field name="project_id"/>
                     <field name="unit_location"/>
@@ -59,7 +59,7 @@
         </record>
 
         <record id="view_project_unit_action" model="ir.actions.act_window">
-            <field name="name">Project Unit</field>
+            <field name="name">وحدة المشروع</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">project.unit</field>
             <field name="view_mode">list,form</field>

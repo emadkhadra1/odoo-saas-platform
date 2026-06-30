@@ -7,7 +7,7 @@
         <!--web_icon="account,static/description/icon.png"-->
         <!--menuitems-->
         <!--web_icon="account,static/description/icon.png"-->
-        <menuitem id="cp_root" name="Construction Project" sequence="1" web_icon="construction_project,static/description/icon.png"/>
+        <menuitem id="cp_root" name="مشاريع المقاولات" sequence="1" web_icon="construction_project,static/description/icon.png"/>
 
 
         <!--<menuitem id="menu_board_Project_1" name="Dashboard"-->
@@ -15,60 +15,60 @@
         <!--sequence="0"  />-->
 
         <!-- This Menu Item Must have a parent -->
-        <menuitem id="menu_cp_categ" name="Construction Project"
+        <menuitem id="menu_cp_categ" name="مشاريع المقاولات"
                   parent="cp_root" sequence="10"/>
 
 
-        <menuitem id="menu_construction_project" name="Construction Project"
+        <menuitem id="menu_construction_project" name="مشاريع المقاولات"
                   parent="menu_cp_categ" groups="construction_project.construction_project_group"
                   action="view_construction_project_action" sequence="21"/>
 
-        <menuitem id="menu_project_unit" name="Construction Unit"
+        <menuitem id="menu_project_unit" name="وحدات المشروع"
                   parent="menu_cp_categ" groups="construction_project.construction_project_group"
                   action="view_project_unit_action" sequence="22"/>
 
 
-        <menuitem id="menu_project_item" name="Construction Item"
+        <menuitem id="menu_project_item" name="بنود المشروع"
                   parent="menu_cp_categ" groups="construction_project.construction_project_group"
                   action="view_project_item_action" sequence="23"/>
 
 
-        <menuitem id="menu_project_component" name="Construction Component"
+        <menuitem id="menu_project_component" name="مكونات المشروع"
                   parent="menu_cp_categ" groups="construction_project.construction_project_group"
                   action="view_project_component_action" sequence="24"/>
 
 
-        <menuitem id="menu_construction_receive_order" name="Receive Orders"
+        <menuitem id="menu_construction_receive_order" name="أوامر الاستلام"
                   parent="menu_cp_categ"
                   groups="construction_project.receive_order_user_group,construction_project.receive_order_manager_group"
                   action="view_receive_order_action" sequence="31"/>
 
 
-        <menuitem id="menu_construction_delay_order" name="Delay Orders"
+        <menuitem id="menu_construction_delay_order" name="أوامر التأخير"
                   parent="menu_cp_categ"
                   groups="construction_project.receive_order_user_group,construction_project.receive_order_manager_group"
                   action="view_construction_receive_order_line_delay_acction" sequence="31"/>
 
 
-        <menuitem id="menu_construction_labor_order" name="Order Labors"
+        <menuitem id="menu_construction_labor_order" name="طلبات العمالة"
                   parent="menu_cp_categ" groups="construction_project.service_user_group"
                   action="view_construction_labor_action" sequence="41"/>
 
 
-        <menuitem id="menu_construction_machine_order" name="Order Machines"
+        <menuitem id="menu_construction_machine_order" name="طلبات المعدات"
                   parent="menu_cp_categ" groups="construction_project.service_user_group"
                   action="view_construction_machine_action" sequence="42"/>
-        <menuitem id="menu_construction_tool_order" name="Order Tools"
+        <menuitem id="menu_construction_tool_order" name="طلبات الأدوات"
                   parent="menu_cp_categ" groups="construction_project.service_user_group"
                   action="view_construction_tool_action" sequence="43"/>
 
 
-        <menuitem id="menu_cp_configuration_categ" name="Construction Configuration" parent="cp_root" sequence="100"
+        <menuitem id="menu_cp_configuration_categ" name="إعدادات المقاولات" parent="cp_root" sequence="100"
                   groups="construction_project.construction_project_group,construction_project.receive_order_manager_group,construction_project.service_manager_group"/>
 
 
         <record id="view_product_normal_action" model="ir.actions.act_window">
-            <field name="name">Products</field>
+            <field name="name">المنتجات</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">product.product</field>
             <field name="view_mode">list,form</field>
@@ -81,30 +81,30 @@
                 </p>
             </field>
         </record>
-        <menuitem name="Products" id="menu_product_view" action="view_product_normal_action"
+        <menuitem name="المنتجات" id="menu_product_view" action="view_product_normal_action"
                   parent="menu_cp_configuration_categ" sequence="20"/>
 
 
-        <menuitem id="menu_project_process" name="Construction Process"
+        <menuitem id="menu_project_process" name="مراحل التنفيذ"
                   parent="menu_cp_configuration_categ"
                   action="view_construction_process_action" sequence="20"/>
 
 
-        <menuitem id="menu_project_labors" name="Labors"
+        <menuitem id="menu_project_labors" name="العمالة"
                   parent="menu_cp_configuration_categ"
                   action="view_labors_action" sequence="11"/>
 
 
-        <menuitem id="menu_project_machines" name="Machines"
+        <menuitem id="menu_project_machines" name="المعدات"
                   parent="menu_cp_configuration_categ"
                   action="view_machines_action" sequence="12"/>
 
 
-        <menuitem id="menu_project_tools" name="Tools"
+        <menuitem id="menu_project_tools" name="الأدوات"
                   parent="menu_cp_configuration_categ"
                   action="view_tools_action" sequence="13"/>
 
-        <menuitem id="contract_type_menu" name="Contract Type" parent="menu_cp_configuration_categ"
+        <menuitem id="contract_type_menu" name="نوع العقد" parent="menu_cp_configuration_categ"
                   action="contract_type_action" sequence="14"/>
 
 

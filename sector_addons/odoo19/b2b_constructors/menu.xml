@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-  <menuitem id="construction_menu" name="Construction"  sequence="20" web_icon="b2b_constructors,static/description/icon.png" />
+  <menuitem id="construction_menu" name="المقاولات"  sequence="20" web_icon="b2b_constructors,static/description/icon.png" />
 
-  <menuitem id="construction_constructors_menu" name="Constructors" parent="construction_menu" sequence="10" />
-  <menuitem id="constructors_menu" name="Constructors" parent="construction_constructors_menu" action="constructors_action" sequence="5"/>
-  <menuitem id="b2b_constructor_assign_menu" name="Construction BOQ Assigned" parent="construction_constructors_menu" action="b2b_entrepreneurs_action" sequence="25"/>
+  <menuitem id="construction_constructors_menu" name="المقاولون" parent="construction_menu" sequence="10" />
+  <menuitem id="constructors_menu" name="المقاولون" parent="construction_constructors_menu" action="constructors_action" sequence="5"/>
+  <menuitem id="b2b_constructor_assign_menu" name="إسناد جدول الكميات" parent="construction_constructors_menu" action="b2b_entrepreneurs_action" sequence="25"/>
 
-  <menuitem id="construction_boq_menu" name="Construction BOQ" parent="construction_menu" sequence="20" />
-  <menuitem id="b2b_purchase_order_menu" name="Construction BOQ" parent="construction_boq_menu" action="b2b_construction_boq_action" sequence="10"/>
-  <menuitem id="b2b_indexation_menu" name="Construction BOQ Lines" parent="construction_boq_menu" action="b2b_indexation_action" sequence="15"/>
-  <menuitem id="boq_main_item_menu" name="BOQ Main Item" parent="construction_boq_menu" action="boq_main_item_action" sequence="25"/>
-  <menuitem id="boq_sub_item_menu" name="BOQ Sub Item" parent="construction_boq_menu" action="boq_sub_item_action" sequence="30"/>
-  <menuitem id="boq__business_item_menu" name="BOQ Second Sub Item" parent="construction_boq_menu" action="b_2_b_sub_business_items_action" sequence="50"/>
-  <menuitem id="boq_business_item_menu" name="BOQ Business Item" parent="construction_boq_menu" action="boq_business_item_action" sequence="100"/>
+  <menuitem id="construction_boq_menu" name="جدول كميات المقاولات" parent="construction_menu" sequence="20" />
+  <menuitem id="b2b_purchase_order_menu" name="جدول كميات المقاولات" parent="construction_boq_menu" action="b2b_construction_boq_action" sequence="10"/>
+  <menuitem id="b2b_indexation_menu" name="بنود جدول الكميات" parent="construction_boq_menu" action="b2b_indexation_action" sequence="15"/>
+  <menuitem id="boq_main_item_menu" name="بند رئيسي في جدول الكميات" parent="construction_boq_menu" action="boq_main_item_action" sequence="25"/>
+  <menuitem id="boq_sub_item_menu" name="بند فرعي في جدول الكميات" parent="construction_boq_menu" action="boq_sub_item_action" sequence="30"/>
+  <menuitem id="boq__business_item_menu" name="بند فرعي ثاني في جدول الكميات" parent="construction_boq_menu" action="b_2_b_sub_business_items_action" sequence="50"/>
+  <menuitem id="boq_business_item_menu" name="بند أعمال في جدول الكميات" parent="construction_boq_menu" action="boq_business_item_action" sequence="100"/>
 
-  <menuitem id="construction_quotation_menu" name="Construction Qoutation" parent="construction_menu" sequence="30" />
-  <menuitem id="b2b_progress_bill_menu" name="Construction Quotation" parent="construction_quotation_menu" action="b2b_progress_bill_action" sequence="30"/>
-  <menuitem id="b2b_progress_bill_lines_menu" name="Construction Quotation Lines" parent="construction_quotation_menu" action="b2b_progress_bill_lines_action" sequence="35"/>
-  <menuitem id="b2b_progress_owner_menu" name="Owner Quotation" parent="construction_quotation_menu" action="b2b_progress_owner_action" sequence="40"/>
-  <menuitem id="b2b_progress_owner_lines_menu" name="Owner Quotation Lines" parent="construction_quotation_menu" action="b2b_progress_owner_lines_action" sequence="45"/>
+  <menuitem id="construction_quotation_menu" name="عروض المقاولات" parent="construction_menu" sequence="30" />
+  <menuitem id="b2b_progress_bill_menu" name="عروض المقاولات" parent="construction_quotation_menu" action="b2b_progress_bill_action" sequence="30"/>
+  <menuitem id="b2b_progress_bill_lines_menu" name="بنود عروض المقاولات" parent="construction_quotation_menu" action="b2b_progress_bill_lines_action" sequence="35"/>
+  <menuitem id="b2b_progress_owner_menu" name="عرض مالك المشروع" parent="construction_quotation_menu" action="b2b_progress_owner_action" sequence="40"/>
+  <menuitem id="b2b_progress_owner_lines_menu" name="بنود عرض المالك" parent="construction_quotation_menu" action="b2b_progress_owner_lines_action" sequence="45"/>
 
 
-  <menuitem id="construction_deduction_menu" name="Deductions" parent="construction_menu" sequence="40" />
-  <menuitem id="b2b_deduction_menu" name="Deductions" parent="construction_deduction_menu" action="b2b_deduction_action" sequence="20"/>
+  <menuitem id="construction_deduction_menu" name="الخصومات" parent="construction_menu" sequence="40" />
+  <menuitem id="b2b_deduction_menu" name="الخصومات" parent="construction_deduction_menu" action="b2b_deduction_action" sequence="20"/>
 
-  <menuitem id="construction_report_menu" name="Reports" parent="construction_menu" sequence="50" />
-  <!-- <menuitem id="b2b_quotation_report_menu" name="Quotation Report" parent="construction_report_menu" action="b2b_quotation_report2_action" sequence="20"/> -->
-  <menuitem id="b2b_business_items_menu" name="Total Business Items Wizard" parent="construction_report_menu" action="b2b_quotation_report_action" sequence="20"/>
-  <menuitem id="b2b_material_items_menu" name="Total Material Items Wizard" parent="construction_report_menu" action="b2b_material_report_action" sequence="21"/>
-  <menuitem id="b2b_compare_material_items_menu" name="Compare Material Items Wizard" parent="construction_report_menu" action="b2b_compare_material_report_action" sequence="22"/>
+  <menuitem id="construction_report_menu" name="التقارير" parent="construction_menu" sequence="50" />
+  <!-- <menuitem id="b2b_quotation_report_menu" name="تقرير عرض السعر" parent="construction_report_menu" action="b2b_quotation_report2_action" sequence="20"/> -->
+  <menuitem id="b2b_business_items_menu" name="معالج إجمالي بنود الأعمال" parent="construction_report_menu" action="b2b_quotation_report_action" sequence="20"/>
+  <menuitem id="b2b_material_items_menu" name="معالج إجمالي بنود المواد" parent="construction_report_menu" action="b2b_material_report_action" sequence="21"/>
+  <menuitem id="b2b_compare_material_items_menu" name="معالج مقارنة بنود المواد" parent="construction_report_menu" action="b2b_compare_material_report_action" sequence="22"/>
 
-  <menuitem id="construction_config_menu" name="Configuration" parent="construction_menu" sequence="90" />
-  <menuitem id="b2b_construction_type_menu" name="Construction Type" parent="construction_config_menu" action="b2b_construction_type_action" sequence="20"/>
-  <menuitem id="b2b_business_items_type_menu" name="Business Item Type" parent="construction_config_menu" action="b2b_business_item_type_action" sequence="20"/>
-  <menuitem id="b2b_progress_bill_type_menu" name="Construction Quotation Type" parent="construction_config_menu" action="b2b_progress_bill_type_action" sequence="20"/>
+  <menuitem id="construction_config_menu" name="الإعدادات" parent="construction_menu" sequence="90" />
+  <menuitem id="b2b_construction_type_menu" name="أنواع المقاولات" parent="construction_config_menu" action="b2b_construction_type_action" sequence="20"/>
+  <menuitem id="b2b_business_items_type_menu" name="نوع بند الأعمال" parent="construction_config_menu" action="b2b_business_item_type_action" sequence="20"/>
+  <menuitem id="b2b_progress_bill_type_menu" name="أنواع عروض المقاولات" parent="construction_config_menu" action="b2b_progress_bill_type_action" sequence="20"/>
 
 
 </odoo>

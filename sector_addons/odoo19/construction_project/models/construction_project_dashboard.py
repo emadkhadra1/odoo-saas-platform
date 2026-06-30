@@ -23,7 +23,7 @@ class construction_project(models.Model):
 
     kanban_dashboard = fields.Text(compute='_kanban_dashboard')
     kanban_dashboard_graph = fields.Text(compute='_kanban_dashboard_graph')
-    show_on_dashboard = fields.Boolean(string='Show journal on dashboard', help="Whether this journal should be displayed on the dashboard or not", default=True)
+    show_on_dashboard = fields.Boolean(string='????? ??????? ?? ???? ????????', help="????? ?? ??? ???? ??????? ????? ?? ???? ???????? ?? ??", default=True)
 
     
     def toggle_favorite(self):
@@ -93,14 +93,14 @@ class construction_project(models.Model):
     def get_bar_graph_datas(self):
         data = []
         today = datetime.strptime(fields.Date.context_today(self), DF)
-        data.append({'label': _('Past'), 'value':0.0, 'type': 'past'})
+        data.append({'label': _('????'), 'value':0.0, 'type': 'past'})
         day_of_week = int(format_datetime(today, 'e', locale=self._context.get('lang', 'en_US')))
         first_day_of_week = today + timedelta(days=-day_of_week+1)
         for i in range(-1,4):
             if i==0:
-                label = _('This Week')
+                label = _('??? ???????')
             elif i==3:
-                label = _('Future')
+                label = _('???????')
             else:
                 start_week = first_day_of_week + timedelta(days=i*7)
                 end_week = start_week + timedelta(days=6)
@@ -169,7 +169,7 @@ class construction_project(models.Model):
                     account_sum = query_results[0].get('sum')
         #TODO need to check if all invoices are in the same currency than the journal!!!!
         elif self.type in ['sale', 'purchase']:
-            title = _('Bills to pay') if self.type == 'purchase' else _('Invoices owed to you')
+            title = _('?????? ?????? ?????') if self.type == 'purchase' else _('?????? ?????? ??????')
             # optimization to find total and sum of invoice that are in draft, open state
             query = """SELECT state, amount_total, currency_id AS currency FROM account_invoice WHERE journal_id = %s AND state NOT IN ('paid', 'cancel');"""
             self.env.cr.execute(query, (self.id,))
@@ -231,7 +231,7 @@ class construction_project(models.Model):
             view_id = self.env.ref('account.view_move_form').id
             model = 'account.move'
         return {
-            'name': _('Create invoice/bill'),
+            'name': _('????? ??????'),
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
@@ -245,7 +245,7 @@ class construction_project(models.Model):
         ctx = self._context.copy()
         ctx.update({'journal_id': self.id, 'default_journal_id': self.id, 'default_journal_type': 'cash'})
         return {
-            'name': _('Create cash statement'),
+            'name': _('????? ??? ????'),
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',

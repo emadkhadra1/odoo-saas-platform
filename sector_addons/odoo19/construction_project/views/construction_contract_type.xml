@@ -5,7 +5,7 @@
             <field name="name">contract.type</field>
             <field name="model">contract.type</field>
             <field name="arch" type="xml">
-                <form string="contract type">
+                <form string="نوع العقد">
                     <sheet>
                         <group>
                             <field name="contract_type"/>
@@ -19,7 +19,7 @@
             <field name="name">contract.type</field>
             <field name="model">contract.type</field>
             <field name="arch" type="xml">
-                <list string="contract type">
+                <list string="نوع العقد">
                     <field name="contract_type"/>
                     <field name="value"/>
                 </list>
@@ -27,7 +27,7 @@
         </record>
 
         <record id="contract_type_action" model="ir.actions.act_window">
-            <field name="name">contract type</field>
+            <field name="name">نوع العقد</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">contract.type</field>
             <field name="view_mode">list,form</field>
@@ -42,7 +42,7 @@
         </record>
 
         <!-- This Menu Item must have a parent and an action -->
-<!--        <menuitem id="contract_type_menu" name="Contract Type" parent="construction_project.menu_cp_configuration_categ"-->
+<!--        <menuitem id="contract_type_menu" name="نوع العقد" parent="construction_project.menu_cp_configuration_categ"-->
 <!--                  action="contract_type_action" sequence="14"/>-->
     </data>
 </odoo>

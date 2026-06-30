@@ -1,7 +1,7 @@
 <odoo>
     <data>
         <record id="tool_order_report" model="ir.actions.report">
-            <field name="name">Tool Orders</field>
+            <field name="name">أوامر الأدوات</field>
             <field name="model">construction.project</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">construction_project_reports.tool_order_report_view</field>

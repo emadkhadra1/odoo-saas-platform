@@ -15,30 +15,30 @@ from odoo.exceptions import UserError, ValidationError
 class ConstructionBOQ(models.Model):
     _name = "b2b.construction.boq"
     _inherit = ['mail.thread']
-    _description = "Construction BOQ"
+    _description = "جدول كميات المقاولات"
 
     STATING = [
         ("draft", "Draft"),
-        ("cancel", "Cancel"),
+        ("cancel", "إلغاء"),
         ("wait_approve", "Wait Approve"),
         ("wait_assignment", "Assigned"),
-        ("assigned", "Done"),
+        ("assigned", "تم"),
         ("refuse", "Refused"),
     ]
     # editable_states = {'draft': [('readonly', False)], 'wait_approve': [('readonly', False)], 'wait_assignment': [('readonly', False)]}
     # editable_states = {'draft': [('readonly', False)]}
     editable_states = {'draft': [('readonly', False)], 'wait_approve': [('readonly', False)]}
 
-    name = fields.Char(string="Contractor Quotation",readonly=True, states=editable_states)
-    state = fields.Selection(STATING, string='Status', default="draft",readonly=True, states=editable_states, tracking=True)
-    date_order = fields.Date(string="Date", required=True,readonly=True, states=editable_states)
-    construction_type_id = fields.Many2one('b2b.constrution.type', string='Construction Type',readonly=True, states=editable_states)
-    project_id = fields.Many2one("construction.project", string='Project Name',readonly=True, states=editable_states)
-    indexation_ids = fields.One2many('b2b.indexation', 'purchase_order_id', string='BOQ Item',readonly=True, states=editable_states)
-    constructor_ids = fields.One2many('b2b.entrepreneurs', 'purchase_order_id', string='Contractor Assignment', states=editable_states)
-    business_statement_domain_ids = fields.Many2many(comodel_name="b2b.business.items", relation="construction_business_statement_rel", column1="construction_id", column2="business_statement_id", string="Business Statement Domain", )
-    total_cost = fields.Float(string="Total Cost",  required=False, compute="_compute_total_cost_sell")
-    total_sell = fields.Float(string="Total Sell",  required=False, compute="_compute_total_cost_sell")
+    name = fields.Char(string="عرض المقاول",readonly=True, states=editable_states)
+    state = fields.Selection(STATING, string='الحالة', default="draft",readonly=True, states=editable_states, tracking=True)
+    date_order = fields.Date(string="التاريخ", required=True,readonly=True, states=editable_states)
+    construction_type_id = fields.Many2one('b2b.constrution.type', string='أنواع المقاولات',readonly=True, states=editable_states)
+    project_id = fields.Many2one("construction.project", string='اسم المشروع',readonly=True, states=editable_states)
+    indexation_ids = fields.One2many('b2b.indexation', 'purchase_order_id', string='بند جدول الكميات',readonly=True, states=editable_states)
+    constructor_ids = fields.One2many('b2b.entrepreneurs', 'purchase_order_id', string='إسناد المقاول', states=editable_states)
+    business_statement_domain_ids = fields.Many2many(comodel_name="b2b.business.items", relation="construction_business_statement_rel", column1="construction_id", column2="business_statement_id", string="نطاق بيان الأعمال", )
+    total_cost = fields.Float(string="إجمالي التكلفة",  required=False, compute="_compute_total_cost_sell")
+    total_sell = fields.Float(string="إجمالي البيع",  required=False, compute="_compute_total_cost_sell")
 
     
     @api.depends('indexation_ids')
@@ -163,7 +163,7 @@ class ConstructionBOQ(models.Model):
             context = dict(self.env.context or {})
             context['active_id'] = rec.id
         return {
-            'name': _('Assigned Constructors'),
+            'name': _('????????? ????????'),
             'view_mode': 'form',
             'view_type': 'form',
             'type': 'ir.actions.act_window',
@@ -178,7 +178,7 @@ class ConstructionBOQ(models.Model):
 class construction_receive_order(models.Model):
     _inherit = 'construction.receive.order'
 
-    boq_id = fields.Many2one(comodel_name="b2b.construction.boq", string="Construction BOQ")
+    boq_id = fields.Many2one(comodel_name="b2b.construction.boq", string="جدول كميات المقاولات")
     business_statement_ids = fields.Many2many(comodel_name="b2b.business.items")
 
     @api.onchange('boq_id')
@@ -192,11 +192,11 @@ class construction_receive_order(models.Model):
         for line in self.receive_order_ids:
             print(line.qty_available, line.qty, line.accept)
             if line.qty_available < line.qty:
-                raise UserError(_('Error ! QTY Not Available To Accepted.'))
+                raise UserError(_('???! ?????? ??? ????? ????????.'))
             if not line.accept:
-                raise ValidationError(_('Error ! You Have Line Not Accepted.'))
+                raise ValidationError(_('???! ???? ??? ??? ?????.'))
 
-                # raise UserError(_('Error ! You Have Line Not Accepted.'))
+                # raise UserError(_('???! ???? ??? ??? ?????.'))
                 # print 'Error ! You Have Line Not Accepted.'
         picking_id = False
         if self.project_id and self.project_id.partner_id:
@@ -301,12 +301,12 @@ class construction_receive_order(models.Model):
 
                         # if procurement_id and procurement_id.state!='done':
                         #     error=''
-                        #     raise UserError(_('Error ! procurement cannot confirm'))
+                        #     raise UserError(_('???! ?? ???? ?????? ???????.'))
                         # print origin
                         # print line
                     else:
                         action='line_not_accept'
-                        raise UserError(_('Error ! You Have Line Not Accepted.'))
+                        raise UserError(_('???! ???? ??? ??? ?????.'))
 
                 # print "group_id",group_id
                 # print "line_ids",line_ids
@@ -358,7 +358,7 @@ class construction_receive_order(models.Model):
 class construction_receive_order_line(models.Model):
     _inherit = 'construction.receive.order.line'
 
-    business_statement_id = fields.Many2one("b2b.business.items", string="Business Statement", required=True)
+    business_statement_id = fields.Many2one("b2b.business.items", string="بيان الأعمال", required=True)
 
     def make_purchase_order(self):
         purchase = self.env['purchase.order']

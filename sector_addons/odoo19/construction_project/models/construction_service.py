@@ -18,7 +18,7 @@ class construction_service(models.Model):
     
     def unlink(self):
         if self.state == 'done':
-            raise UserError(_('You cannot delete .'))
+            raise UserError(_('?? ????? ?????.'))
         return super(construction_service, self).unlink()
     def _get_date_now(self):
         res = datetime.now()
@@ -45,18 +45,18 @@ class construction_service(models.Model):
         self.total_cost = total_cost
         return True
 
-    total_amount = fields.Float(string="Total Amount", compute="_compute_total", store=True, required=False, )
-    total_cost = fields.Float(string="Total Cost", compute="_compute_total", store=True, required=False, )
-    name = fields.Char(string="Serial", required=False, )
-    project_id = fields.Many2one(comodel_name="construction.project", string="Project", required=True, )
-    date = fields.Date(string="Date", default=_get_date_now, required=False, )
-    state = fields.Selection(string="State", default='new', selection=[('new', 'New'), ('done', 'Done'), ],
+    total_amount = fields.Float(string="إجمالي المبلغ", compute="_compute_total", store=True, required=False, )
+    total_cost = fields.Float(string="إجمالي التكلفة", compute="_compute_total", store=True, required=False, )
+    name = fields.Char(string="المسلسل", required=False, )
+    project_id = fields.Many2one(comodel_name="construction.project", string="المشروع", required=True, )
+    date = fields.Date(string="التاريخ", default=_get_date_now, required=False, )
+    state = fields.Selection(string="الحالة", default='new', selection=[('new', 'New'), ('done', 'تم'), ],
                              required=False, )
     service_labor_ids = fields.One2many(comodel_name="construction.service.labor.line", inverse_name="service_id",
-                                       string="Service Labor Lines", required=False, )
+                                       string="بنود عمالة الخدمة", required=False, )
 
     service_machine_ids = fields.One2many(comodel_name="construction.service.machine.line", inverse_name="service_id",
-                                       string="Service Machine Lines", required=False, )
+                                       string="بنود معدات الخدمة", required=False, )
 
     @api.model
     def create(self, vals):
@@ -72,7 +72,7 @@ class construction_service_machine_line(models.Model):
     _description = 'construction_service_machine_line'
 
     
-    @api.depends('unit_cost', 'qty')
+    @api.depends('unit_cost', 'الكمية')
     def _compute_cost(self):
         cost = 0
         if self.unit_cost and self.qty:
@@ -92,12 +92,12 @@ class construction_service_machine_line(models.Model):
 
 
 
-    machine_id = fields.Many2one(comodel_name="construction.machine", string="Machine", required=True, )
-    name = fields.Char(string="Titel", required=True, )
-    service_id = fields.Many2one(comodel_name="construction.service", string="Service", required=False, )
-    unit_cost = fields.Float(string="Uint Cost", required=True, )
-    qty = fields.Float(string="Qty",default=1, required=True, )
-    cost = fields.Float(string="Cost", compute="_compute_cost", store=True, required=False, )
+    machine_id = fields.Many2one(comodel_name="construction.machine", string="معدة", required=True, )
+    name = fields.Char(string="العنوان", required=True, )
+    service_id = fields.Many2one(comodel_name="construction.service", string="خدمة", required=False, )
+    unit_cost = fields.Float(string="تكلفة الوحدة", required=True, )
+    qty = fields.Float(string="الكمية",default=1, required=True, )
+    cost = fields.Float(string="التكلفة", compute="_compute_cost", store=True, required=False, )
 
 
 
@@ -105,10 +105,10 @@ class construction_service_machine_line(models.Model):
 class construction_machine(models.Model):
     _name = 'construction.machine'
 
-    name = fields.Char(string="Name", required=True, )
-    unit_cost = fields.Float(string="Cost",  required=False, )
-    unit_price = fields.Float(string="Price",  required=False, )
-    note = fields.Text(string="Note", required=False, )
+    name = fields.Char(string="الاسم", required=True, )
+    unit_cost = fields.Float(string="التكلفة",  required=False, )
+    unit_price = fields.Float(string="السعر",  required=False, )
+    note = fields.Text(string="ملاحظة", required=False, )
 
     @api.model
     def create(self, vals):
@@ -124,7 +124,7 @@ class construction_service_labor_line(models.Model):
     _description = 'construction_service_labor_line'
 
     
-    @api.depends('unit_cost', 'qty')
+    @api.depends('unit_cost', 'الكمية')
     def _compute_cost(self):
         cost = 0
         if self.unit_cost and self.qty:
@@ -140,25 +140,25 @@ class construction_service_labor_line(models.Model):
             self.name = self.labor_id.name
             self.unit_cost = self.labor_id.unit_cost
 
-    labor_id = fields.Many2one(comodel_name="construction.labor", string="Labor", required=True, )
-    product_uom_id = fields.Many2one( 'uom.uom', string='Unit of Measure', related='labor_id.product_uom_id',store=True,readonly=True)
+    labor_id = fields.Many2one(comodel_name="construction.labor", string="عمالة", required=True, )
+    product_uom_id = fields.Many2one( 'uom.uom', string='وحدة القياس', related='labor_id.product_uom_id',store=True,readonly=True)
 
-    name = fields.Char(string="Titel", required=False, )
-    service_id = fields.Many2one(comodel_name="construction.service", string="Service", required=False, )
-    unit_cost = fields.Float(string="Uint Cost", required=True, )
-    qty = fields.Float(string="Qty", default=1, required=True, )
-    cost = fields.Float(string="Cost", compute="_compute_cost", store=True, required=False, )
+    name = fields.Char(string="العنوان", required=False, )
+    service_id = fields.Many2one(comodel_name="construction.service", string="خدمة", required=False, )
+    unit_cost = fields.Float(string="تكلفة الوحدة", required=True, )
+    qty = fields.Float(string="الكمية", default=1, required=True, )
+    cost = fields.Float(string="التكلفة", compute="_compute_cost", store=True, required=False, )
 
 
 class construction_labor(models.Model):
     _name = 'construction.labor'
 
-    name = fields.Char(string="Name", required=True)
-    product_uom_id = fields.Many2one( 'uom.uom', string='Unit of Measure',  )
+    name = fields.Char(string="الاسم", required=True)
+    product_uom_id = fields.Many2one( 'uom.uom', string='وحدة القياس',  )
 
-    unit_cost = fields.Float(string="Cost",  required=False, )
-    unit_price = fields.Float(string="Price",  required=False, )
-    note = fields.Text(string="Note", required=False, )
+    unit_cost = fields.Float(string="التكلفة",  required=False, )
+    unit_price = fields.Float(string="السعر",  required=False, )
+    note = fields.Text(string="ملاحظة", required=False, )
 
     @api.model
     def create(self, vals):

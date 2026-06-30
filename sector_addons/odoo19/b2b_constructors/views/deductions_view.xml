@@ -6,7 +6,7 @@
             <field name="name">view.b2b.deductions.form</field>
             <field name="model">b2b.deductions</field>
             <field name="arch" type="xml">
-                <form string="Deductions">
+                <form string="الخصومات">
                     <sheet>
                         <group name="main">
                             <group>
@@ -21,7 +21,7 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="Notes">
+                            <page string="ملاحظات">
                                 <field name="notes"/>
                             </page>
                         </notebook>
@@ -34,11 +34,11 @@
             <field name="name">view.b2b_deduction.tree</field>
             <field name="model">b2b.deductions</field>
             <field name="arch" type="xml">
-                <list string="Deductions">
+                <list string="الخصومات">
                     <field name="name"/>
                                         <field name="type"/>
 
-                    <field name="amount" sum="Total"/>
+                    <field name="amount" sum="الإجمالي"/>
                                         <field name="account_id"/>
 
                 </list>
@@ -49,7 +49,7 @@
             <field name="name">view.b2b_deduction.search</field>
             <field name="model">b2b.deductions</field>
             <field name="arch" type="xml">
-                <search string="Deductions">
+                <search string="الخصومات">
                     <field name="name"/>
                     <field name="type"/>
 
@@ -61,7 +61,7 @@
         </record>
 
         <record id="b2b_deduction_action" model="ir.actions.act_window">
-            <field name="name">Deductions</field>
+            <field name="name">الخصومات</field>
             <field name="res_model">b2b.deductions</field>
             <field name="view_mode">list,form</field>
             <field name="domain">[]</field>

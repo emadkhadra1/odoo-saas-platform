@@ -13,18 +13,18 @@ from odoo.exceptions import ValidationError
 class comparematerialReportWizard(models.TransientModel):
     _name = 'b2b.compare.material.report.wizard'
 
-    _description = "compare material Report Wizard"
+    _description = "معالج تقرير مقارنة المواد"
 
     _rec_name = "project_id"
 
-    project_id = fields.Many2one("construction.project", string='Project Name', required=True)
-    business_statement_ids = fields.Many2many("b2b.business.items", string="Business Statement", required=False)
-    from_date = fields.Date(string='From', required=True, default=fields.Date.context_today)
-    to_date = fields.Date(string='To', required=True, default=fields.Date.context_today)
+    project_id = fields.Many2one("construction.project", string='اسم المشروع', required=True)
+    business_statement_ids = fields.Many2many("b2b.business.items", string="بيان الأعمال", required=False)
+    from_date = fields.Date(string='من', required=True, default=fields.Date.context_today)
+    to_date = fields.Date(string='إلى', required=True, default=fields.Date.context_today)
 
-    # main_item_id = fields.Many2one("b2b.main.items", string="Main Item", required=False)
-    # sub_item_id = fields.Many2one("b2b.sub.items", string="Sub Item", required=False)
-    # type = fields.Selection(string="Type",selection=[('material', 'Material'), ('working', 'Working'), ('both', 'Both')],default='both', )
+    # main_item_id = fields.Many2one("b2b.main.items", string="????? ???????", required=False)
+    # sub_item_id = fields.Many2one("b2b.sub.items", string="????? ??????", required=False)
+    # type = fields.Selection(string="النوع",selection=[('material', 'Material'), ('working', 'Working'), ('both', 'Both')],default='both', )
 
 
 
@@ -149,7 +149,7 @@ class ReportMultilcomparematerialParser(models.AbstractModel):
     @api.model
     def _get_report_values(self, docids, data=None):
         if not data.get('form') and not docids:
-            raise UserError(_("Form content is missing, this report cannot be printed."))
+            raise UserError(_("????? ??????? ??? ?????? ?? ???? ????? ???????."))
         if not docids:
             id = data.get('form')['id']
 

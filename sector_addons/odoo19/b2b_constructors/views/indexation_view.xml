@@ -6,7 +6,7 @@
       <field name="name">view.indexation.form</field>
       <field name="model">b2b.indexation</field>
       <field name="arch" type="xml">
-        <form string="Construction BOQ Lines">
+        <form string="بنود جدول الكميات">
           <sheet>
             <group name="main">
               <group>
@@ -37,7 +37,7 @@
       <field name="name">view.b2b_indexation.tree</field>
       <field name="model">b2b.indexation</field>
       <field name="arch" type="xml">
-        <list string="Construction BOQ Lines">
+        <list string="بنود جدول الكميات">
           <field name="purchase_order_id"/>
           <field name="uom_id"/>
           <field name="category"/>
@@ -56,7 +56,7 @@
       <field name="name">view.b2b_indexation.search</field>
       <field name="model">b2b.indexation</field>
       <field name="arch" type="xml">
-        <search string="Construction BOQ Lines">
+        <search string="بنود جدول الكميات">
           <field name="purchase_order_id" />
           <field name="uom_id"/>
           <field name="category"/>
@@ -68,18 +68,18 @@
           <field name="finished_quantity"/>
           <field name="total"/>
           <group name="groupby">
-            <filter name="purchase_order_id_groupby" string="Constrution BOQ" context="{'group_by': 'purchase_order_id'}"/>
-            <filter name="uom_id_groupby" string="Unit" context="{'group_by': 'uom_id'}"/>
-            <filter name="main_item_id_groupby" string="Main Item" context="{'group_by': 'main_item_id'}"/>
-            <filter name="sub_item_id_groupby" string="Su b Item" context="{'group_by': 'sub_item_id'}"/>
-            <filter name="business_statement_id_groupby" string="Business Statement" context="{'group_by': 'business_statement_id'}"/>
+            <filter name="purchase_order_id_groupby" string="جدول كميات المقاولات" context="{'group_by': 'purchase_order_id'}"/>
+            <filter name="uom_id_groupby" string="الوحدة" context="{'group_by': 'uom_id'}"/>
+            <filter name="main_item_id_groupby" string="البند الرئيسي" context="{'group_by': 'main_item_id'}"/>
+            <filter name="sub_item_id_groupby" string="البند الفرعي" context="{'group_by': 'sub_item_id'}"/>
+            <filter name="business_statement_id_groupby" string="بيان الأعمال" context="{'group_by': 'business_statement_id'}"/>
           </group>
         </search>
       </field>
     </record>
 
     <record id="b2b_indexation_action" model="ir.actions.act_window">
-      <field name="name">Construction BOQ Lines</field>
+      <field name="name">بنود جدول الكميات</field>
       <field name="res_model">b2b.indexation</field>
       <field name="view_mode">list,form</field>
       <field name="domain">[]</field>

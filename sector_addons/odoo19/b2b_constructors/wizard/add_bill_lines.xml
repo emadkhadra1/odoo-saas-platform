@@ -6,7 +6,7 @@
            <field name="name">view.add.bill.lines.form</field>
            <field name="model">add.bill.lines</field>
            <field name="arch" type="xml">
-               <form string="Add Bill Lines Form">
+               <form string="نموذج إضافة بنود الفاتورة">
                    <sheet>
                        <field name="name" invisible="1"/>
                        <field name="project_id" invisible="1"/>
@@ -14,16 +14,16 @@
                        <field name="entrepreneurs_ids" domain="[('project_id', '=', project_id)]"/>
                    </sheet>
                    <footer>
-                        <button name="action_assign" type="object" string="Assign" class="oe_highlight"/>
+                        <button name="action_assign" type="object" string="إسناد" class="oe_highlight"/>
                         or
-                        <button special="cancel" string="Cancel"/>
+                        <button special="cancel" string="إلغاء"/>
                     </footer>
                </form>
            </field>
        </record>
         
         <record id="action_add_bill_lines_view" model="ir.actions.act_window">
-            <field name="name">Add Bill Lines</field>
+            <field name="name">إضافة بنود الفاتورة</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">add.bill.lines</field>
             <field name="view_mode">form</field>

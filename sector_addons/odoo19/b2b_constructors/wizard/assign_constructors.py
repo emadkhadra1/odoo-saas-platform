@@ -13,40 +13,40 @@ from odoo.exceptions import ValidationError
 class AsignItemsWizard(models.TransientModel):
     _name = 'b2b.assign.items.wizard'
 
-    _description = "Construction BOQ Assigned"
+    _description = "إسناد جدول الكميات"
 
     _rec_name = "purchase_order_id"
 
     def _get_purchase_order_id(self):
         return self._context.get('active_id') if self._context.get('active_id') else None
 
-    entrepreneurs_id = fields.Many2one("b2b.entrepreneurs.wizard", string="Assigned Constructors", required=False)
-    purchase_order_id = fields.Many2one("b2b.construction.boq", string="Construction BOQ", required=False, default=_get_purchase_order_id)
-    consructor_id = fields.Many2one("res.partner", string='Contractor', required=False, domain="[('is_constructors', '=', True)]", context="{'default_is_constructors': True}")
-    indexation_id = fields.Many2one("b2b.indexation", string='Construction BOQ Item', required=False, domain="[('purchase_order_id', '=', purchase_order_id)]")
-    main_item_id = fields.Many2one(related="indexation_id.main_item_id", string="Main Item", required=True)
-    sub_item_id = fields.Many2one(related="indexation_id.sub_item_id", string="Sub Item", required=True )
-    sub_business_statement_id = fields.Many2one(related="indexation_id.sub_business_statement_id", string="Second Sub Item", required=True )
-    business_statement_id = fields.Many2one(related="indexation_id.business_statement_id", string="Business Statement", required=True)
+    entrepreneurs_id = fields.Many2one("b2b.entrepreneurs.wizard", string="المقاولون المسندون", required=False)
+    purchase_order_id = fields.Many2one("b2b.construction.boq", string="جدول كميات المقاولات", required=False, default=_get_purchase_order_id)
+    consructor_id = fields.Many2one("res.partner", string='المقاول', required=False, domain="[('is_constructors', '=', True)]", context="{'default_is_constructors': True}")
+    indexation_id = fields.Many2one("b2b.indexation", string='بند جدول الكميات', required=False, domain="[('purchase_order_id', '=', purchase_order_id)]")
+    main_item_id = fields.Many2one(related="indexation_id.main_item_id", string="????? ???????", required=True)
+    sub_item_id = fields.Many2one(related="indexation_id.sub_item_id", string="????? ??????", required=True )
+    sub_business_statement_id = fields.Many2one(related="indexation_id.sub_business_statement_id", string="????? ?????? ??????", required=True )
+    business_statement_id = fields.Many2one(related="indexation_id.business_statement_id", string="بيان الأعمال", required=True)
     business_statement_domain_ids = fields.Many2many(related="purchase_order_id.business_statement_domain_ids")
-    uom_id = fields.Many2one(related="business_statement_id.uom_id", string="Unit", readonly=True)
-    required_quantity = fields.Float(related="indexation_id.required_quantity", string="Required Quantity", readonly=True)
-    # price = fields.Float(related="indexation_id.category", string="Category", readonly=False)
-    price = fields.Float(string="Category", readonly=False)
-    old_price = fields.Float(string="Old Category", compute="_calculate_old_assigned", readonly=False)
+    uom_id = fields.Many2one(related="business_statement_id.uom_id", string="الوحدة", readonly=True)
+    required_quantity = fields.Float(related="indexation_id.required_quantity", string="الكمية المطلوبة", readonly=True)
+    # price = fields.Float(related="indexation_id.category", string="التصنيف", readonly=False)
+    price = fields.Float(string="التصنيف", readonly=False)
+    old_price = fields.Float(string="????? ???????", compute="_calculate_old_assigned", readonly=False)
 
-    percent = fields.Float(string="Assigned Quantity", required=False)
-    old_assigned = fields.Float(compute="_calculate_old_assigned", string="Old Assigned")
-    total = fields.Float(compute="_calculate_total", string="Total Cost")
+    percent = fields.Float(string="الكمية المسندة", required=False)
+    old_assigned = fields.Float(compute="_calculate_old_assigned", string="?????? ?????")
+    total = fields.Float(compute="_calculate_total", string="إجمالي التكلفة")
 
     
     @api.constrains("required_quantity", "percent", "old_assigned")
     def _check_field(self):
         for s in self:
             if s.indexation_id and s.required_quantity < (s.indexation_id.finished_quantity + s.old_assigned):
-                raise ValidationError(_("Assigned Quantity more than Available Quantity!"))
+                raise ValidationError(_("?????? ??????? ???? ?? ?????? ???????!"))
             if s.indexation_id and s.indexation_id.category < s.price:
-                raise ValidationError(_("Assigned Price more than Category!"))
+                raise ValidationError(_("????? ?????? ???? ?? ???? ?????!"))
 
     
     @api.depends('indexation_id')

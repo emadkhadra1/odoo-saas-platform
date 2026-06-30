@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//notebook" position="inside">
-                    <page string="Quotation lines">
+                    <page string="بنود عرض السعر">
                         <field name="quotation_ids" readonly="1">
                             <list decoration-danger="total_work > required_quantity">
                                 <field name="main_item_id"/>
@@ -42,7 +42,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//notebook" position="inside">
-                    <page string="Quotation lines">
+                    <page string="بنود عرض السعر">
                         <field name="quotation_ids" readonly="1">
                             <list decoration-danger="total_work > required_quantity">
                                 <field name="main_item_id"/>

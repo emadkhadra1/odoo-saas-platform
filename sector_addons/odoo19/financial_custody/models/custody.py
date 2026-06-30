@@ -8,41 +8,41 @@ class FinancialCustody(models.Model):
     _name = 'financial.custody'
     _rec_name = 'name'
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    _description = 'Financial Custody'
+    _description = 'العهد المالية'
 
-    name = fields.Char(string="Custody No.", required=True, tracking=True, default='New')
-    custody_amount = fields.Monetary(string="Custody Amount", required=True, tracking=True, currency_field='currency_id')
-    paid_amount = fields.Monetary(string="Paid Amount", currency_field='currency_id', compute='_compute_payments_count')
-    remaining_amount = fields.Monetary(string="Remaining Amount", currency_field='currency_id', compute='_compute_payments_count')
-    currency_id = fields.Many2one(comodel_name="res.currency", string="Currency", default=lambda s: s.env.user.company_id.currency_id)
-    reason = fields.Html(string="Reason", required=True, )
-    state = fields.Selection(string="State",
+    name = fields.Char(string="رقم العهدة", required=True, tracking=True, default='New')
+    custody_amount = fields.Monetary(string="مبلغ العهدة", required=True, tracking=True, currency_field='currency_id')
+    paid_amount = fields.Monetary(string="المبلغ المدفوع", currency_field='currency_id', compute='_compute_payments_count')
+    remaining_amount = fields.Monetary(string="المبلغ المتبقي", currency_field='currency_id', compute='_compute_payments_count')
+    currency_id = fields.Many2one(comodel_name="res.currency", string="العملة", default=lambda s: s.env.user.company_id.currency_id)
+    reason = fields.Html(string="السبب", required=True, )
+    state = fields.Selection(string="الحالة",
                              selection=[('draft', 'Draft'), ('approved', 'First Approve'), ('second_approve', 'Second Approve'),
                                         ('rejected', 'Rejected'), ('canceled', 'Canceled'),
-                                        ('open', 'Open'), ('validate', 'Validate')],
+                                        ('open', 'فتح'), ('validate', 'اعتماد نهائي')],
                              default='draft', tracking=True)
-    analytic_account_id = fields.Many2one(comodel_name="account.analytic.account", string="Analytic Account", required=False, )
-    journal_id = fields.Many2one(comodel_name="account.journal", string="Journal")
+    analytic_account_id = fields.Many2one(comodel_name="account.analytic.account", string="الحساب التحليلي", required=False, )
+    journal_id = fields.Many2one(comodel_name="account.journal", string="اليومية")
     analytic_tags_ids = fields.Many2many(comodel_name="account.analytic.tag", relation="financial_custody_analytic_tags_rel", column1="custody_id",
-                                         column2="analytic_tag_id", string="Analytic Tags", )
-    due_date = fields.Date(string="Due Date", required=True, default=fields.Date.context_today)
-    account_id = fields.Many2one(comodel_name="account.account", string="Account", related='partner_id.custody_account_id', store=True, readonly=False)
-    move_id = fields.Many2one(comodel_name="account.move", string="Entry")
-    partner_id = fields.Many2one(comodel_name="res.partner", string="Partner", default=lambda self: self.env.user.partner_id, required=True)
+                                         column2="analytic_tag_id", string="الوسوم التحليلية", )
+    due_date = fields.Date(string="تاريخ الاستحقاق", required=True, default=fields.Date.context_today)
+    account_id = fields.Many2one(comodel_name="account.account", string="الحساب", related='partner_id.custody_account_id', store=True, readonly=False)
+    move_id = fields.Many2one(comodel_name="account.move", string="القيد")
+    partner_id = fields.Many2one(comodel_name="res.partner", string="الشريك", default=lambda self: self.env.user.partner_id, required=True)
     payment_count = fields.Integer(compute='_compute_payments_count')
-    reject_reason = fields.Text(string='Reject Reason')
-    reject_step = fields.Char(string='Reject Step')
-    reject_uid = fields.Many2one(comodel_name='res.users', string='Reject By')
-    reject_date = fields.Date(string='Reject Date')
-    installment_ids = fields.One2many(comodel_name='financial.custody.installment.line', inverse_name='custody_id', string='Installments')
-    remaining_move_id = fields.Many2one(comodel_name='account.move', string='Remaining Move')
+    reject_reason = fields.Text(string='سبب الرفض')
+    reject_step = fields.Char(string='مرحلة الرفض')
+    reject_uid = fields.Many2one(comodel_name='res.users', string='رفض بواسطة')
+    reject_date = fields.Date(string='تاريخ الرفض')
+    installment_ids = fields.One2many(comodel_name='financial.custody.installment.line', inverse_name='custody_id', string='الأقساط')
+    remaining_move_id = fields.Many2one(comodel_name='account.move', string='القيد المتبقي')
 
     @api.constrains('account_id')
     def constraint_partner_id(self):
         for rec in self:
             if rec.partner_id:
                 if not rec.partner_id.custody_account_id:
-                    raise ValidationError(_('Please set custody account on partner of employee'))
+                    raise ValidationError(_('???? ????? ???? ?????? ??? ???? ??????.'))
 
     @api.onchange('account_id')
     @api.depends('account_id')
@@ -174,7 +174,7 @@ class FinancialCustody(models.Model):
     def custody_reject(self):
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Reject',
+            'name': 'رفض',
             'res_model': 'financial.custody.reject.wizard',
             'view_mode': 'form',
             'target': 'new',
@@ -203,7 +203,7 @@ class FinancialCustody(models.Model):
     def action_open_custody_payment(self):
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Payments',
+            'name': 'المدفوعات',
             'res_model': 'account.payment',
             'view_mode': 'list,form',
             'target': 'self',
@@ -227,14 +227,14 @@ class FinancialCustody(models.Model):
         for rec in self:
             if rec.installment_ids:
                 if rec.custody_amount < sum(rec.installment_ids.mapped('amount')):
-                    raise ValidationError(_('The installment amount must be equal or less then  custody amount'))
+                    raise ValidationError(_('??? ?? ???? ???? ?????? ?????? ?? ??? ?? ???? ??????.'))
 
 
 class CustodyRejectReasonWizard(models.TransientModel):
     _name = 'financial.custody.reject.wizard'
 
-    custody_id = fields.Many2one(comodel_name='financial.custody', string='Custody')
-    reason = fields.Text(required=True, string='Reason')
+    custody_id = fields.Many2one(comodel_name='financial.custody', string='العهدة')
+    reason = fields.Text(required=True, string='السبب')
 
     def action_confirm(self):
         self.custody_id.state = 'rejected'
@@ -246,15 +246,15 @@ class CustodyRejectReasonWizard(models.TransientModel):
 
 class CustodyInstallmentLine(models.Model):
     _name = 'financial.custody.installment.line'
-    _description = 'Custody Installment Line'
+    _description = 'قسط العهدة'
 
-    custody_id = fields.Many2one(comodel_name='financial.custody', string='Custody')
-    due_date = fields.Date(string='Date', required=True)
-    amount = fields.Float(string='Amount', required=True)
-    note = fields.Text(string='Note', required=True)
-    account_id = fields.Many2one(comodel_name='account.account', string='Account')
-    move_id = fields.Many2one(comodel_name='account.move', string='Journal Entry')
-    bill_id = fields.Many2one(comodel_name='account.move', string='Bill',
+    custody_id = fields.Many2one(comodel_name='financial.custody', string='العهدة')
+    due_date = fields.Date(string='التاريخ', required=True)
+    amount = fields.Float(string='المبلغ', required=True)
+    note = fields.Text(string='ملاحظة', required=True)
+    account_id = fields.Many2one(comodel_name='account.account', string='الحساب')
+    move_id = fields.Many2one(comodel_name='account.move', string='قيد اليومية')
+    bill_id = fields.Many2one(comodel_name='account.move', string='فاتورة',
                               domain=[('move_type', '=', 'in_invoice'), ('state', '=', 'posted'), ('payment_state', '=', 'not_paid')])
 
     @api.onchange('bill_id')

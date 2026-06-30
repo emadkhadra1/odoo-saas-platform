@@ -19,7 +19,7 @@
             <field name="name">project.component.form</field>
             <field name="model">project.component</field>
             <field name="arch" type="xml">
-                <form string="Project Component">
+                <form string="مكون المشروع">
                     <header>
                         <field name="state" widget="statusbar"/>
                     </header>
@@ -50,7 +50,7 @@
             <field name="name">project.component.tree</field>
             <field name="model">project.component</field>
             <field name="arch" type="xml">
-                <list string="Project Component">
+                <list string="مكون المشروع">
                     <field name="project_id"/>
                     <field name="unit_id"/>
                     <field name="name"/>
@@ -64,7 +64,7 @@
                 </list></field>
         </record>
         <record id="view_project_component_action" model="ir.actions.act_window">
-            <field name="name">Project Component</field>
+            <field name="name">مكون المشروع</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">project.component</field>
             <field name="view_mode">list,form</field>

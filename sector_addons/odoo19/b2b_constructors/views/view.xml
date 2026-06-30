@@ -10,7 +10,7 @@
                     <field name="owner_downpayment"/>
                 </xpath>
                 <xpath expr="//sheet/group[1]" position="after">
-                    <group string="Contractors"></group>
+                    <group string="المقاولون"></group>
                     <field name="project_constructor_ids">
                         <list editable="bottom">
                             <field name="constructor_id"/>

@@ -5,14 +5,14 @@
             <field name="name">view.financial.custody.form</field>
             <field name="model">financial.custody</field>
             <field name="arch" type="xml">
-                <form string="Financial Custody Form">
+                <form string="نموذج عهدة مالية">
                     <header>
-                        <button class="oe_highlight" groups="financial_custody.group_financial_custody_manager" invisible="state not in ['draft']" name="custody_first_approve" string="Approve" type="object"/>
-                        <button class="oe_highlight" groups="financial_custody.group_financial_custody_accountant" invisible="state not in ['approved']" name="custody_second_approve" string="Approve" type="object"/>
-                        <button groups="financial_custody.group_financial_custody_manager,financial_custody.group_financial_custody_accountant" invisible="state not in ['draft','approved']" name="custody_reject" string="Reject" type="object"/>
-                        <button groups="financial_custody.group_financial_custody_manager" invisible="state not in ['draft']" name="custody_cancel" string="Cancel" type="object"/>
-                        <button class="btn-primary" groups="financial_custody.group_financial_custody_accountant" invisible="remaining_amount > 0 or state != 'second_approve'" name="custody_action_open" string="Open" type="object"/>
-                        <button class="btn-primary" confirm="Are you sure? All remaining un-instalment amount will be reverse as instalment" groups="financial_custody.group_financial_custody_accountant" invisible="state not in ['open']" name="custody_action_validate" string="Validate" type="object"/>
+                        <button class="oe_highlight" groups="financial_custody.group_financial_custody_manager" invisible="state not in ['draft']" name="custody_first_approve" string="اعتماد" type="object"/>
+                        <button class="oe_highlight" groups="financial_custody.group_financial_custody_accountant" invisible="state not in ['approved']" name="custody_second_approve" string="اعتماد" type="object"/>
+                        <button groups="financial_custody.group_financial_custody_manager,financial_custody.group_financial_custody_accountant" invisible="state not in ['draft','approved']" name="custody_reject" string="رفض" type="object"/>
+                        <button groups="financial_custody.group_financial_custody_manager" invisible="state not in ['draft']" name="custody_cancel" string="إلغاء" type="object"/>
+                        <button class="btn-primary" groups="financial_custody.group_financial_custody_accountant" invisible="remaining_amount > 0 or state != 'second_approve'" name="custody_action_open" string="فتح" type="object"/>
+                        <button class="btn-primary" confirm="Are you sure? All remaining un-instalment amount will be reverse as instalment" groups="financial_custody.group_financial_custody_accountant" invisible="state not in ['open']" name="custody_action_validate" string="اعتماد نهائي" type="object"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
@@ -23,7 +23,7 @@
                                     /
                                     <field name="paid_amount"/>
                                     <span class="o_stat_text">
-                                        Payments
+                                        المدفوعات
                                     </span>
                                 </div>
                             </button>
@@ -31,7 +31,7 @@
                         <div class="oe_title">
                             <label class="oe_edit_only" for="name"/>
                             <h1>
-                                <field name="name" placeholder="Custody Number" readonly="1"/>
+                                <field name="name" placeholder="رقم العهدة" readonly="1"/>
                             </h1>
                         </div>
                         <group>
@@ -63,12 +63,12 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="Reason">
+                            <page string="السبب">
                                 <field name="reason"/>
                             </page>
-                            <page invisible="state not in ['open', 'validate']" string="Installments">
+                            <page invisible="state not in ['open', 'validate']" string="الأقساط">
                                 <field context="{'default_custody_id': id}" mode="list" name="installment_ids" readonly="state == 'validate'">
-                                    <list editable="bottom" string="Installments">
+                                    <list editable="bottom" string="الأقساط">
                                         <field invisible="1" name="custody_id"/>
                                         <field name="due_date"/>
                                         <field name="amount"/>
@@ -105,31 +105,31 @@
             <field name="name">view.financial.custody.tree</field>
             <field name="model">financial.custody</field>
             <field name="arch" type="xml">
-                <list decoration-danger="state == 'rejected'" decoration-info="state == 'draft'" decoration-muted="state == 'cancelled'" string="Financial Custody Tree">
+                <list decoration-danger="state == 'rejected'" decoration-info="state == 'draft'" decoration-muted="state == 'cancelled'" string="قائمة العهد المالية">
                     <field name="name"/>
                     <field name="create_uid"/>
-                    <field name="custody_amount" sum="Total"/>
+                    <field name="custody_amount" sum="الإجمالي"/>
                     <field invisible="1" name="currency_id"/>
                     <field name="create_date"/>
                     <field name="state"/>
                 </list></field>
         </record>
         <record id="action_financial_custody_view" model="ir.actions.act_window">
-            <field name="name">Financial Custody</field>
+            <field name="name">العهد المالية</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">financial.custody</field>
             <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
-                    Financial Custody
+                    العهد المالية
                 </p>
                 <p>
                     Click to create Financial Custody
                 </p></field>
         </record>
-        <menuitem groups="financial_custody.group_financial_custody_user" id="menu_financial_custody_root" name="Financial Custody" sequence="25" web_icon="financial_custody,static/src/img/icon.png"/>
-        <menuitem groups="financial_custody.group_financial_custody_user" id="menu_financial_custody_categ" name="Financial Custody" parent="menu_financial_custody_root" sequence="1"/>
-        <menuitem action="action_financial_custody_view" groups="financial_custody.group_financial_custody_user" id="menu_financial_custody_view" name="Financial Custody" parent="menu_financial_custody_categ" sequence="1"/>
+        <menuitem groups="financial_custody.group_financial_custody_user" id="menu_financial_custody_root" name="العهد المالية" sequence="25" web_icon="financial_custody,static/src/img/icon.png"/>
+        <menuitem groups="financial_custody.group_financial_custody_user" id="menu_financial_custody_categ" name="العهد المالية" parent="menu_financial_custody_root" sequence="1"/>
+        <menuitem action="action_financial_custody_view" groups="financial_custody.group_financial_custody_user" id="menu_financial_custody_view" name="العهد المالية" parent="menu_financial_custody_categ" sequence="1"/>
         <record id="financial_custody.view_custody_reject_wizard" model="ir.ui.view">
             <field name="name">financial_custody.view.custody.reject.wizard</field>
             <field name="model">financial.custody.reject.wizard</field>
@@ -142,8 +142,8 @@
                         </group>
                     </sheet>
                     <footer>
-                        <button class="btn-primary" name="action_confirm" string="Confirm" type="object"/>
-                        <button class="btn-default" special="cancel" string="Cancel"/>
+                        <button class="btn-primary" name="action_confirm" string="تأكيد" type="object"/>
+                        <button class="btn-default" special="cancel" string="إلغاء"/>
                     </footer>
                 </form></field>
         </record>

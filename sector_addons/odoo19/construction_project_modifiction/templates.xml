@@ -2,7 +2,7 @@
     <data>
         <!-- Inherit Form View to Modify it -->
         <record id="inherit_construction_receive_order_form" model="ir.ui.view">
-            <field name="name">construction receive order</field>
+            <field name="name">أمر استلام مقاولات</field>
             <field name="model">construction.receive.order</field>
             <field name="inherit_id" ref="construction_project.view_construction_receive_order_form"/>
             <field name="arch" type="xml">

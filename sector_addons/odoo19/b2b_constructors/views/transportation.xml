@@ -27,14 +27,14 @@
             <field name="name">construction.transport.form</field>
             <field name="model">construction.transport</field>
             <field name="arch" type="xml">
-                <form string="Service">
+                <form string="خدمة">
                     <header>
-                        <button class="oe_highlight" groups="construction_project.service_manager_group" invisible="state not in ['new']" name="confirm" string="Confirm" type="object"/>
+                        <button class="oe_highlight" groups="construction_project.service_manager_group" invisible="state not in ['new']" name="confirm" string="تأكيد" type="object"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
                         <!--                        <div class="oe_title">-->
-                        <!--                            &lt;!&ndash;<label string="Receive Order"  />&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;<label string="أمر استلام"  />&ndash;&gt;-->
                         <!--                            <h1>-->
                         <!--                                <field name="name" readonly="1"/>-->
                         <!--                            </h1>-->
@@ -57,16 +57,16 @@
                                 <field invisible="state == 'new'" name="account_move_id"/>
                             </group>
                         </group>
-                        <group string="transports"/>
+                        <group string="النقل"/>
                         <field name="line_ids" readonly="state == 'done'">
                             <list editable="bottom">
                                 <field name="transport_id"/>
                                 <field name="product_uom_id"/>
                                 <field invisible="1" name="name"/>
-                                <field name="order_qty" sum="qty"/>
-                                <field name="qty" sum="qty"/>
-                                <field name="unit_cost" sum="unit_cost"/>
-                                <field name="cost" sum="cost"/>
+                                <field name="order_qty" sum="الكمية"/>
+                                <field name="qty" sum="الكمية"/>
+                                <field name="unit_cost" sum="تكلفة الوحدة"/>
+                                <field name="cost" sum="التكلفة"/>
                                 <field name="transportation"/>
                             </list></field>
                     </sheet>
@@ -80,7 +80,7 @@
             <field name="name">construction.transport.tree</field>
             <field name="model">construction.transport</field>
             <field name="arch" type="xml">
-                <list string="Service">
+                <list string="خدمة">
                     <field name="name"/>
                     <field name="project_id"/>
                     <field name="date"/>
@@ -89,7 +89,7 @@
                 </list></field>
         </record>
         <record id="view_construction_transport_action" model="ir.actions.act_window">
-            <field name="name">transport</field>
+            <field name="name">نقل</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">construction.transport</field>
             <field name="view_mode">list,form</field>
@@ -105,7 +105,7 @@
             <field name="name">construction.transports.form</field>
             <field name="model">construction.transports</field>
             <field name="arch" type="xml">
-                <form string="transports">
+                <form string="النقل">
                     <sheet>
                         <group>
                             <field name="name"/>
@@ -119,14 +119,14 @@
             <field name="name">construction.transports.tree</field>
             <field name="model">construction.transports</field>
             <field name="arch" type="xml">
-                <list string="transports">
+                <list string="النقل">
                     <field name="name"/>
                     <field name="product_uom_id"/>
                     <field name="unit_cost"/>
                 </list></field>
         </record>
         <record id="view_transports_action" model="ir.actions.act_window">
-            <field name="name">transports</field>
+            <field name="name">النقل</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">construction.transports</field>
             <field name="view_mode">list,form</field>
@@ -138,6 +138,6 @@
                     <!-- More details about what a user can do with this object will be OK -->
                 </p></field>
         </record>
-        <menuitem action="view_construction_transport_action" groups="construction_project.service_user_group" id="menu_construction_transport_order" name="Order Transports" parent="construction_project.menu_cp_categ" sequence="41"/>
+        <menuitem action="view_construction_transport_action" groups="construction_project.service_user_group" id="menu_construction_transport_order" name="طلبات النقل" parent="construction_project.menu_cp_categ" sequence="41"/>
     </data>
 </odoo>

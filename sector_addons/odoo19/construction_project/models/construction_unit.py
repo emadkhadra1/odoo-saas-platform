@@ -24,7 +24,7 @@ class project_unit(models.Model):
     # def unlink(self):
     # no state here what can i do now
     #     if self.state == 'done':
-    #         raise UserError(_('You cannot delete .'))
+    #         raise UserError(_('?? ????? ?????.'))
     #     return super(project_unit, self).unlink()
 
     def _default_project_id(self):
@@ -42,15 +42,15 @@ class project_unit(models.Model):
             rec.total_unit_cost = sum(rec.project_item_ids.mapped('project_component_ids.component_cost'))
         return True
 
-    project_id = fields.Many2one(comodel_name="construction.project",   default=_default_project_id, string="Project",  )
-    name = fields.Char("Unit Name", required=True, )
+    project_id = fields.Many2one(comodel_name="construction.project",   default=_default_project_id, string="المشروع",  )
+    name = fields.Char("اسم الوحدة", required=True, )
 
 
-    unit_location = fields.Char(string="Unit Location", required=False, )
-    unit_description = fields.Text(string="Unit Description", required=False, )
+    unit_location = fields.Char(string="موقع الوحدة", required=False, )
+    unit_description = fields.Text(string="وصف الوحدة", required=False, )
 
 
     project_item_ids = fields.One2many(comodel_name="project.item", inverse_name="unit_id",
-                                        string="Project Item Lines", required=False, )
+                                        string="بنود المشروع", required=False, )
 
-    total_unit_cost = fields.Float(string="Total Unit Cost", compute="_compute_total_unit_cost", store=True, required=False, )
+    total_unit_cost = fields.Float(string="إجمالي تكلفة الوحدة", compute="_compute_total_unit_cost", store=True, required=False, )

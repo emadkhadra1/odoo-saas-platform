@@ -4,13 +4,13 @@ from odoo import api, fields, models
 class AddBillLines(models.TransientModel):
     _name = 'add.bill.lines'
     _rec_name = 'name'
-    _description = 'Add Bill Lines'
+    _description = 'إضافة بنود الفاتورة'
 
-    name = fields.Char(string="Name", required=False, )
+    name = fields.Char(string="الاسم", required=False, )
     project_id = fields.Many2one(related='bill_id.project_id')
-    bill_id = fields.Many2one(comodel_name="b2b.progress.bill", string="Progress Bill", required=True, )
+    bill_id = fields.Many2one(comodel_name="b2b.progress.bill", string="مستخلص الأعمال", required=True, )
     entrepreneurs_ids = fields.Many2many(comodel_name="b2b.entrepreneurs", relation="bill_lines_entrepreneurs_rel",
-                                         column1="add_bill_line_id", column2="entrepreneurs_id", string="Business Statement")
+                                         column1="add_bill_line_id", column2="entrepreneurs_id", string="بيان الأعمال")
     
     def action_assign(self):
         env_bill_lines = self.env['b2b.progress.bill.lines2']

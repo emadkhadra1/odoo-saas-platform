@@ -77,7 +77,7 @@ class construction_receive_order(models.Model):
     
     def unlink(self):
         if self.state == 'done':
-            raise UserError(_('You cannot delete .'))
+            raise UserError(_('?? ????? ?????.'))
         return super(construction_receive_order, self).unlink()
 
     def _get_date_now(self):
@@ -116,11 +116,11 @@ class construction_receive_order(models.Model):
         for line in self.receive_order_ids:
             print(line.qty_available, line.qty, line.accept)
             if line.qty_available < line.qty:
-                raise UserError(_('Error ! QTY Not Available To Accepted.'))
+                raise UserError(_('???! ?????? ??? ????? ????????.'))
             if not line.accept:
-                raise ValidationError(_('Error ! You Have Line Not Accepted.'))
+                raise ValidationError(_('???! ???? ??? ??? ?????.'))
 
-                # raise UserError(_('Error ! You Have Line Not Accepted.'))
+                # raise UserError(_('???! ???? ??? ??? ?????.'))
                 # print 'Error ! You Have Line Not Accepted.'
         picking_id = False
         if self.project_id and self.project_id.partner_id:
@@ -224,12 +224,12 @@ class construction_receive_order(models.Model):
 
                         # if procurement_id and procurement_id.state!='done':
                         #     error=''
-                        #     raise UserError(_('Error ! procurement cannot confirm'))
+                        #     raise UserError(_('???! ?? ???? ?????? ???????.'))
                         # print origin
                         # print line
                     else:
                         action='line_not_accept'
-                        raise UserError(_('Error ! You Have Line Not Accepted.'))
+                        raise UserError(_('???! ???? ??? ??? ?????.'))
 
                 # print "group_id",group_id
                 # print "line_ids",line_ids
@@ -327,44 +327,44 @@ class construction_receive_order(models.Model):
 
     order_number = fields.Char(string="رقم أذن الصرف", required=False, readonly=True)
 
-    total_amount = fields.Float(string="Total Amount", tracking=True,compute="_compute_total", store=True, required=False,)
+    total_amount = fields.Float(string="إجمالي المبلغ", tracking=True,compute="_compute_total", store=True, required=False,)
 
-    total_cost = fields.Float(string="Total Cost", required=False, )
+    total_cost = fields.Float(string="إجمالي التكلفة", required=False, )
 
-    name = fields.Char(string="Serial",required=False,tracking=True,)
-    name2 = fields.Char(string="Name", required=False, readonly=True)
-    project_id = fields.Many2one(comodel_name="construction.project", tracking=True,  string="Project", required=True, )
+    name = fields.Char(string="المسلسل",required=False,tracking=True,)
+    name2 = fields.Char(string="الاسم", required=False, readonly=True)
+    project_id = fields.Many2one(comodel_name="construction.project", tracking=True,  string="المشروع", required=True, )
     location_id = fields.Many2one('stock.location', 'Source Location', related="project_id.location_id",
                                   store=True, required=False)
-    picking_type_id = fields.Many2one('stock.picking.type',related="project_id.picking_type_id" ,store=True,  string='Picking Type')
+    picking_type_id = fields.Many2one('stock.picking.type',related="project_id.picking_type_id" ,store=True,  string='نوع عملية المخزون')
 
     location_dest_id = fields.Many2one('stock.location', 'Destination Location',
                                        related="project_id.location_dest_id", store=True, required=False)
 
     warehouse_id = fields.Many2one(comodel_name="stock.warehouse", related="project_id.warehouse_id",
-                                   store=True, string="Warehouse", )
+                                   store=True, string="????????", )
 
-    company_id = fields.Many2one('res.company', string='Company', related="project_id.company_id", store=True, )
-
-
-    date = fields.Date(string="Date",default=_get_date_now , tracking=True,required=False, )
-    delegate = fields.Char(string="Delegate", required=False, )
-    receive_order_ids = fields.One2many(comodel_name="construction.receive.order.line", inverse_name="receive_order_id", string="Receive Order Lines", required=False, )
-    receive_order_user_ids = fields.One2many(comodel_name="construction.receive.order.line", inverse_name="receive_order_id", string="Receive Order Lines", required=False, )
-    state = fields.Selection(string="State",default='new', tracking=True,selection=[('new', 'New'), ('done', 'Approved'),('delivered', 'Delivered'), ], required=False, )
+    company_id = fields.Many2one('res.company', string='الشركة', related="project_id.company_id", store=True, )
 
 
-    group_id = fields.Many2one(comodel_name="procurement.group",   copy=False, string="Procurement",
+    date = fields.Date(string="التاريخ",default=_get_date_now , tracking=True,required=False, )
+    delegate = fields.Char(string="المندوب", required=False, )
+    receive_order_ids = fields.One2many(comodel_name="construction.receive.order.line", inverse_name="receive_order_id", string="بنود أوامر الاستلام", required=False, )
+    receive_order_user_ids = fields.One2many(comodel_name="construction.receive.order.line", inverse_name="receive_order_id", string="بنود أوامر الاستلام", required=False, )
+    state = fields.Selection(string="الحالة",default='new', tracking=True,selection=[('new', 'New'), ('done', 'Approved'),('delivered', 'Delivered'), ], required=False, )
+
+
+    group_id = fields.Many2one(comodel_name="procurement.group",   copy=False, string="المشتريات",
                                required=False, )
     # procurement_id = fields.Many2one(comodel_name="procurement.order",  copy=False,
-    #                                  string="Procurement", required=False, )
+    #                                  string="المشتريات", required=False, )
 
 
-    user_id = fields.Many2one('res.users', string='Order By',tracking=True, index=True,  default=lambda self: self.env.uid)
+    user_id = fields.Many2one('res.users', string='الترتيب حسب',tracking=True, index=True,  default=lambda self: self.env.uid)
 
-    reason = fields.Text(string="Reason",tracking=True, required=False, )
+    reason = fields.Text(string="السبب",tracking=True, required=False, )
 
-    notes = fields.Text(string="Notes",tracking=True, required=False, )
+    notes = fields.Text(string="ملاحظات",tracking=True, required=False, )
 
     stock_picking_ref = fields.Many2one(comodel_name="stock.picking", string="", required=False, )
 
@@ -383,10 +383,10 @@ class construction_receive_order_line(models.Model):
 
         receive_order_manager_group = self.env.user.has_group('construction_project.receive_order_manager_group')
         readonly_order_qty = "0"
-        help = "Can edit"
+        help = "يمكنه التعديل"
         if receive_order_manager_group:
             readonly_order_qty = "1"
-            help = "Can Not edit"
+            help = "لا يمكنه التعديل"
 
         if view_type in ['tree','form'] :
             aaa=''
@@ -421,7 +421,7 @@ class construction_receive_order_line(models.Model):
     def _onchange_order_qty_unit_price(self):
         for rec in self:
             if not rec.order_qty:
-                raise ValidationError(_('خطاء! أدخل قيمة الكمية QTY'))
+                raise ValidationError(_('خطأ! أدخل قيمة الكمية.'))
             # if rec.unit_price==0.0:
             #     raise Warning(_('خطاء! أدخل سعر بيع الوحدة '))
 
@@ -469,7 +469,7 @@ class construction_receive_order_line(models.Model):
 
 
     
-    @api.depends('product_id', 'qty', 'unit_cost')
+    @api.depends('product_id', 'الكمية', 'unit_cost')
     def compute_price(self):
         for rec in self:
             if rec.product_id and rec.qty:
@@ -536,7 +536,7 @@ class construction_receive_order_line(models.Model):
         # print self.qty
         if self.qty_available < self.qty:
             # print 'Error ! QTY Not Available To Accepted.'
-            raise UserError(_('Error ! QTY Not Available To Accepted.'))
+            raise UserError(_('???! ?????? ??? ????? ????????.'))
 
         self.accept = True
         self.delay_order = False
@@ -554,7 +554,7 @@ class construction_receive_order_line(models.Model):
             one.delay_order=True
         return True
 
-    @api.depends('order_qty', 'qty_available', 'qty')
+    @api.depends('order_qty', 'qty_available', 'الكمية')
     def _compute_qty_state(self):
         for rec in self:
             if rec.order_qty > rec.qty_available:
@@ -595,50 +595,50 @@ class construction_receive_order_line(models.Model):
                 'target': 'self',
             }
 
-    accept = fields.Boolean(string="Accept",  )
-    delay_order = fields.Boolean(string="Delay",  )
-    purchase_line_id = fields.Many2one(comodel_name="purchase.order.line",   copy=False, string="PO Line", required=False, )
-    picking_id = fields.Many2one(comodel_name="stock.picking",   copy=False, string="Picking", required=False, )
+    accept = fields.Boolean(string="قبول",  )
+    delay_order = fields.Boolean(string="تأخير",  )
+    purchase_line_id = fields.Many2one(comodel_name="purchase.order.line",   copy=False, string="بند أمر الشراء", required=False, )
+    picking_id = fields.Many2one(comodel_name="stock.picking",   copy=False, string="عملية مخزون", required=False, )
 
-    # procurement_id = fields.Many2one(comodel_name="procurement.order",   copy=False, string="Procurement", required=False, )
+    # procurement_id = fields.Many2one(comodel_name="procurement.order",   copy=False, string="المشتريات", required=False, )
 
-    name = fields.Char(string="Name", required=False,)
-    receive_order_id = fields.Many2one(comodel_name="construction.receive.order",   string="Receive Order", required=False, )
-    project_id = fields.Many2one(comodel_name="construction.project", related="receive_order_id.project_id",sotre=True,  string="Project", required=False, )
+    name = fields.Char(string="الاسم", required=False,)
+    receive_order_id = fields.Many2one(comodel_name="construction.receive.order",   string="أمر استلام", required=False, )
+    project_id = fields.Many2one(comodel_name="construction.project", related="receive_order_id.project_id",sotre=True,  string="المشروع", required=False, )
     order_number = fields.Char(string="رقم أذن الصرف" ,related="receive_order_id.order_number")
 
-    product_category_id = fields.Many2one(comodel_name="product.category",    string="Product Category", required=False)
-    product_id = fields.Many2one(comodel_name="product.product",   readonly=True, states={'new': [('readonly', False)]},  string="Product", required=True,
+    product_category_id = fields.Many2one(comodel_name="product.category",    string="تصنيف المنتج", required=False)
+    product_id = fields.Many2one(comodel_name="product.product",   readonly=True, states={'new': [('readonly', False)]},  string="المنتج", required=True,
                                  domain=[('constration_product','=', False)])
-    product_uom_id = fields.Many2one('uom.uom', string='Unit of Measure', related='product_id.uom_id',store=True,readonly=True)
-    qty_available = fields.Float(string="QTY Available", related="product_id.qty_available",store=True, required=False, )
+    product_uom_id = fields.Many2one('uom.uom', string='وحدة القياس', related='product_id.uom_id',store=True,readonly=True)
+    qty_available = fields.Float(string="الكمية المتاحة", related="product_id.qty_available",store=True, required=False, )
 
-    order_qty = fields.Float(string="QTY",digits=(16,3),  required=False, )
-    # qty_user = fields.Float(string="Approved QTY",default=1,  required=True, )
-    qty = fields.Float(string="Approved QTY",default=1,  required=True, )
-    qty2 = fields.Float(string="Approved QTY",default=1,compute="_compute_qty",  required=True, )
-    unit_price = fields.Float(string="Uint Price", default=0, required=True, )
-    price = fields.Float(string="Price",compute="compute_price",store=True, required=False, )
-    unit_cost = fields.Float(string="Last Uint Cost",  required=False)
-    cost = fields.Float(string="Cost",   required=False, )
+    order_qty = fields.Float(string="الكمية",digits=(16,3),  required=False, )
+    # qty_user = fields.Float(string="الكمية المعتمدة",default=1,  required=True, )
+    qty = fields.Float(string="الكمية المعتمدة",default=1,  required=True, )
+    qty2 = fields.Float(string="الكمية المعتمدة",default=1,compute="_compute_qty",  required=True, )
+    unit_price = fields.Float(string="سعر الوحدة", default=0, required=True, )
+    price = fields.Float(string="السعر",compute="compute_price",store=True, required=False, )
+    unit_cost = fields.Float(string="آخر تكلفة للوحدة",  required=False)
+    cost = fields.Float(string="التكلفة",   required=False, )
     #zakaria strat
-    state = fields.Selection(string="State",default='new', related="receive_order_id.state",tracking=True,selection=[('new', 'New'), ('done', 'Approved'),('delivered', 'Delivered'), ], required=False, readonly=True, copy=False, index=True, )
+    state = fields.Selection(string="الحالة",default='new', related="receive_order_id.state",tracking=True,selection=[('new', 'New'), ('done', 'Approved'),('delivered', 'Delivered'), ], required=False, readonly=True, copy=False, index=True, )
     #zakaria end
 
     location_id = fields.Many2one('stock.location', 'Source Location', related="receive_order_id.location_id",
                                   store=True, required=False)
     picking_type_id = fields.Many2one('stock.picking.type', related="receive_order_id.picking_type_id", store=True,
-                                      string='Picking Type')
+                                      string='نوع عملية المخزون')
     location_dest_id = fields.Many2one('stock.location', 'Destination Location',
                                        related="receive_order_id.location_dest_id", store=True, required=False)
 
     warehouse_id = fields.Many2one(comodel_name="stock.warehouse", related="receive_order_id.warehouse_id",
-                                   store=True, string="Warehouse", )
+                                   store=True, string="????????", )
 
-    company_id = fields.Many2one('res.company', string='Company', related="receive_order_id.company_id",
+    company_id = fields.Many2one('res.company', string='الشركة', related="receive_order_id.company_id",
                                  store=True, )
 
-    qty_state = fields.Char(string="Qty State", compute="_compute_qty_state",store=True,  required=False, )
+    qty_state = fields.Char(string="حالة الكمية", compute="_compute_qty_state",store=True,  required=False, )
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -672,14 +672,14 @@ class StockPicking(models.Model):
             rec.change_receive_order = change_receive_order
         return True
 
-    change_receive_order = fields.Char(string="change_receive_order",compute="_compute_change_receive_order", required=False, )
-    receive_order_line_id = fields.Many2one(comodel_name="construction.receive.order.line",    string="Order Line", required=False, )
+    change_receive_order = fields.Char(string="???? ??? ????????",compute="_compute_change_receive_order", required=False, )
+    receive_order_line_id = fields.Many2one(comodel_name="construction.receive.order.line",    string="??? ?????", required=False, )
     #zakaria start
-    receive_order_id = fields.Many2one(comodel_name="construction.receive.order",related="receive_order_line_id.receive_order_id",  string="Receive Order", required=False, )
+    receive_order_id = fields.Many2one(comodel_name="construction.receive.order",related="receive_order_line_id.receive_order_id",  string="أمر استلام", required=False, )
 
     receive_order_id_ref = fields.Many2one(comodel_name="construction.receive.order", string="", required=False, )
     #zakaria end
-    project_id = fields.Many2one(comodel_name="construction.project", related="receive_order_line_id.project_id",store=True,   string="Project", required=False, )
+    project_id = fields.Many2one(comodel_name="construction.project", related="receive_order_line_id.project_id",store=True,   string="المشروع", required=False, )
     order_number = fields.Char(string="رقم أذن الصرف" ,related="receive_order_line_id.order_number")
 
 
@@ -722,7 +722,7 @@ class StockPicking(models.Model):
                     ops.move_id = moves[0].id
                 else:
                     new_move = self.env['stock.move'].create({
-                                                    'name': _('New Move:') + ops.product_id.display_name,
+                                                    'name': _('???? ?????:') + ops.product_id.display_name,
                                                     'product_id': ops.product_id.id,
                                                     'product_uom_qty': ops.qty_done,
                                                     'product_uom': ops.product_uom_id.id,

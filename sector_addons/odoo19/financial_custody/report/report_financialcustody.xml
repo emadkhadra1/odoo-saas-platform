@@ -7,19 +7,19 @@
 <!--               <t t-call="web.internal_layout">-->
                 <t t-call="web.external_layout">
                    <div class="page">
-                       <h2>Financial Custody</h2>
+                       <h2>العهد المالية</h2>
                        <br/>
                        <br/>
                        <table class="table table-stripped">
                            <thead>
                                <tr>
-                                   <th>Custody No.</th>
+                                   <th>رقم العهدة</th>
                                    <th>Created By</th>
                                    <th>Created On</th>
-                                   <th>Analytic Account</th>
-                                   <th>Partner</th>
-                                   <th>Due Date</th>
-                                   <th>Amount</th>
+                                   <th>الحساب التحليلي</th>
+                                   <th>الشريك</th>
+                                   <th>تاريخ الاستحقاق</th>
+                                   <th>المبلغ</th>
                                </tr>
                            </thead>
                            <tbody>

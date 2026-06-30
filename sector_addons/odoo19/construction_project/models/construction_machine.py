@@ -18,7 +18,7 @@ class construction_machine(models.Model):
     
     def unlink(self):
         if self.state == 'done':
-            raise UserError(_('You cannot delete .'))
+            raise UserError(_('?? ????? ?????.'))
         return super(construction_machine, self).unlink()
 
     @api.model_create_multi
@@ -44,15 +44,15 @@ class construction_machine(models.Model):
             rec.total_amount = total_cost
         return True
 
-    total_amount = fields.Float(string="Total Amount",tracking=True, compute="_compute_total", store=True, required=False, )
-    total_cost = fields.Float(string="Total Cost",tracking=True, compute="_compute_total", store=True, required=False, )
-    name = fields.Char(string="Serial",tracking=True, required=False, )
-    project_id = fields.Many2one(comodel_name="construction.project", tracking=True,string="Project", required=True, )
-    date = fields.Date(string="Date", default=_get_date_now ,tracking=True, required=False, )
+    total_amount = fields.Float(string="إجمالي المبلغ",tracking=True, compute="_compute_total", store=True, required=False, )
+    total_cost = fields.Float(string="إجمالي التكلفة",tracking=True, compute="_compute_total", store=True, required=False, )
+    name = fields.Char(string="المسلسل",tracking=True, required=False, )
+    project_id = fields.Many2one(comodel_name="construction.project", tracking=True,string="المشروع", required=True, )
+    date = fields.Date(string="التاريخ", default=_get_date_now ,tracking=True, required=False, )
 
-    state = fields.Selection(string="State", default='new',tracking=True, selection=[('new', 'New'), ('done', 'Done'), ],
+    state = fields.Selection(string="الحالة", default='new',tracking=True, selection=[('new', 'New'), ('done', 'تم'), ],
                              required=False, )
-    line_ids = fields.One2many(comodel_name="construction.machine.line",  inverse_name="order_machine_id",  string="machine Lines", required=False, )
+    line_ids = fields.One2many(comodel_name="construction.machine.line",  inverse_name="order_machine_id",  string="بنود المعدات", required=False, )
 
     journal_id = fields.Many2one(comodel_name="account.journal", string="", )
     debit_account_id = fields.Many2one(comodel_name="account.account", string="", )
@@ -62,7 +62,7 @@ class construction_machine(models.Model):
 
     def create_account_move(self):
         move_line_1 = {
-            'name': 'Order Machines',
+            'name': 'طلبات المعدات',
             'account_id': self.debit_account_id.id,
             'debit': self.total_cost,
             'credit': 0.0,
@@ -70,13 +70,13 @@ class construction_machine(models.Model):
             'analytic_distribution': {self.project_id.analytic_account_id.id: 100} if self.project_id.analytic_account_id else False,
         }
         move_line_2 = {
-            'name': 'Order Machines',
+            'name': 'طلبات المعدات',
             'account_id': self.credit_account_id.id,
             'debit': 0.0,
             'credit': self.total_cost,
         }
         move_vals = {
-            'name': 'Order Machines',
+            'name': 'طلبات المعدات',
             'date': fields.Date.today() or False,
             'state': 'draft',
             'ref': 'Order Machines for %s' % self.project_id.name,
@@ -93,7 +93,7 @@ class construction_machine_line(models.Model):
     _description = 'construction_service_machine_line'
 
     
-    @api.depends('unit_cost', 'qty')
+    @api.depends('unit_cost', 'الكمية')
     def _compute_cost(self):
         for rec in self:
             rec.cost = rec.qty * rec.unit_cost if rec.unit_cost and rec.qty else 0
@@ -115,23 +115,23 @@ class construction_machine_line(models.Model):
             self.qty = self.order_qty
 
 
-    machine_id = fields.Many2one(comodel_name="construction.machines", string="machine", required=True, )
-    product_uom_id = fields.Many2one( 'uom.uom', string='Unit of Measure', related='machine_id.product_uom_id',store=True,readonly=True)
+    machine_id = fields.Many2one(comodel_name="construction.machines", string="معدة", required=True, )
+    product_uom_id = fields.Many2one( 'uom.uom', string='وحدة القياس', related='machine_id.product_uom_id',store=True,readonly=True)
 
-    name = fields.Char(string="Titel", required=False, )
-    order_machine_id = fields.Many2one(comodel_name="construction.machine", string="Order Machine", required=False, )
-    unit_cost = fields.Float(string="Uint Cost", required=True, )
-    order_qty = fields.Float(string="Qty", default=1, required=True, )
-    qty = fields.Float(string="Approved Qty", default=1, required=True, )
-    cost = fields.Float(string="Cost", compute="_compute_cost", store=True, required=False, )
+    name = fields.Char(string="العنوان", required=False, )
+    order_machine_id = fields.Many2one(comodel_name="construction.machine", string="طلب معدة", required=False, )
+    unit_cost = fields.Float(string="تكلفة الوحدة", required=True, )
+    order_qty = fields.Float(string="الكمية", default=1, required=True, )
+    qty = fields.Float(string="الكمية المعتمدة", default=1, required=True, )
+    cost = fields.Float(string="التكلفة", compute="_compute_cost", store=True, required=False, )
 
 
 class construction_machines(models.Model):
     _name = 'construction.machines'
 
-    name = fields.Char(string="Name", required=True, )
-    product_uom_id = fields.Many2one( 'uom.uom', string='Unit of Measure',  )
+    name = fields.Char(string="الاسم", required=True, )
+    product_uom_id = fields.Many2one( 'uom.uom', string='وحدة القياس',  )
 
-    unit_cost = fields.Float(string="Cost",  required=False, )
-    unit_price = fields.Float(string="Price",  required=False, )
-    note = fields.Text(string="Note", required=False, )
+    unit_cost = fields.Float(string="التكلفة",  required=False, )
+    unit_price = fields.Float(string="السعر",  required=False, )
+    note = fields.Text(string="ملاحظة", required=False, )

@@ -3,7 +3,7 @@
     <data noupdate="0">
 
         <record id="data_journal_custody" model="account.journal">
-            <field name="name">Custody</field>
+            <field name="name">العهدة</field>
             <field name="code">Cust</field>
             <field name="type">cash</field>
             <field name="sequence">50</field>

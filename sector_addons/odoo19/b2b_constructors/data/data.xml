@@ -3,14 +3,14 @@
   <data>
 
         <record id="b2b_product_category_boq" model="product.category">
-            <field name="name">BOQ</field>
+            <field name="name">جدول الكميات</field>
         </record>
        <record forcecreate="True" id="constructor_price_decmail" model="decimal.precision">
-            <field name="name">Constructor price</field>
+            <field name="name">سعر المقاول</field>
             <field name="digits" eval="3"/>
         </record>
     <record id="b2b_boq_product0" model="product.product">
-      <field name="name">BOQ Business Item</field>
+      <field name="name">بند أعمال في جدول الكميات</field>
       <field name="purchase_ok">0</field>
       <field name="sale_ok">0</field>
       <field name="list_price">0.0</field>

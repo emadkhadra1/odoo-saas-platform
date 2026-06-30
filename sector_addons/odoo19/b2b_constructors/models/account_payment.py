@@ -18,10 +18,10 @@ class AccountPayment(models.Model):
         for rec in self:
 
             if rec.state != 'draft':
-                raise UserError(_("Only a draft payment can be posted."))
+                raise UserError(_("???? ????? ?????? ?? ???? ????? ???."))
 
             if any(inv.state != 'open' for inv in rec.invoice_ids):
-                raise ValidationError(_("The payment cannot be processed because the invoice is not open!"))
+                raise ValidationError(_("?? ???? ?????? ?????? ??? ???????? ??? ??????."))
 
             # keep the name in case of a payment reset to draft
             if not rec.name:
@@ -42,7 +42,7 @@ class AccountPayment(models.Model):
                 rec.name = self.env['ir.sequence'].with_context(ir_sequence_date=rec.payment_date).next_by_code(
                     sequence_code)
                 if not rec.name and rec.payment_type != 'transfer':
-                    raise UserError(_("You have to define a sequence for %s in your company.") % (sequence_code,))
+                    raise UserError(_("??? ????? ????? ?? %s ?? ?????.") % (sequence_code,))
 
             # Create the journal entry
             amount = rec.amount * (rec.payment_type in ('outbound', 'transfer') and 1 or -1)

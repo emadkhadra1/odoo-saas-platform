@@ -6,7 +6,7 @@ class NewModule(models.Model):
     _name = 'contract.type'
     _rec_name = 'contract_type'
 
-    contract_type = fields.Char(string="Contract Type", required=False, )
+    contract_type = fields.Char(string="نوع العقد", required=False, )
 
-    value = fields.Float(string="Value",  required=False, )
+    value = fields.Float(string="القيمة",  required=False, )
 

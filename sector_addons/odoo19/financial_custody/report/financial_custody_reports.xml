@@ -4,7 +4,7 @@
 
         <!-- QWeb Reports -->
         <record id="financial_custody_report" model="ir.actions.report">
-            <field name="name">Financial-Custody</field>
+            <field name="name">العهد المالية</field>
             <field name="model">financial.custody.report.wizard</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">financial_custody.report_financialcustody</field>

@@ -22,16 +22,16 @@
             <field name="name">view.b2b.construction.boq.form</field>
             <field name="model">b2b.construction.boq</field>
             <field name="arch" type="xml">
-                <form string="Construction BOQ">
+                <form string="جدول كميات المقاولات">
                     <header>
-                        <button class="oe_highlight" groups="b2b_constructors.group_construction_create" invisible="state not in ['draft']" name="action_submit" string="Submit" type="object"/>
-                        <button class="oe_highlight" groups="b2b_constructors.group_owner_construction_cancel" invisible="state not in ['draft']" name="action_cancel" string="Cancel" type="object"/>
-                        <button class="oe_highlight" groups="b2b_constructors.group_construction_create" invisible="state not in ['cancel']" name="action_set_draft" string="Set Draft" type="object"/>
-                        <button class="oe_highlight" groups="b2b_constructors.group_construction_approve" invisible="state not in ['wait_approve']" name="action_wait_assignment" string="Approve" type="object"/>
-                        <button class="oe_highlight" groups="b2b_constructors.group_construction_approve" invisible="state not in ['wait_approve']" name="action_refused" string="Refuse" type="object"/>
-                        <button class="oe_highlight" groups="b2b_constructors.group_construction_assignment" invisible="state not in ['wait_assignment']" name="action_open_assign_form" string="Add Constructors" type="object"/>
-                        <button class="oe_highlight" groups="b2b_constructors.group_construction_assignment" invisible="state not in ['wait_assignment']" name="action_assigned" string="Done" type="object"/>
-                        <button class="oe_highlight" name="action_print" string="Print" type="object"/>
+                        <button class="oe_highlight" groups="b2b_constructors.group_construction_create" invisible="state not in ['draft']" name="action_submit" string="إرسال" type="object"/>
+                        <button class="oe_highlight" groups="b2b_constructors.group_owner_construction_cancel" invisible="state not in ['draft']" name="action_cancel" string="إلغاء" type="object"/>
+                        <button class="oe_highlight" groups="b2b_constructors.group_construction_create" invisible="state not in ['cancel']" name="action_set_draft" string="تحويل إلى مسودة" type="object"/>
+                        <button class="oe_highlight" groups="b2b_constructors.group_construction_approve" invisible="state not in ['wait_approve']" name="action_wait_assignment" string="اعتماد" type="object"/>
+                        <button class="oe_highlight" groups="b2b_constructors.group_construction_approve" invisible="state not in ['wait_approve']" name="action_refused" string="رفض" type="object"/>
+                        <button class="oe_highlight" groups="b2b_constructors.group_construction_assignment" invisible="state not in ['wait_assignment']" name="action_open_assign_form" string="إضافة مقاولين" type="object"/>
+                        <button class="oe_highlight" groups="b2b_constructors.group_construction_assignment" invisible="state not in ['wait_assignment']" name="action_assigned" string="تم" type="object"/>
+                        <button class="oe_highlight" name="action_print" string="طباعة" type="object"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
@@ -65,7 +65,7 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="Construction BOQ Lines">
+                            <page string="بنود جدول الكميات">
                                 <field name="indexation_ids" readonly="state in ['wait_approve', 'wait_assignment', 'assigned', 'refuse']">
                                     <list editable="bottom">
                                         <field name="main_item_id"/>
@@ -83,7 +83,7 @@
                                         <field name="total_cost"/>
                                     </list></field>
                             </page>
-                            <page string="Constructors Assignment">
+                            <page string="إسناد المقاولين">
                                 <field name="constructor_ids"><list editable="bottom">
                                         <field name="purchase_order_id"/>
                                         <field name="indexation_id"/>
@@ -115,7 +115,7 @@
             <field name="name">view.b2b_construction_boq.tree</field>
             <field name="model">b2b.construction.boq</field>
             <field name="arch" type="xml">
-                <list string="Construction BOQ">
+                <list string="جدول كميات المقاولات">
                     <field invisible="1" name="state"/>
                     <field name="name"/>
                     <field name="construction_type_id"/>
@@ -128,21 +128,21 @@
             <field name="name">view.b2b_construction_boq.search</field>
             <field name="model">b2b.construction.boq</field>
             <field name="arch" type="xml">
-                <search string="Construction BOQ">
+                <search string="جدول كميات المقاولات">
                     <field name="state"/>
                     <field name="construction_type_id"/>
                     <field name="project_id"/>
-                    <field name="date_order" string="Date"/>
+                    <field name="date_order" string="التاريخ"/>
                     <field name="state"/>
                     <group name="groupby">
-                        <filter context="{'group_by': 'state'}" name="state_groupby" string="State"/>
-                        <filter context="{'group_by': 'construction_type_id'}" name="construction_type_id_groupby" string="Construction Type"/>
-                        <filter context="{'group_by': 'project_id'}" name="project_id_groupby" string="Project"/>
+                        <filter context="{'group_by': 'state'}" name="state_groupby" string="الحالة"/>
+                        <filter context="{'group_by': 'construction_type_id'}" name="construction_type_id_groupby" string="أنواع المقاولات"/>
+                        <filter context="{'group_by': 'project_id'}" name="project_id_groupby" string="المشروع"/>
                     </group>
                 </search></field>
         </record>
         <record id="b2b_construction_boq_action" model="ir.actions.act_window">
-            <field name="name">Construction BOQ</field>
+            <field name="name">جدول كميات المقاولات</field>
             <field name="res_model">b2b.construction.boq</field>
             <field name="view_mode">list,form</field>
             <field name="domain">[]</field>

@@ -3,7 +3,7 @@
     <data noupdate="0">
 
        <record id="sequence_financial_custody" model="ir.sequence">
-            <field name="name">Financial Custody sequence</field>
+            <field name="name">تسلسل العهد المالية</field>
             <field name="code">financial.custody</field>
             <field name="prefix">CUST/%(range_year)s/</field>
             <field eval="1" name="number_next"/>

@@ -3,12 +3,12 @@ from odoo import fields, models, api
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    custody_account_id = fields.Many2one(comodel_name='account.account',string='Custody Account')
-    employee_id = fields.Many2one(comodel_name='hr.employee',string='Employee')
+    custody_account_id = fields.Many2one(comodel_name='account.account',string='حساب العهدة')
+    employee_id = fields.Many2one(comodel_name='hr.employee',string='الموظف')
 class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
-    partner_id = fields.Many2one(comodel_name='res.partner', string='Partner')
+    partner_id = fields.Many2one(comodel_name='res.partner', string='الشريك')
 
     def create_employee_partner(self):
         for rec in self:

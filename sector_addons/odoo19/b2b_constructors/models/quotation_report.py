@@ -11,7 +11,7 @@ from odoo import models, fields, api, tools
 class QuotationReport(models.Model):
     _name = 'b2b.quotation.report'
 
-    _description = "Quotation Report"
+    _description = "تقرير عرض السعر"
 
     _auto = False
 
@@ -19,11 +19,11 @@ class QuotationReport(models.Model):
 
     _rec_name = "project_id"
 
-    project_id = fields.Many2one("construction.project", string='Project Name', readonly=True)
-    business_statement_id = fields.Many2one("b2b.business.items", string="Business Statement", readonly=True)
-    quantity = fields.Float(string="Quantity", readonly=True)
-    from_date = fields.Date(string='From', readonly=True)
-    to_date = fields.Date(string='To', readonly=True)
+    project_id = fields.Many2one("construction.project", string='اسم المشروع', readonly=True)
+    business_statement_id = fields.Many2one("b2b.business.items", string="بيان الأعمال", readonly=True)
+    quantity = fields.Float(string="الكمية", readonly=True)
+    from_date = fields.Date(string='من', readonly=True)
+    to_date = fields.Date(string='إلى', readonly=True)
 
 
     @api.model_cr
