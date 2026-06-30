@@ -39,10 +39,10 @@ body.o_web_client {
 .o_main_navbar .o_menu_brand::before {
     content: "";
     display: inline-block;
-    width: 44px;
-    height: 44px;
+    width: 52px;
+    height: 52px;
     margin-inline-end: 14px;
-    vertical-align: -14px;
+    vertical-align: -18px;
     background: url("/qimam_backend_theme/static/src/img/qimam-logo.png") center / contain no-repeat;
     border-radius: 10px;
     box-shadow: inset 0 0 0 1px rgba(47, 211, 230, 0.26);
@@ -74,7 +74,7 @@ body.o_web_client {
 }
 
 .o_main_navbar .o_menu_toggle.hasImage {
-    width: 104px;
+    width: 118px;
     min-height: 64px;
     display: inline-flex !important;
     align-items: center;
@@ -90,8 +90,8 @@ body.o_web_client {
 
 .o_main_navbar .o_menu_toggle.hasImage::after {
     content: "";
-    width: 44px;
-    height: 44px;
+    width: 56px;
+    height: 56px;
     display: inline-block;
     background: url("/qimam_backend_theme/static/src/img/qimam-logo.png") center / contain no-repeat;
     border-radius: 10px;
@@ -358,9 +358,9 @@ body.o_web_client {
 
     .o_app_menu_sidebar .o_sidebar_topbar::before {
         content: "";
-        width: 52px;
-        height: 52px;
-        flex: 0 0 52px;
+        width: 64px;
+        height: 64px;
+        flex: 0 0 64px;
         margin-inline-end: 12px;
         background: url("/qimam_backend_theme/static/src/img/qimam-logo.png") center / contain no-repeat;
         border-radius: 12px;
@@ -461,6 +461,33 @@ body.o_web_client {
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    .qimam-app-icon,
+    .qimam-menu-icon {
+        position: relative;
+        overflow: hidden;
+        color: transparent;
+    }
+
+    .qimam-app-icon::before,
+    .qimam-menu-icon::before {
+        content: "";
+        width: 68%;
+        height: 68%;
+        display: block;
+        background: var(--qimam-icon-url) center / contain no-repeat;
+        filter: drop-shadow(0 4px 8px rgba(3, 10, 22, 0.25));
+    }
+
+    .qimam-app-icon::after,
+    .qimam-menu-icon::after {
+        content: "";
+        position: absolute;
+        inset: 1px;
+        border-radius: inherit;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        pointer-events: none;
     }
 }
 

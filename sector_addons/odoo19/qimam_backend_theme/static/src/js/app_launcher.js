@@ -3,28 +3,27 @@
 (function () {
     "use strict";
 
+    const ICON_BASE = "/qimam_backend_theme/static/src/img/icons/";
     const ICONS = [
-        [/construction/i, "CON"],
-        [/financial custody/i, "FIN"],
-        [/discuss/i, "DS"],
-        [/to-?do/i, "TD"],
-        [/sales/i, "SAL"],
-        [/crm/i, "CRM"],
-        [/dashboard/i, "DB"],
-        [/invoice|invoicing/i, "INV"],
-        [/project/i, "PRJ"],
-        [/purchase/i, "PO"],
-        [/inventory/i, "INV"],
-        [/manufacturing/i, "MFG"],
-        [/employee|hr/i, "HR"],
-        [/link tracker/i, "LNK"],
-        [/website/i, "WEB"],
-        [/contact/i, "CNT"],
-        [/calendar/i, "CAL"],
-        [/apps/i, "APP"],
-        [/setting/i, "SET"],
-        [/real estate|property/i, "RE"],
-        [/3pl|delivery/i, "3PL"],
+        [/construction|contract/i, { code: "CON", icon: "construction.svg" }],
+        [/financial custody|account|invoice|invoicing/i, { code: "FIN", icon: "finance.svg" }],
+        [/discuss/i, { code: "DS", icon: "messages.svg" }],
+        [/to-?do/i, { code: "TD", icon: "tasks.svg" }],
+        [/sales|crm/i, { code: "SAL", icon: "sales.svg" }],
+        [/dashboard/i, { code: "DB", icon: "dashboard.svg" }],
+        [/project/i, { code: "PRJ", icon: "project.svg" }],
+        [/purchase/i, { code: "PO", icon: "purchase.svg" }],
+        [/inventory|stock/i, { code: "STK", icon: "inventory.svg" }],
+        [/manufacturing|mrp/i, { code: "MFG", icon: "manufacturing.svg" }],
+        [/employee|hr|human/i, { code: "HR", icon: "hr.svg" }],
+        [/link tracker/i, { code: "LNK", icon: "link.svg" }],
+        [/website/i, { code: "WEB", icon: "website.svg" }],
+        [/contact/i, { code: "CNT", icon: "contacts.svg" }],
+        [/calendar/i, { code: "CAL", icon: "calendar.svg" }],
+        [/apps/i, { code: "APP", icon: "apps.svg" }],
+        [/setting|configuration/i, { code: "SET", icon: "settings.svg" }],
+        [/real estate|property/i, { code: "RE", icon: "realestate.svg" }],
+        [/3pl|delivery|logistic/i, { code: "3PL", icon: "delivery.svg" }],
     ];
 
     function iconFor(label) {
@@ -33,12 +32,21 @@
         if (match) {
             return match[1];
         }
-        return text
-            .split(/\s+/)
-            .filter(Boolean)
-            .slice(0, 2)
-            .map((part) => part.charAt(0).toUpperCase())
-            .join("") || "QM";
+        return {
+            code: text
+                .split(/\s+/)
+                .filter(Boolean)
+                .slice(0, 2)
+                .map((part) => part.charAt(0).toUpperCase())
+                .join("") || "QM",
+            icon: "default.svg",
+        };
+    }
+
+    function applyIcon(iconElement, iconInfo) {
+        iconElement.dataset.qimamIcon = iconInfo.code;
+        iconElement.style.setProperty("--qimam-icon-url", `url("${ICON_BASE}${iconInfo.icon}")`);
+        iconElement.title = iconInfo.code;
     }
 
     function enhanceLauncher() {
@@ -54,12 +62,13 @@
                 continue;
             }
             item.classList.add("qimam-app-tile");
-            item.dataset.qimamIcon = iconFor(label);
+            const iconInfo = iconFor(label);
+            item.dataset.qimamIcon = iconInfo.code;
             item.textContent = "";
 
             const icon = document.createElement("span");
             icon.className = "qimam-app-icon";
-            icon.textContent = item.dataset.qimamIcon;
+            applyIcon(icon, iconInfo);
 
             const title = document.createElement("span");
             title.className = "qimam-app-title";
@@ -80,12 +89,13 @@
                 continue;
             }
             item.classList.add("qimam-menu-tile");
-            item.dataset.qimamIcon = iconFor(label);
+            const iconInfo = iconFor(label);
+            item.dataset.qimamIcon = iconInfo.code;
             item.textContent = "";
 
             const icon = document.createElement("span");
             icon.className = "qimam-menu-icon";
-            icon.textContent = item.dataset.qimamIcon;
+            applyIcon(icon, iconInfo);
 
             const title = document.createElement("span");
             title.className = "qimam-menu-title";
