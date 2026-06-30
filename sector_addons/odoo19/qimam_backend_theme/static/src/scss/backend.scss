@@ -340,7 +340,8 @@ body.o_web_client {
     }
 
     .o_app_menu_sidebar {
-        width: min(440px, 92vw) !important;
+        width: 440px !important;
+        max-width: 92vw !important;
         background:
             linear-gradient(160deg, rgba(11, 25, 51, 0.98), rgba(16, 40, 77, 0.96)),
             var(--qimam-navy) !important;
