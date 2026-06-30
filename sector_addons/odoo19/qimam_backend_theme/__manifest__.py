@@ -1,6 +1,6 @@
 {
     'name': 'Qimam Backend Theme',
-    'version': '19.0.1.1.0',
+    'version': '19.0.1.2.0',
     'category': 'Themes/Backend',
     'summary': 'Qimam visual identity for Odoo backend and login screens',
     'description': """

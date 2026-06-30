@@ -69,10 +69,41 @@
         }
     }
 
-    const observer = new MutationObserver(enhanceLauncher);
+    function enhanceSidebar() {
+        const items = document.querySelectorAll(".o_app_menu_sidebar li.py-2");
+        for (const item of items) {
+            if (item.classList.contains("qimam-menu-tile")) {
+                continue;
+            }
+            const label = item.textContent.replace(/\s+/g, " ").trim();
+            if (!label) {
+                continue;
+            }
+            item.classList.add("qimam-menu-tile");
+            item.dataset.qimamIcon = iconFor(label);
+            item.textContent = "";
+
+            const icon = document.createElement("span");
+            icon.className = "qimam-menu-icon";
+            icon.textContent = item.dataset.qimamIcon;
+
+            const title = document.createElement("span");
+            title.className = "qimam-menu-title";
+            title.textContent = label;
+
+            item.append(icon, title);
+        }
+    }
+
+    function enhanceMenus() {
+        enhanceLauncher();
+        enhanceSidebar();
+    }
+
+    const observer = new MutationObserver(enhanceMenus);
 
     function start() {
-        enhanceLauncher();
+        enhanceMenus();
         observer.observe(document.body, {
             childList: true,
             subtree: true,

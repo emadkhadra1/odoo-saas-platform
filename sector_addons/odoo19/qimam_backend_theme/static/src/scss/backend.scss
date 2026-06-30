@@ -73,6 +73,31 @@ body.o_web_client {
     font-size: 25px;
 }
 
+.o_main_navbar .o_menu_toggle.hasImage {
+    width: 104px;
+    min-height: 64px;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: rgba(47, 211, 230, 0.12) !important;
+}
+
+.o_main_navbar .o_menu_toggle.hasImage .fa {
+    color: var(--qimam-cyan);
+    font-size: 25px;
+}
+
+.o_main_navbar .o_menu_toggle.hasImage::after {
+    content: "";
+    width: 44px;
+    height: 44px;
+    display: inline-block;
+    background: url("/qimam_backend_theme/static/src/img/qimam-logo.png") center / contain no-repeat;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 1px rgba(47, 211, 230, 0.28);
+}
+
 .o_main_navbar .o_nav_entry:hover,
 .o_main_navbar .dropdown-toggle:hover,
 .o_main_navbar .show > .dropdown-toggle {
@@ -312,6 +337,130 @@ body.o_web_client {
     .qimam-app-title {
         display: block;
         min-height: 36px;
+    }
+
+    .o_app_menu_sidebar {
+        width: min(440px, 92vw) !important;
+        background:
+            linear-gradient(160deg, rgba(11, 25, 51, 0.98), rgba(16, 40, 77, 0.96)),
+            var(--qimam-navy) !important;
+        color: #fff;
+        box-shadow: 24px 0 60px rgba(3, 10, 22, 0.25);
+        border-inline-end: 1px solid rgba(47, 211, 230, 0.24);
+    }
+
+    .o_app_menu_sidebar .o_sidebar_topbar {
+        min-height: 78px;
+        padding: 0 18px !important;
+        border-bottom: 1px solid rgba(47, 211, 230, 0.24);
+        background: rgba(255, 255, 255, 0.04);
+    }
+
+    .o_app_menu_sidebar .o_sidebar_topbar::before {
+        content: "";
+        width: 52px;
+        height: 52px;
+        flex: 0 0 52px;
+        margin-inline-end: 12px;
+        background: url("/qimam_backend_theme/static/src/img/qimam-logo.png") center / contain no-repeat;
+        border-radius: 12px;
+        box-shadow: inset 0 0 0 1px rgba(47, 211, 230, 0.28);
+    }
+
+    .o_app_menu_sidebar .o_sidebar_topbar .btn-primary {
+        background: transparent !important;
+        border-color: rgba(47, 211, 230, 0.28) !important;
+        color: #fff !important;
+        box-shadow: none;
+        font-weight: 900;
+    }
+
+    .o_app_menu_sidebar .o_sidebar_close {
+        color: #fff !important;
+        opacity: 0.86;
+    }
+
+    .o_app_menu_sidebar .o_burger_menu_content {
+        padding: 14px 16px 24px;
+    }
+
+    .o_app_menu_sidebar .o_burger_menu_content > .d-flex {
+        margin: 0 0 14px !important;
+        padding: 12px 14px;
+        border: 1px solid rgba(47, 211, 230, 0.22);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.06);
+    }
+
+    .o_app_menu_sidebar .o_burger_menu_content .fs-4,
+    .o_app_menu_sidebar .o_burger_menu_content .fw-bolder {
+        color: #fff !important;
+    }
+
+    .o_app_menu_sidebar li.px-3 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        padding: 0 !important;
+        margin: 0 0 18px;
+        list-style: none;
+    }
+
+    .o_app_menu_sidebar li.px-3 > div {
+        grid-column: 1 / -1;
+        margin: 8px 0 0;
+        padding: 10px 2px 4px !important;
+        border-top-color: rgba(47, 211, 230, 0.22) !important;
+        color: rgba(226, 241, 247, 0.82) !important;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0;
+    }
+
+    .o_app_menu_sidebar .qimam-menu-tile {
+        min-height: 112px;
+        padding: 14px 10px !important;
+        border: 1px solid rgba(47, 211, 230, 0.22);
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.075);
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        text-align: center;
+        color: #fff;
+        font-weight: 800;
+        line-height: 1.25;
+        cursor: pointer;
+        transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .o_app_menu_sidebar .qimam-menu-tile:hover {
+        transform: translateY(-2px);
+        border-color: rgba(47, 211, 230, 0.76);
+        background: rgba(47, 211, 230, 0.16);
+    }
+
+    .qimam-menu-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 15px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(145deg, rgba(47, 211, 230, 0.96), rgba(18, 169, 195, 0.76));
+        color: #071827;
+        font-size: 14px;
+        font-weight: 950;
+        box-shadow: 0 10px 22px rgba(18, 169, 195, 0.24);
+    }
+
+    .qimam-menu-title {
+        min-height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 
