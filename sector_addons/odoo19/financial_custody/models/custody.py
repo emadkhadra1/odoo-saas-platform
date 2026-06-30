@@ -129,7 +129,11 @@ class FinancialCustody(models.Model):
                             'payment_method_id': self.env.ref('account.account_payment_method_manual_out').id,
 
                         })._create_payments()
-                new_payments = self.env['account.payment'].search([('is_custody_payment', '=', True), ('custody_id', '=', rec.id), ('state', '=', 'posted')])
+                new_payments = self.env['account.payment'].search([
+                    ('is_custody_payment', '=', True),
+                    ('custody_id', '=', rec.id),
+                    ('move_id.state', '=', 'posted'),
+                ])
                 for invoice, payment in zip(rec.installment_ids.mapped('move_id')+rec.installment_ids.mapped('bill_id'), new_payments):
                     (invoice + payment.move_id).line_ids \
                         .filtered(lambda line: line.account_type in ('asset_receivable', 'liability_payable')).reconcile()
@@ -187,7 +191,11 @@ class FinancialCustody(models.Model):
 
     def _compute_payments_count(self):
         for rec in self:
-            payments = self.env['account.payment'].search([('is_custody_payment', '=', True), ('custody_id', '=', rec.id), ('state', '=', 'posted')])
+            payments = self.env['account.payment'].search([
+                ('is_custody_payment', '=', True),
+                ('custody_id', '=', rec.id),
+                ('move_id.state', '=', 'posted'),
+            ])
             rec.payment_count = len(payments)
             rec.paid_amount = sum(payments.mapped('amount'))
             rec.remaining_amount = rec.custody_amount - rec.paid_amount
