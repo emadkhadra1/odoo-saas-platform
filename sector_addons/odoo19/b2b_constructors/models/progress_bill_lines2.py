@@ -13,30 +13,30 @@ from odoo.exceptions import ValidationError
 class ProgressBillLines2(models.Model):
     _name = 'b2b.progress.bill.lines2'
 
-    _description = "عرض سعر بدون بنود جدول الكميات"
+    _description = "Qoutation Without BOQ Lines"
 
     _rec_name = "progress_bill_id"
 
     progress_bill_id = fields.Many2one("b2b.progress.bill", sring="Construction Qoutation", required=True)
-    #project_id = fields.Many2one("construction.project", string='اسم المشروع')
-    project_id = fields.Many2one(related="progress_bill_id.project_id", string='اسم المشروع', readonly=True, store=True)
-    consructor_id = fields.Many2one("res.partner", string='المقاول', required=False, domain="[('is_constructors', '=', True)]", context="{'default_is_constructors': True}")
-    main_item_id = fields.Many2one("b2b.main.items", string="????? ???????", required=False)
-    sub_item_id = fields.Many2one("b2b.sub.items", string="????? ??????", required=False )
-    business_statement_id = fields.Many2one("b2b.business.items", string="بيان الأعمال", required=True)
+    #project_id = fields.Many2one("construction.project", string='Project Name')
+    project_id = fields.Many2one(related="progress_bill_id.project_id", string='Project Name', readonly=True, store=True)
+    consructor_id = fields.Many2one("res.partner", string='Contractor', required=False, domain="[('is_constructors', '=', True)]", context="{'default_is_constructors': True}")
+    main_item_id = fields.Many2one("b2b.main.items", string="البند الرئيسي", required=False)
+    sub_item_id = fields.Many2one("b2b.sub.items", string="البند الفرعي", required=False )
+    business_statement_id = fields.Many2one("b2b.business.items", string="Business Statement", required=True)
     type_ids = fields.Many2many(related="business_statement_id.type_ids")
-    type_id = fields.Many2one(comodel_name="b2b.business.items.type", string="النوع", required=False,
+    type_id = fields.Many2one(comodel_name="b2b.business.items.type", string="Type", required=False,
                               domain="[('id', 'in', type_ids)]")
-    sub_business_statement_id = fields.Many2one("b2b.sub.business.items", string="????? ?????? ??????", required=True)
-    uom_id = fields.Many2one(related="business_statement_id.uom_id", string="الوحدة", readonly=True)
-    required_quantity = fields.Float(string="الكمية المسندة", required=True)
-    category = fields.Float(string="التصنيف", required=True,digits='Constructor price')
-    previous_work = fields.Float(string="الأعمال السابقة")
-    current_work = fields.Float(string="الأعمال الحالية")
-    total_work = fields.Float(compute="_calculate_fields", string="إجمالي الأعمال")
-    work_amount = fields.Float(compute="_calculate_fields", string="???? ???????",digits='Constructor price')
-    notes = fields.Text(string="ملاحظات", )
-    perc_c = fields.Float(string="نسبة الإنجاز %", readonly=False)
+    sub_business_statement_id = fields.Many2one("b2b.sub.business.items", string="البند الفرعي الثاني", required=True)
+    uom_id = fields.Many2one(related="business_statement_id.uom_id", string="Unit", readonly=True)
+    required_quantity = fields.Float(string="Assined Quantity", required=True)
+    category = fields.Float(string="Category", required=True,digits='Constructor price')
+    previous_work = fields.Float(string="Previous Work")
+    current_work = fields.Float(string="Current Work")
+    total_work = fields.Float(compute="_calculate_fields", string="Total Work")
+    work_amount = fields.Float(compute="_calculate_fields", string="قيمة الأعمال",digits='Constructor price')
+    notes = fields.Text(string="Notes", )
+    perc_c = fields.Float(string="Percentage of completion %", readonly=False)
 
     @api.onchange('main_item_id')
     def onchange_main_item_id(self):

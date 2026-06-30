@@ -13,14 +13,14 @@ from odoo.exceptions import ValidationError
 class QuotationReportWizard(models.TransientModel):
     _name = 'b2b.quotation.report.wizard'
 
-    _description = "معالج تقرير عرض السعر"
+    _description = "Qoutation Report Wizard"
 
     _rec_name = "project_id"
 
-    project_id = fields.Many2one("construction.project", string='اسم المشروع', required=True)
-    business_statement_id = fields.Many2one("b2b.business.items", string="بيان الأعمال", required=False)
-    from_date = fields.Date(string='من', required=True,default=fields.Date.context_today)
-    to_date = fields.Date(string='إلى', required=True,default=fields.Date.context_today)
+    project_id = fields.Many2one("construction.project", string='Project Name', required=True)
+    business_statement_id = fields.Many2one("b2b.business.items", string="Business Statement", required=False)
+    from_date = fields.Date(string='From', required=True,default=fields.Date.context_today)
+    to_date = fields.Date(string='To', required=True,default=fields.Date.context_today)
 
 
     
@@ -94,7 +94,7 @@ class ReportMultilaserParser(models.AbstractModel):
                         if line2.business_statement_id == bi:
                             data["bi_ids"][bi] += line2.current_work
             else:
-                raise ValidationError(_("?? ???? ??????!"))
+                raise ValidationError(_("لا توجد بيانات!"))
             # for k, v in data["bi_ids"].items():
             #     print('v',v)
             #     print('k',k)
@@ -113,7 +113,7 @@ class ReportMultilaserParser(models.AbstractModel):
     @api.model
     def _get_report_values(self, docids, data=None):
         if not data.get('form') and not docids:
-            raise UserError(_("????? ??????? ??? ?????? ?? ???? ????? ???????."))
+            raise UserError(_("محتوى النموذج غير مكتمل، لا يمكن طباعة التقرير."))
         if not docids:
             id = data.get('form')['id']
 

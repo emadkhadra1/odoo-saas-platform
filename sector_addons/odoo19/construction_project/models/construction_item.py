@@ -24,7 +24,8 @@ class project_item(models.Model):
     
     def unlink(self):
         if self.state == 'confirm':
-            raise UserError(_('لا يمكن إتمام العملية:\nتحاول حذف بند معتمد.'))
+            raise UserError(_(
+                'The operation cannot be completed:\nYou are trying to delete Item Confirmed.'))
         return super(project_item, self).unlink()
     
     @api.depends('unit_id', 'product_id')
@@ -66,7 +67,7 @@ class project_item(models.Model):
 
         else:
 
-            raise UserError(_('???! ?? ???? ?????? ?????: ???? ?? ???? ???? ???? ??? ?????.'))
+            raise UserError(_('خطأ! لا يمكن اعتماد البند: تأكد من وجود مكون واحد على الأقل.'))
 
         return True
 
@@ -230,55 +231,55 @@ class project_item(models.Model):
         #         self.location_id=self.warehouse_id.out_type_id.default_location_src_id.id
 
         return True
-    unit_id = fields.Many2one(comodel_name="project.unit",states=states_item_1 ,  string="الوحدة", required=True, )
+    unit_id = fields.Many2one(comodel_name="project.unit",states=states_item_1 ,  string="Unit", required=True, )
 
     def _get_date_now(self):
         res=datetime.now().date()
         return res
 
-    date = fields.Date(string="التاريخ",default=_get_date_now , required=True, )
+    date = fields.Date(string="Date",default=_get_date_now , required=True, )
 
-    project_id = fields.Many2one(comodel_name="construction.project", compute="_compute_project_id",store=True,  string="المشروع", required=False, )
+    project_id = fields.Many2one(comodel_name="construction.project", compute="_compute_project_id",store=True,  string="Project", required=False, )
 
     location_id = fields.Many2one('stock.location', 'Source Location',related="unit_id.project_id.location_id",store=True,  required=False)
 
     location_dest_id = fields.Many2one('stock.location', 'Destination Location',related="unit_id.project_id.location_dest_id",store=True ,  required=False)
 
-    warehouse_id = fields.Many2one(comodel_name="stock.warehouse",related="unit_id.project_id.warehouse_id",store=True, string="????????",  )
+    warehouse_id = fields.Many2one(comodel_name="stock.warehouse",related="unit_id.project_id.warehouse_id",store=True, string="المستودع",  )
 
-    company_id = fields.Many2one('res.company', string='الشركة',related="unit_id.project_id.company_id",store=True,  )
+    company_id = fields.Many2one('res.company', string='Company',related="unit_id.project_id.company_id",store=True,  )
 
-    picking_type_id = fields.Many2one('stock.picking.type',related="unit_id.project_id.picking_type_id" ,store=True,  string='نوع عملية المخزون')
+    picking_type_id = fields.Many2one('stock.picking.type',related="unit_id.project_id.picking_type_id" ,store=True,  string='Picking Type')
 
-    name = fields.Char(string="اسم الوحدة",compute="_compute_item_name",store=True, required=False, )
-    product_id = fields.Many2one(comodel_name="product.product",states=states_item_1 ,  string="منتج البند", required=True, )
-    product_uom = fields.Many2one('uom.uom',related="product_id.uom_id",store=True, string='وحدة القياس', required=False)
-    item_description = fields.Text(string="وصف البند",states=states_item_1 ,  required=False, )
-    item_qty = fields.Float(string="كمية البند",default=1,  required=True,states=states_item_1 ,  )
+    name = fields.Char(string="Unit Name",compute="_compute_item_name",store=True, required=False, )
+    product_id = fields.Many2one(comodel_name="product.product",states=states_item_1 ,  string="Item Product", required=True, )
+    product_uom = fields.Many2one('uom.uom',related="product_id.uom_id",store=True, string='Unit of Measure', required=False)
+    item_description = fields.Text(string="Item Description",states=states_item_1 ,  required=False, )
+    item_qty = fields.Float(string="Item QTY",default=1,  required=True,states=states_item_1 ,  )
 
 
     project_component_ids = fields.One2many(comodel_name="project.component", states=states_item_1 , inverse_name="item_id",
-                                       string="بنود مكونات المشروع", required=False, )
-    state = fields.Selection(string="الحالة", default='new' , selection=[('new', 'Draft'), ('confirm', 'تأكيد'), ], required=False, )
+                                       string="Project Component Lines", required=False, )
+    state = fields.Selection(string="State", default='new' , selection=[('new', 'Draft'), ('confirm', 'Confirm'), ], required=False, )
 
 
 
-    total_item_cost = fields.Float(string="إجمالي تكلفة البند",compute="_compute_total_item_cost",store=True,  required=False, )
-    item_cost = fields.Float(string="تكلفة البند",compute="_compute_item_cost",store=True,  required=False, )
+    total_item_cost = fields.Float(string="Total Item Cost",compute="_compute_total_item_cost",store=True,  required=False, )
+    item_cost = fields.Float(string="Item Cost",compute="_compute_item_cost",store=True,  required=False, )
 
 
-    group_id = fields.Many2one(comodel_name="procurement.group",states=states_item_1 ,  copy=False, string="المشتريات", required=False, )
-    # procurement_id = fields.Many2one(comodel_name="procurement.order",states=states_item_1 ,  copy=False, string="المشتريات", required=False, )
-    # currency_id = fields.Many2one('res.currency', string='العملة', required=False, states=states_1,  default=lambda self: self.env.user.company_id.currency_id)
+    group_id = fields.Many2one(comodel_name="procurement.group",states=states_item_1 ,  copy=False, string="Procurement", required=False, )
+    # procurement_id = fields.Many2one(comodel_name="procurement.order",states=states_item_1 ,  copy=False, string="Procurement", required=False, )
+    # currency_id = fields.Many2one('res.currency', string='Currency', required=False, states=states_1,  default=lambda self: self.env.user.company_id.currency_id)
 
 
 
-    process_id = fields.Many2one(comodel_name="construction.process", string="????? ???????", required=False, )
+    process_id = fields.Many2one(comodel_name="construction.process", string="مرحلة التنفيذ", required=False, )
 
 
 class construction_process(models.Model):
     _name = 'construction.process'
     _rec_name = 'name'
-    _description = 'مراحل التنفيذ'
+    _description = 'construction process'
 
-    name = fields.Char(string="????? ???????", required=True, )
+    name = fields.Char(string="مرحلة التنفيذ", required=True, )

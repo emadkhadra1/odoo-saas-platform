@@ -13,32 +13,32 @@ from odoo.exceptions import ValidationError
 class ProgressOwnerLines(models.Model):
     _name = 'b2b.progress.owner.lines'
 
-    _description = "عرض المالك مع بنود جدول الكميات"
+    _description = "Owner Qoutation With BOQ Lines"
 
     _rec_name = "progress_bill_id"
 
     progress_bill_id = fields.Many2one("b2b.progress.owner", sring="Construction Qoutation", required=False)
-    purchase_order_id = fields.Many2one(related="progress_bill_id.purchase_order_id", string="جدول كميات المقاولات", readonly=False, store=True)
-    project_id = fields.Many2one(related="progress_bill_id.project_id", string='اسم المشروع', readonly=False, store=True)
-    consructor_id = fields.Many2one(related="progress_bill_id.consructor_id", string='المقاول', readonly=False, store=True)
-    entrepreneurs_id = fields.Many2one("b2b.entrepreneurs", string="بيان الأعمال", required=False, readonly=False)
-    indexation_id = fields.Many2one(related="entrepreneurs_id.indexation_id",  string="بيان الأعمال", required=True, readonly=False)
-    main_item_id = fields.Many2one("b2b.main.items", string="????? ???????", required=True, readonly=False)
-    sub_item_id = fields.Many2one("b2b.sub.items", string="????? ??????", required=True, readonly=False)
-    business_statement_id = fields.Many2one("b2b.business.items", string="بيان الأعمال", required=False, readonly=False, store=True)
-    sub_business_statement_id = fields.Many2one("b2b.sub.business.items", string="????? ?????? ??????", required=False, readonly=False, store=True)
-    uom_id = fields.Many2one('uom.uom', string="الوحدة", readonly=False, store=True)
-    required_quantity = fields.Float(string="الكمية المسندة", related='indexation_id.required_quantity', readonly=False, store=True)
+    purchase_order_id = fields.Many2one(related="progress_bill_id.purchase_order_id", string="Construction BOQ", readonly=False, store=True)
+    project_id = fields.Many2one(related="progress_bill_id.project_id", string='Project Name', readonly=False, store=True)
+    consructor_id = fields.Many2one(related="progress_bill_id.consructor_id", string='Constructor', readonly=False, store=True)
+    entrepreneurs_id = fields.Many2one("b2b.entrepreneurs", string="Business Statement", required=False, readonly=False)
+    indexation_id = fields.Many2one(related="entrepreneurs_id.indexation_id",  string="Business Statement", required=True, readonly=False)
+    main_item_id = fields.Many2one("b2b.main.items", string="البند الرئيسي", required=True, readonly=False)
+    sub_item_id = fields.Many2one("b2b.sub.items", string="البند الفرعي", required=True, readonly=False)
+    business_statement_id = fields.Many2one("b2b.business.items", string="Business Statement", required=False, readonly=False, store=True)
+    sub_business_statement_id = fields.Many2one("b2b.sub.business.items", string="البند الفرعي الثاني", required=False, readonly=False, store=True)
+    uom_id = fields.Many2one('uom.uom', string="Unit", readonly=False, store=True)
+    required_quantity = fields.Float(string="Assigned Quantity", related='indexation_id.required_quantity', readonly=False, store=True)
 
-    category = fields.Float(string="التصنيف", related='indexation_id.category', store=True)
-    # category = fields.Float( string="التصنيف", readonly=False,digits='Constructor price')
+    category = fields.Float(string="Category", related='indexation_id.category', store=True)
+    # category = fields.Float( string="Category", readonly=False,digits='Constructor price')
 
-    previous_work = fields.Float(string="الأعمال السابقة", compute="on_change_calculate_fields")
-    current_work = fields.Float(string="الأعمال الحالية")
-    total_work = fields.Float(compute="_calculate_fields", string="إجمالي الأعمال", store=True)
-    work_amount = fields.Float(compute="_calculate_fields", string="???? ???????", store=True,digits='Constructor price')
-    notes = fields.Text( string="ملاحظات", compute="on_change_calculate_fields")
-    perc_c = fields.Float( string="نسبة الإنجاز %", readonly=False)
+    previous_work = fields.Float(string="Previous Work", compute="on_change_calculate_fields")
+    current_work = fields.Float(string="Current Work")
+    total_work = fields.Float(compute="_calculate_fields", string="Total Work", store=True)
+    work_amount = fields.Float(compute="_calculate_fields", string="قيمة الأعمال", store=True,digits='Constructor price')
+    notes = fields.Text( string="Notes", compute="on_change_calculate_fields")
+    perc_c = fields.Float( string="Percentage of completion %", readonly=False)
 
     # 
     # @api.onchange('category', 'current_work')
@@ -55,7 +55,7 @@ class ProgressOwnerLines(models.Model):
             if rec.project_id:
                 if  not rec.progress_bill_id.project_id or not rec.progress_bill_id.consructor_id or not rec.progress_bill_id.from_date:
                     rec.business_statement_id = None
-                    raise ValidationError(_("???? ????? ???? ??????? ???? ??????? ???????? ?????? ??????? ??? ????? ???? ??? ?????."))
+                    raise ValidationError(_("يرجى تحديد جدول الكميات واسم المشروع والمقاول وتاريخ البداية قبل إضافة بنود عرض السعر."))
                 else:
                     previous_data = self.search(
                         [
@@ -91,7 +91,7 @@ class ProgressOwnerLines(models.Model):
             if  rec.entrepreneurs_id and rec.project_id:
                 if  not rec.progress_bill_id.project_id or not rec.progress_bill_id.consructor_id or not rec.progress_bill_id.from_date:
                     rec.business_statement_id = None
-                    raise ValidationError(_("???? ????? ???? ??????? ???? ??????? ???????? ?????? ??????? ??? ????? ???? ??? ?????."))
+                    raise ValidationError(_("يرجى تحديد جدول الكميات واسم المشروع والمقاول وتاريخ البداية قبل إضافة بنود عرض السعر."))
                 else:
                     previous_data = self.search(
                         [

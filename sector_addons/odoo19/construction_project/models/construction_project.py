@@ -17,19 +17,19 @@ from odoo.exceptions import UserError, ValidationError
 class ProjectBOQS(models.Model):
     _name = 'project.boq'
 
-    boq_name = fields.Char(string="اسم جدول الكميات", required=False, )
-    boq_type = fields.Char(string="نوع جدول الكميات", required=False, )
-    boq_date = fields.Date(string="تاريخ جدول الكميات", required=False, )
-    boq_total_cost = fields.Float(string="إجمالي تكلفة جدول الكميات", required=False, )
-    boq_total_sell = fields.Float(string="إجمالي بيع جدول الكميات", required=False, )
-    construction_project_id = fields.Many2one(comodel_name="construction.project", string="معرف المشروع",
+    boq_name = fields.Char(string="BOQ Name", required=False, )
+    boq_type = fields.Char(string="BOQ Type", required=False, )
+    boq_date = fields.Date(string="BOQ Date", required=False, )
+    boq_total_cost = fields.Float(string="BOQ Total Cost", required=False, )
+    boq_total_sell = fields.Float(string="BOQ Total Sell", required=False, )
+    construction_project_id = fields.Many2one(comodel_name="construction.project", string="Project id",
                                               required=False, )
-    bom_id = fields.Integer(string="المعرف", required=False, )
+    bom_id = fields.Integer(string="ID", required=False, )
 
     def action_show_bom(self):
         print("lllllllllllll", self.bom_id)
         return {
-            'name': _('???'),
+            'name': _('عرض'),
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
@@ -63,7 +63,7 @@ class construction_project(models.Model):
             plan = self.env['account.analytic.plan'].search([], limit=1)
         if not plan:
             plan = self.env['account.analytic.plan'].create({
-                'name': 'المشروع',
+                'name': 'Project',
                 'default_applicability': 'optional',
             })
         return plan.id
@@ -145,48 +145,48 @@ class construction_project(models.Model):
         # return True
 
     picking_type_id = fields.Many2one('stock.picking.type', compute="_compute_location_id", store=True,
-                                      string='نوع عملية المخزون')
+                                      string='Picking Type')
 
     warehouse_id = fields.Many2one(comodel_name="stock.warehouse", default=_get_warehouse_id,
-                                   string="????????", required=True, )
+                                   string="المستودع", required=True, )
     location_id = fields.Many2one('stock.location', 'Source Location', compute="_compute_location_id", store=True,
                                   required=False)
-    primary_insurance = fields.Char(string="التأمين الابتدائي", required=False, )
+    primary_insurance = fields.Char(string="Primary Insurance", required=False, )
 
     location_dest_id = fields.Many2one('stock.location', 'Destination Location R',
                                        store=True, required=False, readonly=False)
     location_create = fields.Boolean(string="location_create", )
 
-    company_id = fields.Many2one('res.company', string='الشركة', required=True,
+    company_id = fields.Many2one('res.company', string='Company', required=True,
                                  default=lambda self: self.env.user.company_id)
 
-    name = fields.Char("اسم المشروع", required=True, )
+    name = fields.Char("Project Name", required=True, )
 
-    partner_id = fields.Many2one(comodel_name="res.partner", string="الشريك", required=True,
+    partner_id = fields.Many2one(comodel_name="res.partner", string="partner", required=True,
                                  domain=[('customer_rank', '=', 1)])
 
-    project_description = fields.Text(string="وصف المشروع", required=False, )
+    project_description = fields.Text(string="Project Description", required=False, )
 
     project_unit_ids = fields.One2many(comodel_name="project.unit", inverse_name="project_id",
-                                       string="بنود وحدة المشروع", required=False, )
+                                       string="Project Unit Lines", required=False, )
 
     project_item_ids = fields.One2many(comodel_name="project.item", inverse_name="project_id",
-                                       string="بنود المشروع", required=False, )
+                                       string="Project Item Lines", required=False, )
 
     project_component_ids = fields.One2many(comodel_name="project.component", inverse_name="project_id",
-                                            string="بنود مكونات المشروع", required=False, )
+                                            string="Project Component Lines", required=False, )
 
-    labor_ids = fields.One2many(comodel_name="construction.labor", inverse_name="project_id", string="العمالة",
+    labor_ids = fields.One2many(comodel_name="construction.labor", inverse_name="project_id", string="Labors",
                                 required=False, )
-    machine_ids = fields.One2many(comodel_name="construction.machine", inverse_name="project_id", string="المعدات",
+    machine_ids = fields.One2many(comodel_name="construction.machine", inverse_name="project_id", string="Machines",
                                   required=False, )
-    tool_ids = fields.One2many(comodel_name="construction.tool", inverse_name="project_id", string="الأدوات",
+    tool_ids = fields.One2many(comodel_name="construction.tool", inverse_name="project_id", string="ToolS",
                                required=False, )
     analytic_account_id = fields.Many2one('account.analytic.account', 'Analytic Account')
 
-    contract_type = fields.Many2one(comodel_name="contract.type", string="نوع العقد", required=False, )
+    contract_type = fields.Many2one(comodel_name="contract.type", string="Contract Type", required=False, )
     boq_line_ids = fields.One2many(comodel_name="project.boq", inverse_name="construction_project_id",
-                                   string="بنود جدول الكميات", required=False, readonly=True)
+                                   string="BOQ Lines", required=False, readonly=True)
 
     @api.depends('project_component_ids.component_cost', 'receive_order_ids',
                  'receive_order_ids.total_cost', 'receive_order_ids.state'
@@ -206,7 +206,7 @@ class construction_project(models.Model):
         return True
 
     receive_order_ids = fields.One2many(comodel_name="construction.receive.order", inverse_name="project_id",
-                                        string="أمر استلام", required=False, )
+                                        string="Receive Order", required=False, )
 
     @api.depends('estimated_costs', 'selling_price')
     def _comp_estimated_net_profit(self):
@@ -238,20 +238,20 @@ class construction_project(models.Model):
             rec.net_profit_ratio = net_profit_ratio
         return True
 
-    total_cost = fields.Float(string="التكلفة الفعلية", compute="_compute_total_cost", store=True, required=False, )
-    # selling_price = fields.Float(string="سعر البيع", required=False, compute='_compute_line_ids_changed')
-    selling_price = fields.Float(string="سعر البيع", required=False)
-    # estimated_costs = fields.Float(string="التكاليف التقديرية", required=False, compute='_compute_line_ids_changed')
-    estimated_costs = fields.Float(string="التكاليف التقديرية", required=False)
-    estimated_net_profit = fields.Float(string="صافي الربح التقديري", compute="_comp_estimated_net_profit", store=True,
+    total_cost = fields.Float(string="Actual Cost", compute="_compute_total_cost", store=True, required=False, )
+    # selling_price = fields.Float(string="Selling Price", required=False, compute='_compute_line_ids_changed')
+    selling_price = fields.Float(string="Selling Price", required=False)
+    # estimated_costs = fields.Float(string="Estimated Costs", required=False, compute='_compute_line_ids_changed')
+    estimated_costs = fields.Float(string="Estimated Costs", required=False)
+    estimated_net_profit = fields.Float(string="Estimated Net Profit", compute="_comp_estimated_net_profit", store=True,
                                         required=False, )
-    estimated_profit_margin_ratio = fields.Float(string="نسبة هامش الربح التقديري %",
+    estimated_profit_margin_ratio = fields.Float(string="Estimated Profit Margin Ratio %",
                                                  compute="_comp_estimated_profit_margin_ratio", store=True,
                                                  required=False, )
-    net_profit = fields.Float(string="صافي الربح", compute="_comp_net_profit", store=True, required=False, )
-    net_profit_ratio = fields.Float(string="نسبة صافي الربح %", compute="_comp_net_profit_ratio", store=True,
+    net_profit = fields.Float(string="Net Profit", compute="_comp_net_profit", store=True, required=False, )
+    net_profit_ratio = fields.Float(string="Net Profit Ratio  %", compute="_comp_net_profit_ratio", store=True,
                                     required=False, )
-    purpose_of_the_project = fields.Selection(string="الغرض من المشروع",
+    purpose_of_the_project = fields.Selection(string="Purpose of the project",
                                               selection=[('ownership', 'Ownership'), ('for_sale', 'For sale'), ],
                                               required=False, )
 

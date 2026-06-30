@@ -21,7 +21,8 @@ class project_component(models.Model):
     def unlink(self):
 
         if self.state == 'confirm':
-            raise UserError(_('لا يمكن إتمام العملية:\nتحاول حذف مكون معتمد.'))
+            raise UserError(_(
+                'The operation cannot be completed:\nYou are trying to delete Component Confirmed.'))
         return super(project_component, self).unlink()
 
     @api.depends('item_id', 'product_id')
@@ -61,25 +62,25 @@ class project_component(models.Model):
         return True
 
     project_id = fields.Many2one(comodel_name="construction.project", compute="_compute_project_unit", store=True,
-                                 string="المشروع", required=False, )
-    unit_id = fields.Many2one(comodel_name="project.unit", compute="_compute_project_unit", store=True, string="الوحدة",
+                                 string="Project", required=False, )
+    unit_id = fields.Many2one(comodel_name="project.unit", compute="_compute_project_unit", store=True, string="Unit",
                               required=False, )
 
-    name = fields.Char(string="اسم المكون", compute="_compute_component_name", store=True, required=False, )
-    item_id = fields.Many2one(comodel_name="project.item", string="البند", required=True, )
-    product_id = fields.Many2one(comodel_name="product.product", string="منتج المكون", required=True, )
-    product_uom = fields.Many2one('uom.uom', string='وحدة القياس', required=True)
-    component_qty = fields.Float(string="الكمية", default=1, required=True, )
-    component_cost = fields.Float(string="تكلفة المكون", required=False, )
+    name = fields.Char(string="Component Name", compute="_compute_component_name", store=True, required=False, )
+    item_id = fields.Many2one(comodel_name="project.item", string="Item", required=True, )
+    product_id = fields.Many2one(comodel_name="product.product", string="Component Product", required=True, )
+    product_uom = fields.Many2one('uom.uom', string='Unit of Measure', required=True)
+    component_qty = fields.Float(string="QTY", default=1, required=True, )
+    component_cost = fields.Float(string="Component Cost", required=False, )
 
-    component_description = fields.Text(string="وصف المكون", required=False, )
-    state = fields.Selection(string="الحالة", default='new', selection=[('new', 'Draft'), ('confirm', 'تأكيد'), ],
+    component_description = fields.Text(string="Component Description", required=False, )
+    state = fields.Selection(string="State", default='new', selection=[('new', 'Draft'), ('confirm', 'Confirm'), ],
                              required=False, )
 
-    # procurement_id = fields.Many2one(comodel_name="procurement.order", copy=False, string="المشتريات",
+    # procurement_id = fields.Many2one(comodel_name="procurement.order", copy=False, string="Procurement",
     #                                  required=False, )
 
-    picking_id = fields.Many2one(comodel_name="stock.picking", copy=False, string="عملية مخزون", required=False, )
+    picking_id = fields.Many2one(comodel_name="stock.picking", copy=False, string="Picking", required=False, )
 
     @api.depends('picking_id', 'picking_id.state')
     def _compute_picking_state(self):
@@ -87,10 +88,10 @@ class project_component(models.Model):
             rec.picking_state = rec.picking_id.state if rec.picking_id else ''
         return True
 
-    picking_state = fields.Char(string="حالة عملية المخزون", compute="_compute_picking_state", store=True, required=False, )
+    picking_state = fields.Char(string="Picking State", compute="_compute_picking_state", store=True, required=False, )
 
 
 class product_template(models.Model):
     _inherit = 'product.template'
 
-    constration_product = fields.Boolean(string="???? ???????", )
+    constration_product = fields.Boolean(string="منتج مقاولات", )

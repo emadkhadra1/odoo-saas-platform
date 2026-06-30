@@ -10,14 +10,14 @@ from odoo import models, fields, api
 class BoqSubBusinessStatement(models.Model):
     _name = 'b2b.sub.business.items'
     _rec_name = 'name'
-    _description = "البنود الفرعية الثانية في جدول الكميات"
+    _description = "BOQ Second Sub Items"
 
-    name = fields.Char(string="العنوان", required=True)
-    sub_item_id = fields.Many2one("b2b.sub.items", string="????? ??????", store=True)
-    main_item_id = fields.Many2one(related="sub_item_id.main_item_id", string="????? ???????", readonly=True, store=True)
-    # uom_id = fields.Many2one("uom.uom", string="الوحدة", required=True)
+    name = fields.Char(string="Title", required=True)
+    sub_item_id = fields.Many2one("b2b.sub.items", string="البند الفرعي", store=True)
+    main_item_id = fields.Many2one(related="sub_item_id.main_item_id", string="البند الرئيسي", readonly=True, store=True)
+    # uom_id = fields.Many2one("uom.uom", string="Unit", required=True)
     code = fields.Char()
-    group_code = fields.Char("الكود", compute="_compute_group_code")
+    group_code = fields.Char("Code", compute="_compute_group_code")
 
     @api.depends('sub_item_id', 'main_item_id', 'code')
     def _compute_group_code(self):

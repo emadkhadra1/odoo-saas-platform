@@ -4,11 +4,11 @@ from odoo import api, fields, models
 class FinancialCustodyReportWizard(models.TransientModel):
     _name = 'financial.custody.report.wizard'
     _rec_name = 'name'
-    _description = 'معالج تقرير العهد المالية'
+    _description = 'Financial Custody Report Wizard'
     
-    name = fields.Char(string="الاسم", required=False, )
-    day_from = fields.Date(string="تاريخ البداية", required=False, default=fields.Date.context_today)
-    day_to = fields.Date(string="تاريخ النهاية", required=False, default=fields.Date.context_today)
+    name = fields.Char(string="Name", required=False, )
+    day_from = fields.Date(string="Start Date", required=False, default=fields.Date.context_today)
+    day_to = fields.Date(string="End Date", required=False, default=fields.Date.context_today)
 
     def print_report(self):
         """

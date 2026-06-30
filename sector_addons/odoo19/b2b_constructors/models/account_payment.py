@@ -18,10 +18,10 @@ class AccountPayment(models.Model):
         for rec in self:
 
             if rec.state != 'draft':
-                raise UserError(_("???? ????? ?????? ?? ???? ????? ???."))
+                raise UserError(_("يمكن ترحيل الدفعة في حالة مسودة فقط."))
 
             if any(inv.state != 'open' for inv in rec.invoice_ids):
-                raise ValidationError(_("?? ???? ?????? ?????? ??? ???????? ??? ??????."))
+                raise ValidationError(_("لا يمكن معالجة الدفعة لأن الفاتورة غير مفتوحة."))
 
             # keep the name in case of a payment reset to draft
             if not rec.name:
@@ -42,7 +42,7 @@ class AccountPayment(models.Model):
                 rec.name = self.env['ir.sequence'].with_context(ir_sequence_date=rec.payment_date).next_by_code(
                     sequence_code)
                 if not rec.name and rec.payment_type != 'transfer':
-                    raise UserError(_("??? ????? ????? ?? %s ?? ?????.") % (sequence_code,))
+                    raise UserError(_("يجب تعريف تسلسل لـ %s في شركتك.") % (sequence_code,))
 
             # Create the journal entry
             amount = rec.amount * (rec.payment_type in ('outbound', 'transfer') and 1 or -1)

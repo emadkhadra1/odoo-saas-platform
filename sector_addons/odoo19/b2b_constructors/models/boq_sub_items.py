@@ -11,10 +11,10 @@ class BoqSubItem(models.Model):
     _name = 'b2b.sub.items'
     _rec_name = 'name'
 
-    _description = "البنود الفرعية في جدول الكميات"
+    _description = "BOQ Sub Items"
 
-    name = fields.Char(string="العنوان", required=True)
-    main_item_id = fields.Many2one("b2b.main.items", string="????? ???????", required=True)
+    name = fields.Char(string="Title", required=True)
+    main_item_id = fields.Many2one("b2b.main.items", string="البند الرئيسي", required=True)
     code = fields.Char()
 
     @api.model

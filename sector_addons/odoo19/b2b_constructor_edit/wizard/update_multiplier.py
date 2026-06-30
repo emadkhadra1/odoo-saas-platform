@@ -4,13 +4,13 @@ from odoo import api, fields, models
 class UpdateMultiplier(models.TransientModel):
     _name = 'update.multiplier'
     _rec_name = 'name'
-    _description = 'تحديث المعامل'
+    _description = 'Update Multiplier'
 
-    multiplier = fields.Float(string="المعامل", )
-    discount = fields.Float(string="الخصم (%)", required=False, )
-    social_insurance = fields.Float(string="التأمينات الاجتماعية (%)", required=False, )
-    contracting = fields.Float(string="نسبة المقاولة (%)", required=False, )
-    name = fields.Many2one(comodel_name="b2b.construction.boq", string="جدول كميات المقاولات", required=False, )
+    multiplier = fields.Float(string="Multiplier", )
+    discount = fields.Float(string="Discount(%)", required=False, )
+    social_insurance = fields.Float(string="Soc. Ins.(%)", required=False, )
+    contracting = fields.Float(string="Contracting(%)", required=False, )
+    name = fields.Many2one(comodel_name="b2b.construction.boq", string="Construction BOQ", required=False, )
 
     def update_multiplier_default_value(self):
         self.name.multiplier = self.multiplier

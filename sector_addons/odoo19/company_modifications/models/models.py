@@ -4,4 +4,4 @@ from odoo import models, fields, api
 
 class company_modifications(models.Model):
     _inherit='res.company'
-    type = fields.Selection(string="?????", selection=[('maka', '???'), ('madina', '???????'), ], required=False, )
+    type = fields.Selection(string="النوع", selection=[('maka', 'مكة'), ('madina', 'المدينة'), ], required=False, )

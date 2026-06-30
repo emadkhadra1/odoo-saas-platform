@@ -10,4 +10,4 @@ from odoo import models, fields, api
 class AccountJournal(models.Model):
     _inherit = 'account.journal'
 
-    is_construction_journal = fields.Boolean(string='????? ?????????')
+    is_construction_journal = fields.Boolean(string='يومية المقاولات')

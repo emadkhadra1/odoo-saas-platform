@@ -10,16 +10,16 @@ from dateutil import relativedelta
 class construction_project(models.Model):
     _inherit = 'construction.project'
 
-    date_from = fields.Date(string='من تاريخ', required=True, default=time.strftime('%Y-%m-01'))
-    date_to = fields.Date(string='إلى تاريخ', required=True,
+    date_from = fields.Date(string='Date From', required=True, default=time.strftime('%Y-%m-01'))
+    date_to = fields.Date(string='Date To', required=True,
                           default=str(datetime.now() + relativedelta.relativedelta(months=+1, day=1, days=-1))[:10])
 
-    total_receive_order = fields.Float(string='إجمالي أوامر الاستلام', readonly=True, compute='_amount_all', tracking=True)
-    total_labor = fields.Float(string='إجمالي العمالة', readonly=True, compute='_amount_all', tracking=True)
-    total_machine = fields.Float(string='إجمالي المعدات', readonly=True, compute='_amount_all', tracking=True)
-    total_tool = fields.Float(string='إجمالي الأدوات', readonly=True, compute='_amount_all', tracking=True)
-    total_component = fields.Float(string='إجمالي المكونات', readonly=True, compute='_amount_all', tracking=True)
-    total_detialed_cost = fields.Float(string='إجمالي التكلفة التفصيلية', readonly=True, compute='_amount_all', tracking=True)
+    total_receive_order = fields.Float(string='Total Receive Order', readonly=True, compute='_amount_all', tracking=True)
+    total_labor = fields.Float(string='Total Labor', readonly=True, compute='_amount_all', tracking=True)
+    total_machine = fields.Float(string='Total Machine', readonly=True, compute='_amount_all', tracking=True)
+    total_tool = fields.Float(string='Total Tool', readonly=True, compute='_amount_all', tracking=True)
+    total_component = fields.Float(string='Total Component', readonly=True, compute='_amount_all', tracking=True)
+    total_detialed_cost = fields.Float(string='Total Detialed Cost', readonly=True, compute='_amount_all', tracking=True)
 
 
 

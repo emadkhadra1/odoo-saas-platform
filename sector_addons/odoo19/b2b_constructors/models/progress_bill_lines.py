@@ -13,35 +13,35 @@ from odoo.exceptions import ValidationError
 class ProgressBillLines(models.Model):
     _name = 'b2b.progress.bill.lines'
 
-    _description = "عرض سعر مع بنود جدول الكميات"
+    _description = "Qoutation With BOQ Lines"
 
     _rec_name = "progress_bill_id"
 
     progress_bill_id = fields.Many2one("b2b.progress.bill", sring="Construction Qoutation", required=False)
-    purchase_order_id = fields.Many2one(related="progress_bill_id.purchase_order_id", string="جدول كميات المقاولات", readonly=False, store=True)
-    project_id = fields.Many2one(related="progress_bill_id.project_id", string='اسم المشروع', readonly=False, store=True)
-    consructor_id = fields.Many2one(related="progress_bill_id.consructor_id", string='المقاول', readonly=False, store=True)
-    entrepreneurs_id = fields.Many2one("b2b.entrepreneurs", string="بيان الأعمال 0", required=False, readonly=False)
-    indexation_id = fields.Many2one(related="entrepreneurs_id.indexation_id",  string="بيان الأعمال 1", required=True, readonly=False)
-    main_item_id = fields.Many2one(related="entrepreneurs_id.main_item_id", string="????? ???????", required=True, readonly=False)
-    sub_item_id = fields.Many2one(related="entrepreneurs_id.sub_item_id", string="????? ??????", required=True, readonly=False)
-    business_statement_id = fields.Many2one(related="entrepreneurs_id.business_statement_id", string="بيان الأعمال 2", required=False, readonly=False, store=True)
+    purchase_order_id = fields.Many2one(related="progress_bill_id.purchase_order_id", string="Construction BOQ", readonly=False, store=True)
+    project_id = fields.Many2one(related="progress_bill_id.project_id", string='Project Name', readonly=False, store=True)
+    consructor_id = fields.Many2one(related="progress_bill_id.consructor_id", string='Contractor', readonly=False, store=True)
+    entrepreneurs_id = fields.Many2one("b2b.entrepreneurs", string="Business Statement 0", required=False, readonly=False)
+    indexation_id = fields.Many2one(related="entrepreneurs_id.indexation_id",  string="Business Statement 1", required=True, readonly=False)
+    main_item_id = fields.Many2one(related="entrepreneurs_id.main_item_id", string="البند الرئيسي", required=True, readonly=False)
+    sub_item_id = fields.Many2one(related="entrepreneurs_id.sub_item_id", string="البند الفرعي", required=True, readonly=False)
+    business_statement_id = fields.Many2one(related="entrepreneurs_id.business_statement_id", string="Business Statement 2", required=False, readonly=False, store=True)
     type_ids = fields.Many2many(related="business_statement_id.type_ids")
-    type_id = fields.Many2one(comodel_name="b2b.business.items.type", string="النوع", required=False,
+    type_id = fields.Many2one(comodel_name="b2b.business.items.type", string="Type", required=False,
                               domain="[('id', 'in', type_ids)]")
-    sub_business_statement_id = fields.Many2one(related="entrepreneurs_id.sub_business_statement_id", string="????? ?????? ??????", required=False, readonly=False, store=True)
-    uom_id = fields.Many2one(related="indexation_id.uom_id", string="الوحدة", readonly=False, store=True)
-    required_quantity = fields.Float(related="entrepreneurs_id.percent", string="الكمية المسندة", readonly=False)
-    # category = fields.Float(related="indexation_id.category", string="التصنيف", readonly=False)
-    # category = fields.Float( string="التصنيف", readonly=False,digits='Constructor price')
-    category = fields.Float( string="التصنيف", related="entrepreneurs_id.price",readonly=False,digits='Constructor price')
+    sub_business_statement_id = fields.Many2one(related="entrepreneurs_id.sub_business_statement_id", string="البند الفرعي الثاني", required=False, readonly=False, store=True)
+    uom_id = fields.Many2one(related="indexation_id.uom_id", string="Unit", readonly=False, store=True)
+    required_quantity = fields.Float(related="entrepreneurs_id.percent", string="Assined Quantity", readonly=False)
+    # category = fields.Float(related="indexation_id.category", string="Category", readonly=False)
+    # category = fields.Float( string="Category", readonly=False,digits='Constructor price')
+    category = fields.Float( string="Category", related="entrepreneurs_id.price",readonly=False,digits='Constructor price')
 
-    previous_work = fields.Float(compute="_calculate_fields", string="الأعمال السابقة")
-    current_work = fields.Float(string="الأعمال الحالية")
-    total_work = fields.Float(compute="_calculate_fields", string="إجمالي الأعمال", store=True)
-    work_amount = fields.Float(compute="_calculate_fields", string="???? ???????", store=True,digits='Constructor price')
-    notes = fields.Text( string="ملاحظات", )
-    perc_c = fields.Float( string="نسبة الإنجاز %",default=100, readonly=False)
+    previous_work = fields.Float(compute="_calculate_fields", string="Previous Work")
+    current_work = fields.Float(string="Current Work")
+    total_work = fields.Float(compute="_calculate_fields", string="Total Work", store=True)
+    work_amount = fields.Float(compute="_calculate_fields", string="قيمة الأعمال", store=True,digits='Constructor price')
+    notes = fields.Text( string="Notes", )
+    perc_c = fields.Float( string="Percentage of completion %",default=100, readonly=False)
 
     
     # @api.onchange('business_statement_id', 'current_work')
@@ -53,7 +53,7 @@ class ProgressBillLines(models.Model):
                 if not rec.progress_bill_id.purchase_order_id or not rec.progress_bill_id.project_id or not rec.progress_bill_id.consructor_id or not rec.progress_bill_id.from_date:
 
                     rec.business_statement_id = None
-                    # raise ValidationError(_("???? ????? ???? ??????? ???? ??????? ???????? ?????? ??????? ??? ????? ???? ??? ?????."))
+                    # raise ValidationError(_("يرجى تحديد جدول الكميات واسم المشروع والمقاول وتاريخ البداية قبل إضافة بنود عرض السعر."))
                 else:
                     previous_data = self.search(
                         [
@@ -82,7 +82,7 @@ class ProgressBillLines(models.Model):
             if  rec.entrepreneurs_id and rec.project_id:
                 if  not rec.progress_bill_id.project_id or not rec.progress_bill_id.consructor_id or not rec.progress_bill_id.from_date:
                     rec.business_statement_id = None
-                    raise ValidationError(_("???? ????? ???? ??????? ???? ??????? ???????? ?????? ??????? ??? ????? ???? ??? ?????."))
+                    raise ValidationError(_("يرجى تحديد جدول الكميات واسم المشروع والمقاول وتاريخ البداية قبل إضافة بنود عرض السعر."))
                 else:
                     previous_data = self.search(
                         [
