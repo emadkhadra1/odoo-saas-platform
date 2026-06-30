@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Language: ar_001\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Attendance Rules"
+msgstr "قواعد الحضور والانصراف"
+
+msgid "Attendance Policies"
+msgstr "سياسات الدوام"
+
+msgid "Attendance Policy"
+msgstr "سياسة دوام"
+
+msgid "Rule Lines"
+msgstr "بنود القواعد"
+
+msgid "Late Check In"
+msgstr "تأخير حضور"
+
+msgid "Early Check Out"
+msgstr "انصراف مبكر"
+
+msgid "Missing Check Out"
+msgstr "عدم تسجيل انصراف"
+
+msgid "Absence"
+msgstr "غياب"
+
+msgid "Overtime"
+msgstr "عمل إضافي"
+
+msgid "Grace Minutes"
+msgstr "دقائق السماح"
+
+msgid "Monthly Permission Minutes"
+msgstr "دقائق الاستئذان الشهرية"
+
+msgid "Overtime Start After Minutes"
+msgstr "يبدأ الإضافي بعد دقائق"
+
+msgid "To minutes cannot be less than from minutes."
+msgstr "لا يمكن أن تكون دقائق النهاية أقل من دقائق البداية."

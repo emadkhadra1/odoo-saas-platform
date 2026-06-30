@@ -1,0 +1,47 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Language: ar_001\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Loans and Advances"
+msgstr "السلف والقروض"
+
+msgid "Employee Loan and Advance"
+msgstr "سلفة أو قرض موظف"
+
+msgid "Employee Loan"
+msgstr "قرض موظف"
+
+msgid "Salary Advance"
+msgstr "سلفة راتب"
+
+msgid "Installments"
+msgstr "الأقساط"
+
+msgid "Compute Installments"
+msgstr "احتساب الأقساط"
+
+msgid "Submit"
+msgstr "إرسال للاعتماد"
+
+msgid "Approve"
+msgstr "اعتماد"
+
+msgid "Start Deduction"
+msgstr "بدء الاستقطاع"
+
+msgid "Mark Paid"
+msgstr "تسجيل السداد"
+
+msgid "In Deduction"
+msgstr "تحت الاستقطاع"
+
+msgid "Open Balance"
+msgstr "رصيد قائم"
+
+msgid "Loan amount must be greater than zero."
+msgstr "يجب أن يكون مبلغ السلفة أو القرض أكبر من صفر."
+
+msgid "Installment count must be greater than zero."
+msgstr "يجب أن يكون عدد الأقساط أكبر من صفر."

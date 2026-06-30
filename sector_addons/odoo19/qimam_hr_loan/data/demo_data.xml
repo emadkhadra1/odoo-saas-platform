@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="demo_hr_loan_advance" model="qimam.hr.loan">
+        <field name="employee_id" ref="qimam_hr_demo.employee_operations_supervisor"/>
+        <field name="loan_type">advance</field>
+        <field name="reason">Salary advance request for personal emergency.</field>
+        <field name="amount">3000.0</field>
+        <field name="installment_count">3</field>
+        <field name="first_deduction_date">2026-07-31</field>
+        <field name="state">submitted</field>
+    </record>
+</odoo>

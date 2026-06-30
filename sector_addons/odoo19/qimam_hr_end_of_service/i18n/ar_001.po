@@ -1,0 +1,35 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Language: ar_001\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "End of Service"
+msgstr "نهاية الخدمة"
+
+msgid "End of Service Settlement"
+msgstr "تسوية نهاية الخدمة"
+
+msgid "Joining Date"
+msgstr "تاريخ المباشرة"
+
+msgid "Termination Date"
+msgstr "تاريخ انتهاء الخدمة"
+
+msgid "Resignation"
+msgstr "استقالة"
+
+msgid "Company Termination"
+msgstr "إنهاء من الشركة"
+
+msgid "Contract End"
+msgstr "انتهاء عقد"
+
+msgid "Settlement Amounts"
+msgstr "مبالغ التسوية"
+
+msgid "Mark Paid"
+msgstr "تسجيل الصرف"
+
+msgid "Termination date cannot be before joining date."
+msgstr "لا يمكن أن يكون تاريخ انتهاء الخدمة قبل تاريخ المباشرة."

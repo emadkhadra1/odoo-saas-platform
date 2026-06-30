@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_qimam_hr_loan_list" model="ir.ui.view">
+        <field name="name">qimam.hr.loan.list</field>
+        <field name="model">qimam.hr.loan</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'paid'" decoration-info="state in ('submitted', 'approved', 'running')" decoration-muted="state in ('cancelled', 'refused')">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="loan_type"/>
+                <field name="request_date"/>
+                <field name="amount" sum="Total"/>
+                <field name="paid_amount" sum="Paid"/>
+                <field name="balance_amount" sum="Balance"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_qimam_hr_loan_form" model="ir.ui.view">
+        <field name="name">qimam.hr.loan.form</field>
+        <field name="model">qimam.hr.loan</field>
+        <field name="arch" type="xml">
+            <form string="Loans and Advances">
+                <header>
+                    <button name="action_compute_installments" string="Compute Installments" type="object" invisible="state not in ('draft', 'submitted')"/>
+                    <button name="action_submit" string="Submit" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_approve" string="Approve" type="object" class="oe_highlight" invisible="state != 'submitted'"/>
+                    <button name="action_start_deduction" string="Start Deduction" type="object" class="oe_highlight" invisible="state != 'approved'"/>
+                    <button name="action_mark_paid" string="Mark Paid" type="object" invisible="state not in ('approved', 'running')"/>
+                    <button name="action_refuse" string="Refuse" type="object" invisible="state != 'submitted'"/>
+                    <button name="action_cancel" string="Cancel" type="object" invisible="state not in ('draft', 'submitted')"/>
+                    <button name="action_reset_to_draft" string="Reset to Draft" type="object" invisible="state not in ('refused', 'cancelled')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved,running,paid"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" readonly="state not in ('draft')"/>
+                            <field name="department_id"/>
+                            <field name="job_id"/>
+                            <field name="loan_type" readonly="state not in ('draft')"/>
+                            <field name="reason" readonly="state not in ('draft')"/>
+                        </group>
+                        <group>
+                            <field name="request_date" readonly="state not in ('draft')"/>
+                            <field name="amount" readonly="state not in ('draft')"/>
+                            <field name="installment_count" readonly="state not in ('draft')"/>
+                            <field name="first_deduction_date" readonly="state not in ('draft')"/>
+                            <field name="paid_amount"/>
+                            <field name="balance_amount"/>
+                        </group>
+                    </group>
+                    <field name="line_ids" readonly="state in ('paid', 'cancelled', 'refused')">
+                        <list editable="bottom">
+                            <field name="sequence"/>
+                            <field name="date"/>
+                            <field name="amount"/>
+                            <field name="paid"/>
+                            <field name="payslip_id"/>
+                        </list>
+                    </field>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_qimam_hr_loan_search" model="ir.ui.view">
+        <field name="name">qimam.hr.loan.search</field>
+        <field name="model">qimam.hr.loan</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="employee_id"/>
+                <filter name="running" string="In Deduction" domain="[('state','=','running')]"/>
+                <filter name="unpaid" string="Open Balance" domain="[('balance_amount','&gt;',0)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_employee" string="Employee" context="{'group_by':'employee_id'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_qimam_hr_loan" model="ir.actions.act_window">
+        <field name="name">Loans and Advances</field>
+        <field name="res_model">qimam.hr.loan</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_qimam_hr_loan" name="Loans and Advances" parent="hr.menu_hr_root" action="action_qimam_hr_loan" sequence="41"/>
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_qimam_hr_medical_policy_user,qimam.hr.medical.policy.user,model_qimam_hr_medical_policy,base.group_user,1,1,1,0
+access_qimam_hr_medical_member_user,qimam.hr.medical.member.user,model_qimam_hr_medical_member,base.group_user,1,1,1,0

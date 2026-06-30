@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_qimam_hr_loan" model="ir.sequence">
+        <field name="name">Qimam HR Loan</field>
+        <field name="code">qimam.hr.loan</field>
+        <field name="prefix">LOAN/%(year)s/</field>
+        <field name="padding">5</field>
+    </record>
+</odoo>

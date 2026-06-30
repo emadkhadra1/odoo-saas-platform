@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="demo_attendance_policy_saudi_standard" model="qimam.attendance.policy">
+        <field name="name">Saudi Standard Attendance Policy</field>
+        <field name="grace_minutes">15</field>
+        <field name="monthly_permission_minutes">120</field>
+        <field name="overtime_start_after_minutes">30</field>
+    </record>
+    <record id="demo_rule_late_15_60" model="qimam.attendance.policy.line">
+        <field name="policy_id" ref="demo_attendance_policy_saudi_standard"/>
+        <field name="sequence">10</field>
+        <field name="rule_type">late</field>
+        <field name="from_minutes">16</field>
+        <field name="to_minutes">60</field>
+        <field name="deduction_hours">1.0</field>
+    </record>
+    <record id="demo_rule_late_over_60" model="qimam.attendance.policy.line">
+        <field name="policy_id" ref="demo_attendance_policy_saudi_standard"/>
+        <field name="sequence">20</field>
+        <field name="rule_type">late</field>
+        <field name="from_minutes">61</field>
+        <field name="deduction_hours">2.0</field>
+    </record>
+    <record id="demo_rule_no_checkout" model="qimam.attendance.policy.line">
+        <field name="policy_id" ref="demo_attendance_policy_saudi_standard"/>
+        <field name="sequence">30</field>
+        <field name="rule_type">no_checkout</field>
+        <field name="deduction_hours">1.0</field>
+    </record>
+    <record id="demo_rule_absence" model="qimam.attendance.policy.line">
+        <field name="policy_id" ref="demo_attendance_policy_saudi_standard"/>
+        <field name="sequence">40</field>
+        <field name="rule_type">absence</field>
+        <field name="deduction_days">1.0</field>
+    </record>
+    <record id="demo_rule_overtime" model="qimam.attendance.policy.line">
+        <field name="policy_id" ref="demo_attendance_policy_saudi_standard"/>
+        <field name="sequence">50</field>
+        <field name="rule_type">overtime</field>
+        <field name="from_minutes">30</field>
+        <field name="overtime_rate">1.5</field>
+    </record>
+</odoo>

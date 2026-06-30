@@ -1,0 +1,50 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Language: ar_001\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Employee Documents"
+msgstr "وثائق الموظفين"
+
+msgid "Documents"
+msgstr "الوثائق"
+
+msgid "Document Types"
+msgstr "أنواع الوثائق"
+
+msgid "Employee Document"
+msgstr "وثيقة موظف"
+
+msgid "Employee Document Type"
+msgstr "نوع وثيقة موظف"
+
+msgid "Iqama"
+msgstr "الإقامة"
+
+msgid "Passport"
+msgstr "جواز السفر"
+
+msgid "Employment Contract"
+msgstr "عقد العمل"
+
+msgid "Medical Insurance Card"
+msgstr "بطاقة التأمين الطبي"
+
+msgid "Expiring Soon"
+msgstr "قريبة الانتهاء"
+
+msgid "Expired"
+msgstr "منتهية"
+
+msgid "Valid"
+msgstr "سارية"
+
+msgid "No Expiry"
+msgstr "بدون انتهاء"
+
+msgid "Mark Expired"
+msgstr "تسجيل كمنتهية"
+
+msgid "Expiry date cannot be before issue date."
+msgstr "لا يمكن أن يكون تاريخ الانتهاء قبل تاريخ الإصدار."

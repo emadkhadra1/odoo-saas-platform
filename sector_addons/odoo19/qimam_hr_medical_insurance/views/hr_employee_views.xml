@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_employee_form_qimam_medical" model="ir.ui.view">
+        <field name="name">hr.employee.form.qimam.medical</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_medical_insurance" type="object" class="oe_stat_button" icon="fa-medkit">
+                    <field name="medical_insurance_count" widget="statinfo" string="Insurance"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

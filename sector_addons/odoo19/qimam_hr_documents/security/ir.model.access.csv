@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_qimam_hr_document_type_user,qimam.hr.document.type.user,model_qimam_hr_document_type,base.group_user,1,1,1,0
+access_qimam_hr_document_user,qimam.hr.document.user,model_qimam_hr_document,base.group_user,1,1,1,0

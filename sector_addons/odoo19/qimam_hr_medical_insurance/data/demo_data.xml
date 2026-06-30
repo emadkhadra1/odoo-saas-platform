@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="demo_medical_policy_2026" model="qimam.hr.medical.policy">
+        <field name="name">Qimam Medical Policy 2026</field>
+        <field name="provider">Bupa Arabia</field>
+        <field name="policy_number">MED-2026-001</field>
+        <field name="date_start">2026-01-01</field>
+        <field name="date_end">2026-12-31</field>
+        <field name="annual_premium">24000.0</field>
+        <field name="state">active</field>
+    </record>
+    <record id="demo_medical_member_hr_manager" model="qimam.hr.medical.member">
+        <field name="employee_id" ref="qimam_hr_demo.employee_hr_manager"/>
+        <field name="policy_id" ref="demo_medical_policy_2026"/>
+        <field name="insurance_class">a</field>
+        <field name="membership_number">BUPA-1001</field>
+        <field name="dependent_count">2</field>
+        <field name="premium_amount">12000.0</field>
+        <field name="state">active</field>
+    </record>
+</odoo>
