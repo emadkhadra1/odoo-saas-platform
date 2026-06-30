@@ -1,0 +1,146 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_payroll
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-30 00:00+0000\n"
+"PO-Revision-Date: 2026-06-30 00:00+0000\n"
+"Last-Translator: Qimam Technical Solutions\n"
+"Language-Team: Arabic Saudi\n"
+"Language: ar_001\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_payroll
+#: model:ir.ui.menu,name:hr_payroll.hr_payroll_menu_root
+msgid "Payroll"
+msgstr "الرواتب"
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_payroll_structure_type
+msgid "Payroll Structure Type"
+msgstr "نوع هيكل الراتب"
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_payroll_structure
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_structure_view_form
+msgid "Payroll Structure"
+msgstr "هيكل الراتب"
+
+#. module: hr_payroll
+#: model:ir.actions.act_window,name:hr_payroll.hr_payroll_structure_action
+#: model:ir.ui.menu,name:hr_payroll.hr_payroll_structure_menu
+msgid "Salary Structures"
+msgstr "هياكل الرواتب"
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_payslip
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_view_form
+msgid "Payslip"
+msgstr "مسير راتب"
+
+#. module: hr_payroll
+#: model:ir.actions.act_window,name:hr_payroll.hr_payslip_action
+#: model:ir.ui.menu,name:hr_payroll.hr_payslip_menu
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__slip_ids
+msgid "Payslips"
+msgstr "مسيرات الرواتب"
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_payslip_run
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_view_form
+msgid "Payslip Batch"
+msgstr "دفعة مسيرات الرواتب"
+
+#. module: hr_payroll
+#: model:ir.actions.act_window,name:hr_payroll.hr_payslip_run_action
+#: model:ir.ui.menu,name:hr_payroll.hr_payslip_run_menu
+msgid "Payslip Batches"
+msgstr "دفعات مسيرات الرواتب"
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_payslip_input_type
+msgid "Payslip Input Type"
+msgstr "نوع بند الراتب"
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_payslip_input
+msgid "Payslip Input"
+msgstr "بند راتب"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure_type__country_id
+msgid "Country"
+msgstr "الدولة"
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure_type__wage_type__monthly
+msgid "Monthly Fixed Wage"
+msgstr "راتب شهري ثابت"
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure_type__wage_type__hourly
+msgid "Hourly Wage"
+msgstr "أجر بالساعة"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__type_id
+msgid "Salary Structure Type"
+msgstr "نوع هيكل الراتب"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__input_type_ids
+msgid "Input Types"
+msgstr "بنود الراتب"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input_type__struct_ids
+msgid "Available in Structures"
+msgstr "متاح في هياكل الرواتب"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__employee_id
+msgid "Employee"
+msgstr "الموظف"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__payslip_run_id
+msgid "Batch"
+msgstr "الدفعة"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__struct_id
+msgid "Salary Structure"
+msgstr "هيكل الراتب"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__input_line_ids
+msgid "Other Inputs"
+msgstr "بدلات واستقطاعات أخرى"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input__input_type_id
+msgid "Input Type"
+msgstr "نوع البند"
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payslip_run__state__draft
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payslip__state__draft
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payslip_run__state__close
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payslip__state__done
+msgid "Done"
+msgstr "معتمد"
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payslip__state__cancel
+msgid "Cancelled"
+msgstr "ملغى"

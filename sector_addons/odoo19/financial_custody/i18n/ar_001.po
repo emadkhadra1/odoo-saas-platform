@@ -1,0 +1,223 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* financial_custody
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-30 00:00+0000\n"
+"PO-Revision-Date: 2026-06-30 00:00+0000\n"
+"Last-Translator: Qimam Technical Solutions\n"
+"Language-Team: Arabic Saudi\n"
+"Language: ar_001\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: financial_custody
+#: model:ir.model,name:financial_custody.model_financial_custody
+#: model:ir.actions.act_window,name:financial_custody.action_financial_custody_view
+#: model:ir.ui.menu,name:financial_custody.menu_financial_custody_root
+#: model:ir.ui.menu,name:financial_custody.menu_financial_custody_categ
+#: model:ir.ui.menu,name:financial_custody.menu_financial_custody_view
+msgid "Financial Custody"
+msgstr "العهد المالية"
+
+#. module: financial_custody
+#: model_terms:ir.ui.view,arch_db:financial_custody.view_financial_custody_form
+msgid "Financial Custody Form"
+msgstr "نموذج عهدة مالية"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody__name
+msgid "Custody No."
+msgstr "رقم العهدة"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody__custody_amount
+msgid "Custody Amount"
+msgstr "مبلغ العهدة"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody__paid_amount
+msgid "Paid Amount"
+msgstr "المبلغ المصروف"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody__remaining_amount
+msgid "Remaining Amount"
+msgstr "المبلغ المتبقي"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody__currency_id
+msgid "Currency"
+msgstr "العملة"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody__reason
+#: model_terms:ir.ui.view,arch_db:financial_custody.view_financial_custody_form
+msgid "Reason"
+msgstr "الغرض من العهدة"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody__state
+msgid "State"
+msgstr "الحالة"
+
+#. module: financial_custody
+#: model:ir.model.fields.selection,name:financial_custody.selection__financial_custody__state__draft
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: financial_custody
+#: model:ir.model.fields.selection,name:financial_custody.selection__financial_custody__state__approved
+msgid "First Approve"
+msgstr "الاعتماد الأول"
+
+#. module: financial_custody
+#: model:ir.model.fields.selection,name:financial_custody.selection__financial_custody__state__second_approve
+msgid "Second Approve"
+msgstr "الاعتماد المالي"
+
+#. module: financial_custody
+#: model:ir.model.fields.selection,name:financial_custody.selection__financial_custody__state__rejected
+msgid "Rejected"
+msgstr "مرفوضة"
+
+#. module: financial_custody
+#: model:ir.model.fields.selection,name:financial_custody.selection__financial_custody__state__canceled
+msgid "Canceled"
+msgstr "ملغاة"
+
+#. module: financial_custody
+#: model:ir.model.fields.selection,name:financial_custody.selection__financial_custody__state__open
+#: model_terms:ir.ui.view,arch_db:financial_custody.view_financial_custody_form
+msgid "Open"
+msgstr "فتح التسوية"
+
+#. module: financial_custody
+#: model:ir.model.fields.selection,name:financial_custody.selection__financial_custody__state__validate
+#: model_terms:ir.ui.view,arch_db:financial_custody.view_financial_custody_form
+msgid "Validate"
+msgstr "اعتماد التسوية"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody__analytic_account_id
+msgid "Analytic Account"
+msgstr "مركز التكلفة"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody__journal_id
+msgid "Journal"
+msgstr "دفتر اليومية"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody__analytic_tags_ids
+msgid "Analytic Tags"
+msgstr "وسوم مراكز التكلفة"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody__due_date
+msgid "Due Date"
+msgstr "تاريخ الاستحقاق"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody__account_id
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody_installment_line__account_id
+msgid "Account"
+msgstr "الحساب"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody__move_id
+msgid "Entry"
+msgstr "القيد المحاسبي"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody__partner_id
+msgid "Partner"
+msgstr "الموظف/المستفيد"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody__reject_reason
+msgid "Reject Reason"
+msgstr "سبب الرفض"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody__installment_ids
+#: model_terms:ir.ui.view,arch_db:financial_custody.view_financial_custody_form
+msgid "Installments"
+msgstr "بنود التسوية"
+
+#. module: financial_custody
+#: model:ir.model,name:financial_custody.model_financial_custody_installment_line
+msgid "Custody Installment Line"
+msgstr "بند تسوية عهدة"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody_installment_line__due_date
+msgid "Date"
+msgstr "التاريخ"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody_installment_line__amount
+msgid "Amount"
+msgstr "المبلغ"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody_installment_line__note
+msgid "Note"
+msgstr "البيان"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody_installment_line__move_id
+msgid "Journal Entry"
+msgstr "القيد المحاسبي"
+
+#. module: financial_custody
+#: model:ir.model.fields,field_description:financial_custody.field_financial_custody_installment_line__bill_id
+msgid "Bill"
+msgstr "فاتورة مورد"
+
+#. module: financial_custody
+#: model_terms:ir.ui.view,arch_db:financial_custody.view_financial_custody_form
+msgid "Payments"
+msgstr "عمليات الصرف"
+
+#. module: financial_custody
+#: model_terms:ir.ui.view,arch_db:financial_custody.view_financial_custody_form
+msgid "Approve"
+msgstr "اعتماد"
+
+#. module: financial_custody
+#: model_terms:ir.ui.view,arch_db:financial_custody.view_financial_custody_form
+msgid "Reject"
+msgstr "رفض"
+
+#. module: financial_custody
+#: model_terms:ir.ui.view,arch_db:financial_custody.view_financial_custody_form
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: financial_custody
+#: model_terms:ir.ui.view,arch_db:financial_custody.view_custody_reject_wizard
+msgid "Confirm"
+msgstr "تأكيد"
+
+#. module: financial_custody
+#: model_terms:ir.ui.view,arch_db:financial_custody.view_financial_custody_form
+msgid "Are you sure? All remaining un-instalment amount will be reverse as instalment"
+msgstr "هل تريد اعتماد التسوية؟ سيتم إرجاع أي مبلغ متبق غير مسوى إلى مصدره."
+
+#. module: financial_custody
+#: code:addons/financial_custody/models/custody.py:0
+#, python-format
+msgid "Please set custody account on partner of employee"
+msgstr "يرجى تحديد حساب العهدة في بطاقة الموظف أو المستفيد."
+
+#. module: financial_custody
+#: code:addons/financial_custody/models/custody.py:0
+#, python-format
+msgid "The installment amount must be equal or less then  custody amount"
+msgstr "يجب أن يكون إجمالي بنود التسوية أقل من أو مساويا لمبلغ العهدة."
