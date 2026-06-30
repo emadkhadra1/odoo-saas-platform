@@ -6,10 +6,14 @@
             <field name="model">account.payment</field>
             <field name="inherit_id" ref="account.view_account_payment_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='mark_as_sent']" position="before">
+                    <button class="oe_highlight" groups="financial_custody.group_financial_custody_accountant" invisible="not is_custody_payment or state != 'in_process'" name="action_mark_custody_paid" string="Mark Custody Paid" type="object"/>
+                </xpath>
                 <xpath expr="//field[@name='partner_bank_id']" position="after">
                     <field force_save="1" invisible="is_custody_payment == False" name="custody_id" readonly="1"/>
                     <field force_save="1" invisible="is_custody_payment == False" name="is_custody_payment" readonly="1"/>
-                </xpath></field>
+                </xpath>
+            </field>
         </record>
     </data>
 </odoo>
