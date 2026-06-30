@@ -1,6 +1,6 @@
 {
     'name': 'Qimam Backend Theme',
-    'version': '19.0.1.0.0',
+    'version': '19.0.1.1.0',
     'category': 'Themes/Backend',
     'summary': 'Qimam visual identity for Odoo backend and login screens',
     'description': """
@@ -19,6 +19,7 @@ without modifying Odoo core files.
     'assets': {
         'web.assets_backend': [
             'qimam_backend_theme/static/src/scss/backend.scss',
+            'qimam_backend_theme/static/src/js/app_launcher.js',
         ],
         'web.assets_frontend': [
             'qimam_backend_theme/static/src/scss/login.scss',

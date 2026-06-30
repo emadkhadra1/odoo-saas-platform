@@ -10,26 +10,40 @@ body:has(.oe_login_form),
 body:has(.o_database_list) {
     font-family: "Cairo", "Segoe UI", Tahoma, Arial, sans-serif;
     background:
-        linear-gradient(120deg, rgba(11, 25, 51, 0.90), rgba(16, 40, 77, 0.78)),
+        radial-gradient(circle at 70% 18%, rgba(47, 211, 230, 0.18), transparent 28%),
+        linear-gradient(120deg, rgba(11, 25, 51, 0.94), rgba(16, 40, 77, 0.82)),
         #0b1933 !important;
 }
 
 .oe_login_form,
 .o_database_list,
 .oe_website_login_container {
-    border-radius: 14px !important;
-    border: 1px solid rgba(47, 211, 230, 0.28);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+    border-radius: 18px !important;
+    border: 1px solid rgba(47, 211, 230, 0.34);
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.30);
+    background: rgba(255, 255, 255, 0.96) !important;
+    padding: 28px !important;
 }
 
 .oe_login_form::before,
 .o_database_list::before {
     content: "";
     display: block;
-    width: 74px;
-    height: 74px;
-    margin: 0 auto 18px;
+    width: 128px;
+    height: 128px;
+    margin: 0 auto 12px;
     background: url("/qimam_backend_theme/static/src/img/qimam-logo.png") center / contain no-repeat;
+}
+
+.oe_login_form::after,
+.o_database_list::after {
+    content: "Qimam Solutions Cloud";
+    display: block;
+    text-align: center;
+    margin: 0 0 22px;
+    color: var(--qimam-navy);
+    font-size: 20px;
+    font-weight: 900;
 }
 
 .oe_login_buttons .btn-primary,
@@ -44,6 +58,13 @@ body:has(.o_database_list) {
 
 .oe_login_form input,
 .o_database_list input {
-    border-radius: 9px !important;
+    min-height: 46px;
+    border-radius: 10px !important;
     border-color: var(--qimam-line) !important;
+}
+
+.oe_login_form input:focus,
+.o_database_list input:focus {
+    border-color: var(--qimam-cyan) !important;
+    box-shadow: 0 0 0 0.2rem rgba(47, 211, 230, 0.15) !important;
 }

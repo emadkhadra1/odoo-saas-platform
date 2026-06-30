@@ -17,7 +17,7 @@ body.o_web_client {
 }
 
 .o_main_navbar {
-    min-height: 54px;
+    min-height: 64px;
     background: linear-gradient(90deg, var(--qimam-navy), var(--qimam-navy-2)) !important;
     border-bottom: 1px solid rgba(47, 211, 230, 0.28);
     box-shadow: 0 10px 24px rgba(11, 25, 51, 0.18);
@@ -32,17 +32,45 @@ body.o_web_client {
 
 .o_main_navbar .o_menu_brand {
     letter-spacing: 0;
+    font-size: 20px;
+    padding-inline: 14px 20px;
 }
 
 .o_main_navbar .o_menu_brand::before {
     content: "";
     display: inline-block;
-    width: 26px;
-    height: 26px;
-    margin-inline-end: 10px;
-    vertical-align: -7px;
+    width: 44px;
+    height: 44px;
+    margin-inline-end: 14px;
+    vertical-align: -14px;
     background: url("/qimam_backend_theme/static/src/img/qimam-logo.png") center / contain no-repeat;
-    border-radius: 6px;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 1px rgba(47, 211, 230, 0.26);
+}
+
+.o_main_navbar .o_menu_apps,
+.o_main_navbar .o_menu_toggle {
+    min-width: 66px;
+}
+
+.o_main_navbar .o_menu_apps > .dropdown-toggle,
+.o_main_navbar .o_menu_apps > button,
+.o_main_navbar .o_menu_toggle {
+    min-height: 64px;
+    border-radius: 0 !important;
+    background: rgba(47, 211, 230, 0.10) !important;
+}
+
+.o_main_navbar .o_menu_apps > .dropdown-toggle:hover,
+.o_main_navbar .o_menu_apps > button:hover,
+.o_main_navbar .o_menu_toggle:hover {
+    background: rgba(47, 211, 230, 0.18) !important;
+}
+
+.o_main_navbar .o_menu_apps .fa,
+.o_main_navbar .o_menu_apps .oi,
+.o_main_navbar .o_menu_apps svg {
+    font-size: 25px;
 }
 
 .o_main_navbar .o_nav_entry:hover,
@@ -187,6 +215,104 @@ body.o_web_client {
 .dropdown-item:focus {
     background: rgba(47, 211, 230, 0.12);
     color: var(--qimam-navy);
+}
+
+@media (min-width: 992px) {
+    .o_main_navbar .o_menu_apps .dropdown-menu.show,
+    .o_main_navbar .o_menu_apps_menu.show {
+        position: fixed !important;
+        inset: 64px 0 0 0 !important;
+        width: 100vw !important;
+        max-width: none !important;
+        max-height: calc(100vh - 64px) !important;
+        overflow-y: auto;
+        padding: 36px 48px 54px !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        background:
+            linear-gradient(135deg, rgba(11, 25, 51, 0.97), rgba(16, 40, 77, 0.94)),
+            var(--qimam-navy) !important;
+        box-shadow: inset 0 1px 0 rgba(47, 211, 230, 0.25), 0 26px 70px rgba(3, 10, 22, 0.28);
+        backdrop-filter: blur(16px);
+        transform: none !important;
+        display: grid !important;
+        grid-template-columns: repeat(auto-fill, minmax(138px, 1fr));
+        gap: 18px;
+        align-content: start;
+    }
+
+    .o_main_navbar .o_menu_apps .dropdown-menu.show::before,
+    .o_main_navbar .o_menu_apps_menu.show::before {
+        content: "Qimam Solutions Cloud";
+        grid-column: 1 / -1;
+        color: #fff;
+        font-size: 24px;
+        font-weight: 900;
+        margin-bottom: 4px;
+    }
+
+    .o_main_navbar .o_menu_apps .dropdown-menu.show::after,
+    .o_main_navbar .o_menu_apps_menu.show::after {
+        content: "اختر النظام أو التطبيق الذي تريد العمل عليه";
+        grid-column: 1 / -1;
+        color: rgba(226, 241, 247, 0.78);
+        font-size: 15px;
+        font-weight: 600;
+        margin: -4px 0 12px;
+    }
+
+    .o_main_navbar .o_menu_apps .dropdown-menu.show .dropdown-item,
+    .o_main_navbar .o_menu_apps_menu.show .dropdown-item,
+    .o_main_navbar .o_menu_apps .qimam-app-tile {
+        position: relative;
+        min-height: 132px;
+        padding: 18px 12px 14px !important;
+        border: 1px solid rgba(47, 211, 230, 0.25);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.075) !important;
+        color: #fff !important;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        text-align: center;
+        white-space: normal;
+        line-height: 1.25;
+        font-weight: 800;
+        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.13);
+        transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .o_main_navbar .o_menu_apps .dropdown-menu.show .dropdown-item:hover,
+    .o_main_navbar .o_menu_apps_menu.show .dropdown-item:hover,
+    .o_main_navbar .o_menu_apps .qimam-app-tile:hover {
+        transform: translateY(-3px);
+        border-color: rgba(47, 211, 230, 0.76);
+        background: rgba(47, 211, 230, 0.16) !important;
+    }
+
+    .qimam-app-icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 18px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background:
+            linear-gradient(145deg, rgba(47, 211, 230, 0.95), rgba(18, 169, 195, 0.74)),
+            #12a9c3;
+        color: #071827;
+        font-size: 17px;
+        font-weight: 950;
+        letter-spacing: 0;
+        box-shadow: 0 12px 26px rgba(18, 169, 195, 0.28);
+    }
+
+    .qimam-app-title {
+        display: block;
+        min-height: 36px;
+    }
 }
 
 .o_home_menu_background {
